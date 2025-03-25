@@ -61,3 +61,5 @@ group :test do
   gem "selenium-webdriver"
 end
 
+# Use Devise for Users Authentication 
+gem 'devise'

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Cdch App" %></title>
+    <title><%= content_for(:title) || "CDCH" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -17,6 +17,16 @@
   </head>
 
   <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <div>
+      <% if signed_in? %>
+        <%= link_to "Salir", destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to "Ingresar", new_user_session_path %>
+      <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>
