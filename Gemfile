@@ -63,3 +63,8 @@ end
 
 # Use Devise for Users Authentication 
 gem 'devise'
+
+# Use Bootstrap for CSS Framework
+gem 'bootstrap', '~> 5.0.2'
+gem 'jquery-rails'
+gem "importmap-rails"
