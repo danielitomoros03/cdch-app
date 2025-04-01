@@ -65,7 +65,7 @@ end
 gem 'devise'
 
 # Use Bootstrap for CSS Framework
-gem 'bootstrap', '~> 5.0.2'
+gem 'bootstrap', '~> 5.3.3'
 gem 'jquery-rails'
 gem "importmap-rails"
 gem "font-awesome-sass"
