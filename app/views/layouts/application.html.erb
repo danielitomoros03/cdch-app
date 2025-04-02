@@ -15,12 +15,10 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
   </head>
 
   <body>
+  <!--
     <div>
       <% if signed_in? %>
         <%= link_to "Salir", destroy_user_session_path, method: :delete %>
@@ -28,6 +26,7 @@
         <%= link_to "Ingresar", new_user_session_path %>
       <% end %>
     </div>
+  -->
     <%= yield %>
   </body>
 </html>

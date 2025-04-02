@@ -1,39 +1,49 @@
-<div class="row justify-content-center mx-auto">
-  <div class="col-sm-5 mb-3 mb-sm-2">
-    <div class="card text-center m-4">
-      <div class="card-header">
-        <h2>Iniciar Sesión</h2>
-      </div>
-      <div class="card-body">
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <div class="field mb-2">
-            <%= f.label :email, class: "form-label" %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <div class="col-12 col-lg-6 d-flex flex-column p-4 p-md-5">
+      <div class="d-flex justify-content-center justify-content-md-start mb-4">
+        <a href="#" class="d-flex align-items-center text-decoration-none">
+          <div class="d-flex align-items-center justify-content-center bg-primary text-white rounded" style="width: 24px; height: 24px;">
+            <i class="bi bi-grid-3x3-gap"></i>
           </div>
-        
-          <div class="field mb-2">
-            <%= f.label :password, class: "form-label" %><br />
-            <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
-          </div>
-        
-          <% if devise_mapping.rememberable? %>
-            <div class="field">
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
-            </div>
-          <% end %>
-        
-          <div class="actions">
-            <%= f.submit "Iniciar sesión", class: "btn btn-primary" %>
-          </div>
-        <% end %>
-
-        <%= render "devise/shared/links" %>
+          <span class="ms-2 fw-medium">CDCH - UCV</span>
+        </a>
       </div>
       
-      <div class="card-footer text-body-secondary">
-        CDCH - UCV
+      <div class="d-flex flex-grow-1 align-items-center justify-content-center">
+        <div class="w-100" style="max-width: 320px;">
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="text-center mb-2">
+              <h1 class="fs-4 fw-bold">Iniciar Sesión</h1>
+              <p class="text-muted small">Ingrese su correo y contraseña para iniciar sesión</p>
+            </div>
+            
+            <div class="mb-3">
+              <%= f.label :email, class: "form-label" %>
+              <%= f.email_field :email, class: "form-control", placeholder: "cdch@ucv.ve", required: true %>
+            </div>
+            
+            <div class="mb-3">
+              <div class="d-flex align-items-center">
+                <%= f.label :password, class: "form-label mb-0" %>
+                <a href="#" class="ms-auto small text-decoration-none">Forgot your password?</a>
+              </div>
+              <%= f.password_field :password, class: "form-control", required: true %>
+            </div>
+            
+            <%= f.submit "Login", class: "btn btn-primary w-100" %>
+            
+            <div class="position-relative text-center my-3">
+              <hr>
+              <span class="position-absolute top-50 start-50 translate-middle px-3 bg-white text-muted small">CDCH - UCV</span>
+            </div>
+          <% end %>
+        </div>
       </div>
+    </div>
+    
+    <div class="col-lg-6 d-none d-lg-block bg-light position-relative">
+      <img src="https://placehold.co/800x1200/e9ecef/adb5bd?text=CDCH+Logo" alt="Logo CDCH" class="position-absolute w-100 h-100 object-fit-cover" style="object-fit: cover;">
     </div>
   </div>
 </div>
