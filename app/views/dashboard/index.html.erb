@@ -1,13 +1,44 @@
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<%= render "/layouts/navbar" %>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar para pantallas grandes -->
+    <div class="col-lg-2 d-none d-lg-block">
+      <%= render "/layouts/sidebar" %>
+    </div>
 
-<div>
-    <% if signed_in? %>
-        <%= link_to "Salir", destroy_user_session_path, method: :delete %>
-    <% else %>
-        <%= link_to "Ingresar", new_user_session_path %>
-    <% end %>
+    <!-- Contenido principal -->
+    <div class="col-md ms-auto col-lg-10 px-md-0 text-center">
+      <h2>Bienvenido, Usuario</h2>
+      <br>
+      <h4>¿Qué desea hacer hoy?</h4>
+
+      <h1>
+        <div class="container">
+          <div class="text-capitalize fs-6 fst-normal">
+            <h3>Links</h3>
+          </div>
+        </div>
+      </h1>
+    </div>
+
+    <!-- Flash messages -->
+    <div>
+      <% if notice %>
+        <h6 class="alert alert-success col-md ms-auto ms-5 px-md-0 text-center"><%= notice %></h6>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
+<!-- Offcanvas Sidebar para pantallas pequeñas -->
+<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Menú</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <%= render "/layouts/sidebar" %>
+  </div>
+</div>
+
+
