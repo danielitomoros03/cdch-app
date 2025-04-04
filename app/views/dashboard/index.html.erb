@@ -8,6 +8,12 @@
 
     <!-- Contenido principal -->
     <div class="col-md ms-auto col-lg-10 px-md-0 text-center">
+      <!-- Flash messages -->
+      <div>
+        <% if notice %>
+          <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+        <% end %>
+      </div>
       <h2>Bienvenido, Usuario</h2>
       <br>
       <h4>¿Qué desea hacer hoy?</h4>
@@ -19,13 +25,6 @@
           </div>
         </div>
       </h1>
-    </div>
-
-    <!-- Flash messages -->
-    <div>
-      <% if notice %>
-        <h6 class="alert alert-success col-md ms-auto ms-5 px-md-0 text-center"><%= notice %></h6>
-      <% end %>
     </div>
   </div>
 </div>
