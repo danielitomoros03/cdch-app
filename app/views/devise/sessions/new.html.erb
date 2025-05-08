@@ -1,8 +1,8 @@
-<div class="container-fluid vh-100">
-  <div class="row h-100">
+<div class="container-fluid vh-100 overflow-hidden">
+  <div class="row h-100 g-0">
     <div class="col-12 col-lg-6 d-flex flex-column p-4 p-md-5">
       <div class="d-flex justify-content-center justify-content-md-start mb-4">
-        <a href="#" class="d-flex align-items-center text-decoration-none">
+        <a href="/home/index" class="d-flex align-items-center text-decoration-none">
           <div class="d-flex align-items-center justify-content-center bg-primary text-white rounded" style="width: 24px; height: 24px;">
             <i class="bi bi-grid-3x3-gap"></i>
           </div>
@@ -26,12 +26,12 @@
             <div class="mb-3">
               <div class="d-flex align-items-center">
                 <%= f.label :password, class: "form-label mb-0" %>
-                <a href="#" class="ms-auto small text-decoration-none">Forgot your password?</a>
+                <!--<a href="#" class="ms-auto small text-decoration-none">¿Olvidaste tu contraseña?</a>-->
               </div>
               <%= f.password_field :password, class: "form-control", required: true %>
             </div>
             
-            <%= f.submit "Login", class: "btn btn-primary w-100" %>
+            <%= f.submit "Iniciar Sesión", class: "btn btn-primary w-100" %>
             
             <div class="position-relative text-center my-3">
               <hr>
@@ -42,8 +42,11 @@
       </div>
     </div>
     
-    <div class="col-lg-6 d-none d-lg-block bg-light position-relative">
-      <img src="https://placehold.co/800x1200/e9ecef/adb5bd?text=CDCH+Logo" alt="Logo CDCH" class="position-absolute w-100 h-100 object-fit-cover" style="object-fit: cover;">
+    <div class="col-lg-6 d-none d-lg-block position-relative">
+      <img src="https://firebasestorage.googleapis.com/v0/b/morosphotography-26b5a.appspot.com/o/Foto%20Logo%20CDCH%20(2).jpg?alt=media&token=642f1a85-e8dc-4425-8666-0df4b7859136" 
+           alt="Logo CDCH" 
+           class="img-fluid h-100 w-100" 
+           style="object-fit: cover; object-position: center; max-height: 100vh;">
     </div>
   </div>
 </div>
