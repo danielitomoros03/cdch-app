@@ -4,3 +4,5 @@
 //= require popper
 //= require bootstrap-sprockets
 import "bootstrap"
+import "trix"
+import "@rails/actiontext"
