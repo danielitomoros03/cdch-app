@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Calls" %>
+
+<h1>Calls</h1>
+
+<div id="calls">
+  <% @calls.each do |call| %>
+    <%= render call %>
+    <p>
+      <%= link_to "Show this call", call %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New call", new_call_path %>
