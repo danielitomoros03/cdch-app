@@ -1,11 +1,9 @@
 <% content_for :title, "New call" %>
 
-<h1>New call</h1>
-
-<%= render "form", call: @call %>
-
-<br>
-
-<div>
-  <%= link_to "Back to calls", dashboard_calls_path %>
-</div>
+<%= render layout: "dashboard/dashboard_form" do %>
+  <h1>New call</h1>
+  <%= render "form", call: @call %>
+  <div>
+    <%= link_to "Back to calls", dashboard_calls_path %>
+  </div>
+<% end %>
