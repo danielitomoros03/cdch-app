@@ -14,25 +14,23 @@
           <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
         <% end %>
       </div>
+
       <% content_for :title, "CDCH - Calls" %>
-
-      <h1>Calls</h1>
-
-      <h1>
-        <div class="container">
-          <div class="text-capitalize fs-6 fst-normal">
-            <div id="calls">
+      <p>
+        <h1>Calls <%= link_to "New call", new_dashboard_call_path, class: "btn btn-primary" %></h1>
+      </p>
+      <div class="container">
+        <%= render layout: "dashboard/table" do %>
+          <div id="calls">
               <% @calls.each do |call| %>
                 <%= render call %>
                 <p>
                   <%= link_to "Show this call", call %>
                 </p>
               <% end %>
-              <%= link_to "New call", new_dashboard_call_path, class: "btn btn-primary" %>
             </div>
-          </div>
-        </div>
-      </h1>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

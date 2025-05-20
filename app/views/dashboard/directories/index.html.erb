@@ -15,23 +15,21 @@
         <% end %>
       </div>
       <% content_for :title, "CDCH - Directories" %>
-      <h1>Calls</h1>
+      <p>
+        <h1>Directories <%= link_to "New directory", new_dashboard_directory_path, class: "btn btn-primary" %></h1>
+      </p>
       
-      <h1>
-        <div class="container">
-          <div class="text-capitalize fs-6 fst-normal">
-            <div id="directories">
+      <div class="container">
+        <%= render layout: "dashboard/table" do %>
+          <div id="directories">
               <% @directories.each do |directory| %>
                 <%= render directory %>
                 <p>
                   <%= link_to "Show this directory", directory %>
                 </p>
               <% end %>
-              <%= link_to "New directory", new_dashboard_directory_path, class: "btn btn-primary" %>
             </div>
-          </div>
-        </div>
-      </h1>
+        <% end %>
     </div>
   </div>
 </div>
