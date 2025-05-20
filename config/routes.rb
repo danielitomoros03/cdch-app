@@ -7,6 +7,13 @@ Rails.application.routes.draw do
   # Rutas de Landing Page
   get "home/index"
   get "home/about"
+
+  # Scaffold's Routes from Dashboard
+  namespace :dashboard do
+    resources :calls
+    resources :directories
+    resources :publications
+  end
   
   # Rutas internas de la aplicación
   get "dashboard/index"

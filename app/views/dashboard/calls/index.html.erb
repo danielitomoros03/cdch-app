@@ -1,0 +1,49 @@
+<%= render "/layouts/navbar" %>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar para pantallas grandes -->
+    <div class="col-lg-2 d-none d-lg-block">
+      <%= render "/layouts/sidebar" %>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="col-md mt-3 ms-auto col-lg-10 px-md-0 text-center">
+      <!-- Flash messages -->
+      <div>
+        <% if notice %>
+          <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+        <% end %>
+      </div>
+      <% content_for :title, "CDCH - Calls" %>
+
+      <h1>Calls</h1>
+
+      <h1>
+        <div class="container">
+          <div class="text-capitalize fs-6 fst-normal">
+            <div id="calls">
+              <% @calls.each do |call| %>
+                <%= render call %>
+                <p>
+                  <%= link_to "Show this call", call %>
+                </p>
+              <% end %>
+              <%= link_to "New call", new_dashboard_call_path, class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<!-- Offcanvas Sidebar para pantallas pequeñas -->
+<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+  <div class="offcanvas-header bg-dark text-white">
+    <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><strong>UCV - La casa que vence la sombra</strong></h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <%= render "/layouts/sidebar" %>
+  </div>
+</div>
