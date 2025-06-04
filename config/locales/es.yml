@@ -1,0 +1,113 @@
+# Files in the config/locales directory are used for internationalization and
+# are automatically loaded by Rails. If you want to use locales other than
+# English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more about the API, please read the Rails Internationalization guide
+# at https://guides.rubyonrails.org/i18n.html.
+#
+# Be aware that YAML interprets the following case-insensitive strings as
+# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
+# must be quoted to be interpreted as strings. For example:
+#
+#     en:
+#       "yes": yup
+#       enabled: "ON"
+
+en:
+  hello: "Hello world"
+  js: 'Javascript'
+  destroy: Eliminar
+  edit: Editar
+  new: Nuevo
+  index: Listado
+  show: Detalle
+
+  helpers:
+    select:
+      prompt: Seleccione...
+    submit:
+      create: Crear %{model}
+      submit: Guardar %{model}
+      update: Actualizar %{model}
+      back: Regresar %{model}
+      destroy: Eliminar %{model}
+      cancel: Cancelar
+    actions: 'Acciones'
+  links:
+    back: 'Atrás'
+    cancel: 'Cancelar'
+    confirm: 'Esta acción es irreversible, ¿Estás Seguro?'
+    destroy: 'Eliminar'
+    new: 'Nuevo'
+    edit: 'Editar'
+  titles:
+    edit: 'Editar'
+    save: 'Guardar'
+    new: 'Nuevo: %{model}'
+    delete: 'Eliminar'
+  
+  activerecord: 
+    errors:
+      models:
+        dashboard/call:
+          attributes:
+        dashboard/directory:
+          attributes:
+        dashboard/publication:
+          attributes:
+    models:
+      dashboard/call:
+        one: 'Convocatoria'
+        other: 'Convocatorias'
+      dashboard/directory:
+        one: 'Directorio'
+        other: 'Directorios'
+      dashboard/publication:
+        one: 'Publicación'
+        other: 'Publicaciones'
+      user: 
+        one: 'Usuario'
+        other: 'Usuarios'
+    attributes:
+      dashboard/call:
+        title: 'Nombre'
+        short_description: 'Descripción Corta'
+        start_date: 'Fecha de inicio'
+        end_date: 'Fecha de cierre'
+        status: 'Estado'
+        type: 'Tipo'
+        active: 'Activo'
+        # image: 'Imagen'
+        directory_id: 'Directorio'
+        publication_id: 'Publicación'
+      dashboard/directory:
+        name: 'Nombre'
+        description: 'Descripción'
+      dashboard/publication:
+        name: 'Nombre'
+        description: 'Descripción'
+      user:
+          email: 'Email'
+          password: 'Contraseña'
+  flash:
+    actions:
+      destroy:
+        notice: '¡Recurso eliminado del sistema con éxito!'      
+      update:
+        notice: '¡Recurso actualizado con éxito!'
+      create:
+        notice: '¡Recurso creado con éxito!'

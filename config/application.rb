@@ -20,7 +20,11 @@ module CdchApp
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
-    #
+    
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}')]
+    config.i18n.default_locale = :es
+    config.time_zone = "Caracas"
+
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
   end
