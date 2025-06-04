@@ -1,12 +1,7 @@
-<% content_for :title, "Editing publication" %>
-
-<h1>Editing publication</h1>
-
-<%= render "form", publication: @publication %>
-
-<br>
-
-<div>
-  <%= link_to "Show this publication", @publication %> |
-  <%= link_to "Back to publications", dashboard_publications_path %>
-</div>
+<%= render layout: "dashboard/dashboard_form" do %>
+  <h1>Nueva Publicación</h1>
+  <%= render "form", publication: @publication %>
+  <div>
+    <%= link_to "Volver", dashboard_publications_path %>
+  </div>
+<% end %>

@@ -7,27 +7,18 @@
     </div>
 
     <!-- Contenido principal -->
-    <div class="col-md mt-3 ms-auto col-lg-10 px-md-0 text-center">
+    <div class="col-12 col-lg-10 py-4">
       <!-- Flash messages -->
-      <div>
+      <div class="w-100">
         <% if notice %>
-          <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+          <h6 class="alert alert-success m-4 text-center"><%= notice %></h6>
         <% end %>
       </div>
-      <!--
-        <h2>Bienvenido, Usuario</h2>
-        <br>
-        <h4>¿Qué desea hacer hoy?</h4>
-        -->
-      <h1>
-        <div class="container">
-          <div class="text-capitalize fs-6 fst-normal">
-            <div class="d-flex flex-column align-items-center">
-              <%= yield %>
-            </div>
-          </div>
+      <div class="w-100 d-flex justify-content-center">
+        <div class="w-100" style="max-width: 700px;">
+          <%= yield %>
         </div>
-      </h1>
+      </div>
     </div>
   </div>
 </div>

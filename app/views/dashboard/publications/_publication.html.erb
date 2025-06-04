@@ -1,7 +1,12 @@
 <div id="<%= dom_id publication %>">
-  <p>
-    <strong>Title:</strong>
-    <%= publication.title %>
-  </p>
-
+  <tbody>
+    <tr>
+      <th scope="row"> <%= publication.id %> </th>
+      <td> <%= publication.title %> </td>
+      <td> 
+        <a class="btn btn-info" href="/dashboard/publications/<%= publication.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Monstar el detalle de la Publicación"><i class="fa-solid fa-circle-info"></i></a>
+        <a class="btn btn-warning" href="/dashboard/publications/<%= publication.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar Publicación"><i class="fa-solid fa-pen"></i></a>
+      </td>
+    </tr>
+  </tbody>
 </div>

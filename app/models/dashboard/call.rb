@@ -14,5 +14,9 @@
 #
 module Dashboard
     class Call < ApplicationRecord
+
+        ## Enum for type
+        # This enum defines the type of call, which can be a call, holidays, or news.
+        enum type: [ :Call, :Holidays, :News ]
     end
 end

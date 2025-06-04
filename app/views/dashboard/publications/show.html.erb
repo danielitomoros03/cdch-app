@@ -1,10 +1,58 @@
-<p style="color: green"><%= notice %></p>
+<%= render "/layouts/navbar" %>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar para pantallas grandes -->
+    <div class="col-lg-2 d-none d-lg-block">
+      <%= render "/layouts/sidebar" %>
+    </div>
 
-<%= render @publication %>
+    <!-- Contenido principal -->
+    <div class="col-md mt-3 ms-auto col-lg-10 px-md-0 text-center">
+      <!-- Flash messages -->
+      <div>
+        <% if notice %>
+          <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+        <% end %>
+      </div>
 
-<div>
-  <%= link_to "Edit this publication", edit_publication_path(@publication) %> |
-  <%= link_to "Back to publications", dashboard_publications_path %>
+      <% content_for :title, "Showing publication" %>
+      <p>
+        <h1>Convocatoria <%= @publication.id %></h1>
+      </p>
+      <div class="container">
 
-  <%= button_to "Destroy this publication", @publication, method: :delete %>
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <div id="publications">
+            <%= render @publication %>
+          </div>
+        </tbody>
+      </table>
+
+      <div class="container-fluid">
+        <%= link_to "Edit this publication", edit_dashboard_publication_path(@publication), class: "btn btn-primary" %> |
+        <%= link_to "Back to publications", dashboard_publications_path, class: "btn btn-dark" %> |
+        <%= button_to "Eliminar convocatoria", @publication, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar esta convocatoria?' } } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Offcanvas Sidebar para pantallas pequeñas -->
+<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+  <div class="offcanvas-header bg-dark text-white">
+    <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><strong>UCV - La casa que vence la sombra</strong></h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <%= render "/layouts/sidebar" %>
+  </div>
 </div>

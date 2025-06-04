@@ -1,12 +1,9 @@
 <% content_for :title, "Editing directory" %>
 
-<h1>Editing directory</h1>
-
-<%= render "form", directory: @directory %>
-
-<br>
-
-<div>
-  <%= link_to "Show this directory", @directory %> |
-  <%= link_to "Back to directories", dashboard_directories_path %>
-</div>
+<%= render layout: "dashboard/dashboard_form" do %>
+  <h1>Nuevo Directorio</h1>
+  <%= render "form", directory: @directory %>
+  <div>
+    <%= link_to "Volver", dashboard_directories_path %>
+  </div>
+<% end %>

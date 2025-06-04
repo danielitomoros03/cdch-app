@@ -27,6 +27,22 @@ $green: #1cc88a !default;
 $teal: #20c9a6 !default;
 $cyan: #36b9cc !default;
 
+$tooltip-font-size:                 $font-size-sm;
+$tooltip-max-width:                 200px;
+$tooltip-color:                     var(--#{$prefix}body-bg);
+$tooltip-bg:                        var(--#{$prefix}emphasis-color);
+$tooltip-border-radius:             var(--#{$prefix}border-radius);
+$tooltip-opacity:                   .9;
+$tooltip-padding-y:                 $spacer * .25;
+$tooltip-padding-x:                 $spacer * .5;
+$tooltip-margin:                    null; // TODO: remove this in v6
+
+$tooltip-arrow-width:               .8rem;
+$tooltip-arrow-height:              .4rem;
+// fusv-disable
+$tooltip-arrow-color:               null; // Deprecated in Bootstrap 5.2.0 for CSS variables
+// fusv-enable
+
 // Custom Colors
 $brand-google: #ea4335 !default;
 $brand-facebook: #3b5998 !default;

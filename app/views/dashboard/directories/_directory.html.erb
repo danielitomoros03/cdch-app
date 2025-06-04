@@ -1,12 +1,13 @@
 <div id="<%= dom_id directory %>">
-  <p>
-    <strong>Day:</strong>
-    <%= directory.day %>
-  </p>
-
-  <p>
-    <strong>Title:</strong>
-    <%= directory.title %>
-  </p>
-
+  <tbody>
+    <tr>
+      <th scope="row"> <%= directory.id %> </th>
+      <td> <%= directory.day %> </td>
+      <td> <%= directory.title %> </td>
+      <td> 
+        <a class="btn btn-info" href="/dashboard/directories/<%= directory.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Monstar el detalle de la Convocatoria"><i class="fa-solid fa-circle-info"></i></a>
+        <a class="btn btn-warning" href="/dashboard/directories/<%= directory.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar Convocatoria"><i class="fa-solid fa-pen"></i></a>
+      </td>
+    </tr>
+  </tbody>
 </div>

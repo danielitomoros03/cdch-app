@@ -22,16 +22,24 @@
       </p>
 
       <div class="container">
-        <%= render layout: "dashboard/table" do %>
-          <div id="publications">
-              <% @publications.each do |publication| %>
-                <%= render publication %>
-                <p>
-                  <%= link_to "Show this publication", publication %>
-                </p>
-              <% end %>
-            </div>
-        <% end %>
+        <div id="publications">
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <!-- 
+                  <th scope="col">Day</th>
+                  <th scope="col">Day</th> 
+                -->
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <% @publications.each do |publication| %>
+              <%= render publication %>
+            <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
