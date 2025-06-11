@@ -27,8 +27,8 @@
 #       "yes": yup
 #       enabled: "ON"
 
-en:
-  hello: "Hello world"
+es:
+  hello: "Hola mundo"
   js: 'Javascript'
   destroy: Eliminar
   edit: Editar
@@ -47,28 +47,32 @@ en:
       destroy: Eliminar %{model}
       cancel: Cancelar
     actions: 'Acciones'
+
   links:
     back: 'Atrás'
     cancel: 'Cancelar'
-    confirm: 'Esta acción es irreversible, ¿Estás Seguro?'
+    confirm: 'Esta acción es irreversible, ¿Estás seguro?'
     destroy: 'Eliminar'
     new: 'Nuevo'
     edit: 'Editar'
+
   titles:
     edit: 'Editar'
     save: 'Guardar'
     new: 'Nuevo: %{model}'
     delete: 'Eliminar'
-  
-  activerecord: 
+
+  activerecord:
     errors:
       models:
         dashboard/call:
-          attributes:
+          attributes: {}
         dashboard/directory:
-          attributes:
+          attributes: {}
         dashboard/publication:
-          attributes:
+          attributes: {}
+        user:
+          attributes: {}
     models:
       dashboard/call:
         one: 'Convocatoria'
@@ -79,35 +83,89 @@ en:
       dashboard/publication:
         one: 'Publicación'
         other: 'Publicaciones'
-      user: 
+      user:
         one: 'Usuario'
         other: 'Usuarios'
     attributes:
       dashboard/call:
         title: 'Nombre'
-        short_description: 'Descripción Corta'
+        short_description: 'Descripción corta'
         start_date: 'Fecha de inicio'
         end_date: 'Fecha de cierre'
         status: 'Estado'
-        type: 'Tipo'
+        call_type: 'Tipo'
         active: 'Activo'
-        # image: 'Imagen'
         directory_id: 'Directorio'
         publication_id: 'Publicación'
+        created_at: 'Creado el'
+        updated_at: 'Actualizado el'
       dashboard/directory:
         name: 'Nombre'
         description: 'Descripción'
+        created_at: 'Creado el'
+        updated_at: 'Actualizado el'
       dashboard/publication:
         name: 'Nombre'
         description: 'Descripción'
+        created_at: 'Creado el'
+        updated_at: 'Actualizado el'
       user:
-          email: 'Email'
-          password: 'Contraseña'
+        email: 'Correo electrónico'
+        password: 'Contraseña'
+        password_confirmation: 'Confirmación de contraseña'
+        remember_me: 'Recordarme'
+        current_password: 'Contraseña actual'
+        created_at: 'Creado el'
+        updated_at: 'Actualizado el'
+
   flash:
     actions:
       destroy:
-        notice: '¡Recurso eliminado del sistema con éxito!'      
+        notice: '¡Recurso eliminado del sistema con éxito!'
       update:
         notice: '¡Recurso actualizado con éxito!'
       create:
         notice: '¡Recurso creado con éxito!'
+
+  devise:
+    sessions:
+      signed_in: "Sesión iniciada correctamente."
+      signed_out: "Sesión cerrada correctamente."
+      new:
+        sign_in: "Iniciar sesión"
+        email: "Correo electrónico"
+        password: "Contraseña"
+        remember_me: "Recordarme"
+        submit: "Entrar"
+    registrations:
+      signed_up: "¡Bienvenido! Te has registrado correctamente."
+      updated: "Tu cuenta ha sido actualizada correctamente."
+      destroyed: "Tu cuenta ha sido eliminada correctamente."
+      new:
+        sign_up: "Registrarse"
+        email: "Correo electrónico"
+        password: "Contraseña"
+        password_confirmation: "Confirmación de contraseña"
+        submit: "Crear cuenta"
+    passwords:
+      send_instructions: "Recibirás un correo con instrucciones para restablecer tu contraseña."
+      updated: "Tu contraseña ha sido cambiada correctamente."
+      new:
+        forgot_password: "¿Olvidaste tu contraseña?"
+        email: "Correo electrónico"
+        submit: "Enviar instrucciones"
+    confirmations:
+      send_instructions: "Recibirás un correo con instrucciones para confirmar tu cuenta."
+      confirmed: "Tu cuenta ha sido confirmada correctamente."
+
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d %b"
+      long: "%d de %B de %Y"
+
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
+      short: "%d %b %H:%M"
+      long: "%d de %B de %Y %H:%M"
