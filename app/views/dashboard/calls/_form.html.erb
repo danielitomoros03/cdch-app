@@ -1,4 +1,4 @@
-<%= form_with(model: @call, url: dashboard_calls_path, scope: :call) do |form| %>
+<%= form_with(model: @call, url: @call.new_record? ? dashboard_calls_path : dashboard_call_path(@call), scope: :call) do |form| %>
   <% if call.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(call.errors.count, "error") %> prohibited this call from being saved:</h2>
