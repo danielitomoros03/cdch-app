@@ -128,14 +128,18 @@ es:
         notice: '¡Recurso creado con éxito!'
 
   devise:
+    failure:
+      user:
+        already_authenticated: "Ya has iniciado sesión."
     sessions:
       signed_in: "Sesión iniciada correctamente."
       signed_out: "Sesión cerrada correctamente."
+      already_authenticated: "Ya has iniciado sesión."
       new:
         sign_in: "Iniciar sesión"
         email: "Correo electrónico"
         password: "Contraseña"
-        remember_me: "Recordarme"
+        remember_me: "Recuérdame"
         submit: "Entrar"
     registrations:
       signed_up: "¡Bienvenido! Te has registrado correctamente."

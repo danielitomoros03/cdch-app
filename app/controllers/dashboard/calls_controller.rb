@@ -4,7 +4,7 @@ module Dashboard
 
     # GET /calls or /calls.json
     def index
-      @calls = Dashboard::Call.all
+      @calls = Call.all
     end
 
     # GET /calls/1 or /calls/1.json
@@ -13,7 +13,7 @@ module Dashboard
 
     # GET /calls/new
     def new
-      @call = Dashboard::Call.new
+      @call = Call.new
     end
 
     # GET /calls/1/edit
@@ -22,7 +22,7 @@ module Dashboard
 
     # POST /calls or /calls.json
     def create
-      @call = Dashboard::Call.new(call_params)
+      @call = Call.new(call_params)
 
       respond_to do |format|
         if @call.save
@@ -61,7 +61,7 @@ module Dashboard
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_call
-        @call = Dashboard::Call.find(params[:id])
+        @call = Call.find(params[:id])
       end
 
       # Only allow a list of trusted parameters through.

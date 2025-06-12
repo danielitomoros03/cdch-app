@@ -42,8 +42,8 @@
       </table>
 
       <div class="container-fluid">
-        <%= link_to "Edit this call", edit_dashboard_call_path(@call), class: "btn btn-primary" %> |
-        <%= link_to "Back to calls", dashboard_calls_path, class: "btn btn-dark" %> |
+        <%= link_to "Edit this call", edit_call_path(@call), class: "btn btn-primary" %> |
+        <%= link_to "Back to calls", calls_path, class: "btn btn-dark" %> |
         <%= button_to "Eliminar convocatoria", @call, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar esta convocatoria?' } } %>
       </div>
     </div>

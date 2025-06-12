@@ -8,7 +8,5 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-module Dashboard
-    class Directory < ApplicationRecord
-    end
+class Directory < ApplicationRecord
 end

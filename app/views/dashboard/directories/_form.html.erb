@@ -1,4 +1,4 @@
-<%= form_with(model: @directory, url: @directory.new_record? ? dashboard_directories_path : dashboard_directory_path(@directory), scope: :directory) do |form| %>
+<%= form_with(model: directory) do |form| %>
   <% if directory.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(directory.errors.count, "error") %> prohibited this directory from being saved:</h2>

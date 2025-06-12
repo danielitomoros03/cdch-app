@@ -37,8 +37,8 @@
       </table>
 
       <div class="container-fluid">
-        <%= link_to "Edit this directory", edit_dashboard_directory_path(@directory), class: "btn btn-primary" %> |
-        <%= link_to "Back to directories", dashboard_directories_path, class: "btn btn-dark" %> |
+        <%= link_to "Edit this directory", edit_directory_path(@directory), class: "btn btn-primary" %> |
+        <%= link_to "Back to directories", directories_path, class: "btn btn-dark" %> |
         <%= button_to "Eliminar convocatoria", @directory, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar este directorio?' } } %>
       </div>
     </div>

@@ -9,11 +9,9 @@ Rails.application.routes.draw do
   get "home/about"
 
   # Scaffold's Routes from Dashboard
-  namespace :dashboard do
-    resources :calls
-    resources :directories
-    resources :publications
-  end
+  resources :publications, module: 'dashboard'
+  resources :directories, module: 'dashboard'
+  resources :calls, module: 'dashboard'
   
   # Rutas internas de la aplicación
   get "dashboard/index"

@@ -7,7 +7,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-module Dashboard
-    class Publication < ApplicationRecord
-    end
+class Publication < ApplicationRecord
 end
+
