@@ -8,6 +8,11 @@ Relevancia en website CDCH:
 - Eventos y Efemérides (Noticias)
 
 
+----------------------------------------------------------------------
+ # get "home/about" << RUTA EN HOME  
+get "about", to: "home#about" << RENDERIZADO PARA QUE EL ENLACE SEA '/ABOUT'
+
+
 --------------------------------------------------------------------------------
 Reunión con SABER UCV:
 - DSPACE
