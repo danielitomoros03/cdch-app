@@ -4,6 +4,45 @@
 // Color Variables
 // Bootstrap Color Overrides
 
+// Colors
+$primary-color: #1e3a8a;
+$primary-hover: #1e40af;
+$secondary-color: #dc2626;
+
+$text-dark: #111827;
+$text-gray: #6b7280;
+$text-light: #9ca3af;
+
+$bg-white: #ffffff;
+$bg-light: #f9fafb;
+$bg-gray: #f3f4f6;
+
+// Spacing
+$section-padding: 4rem 0;
+$section-padding-mobile: 3rem 0;
+
+// Border Radius
+$border-radius-sm: 0.5rem;
+$border-radius-md: 1rem;
+$border-radius-lg: 1.5rem;
+
+// Transitions
+$transition-base: all 0.3s ease;
+
+// Shadows
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+// Typography
+$font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+$font-size-sm: 0.875rem !default;
+
+// Adjust column spacing for symmetry
+$spacer: 1rem !default;
+$grid-gutter-width: $spacer * 1.5 !default;
+
+
 $white: #fff !default;
 $gray-100: #f8f9fc !default;
 $gray-200: #eaecf4 !default;
@@ -27,6 +66,7 @@ $green: #1cc88a !default;
 $teal: #20c9a6 !default;
 $cyan: #36b9cc !default;
 
+$prefix: "bs-" !default;
 $tooltip-font-size:                 $font-size-sm;
 $tooltip-max-width:                 200px;
 $tooltip-color:                     var(--#{$prefix}body-bg);
@@ -79,10 +119,6 @@ $sidebar-collapsed-width: 6.5rem !default;
 // Card
 $card-cap-bg: $gray-100 !default;
 $card-border-color: $border-color !default;
-
-// Adjust column spacing for symmetry
-$spacer: 1rem !default;
-$grid-gutter-width: $spacer * 1.5 !default;
 
 // Transitions
 $transition-collapse: height .15s ease !default;

@@ -4,9 +4,9 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
   
-  # Rutas de Landing Page
-  get "home/index"
-  get "home/about"
+  # Routes for Landing Pages
+  get "index", to: "home#index"
+  get "about", to: "home#about"
 
   # Scaffold's Routes from Dashboard
   resources :publications, module: 'dashboard'

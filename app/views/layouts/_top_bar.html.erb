@@ -1,0 +1,23 @@
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <div class="d-flex flex-wrap gap-3 small top-bar-info">
+          <span><i class="fas fa-map-marker-alt me-1"></i> Urb. La Floresta, Quinta Silenia, Caracas – Venezuela</span>
+          <span><i class="fas fa-phone me-1"></i> +58 212-605-2891</span>
+          <span><i class="fas fa-envelope me-1"></i> cdch@ucv.ve</span>
+        </div>
+      </div>
+      <div class="col-md-4 text-md-end d-none d-md-block">
+        <div class="language-selector">
+          <%= link_to "ES", "#", class: "text-white text-decoration-none" %>
+          <span class="text-white">|</span>
+          <%= link_to new_user_session_path, class: "text-white text-decoration-none" do %>
+            <i class="fas fa-user me-1"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

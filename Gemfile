@@ -71,3 +71,4 @@ gem 'bootstrap', '~> 5.0.2'
 gem 'jquery-rails'
 gem "importmap-rails"
 gem "font-awesome-sass"
+gem "sassc-rails"

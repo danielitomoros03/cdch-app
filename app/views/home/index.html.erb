@@ -1,544 +1,172 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CDCH - UCV</title>
-  <!-- Bootstrap 5 CSS (puedes usar CDN o el asset pipeline de Rails) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-</head>
-<body>
-  <!-- Header -->
-  <header>
-    <!-- Top Bar -->
-    <div class="text-white py-2" style="background-color: #082c95;">
-      <div class="container d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center gap-4 small">
-          <div class="d-flex align-items-center">
-            <i class="bi bi-geo-alt me-1"></i>
-            <span>Av. Principal, Urb. La Floresta, Cruce con Av. José Félix Sosa, Quinta Silenia, Caracas – Venezuela</span>
-          </div>
-          <!--
-          <div class="d-flex align-items-center">
-            <i class="bi bi-telephone me-1"></i>
-            <span>+58 212-555-5555</span>
-          </div>
-          <div class="d-flex align-items-center">
-            <i class="bi bi-envelope me-1"></i>
-            <span>info@cdch.ucv.ve</span>
-          </div>
-          -->
-          </div>
-        <div class="d-none d-md-flex align-items-center gap-2">
-          <a href="#" class="text-white text-decoration-none">Español</a>
-          <span>|</span>
-          <a href="/users/sign_in" class="text-white text-decoration-none"><i class="fa-regular fa-user"></i></a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Main Header -->
-    <div class="container py-3">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-          <div class="me-4">
-            <img src="https://cdch.ucv.ve/wp-content/themes/cdch3/img/logo.png" alt="CDCH-UCV Logo" class="img-fluid" style="height: 60px;">
-          </div>
-          <nav class="d-none d-lg-flex gap-4">
-            <a href="#" class="text-dark text-decoration-none fw-medium">Inicio</a>
-            <%= link_to "Nosotros", home_about_path, class: "text-dark text-decoration-none fw-medium" %>
-            <a href="#" class="text-dark text-decoration-none fw-medium">Publicaciones</a>
-            <a href="#" class="text-dark text-decoration-none fw-medium">Convocatoria</a>
-            <!--<a href="#" class="text-dark text-decoration-none fw-medium">Documentos</a>-->
-            <a href="#" class="text-dark text-decoration-none fw-medium">Directorio</a>
-            <a href="#" class="text-dark text-decoration-none fw-medium">Saber UCV</a>
-          </nav>
-        </div>
-        <!--
-        <div class="d-flex align-items-center gap-3">
-          <div class="d-none d-md-block position-relative">
-            <input type="text" placeholder="Buscar..." class="form-control rounded-pill ps-4 pe-4" style="padding-left: 2.5rem;">
-            <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-          </div>
-          <button class="btn d-lg-none text-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
-            <i class="bi bi-list fs-4"></i>
-          </button>
-        </div>
-        -->
-      </div>
-    </div>
-  </header>
+<!-- MAIN - LANDING PAGE -->
+<%= render "layouts/top_bar" %>
+<%= render "layouts/header" %>
 
-  <!-- Mobile Menu Offcanvas -->
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title">CDCH-UCV</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <div class="mb-3">
-        <div class="input-group">
-          <span class="input-group-text"><i class="bi bi-search"></i></span>
-          <input type="text" class="form-control" placeholder="Buscar...">
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-xl-8">
+        <h1 class="hero-title">Consejo de Desarrollo Científico y Humanístico</h1>
+        <p class="hero-subtitle">Impulsando la excelencia en investigación y desarrollo académico de la Universidad Central de Venezuela</p>
+        <div class="hero-buttons">
+          <%= link_to "Ver Convocatorias", "#", class: "btn-white-custom" %>
+          <%= link_to "Conocer Más", "#", class: "btn-white-outline" %>
         </div>
-      </div>
-      <div class="d-flex flex-column gap-2">
-        <a href="#" class="text-dark text-decoration-none py-2 border-bottom">Inicio</a>
-        <%= link_to "Nosotros", home_about_path, class: "text-dark text-decoration-none fw-medium" %>
-        <a href="#" class="text-dark text-decoration-none py-2 border-bottom">Publicaciones</a>
-        <a href="#" class="text-dark text-decoration-none py-2 border-bottom">Eventos</a>
-        <a href="#" class="text-dark text-decoration-none py-2 border-bottom">Documentos</a>
-        <a href="#" class="text-dark text-decoration-none py-2 border-bottom">Directorio</a>
-        <a href="#" class="text-dark text-decoration-none py-2 border-bottom">Contacto</a>
       </div>
     </div>
   </div>
+</section>
 
-  <main>
-    <!-- Hero Section with Slider -->
-    <section class="position-relative text-white" style="background-color: #051F75;">
-      <div class="position-absolute top-0 start-0 end-0 bottom-0 bg-primary opacity-75 z-index-1"></div>
-      <div class="container position-relative" style="z-index: 2; height: 500px;">
-        <div class="row h-100 align-items-center">
-          <!-- Texto a la izquierda -->
-          <div class="col-12 col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
-            <h1 class="display-4 fw-bold mb-4">Consejo de Desarrollo Científico y Humanístico</h1>
-            <p class="fs-5 mb-4">Promoviendo la investigación y el desarrollo académico en la Universidad Central de Venezuela</p>
-            <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
-              <a href="#" class="btn btn-danger px-4 py-2 fw-medium">Convocatorias</a>
-              <a href="#" class="btn btn-light text-primary px-4 py-2 fw-medium">Publicaciones</a>
-            </div>
+<!-- Featured Links Section -->
+<section class="featured-links-section">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <%= link_to "#", class: "featured-card" do %>
+          <div class="featured-icon featured-icon-blue">
+            <i class="fas fa-users"></i>
           </div>
-
-          <!-- Logo a la derecha (solo visible en pantallas grandes) -->
-          <div class="col-12 col-lg-6 text-center d-none d-lg-block">
-            <img src="https://firebasestorage.googleapis.com/v0/b/morosphotography-26b5a.appspot.com/o/Logo%20CDCH%20sin%20fondo.png?alt=media&token=d87cb207-0847-4621-bcec-760895058c6d" 
-                 alt="CDCH-UCV Logo" 
-                 class="img-fluid" 
-                 style="max-height: 400px; opacity: 0.8; filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));">
-          </div>
-        </div>
+          <h3 class="featured-title">Investigación</h3>
+          <p class="featured-description">Proyectos y líneas de investigación activas</p>
+          <span class="featured-link">
+            Ver más <i class="fas fa-chevron-right ms-1"></i>
+          </span>
+        <% end %>
       </div>
-    </section>
 
-    <!-- Announcement Bar -->
-    <section class="bg-danger text-white py-3">
-      <div class="container">
-        <div class="d-flex align-items-center justify-content-center flex-wrap">
-          <span class="fw-semibold me-2">ANUNCIO IMPORTANTE:</span>
-          <span>Convocatoria abierta para proyectos de investigación 2025 - Fecha límite: 30 de abril</span>
-          <a href="#" class="ms-3 text-white">Más información</a>
-        </div>
+      <div class="col-md-6 col-lg-3">
+        <%= link_to "#", class: "featured-card" do %>
+          <div class="featured-icon featured-icon-green">
+            <i class="fas fa-book"></i>
+          </div>
+          <h3 class="featured-title">Publicaciones</h3>
+          <p class="featured-description">Catálogo de libros y revistas académicas</p>
+          <span class="featured-link">
+            Ver más <i class="fas fa-chevron-right ms-1"></i>
+          </span>
+        <% end %>
       </div>
-    </section>
 
-    <!-- Publications Section -->
-    <section class="py-5">
-      <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h2 class="fs-1 fw-bold text-dark">Fondo Editorial CDCH</h2> <!-- Publicaciones -->
-          <a href="#" class="text-primary text-decoration-none d-flex align-items-center">
-            Ver todas <i class="bi bi-chevron-right ms-1"></i>
-          </a>
-        </div>
-        <div class="row g-4">
-          <!-- Publication 1 -->
-          <div class="col-md-6 col-lg-3">
-            <div class="card h-100 shadow-sm">
-              <div style="height: 320px; overflow: hidden;">
-                <img src="https://via.placeholder.com/200x300" alt="El periodismo musical en Venezuela" class="card-img-top h-100 object-fit-cover">
-              </div>
-              <div class="card-body">
-                <h3 class="card-title fs-5 fw-bold">El periodismo musical en Venezuela</h3>
-                <p class="card-text small text-muted mb-2">Hugo J. Quintana M.</p>
-                <a href="#" class="text-primary text-decoration-none small fw-medium d-flex align-items-center">
-                  Ver detalles <i class="bi bi-chevron-right ms-1"></i>
-                </a>
-              </div>
-            </div>
+      <div class="col-md-6 col-lg-3">
+        <%= link_to "#", class: "featured-card" do %>
+          <div class="featured-icon featured-icon-amber">
+            <i class="fas fa-file-alt"></i>
           </div>
-
-          <!-- Publication 2 -->
-          <div class="col-md-6 col-lg-3">
-            <div class="card h-100 shadow-sm">
-              <div style="height: 320px; overflow: hidden;">
-                <img src="https://via.placeholder.com/200x300" alt="Memoria para el futuro" class="card-img-top h-100 object-fit-cover">
-              </div>
-              <div class="card-body">
-                <h3 class="card-title fs-5 fw-bold">Memoria para el futuro</h3>
-                <p class="card-text small text-muted mb-2">Edith Hernández P.</p>
-                <a href="#" class="text-primary text-decoration-none small fw-medium d-flex align-items-center">
-                  Ver detalles <i class="bi bi-chevron-right ms-1"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Publication 3 -->
-          <div class="col-md-6 col-lg-3">
-            <div class="card h-100 shadow-sm">
-              <div style="height: 320px; overflow: hidden;">
-                <img src="https://via.placeholder.com/200x300" alt="El Eterno Retrato" class="card-img-top h-100 object-fit-cover">
-              </div>
-              <div class="card-body">
-                <h3 class="card-title fs-5 fw-bold">El Eterno Retrato</h3>
-                <p class="card-text small text-muted mb-2">Adolfo E. Calvo A.</p>
-                <a href="#" class="text-primary text-decoration-none small fw-medium d-flex align-items-center">
-                  Ver detalles <i class="bi bi-chevron-right ms-1"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Publication 4 -->
-          <div class="col-md-6 col-lg-3">
-            <div class="card h-100 shadow-sm">
-              <div style="height: 320px; overflow: hidden;">
-                <img src="https://via.placeholder.com/200x300" alt="Investigación y Desarrollo" class="card-img-top h-100 object-fit-cover">
-              </div>
-              <div class="card-body">
-                <h3 class="card-title fs-5 fw-bold">Investigación y Desarrollo</h3>
-                <p class="card-text small text-muted mb-2">Varios Autores</p>
-                <a href="#" class="text-primary text-decoration-none small fw-medium d-flex align-items-center">
-                  Ver detalles <i class="bi bi-chevron-right ms-1"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+          <h3 class="featured-title">Convocatorias</h3>
+          <p class="featured-description">Oportunidades de financiamiento y becas</p>
+          <span class="featured-link">
+            Ver más <i class="fas fa-chevron-right ms-1"></i>
+          </span>
+        <% end %>
       </div>
-    </section>
 
-    <!-- Convocatoria Section Modificar y Adaptar Código -->
-    <section class="py-5 bg-light">
-      <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h2 class="fs-1 fw-bold text-dark">Convocatorias Recientes</h2>
-          <a href="#" class="text-primary text-decoration-none d-flex align-items-center">
-            Ver todos <i class="bi bi-chevron-right ms-1"></i>
-          </a>
-        </div>
-        <div class="row g-4">
-          <!-- Event 1 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm">
-              <div class="d-flex">
-                <div class="text-white p-3 d-flex flex-column align-items-center justify-content-center" style="background-color: #082c95; min-width: 100px;">
-                  <span class="fs-3 fw-bold">15</span>
-                  <span class="small text-uppercase">Abr</span>
-                  <span class="small">2025</span>
-                </div>
-                <div class="p-3">
-                  <h3 class="fs-5 fw-bold mb-2">Jornada de Investigación Científica</h3>
-                  <div class="d-flex align-items-center text-muted mb-2">
-                    <i class="bi bi-geo-alt me-1"></i>
-                    <span class="small">Aula Magna, UCV</span>
-                  </div>
-                  <p class="text-muted small mb-3">Presentación de proyectos de investigación financiados por el CDCH.</p>
-                  <a href="#" class="text-primary text-decoration-none small fw-medium d-flex align-items-center">
-                    Más información <i class="bi bi-chevron-right ms-1"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
+      <div class="col-md-6 col-lg-3">
+        <%= link_to "#", class: "featured-card" do %>
+          <div class="featured-icon featured-icon-purple">
+            <i class="fas fa-calendar"></i>
           </div>
-
-          <!-- Event 2 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm">
-              <div class="d-flex">
-                <div class="text-white p-3 d-flex flex-column align-items-center justify-content-center" style="background-color: #082c95; min-width: 100px;">
-                  <span class="fs-3 fw-bold">22</span>
-                  <span class="small text-uppercase">Abr</span>
-                  <span class="small">2025</span>
-                </div>
-                <div class="p-3">
-                  <h3 class="fs-5 fw-bold mb-2">Taller de Metodología de la Investigación</h3>
-                  <div class="d-flex align-items-center text-muted mb-2">
-                    <i class="bi bi-geo-alt me-1"></i>
-                    <span class="small">Sala E, Facultad de Humanidades</span>
-                  </div>
-                  <p class="text-muted small mb-3">Taller dirigido a investigadores noveles sobre metodologías actuales.</p>
-                  <a href="#" class="text-primary text-decoration-none small fw-medium d-flex align-items-center">
-                    Más información <i class="bi bi-chevron-right ms-1"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Event 3 -->
-          <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm">
-              <div class="d-flex">
-                <div class="text-white p-3 d-flex flex-column align-items-center justify-content-center" style="background-color: #082c95; min-width: 100px;">
-                  <span class="fs-3 fw-bold">30</span>
-                  <span class="small text-uppercase">Abr</span>
-                  <span class="small">2025</span>
-                </div>
-                <div class="p-3">
-                  <h3 class="fs-5 fw-bold mb-2">Cierre de Convocatoria de Proyectos</h3>
-                  <div class="d-flex align-items-center text-muted mb-2">
-                    <i class="bi bi-geo-alt me-1"></i>
-                    <span class="small">Sede CDCH-UCV</span>
-                  </div>
-                  <p class="text-muted small mb-3">Fecha límite para la presentación de proyectos de investigación 2025.</p>
-                  <a href="#" class="text-primary text-decoration-none small fw-medium d-flex align-items-center">
-                    Más información <i class="bi bi-chevron-right ms-1"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Directorio Modificar y Adaptar Código -->
-    <section class="py-5">
-      <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h2 class="fs-1 fw-bold text-dark">Directorio</h2>
-          <a href="#" class="text-primary text-decoration-none d-flex align-items-center">
-            Ver todas <i class="bi bi-chevron-right ms-1"></i>
-          </a>
-        </div>
-        <div class="row g-4">
-          <!-- Publication 1 -->
-          <div class="col-md-6 col-lg-3">
-            <div class="card h-100 shadow-sm">
-              <div style="height: 320px; overflow: hidden;">
-                <img src="https://via.placeholder.com/200x300" alt="El periodismo musical en Venezuela" class="card-img-top h-100 object-fit-cover">
-              </div>
-              <div class="card-body">
-                <h3 class="card-title fs-5 fw-bold">El periodismo musical en Venezuela</h3>
-                <p class="card-text small text-muted mb-2">Hugo J. Quintana M.</p>
-                <a href="#" class="text-primary text-decoration-none small fw-medium d-flex align-items-center">
-                  Ver detalles <i class="bi bi-chevron-right ms-1"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Publication 2 -->
-          <div class="col-md-6 col-lg-3">
-            <div class="card h-100 shadow-sm">
-              <div style="height: 320px; overflow: hidden;">
-                <img src="https://via.placeholder.com/200x300" alt="Memoria para el futuro" class="card-img-top h-100 object-fit-cover">
-              </div>
-              <div class="card-body">
-                <h3 class="card-title fs-5 fw-bold">Memoria para el futuro</h3>
-                <p class="card-text small text-muted mb-2">Edith Hernández P.</p>
-                <a href="#" class="text-primary text-decoration-none small fw-medium d-flex align-items-center">
-                  Ver detalles <i class="bi bi-chevron-right ms-1"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Publication 3 -->
-          <div class="col-md-6 col-lg-3">
-            <div class="card h-100 shadow-sm">
-              <div style="height: 320px; overflow: hidden;">
-                <img src="https://via.placeholder.com/200x300" alt="El Eterno Retrato" class="card-img-top h-100 object-fit-cover">
-              </div>
-              <div class="card-body">
-                <h3 class="card-title fs-5 fw-bold">El Eterno Retrato</h3>
-                <p class="card-text small text-muted mb-2">Adolfo E. Calvo A.</p>
-                <a href="#" class="text-primary text-decoration-none small fw-medium d-flex align-items-center">
-                  Ver detalles <i class="bi bi-chevron-right ms-1"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Publication 4 -->
-          <div class="col-md-6 col-lg-3">
-            <div class="card h-100 shadow-sm">
-              <div style="height: 320px; overflow: hidden;">
-                <img src="https://via.placeholder.com/200x300" alt="Investigación y Desarrollo" class="card-img-top h-100 object-fit-cover">
-              </div>
-              <div class="card-body">
-                <h3 class="card-title fs-5 fw-bold">Investigación y Desarrollo</h3>
-                <p class="card-text small text-muted mb-2">Varios Autores</p>
-                <a href="#" class="text-primary text-decoration-none small fw-medium d-flex align-items-center">
-                  Ver detalles <i class="bi bi-chevron-right ms-1"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- Quick Links Section -->
-    <section class="py-5">
-      <div class="container">
-        <h2 class="fs-1 fw-bold text-dark mb-4 text-center">Enlaces de Interés</h2>
-        <div class="row g-4">
-          <div class="col-6 col-md-3">
-            <a href="#" class="card h-100 shadow-sm text-center text-decoration-none hover-shadow-lg transition p-4">
-              <div class="d-flex flex-column align-items-center">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-circle mb-3">
-                  <i class="bi bi-book fs-3 text-primary"></i>
-                </div>
-                <h3 class="fs-5 fw-bold text-dark">Publicaciones</h3>
-                <p class="small text-muted mt-2">Explora nuestro catálogo</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="col-6 col-md-3">
-            <a href="#" class="card h-100 shadow-sm text-center text-decoration-none hover-shadow-lg transition p-4">
-              <div class="d-flex flex-column align-items-center">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-circle mb-3">
-                  <i class="bi bi-calendar-event fs-3 text-primary"></i>
-                </div>
-                <h3 class="fs-5 fw-bold text-dark">Convocatoria</h3>
-                <p class="small text-muted mt-2">Eventos y actividades</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="col-6 col-md-3">
-            <a href="#" class="card h-100 shadow-sm text-center text-decoration-none hover-shadow-lg transition p-4">
-              <div class="d-flex flex-column align-items-center">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-circle mb-3">
-                  <i class="bi bi-file-text fs-3 text-primary"></i>
-                </div>
-                <h3 class="fs-5 fw-bold text-dark">Saber UCV</h3>
-                <p class="small text-muted mt-2">Accede a documentos oficiales</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="col-6 col-md-3">
-            <a href="#" class="card h-100 shadow-sm text-center text-decoration-none hover-shadow-lg transition p-4">
-              <div class="d-flex flex-column align-items-center">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-circle mb-3">
-                  <i class="bi bi-people fs-3 text-primary"></i>
-                </div>
-                <h3 class="fs-5 fw-bold text-dark">Directorio</h3>
-                <p class="small text-muted mt-2">Conoce nuestro equipo</p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Call to Action -->
-    <section class="py-5 text-white" style="background-color: #082c95;">
-      <div class="container text-center">
-        <h2 class="fs-1 fw-bold mb-3">¿Interesado en nuestros programas de investigación?</h2>
-        <p class="fs-5 mb-4 mx-auto" style="max-width: 800px;">Descubre cómo el CDCH-UCV puede apoyar tus proyectos de investigación y desarrollo académico.</p>
-        <div class="d-flex justify-content-center flex-wrap gap-3">
-          <!--<a href="#" class="btn btn-danger px-4 py-2 fw-medium">Solicitar información</a>-->
-          <a href="#" class="btn btn-outline-light px-4 py-2 fw-medium">Ver convocatorias</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-dark text-white">
-    <!-- Main Footer -->
-    <div class="container py-5">
-      <div class="row g-4">
-        <!-- Column 1 - About -->
-        <div class="col-lg-3 col-md-6">
-          <img src="https://cdch.ucv.ve/wp-content/themes/cdch3/img/logo.png" alt="CDCH-UCV Logo" class="img-fluid mb-3" style="height: 50px;">
-          <p class="text-white mb-3">
-            El Consejo de Desarrollo Científico y Humanístico de la Universidad Central de Venezuela promueve la investigación y el desarrollo académico.
-          </p>
-          <div class="d-flex gap-3">
-            <a href="#" class="text-white">
-              <i class="bi bi-facebook"></i>
-            </a>
-            <a href="#" class="text-white">
-              <i class="bi bi-twitter"></i>
-            </a>
-            <a href="#" class="text-white">
-              <i class="bi bi-instagram"></i>
-            </a>
-            <a href="#" class="text-white">
-              <i class="bi bi-youtube"></i>
-            </a>
-          </div>
-        </div>
-        
-        <!-- Column 2 - Quick Links -->
-        <div class="col-lg-3 col-md-6">
-          <h3 class="fs-5 fw-semibold mb-3">Enlaces Rápidos</h3>
-          <ul class="list-unstyled">
-            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Inicio</a></li>
-            <!--<li class="mb-2"><a href="#" class="text-white text-decoration-none">Nosotros</a></li>-->
-            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Publicaciones</a></li>
-            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Convocatoria</a></li>
-            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Directorio</a></li>
-            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Saber UCV</a></li>
-          </ul>
-        </div>
-        
-        <!-- Column 3 - Services -->
-        <div class="col-lg-3 col-md-6">
-          <h3 class="fs-5 fw-semibold mb-3">Servicios</h3>
-          <ul class="list-unstyled">
-            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Financiamiento de Proyectos</a></li>
-            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Publicación de Investigaciones</a></li>
-            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Becas Académicas</a></li>
-            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Apoyo a Eventos Científicos</a></li>
-            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Asesoría en Investigación</a></li>
-            <li class="mb-2"><a href="#" class="text-white text-decoration-none">Biblioteca Digital</a></li>
-          </ul>
-        </div>
-        
-        <!-- Column 4 - Contact -->
-        <div class="col-lg-3 col-md-6">
-          <h3 class="fs-5 fw-semibold mb-3">Contacto</h3>
-          <ul class="list-unstyled">
-            <li class="d-flex mb-3">
-              <i class="bi bi-geo-alt text-white me-2 mt-1"></i>
-              <span class="text-white">Av. Principal, Urb. La Floresta, Cruce con Av. José Félix Sosa, Quinta Silenia, Caracas – Venezuela</span>
-            </li>
-            <!--
-            <li class="d-flex mb-3">
-              <i class="bi bi-telephone text-muted me-2"></i>
-              <span class="text-muted">+58 212-555-5555</span>
-            </li>
-            <li class="d-flex mb-3">
-              <i class="bi bi-envelope text-muted me-2"></i>
-              <span class="text-muted">info@cdch.ucv.ve</span>
-            </li>
-          </ul>
-          -->
-          <div class="mt-3">
-            <h4 class="fs-6 fw-semibold mb-2">Horario de Atención</h4>
-            <p class="text-white small">Lunes a Viernes: 8:00 AM - 4:00 PM</p>
-          </div>
-        </div>
+          <h3 class="featured-title">Eventos</h3>
+          <p class="featured-description">Conferencias, talleres y actividades</p>
+          <span class="featured-link">
+            Ver más <i class="fas fa-chevron-right ms-1"></i>
+          </span>
+        <% end %>
       </div>
     </div>
-    
-    <!-- Copyright -->
-    <div class="border-top border-secondary py-4">
-      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-        <p class="text-muted small mb-3 mb-md-0">© <%= Date.today.year %> CDCH-UCV. Todos los derechos reservados.</p>
-        <div>
-          <ul class="list-inline mb-0">
-            <li class="list-inline-item"><a href="#" class="text-muted small text-decoration-none">Términos y Condiciones</a></li>
-            <li class="list-inline-item"><a href="#" class="text-muted small text-decoration-none">Política de Privacidad</a></li>
-            <li class="list-inline-item"><a href="#" class="text-muted small text-decoration-none">Mapa del Sitio</a></li>
-          </ul>
-        </div>
+  </div>
+</section>
+
+<!-- Latest Updates Section -->
+<section class="updates-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Últimas Actualizaciones</h2>
+      <%= link_to "#", class: "section-link" do %>
+        Ver todas <i class="fas fa-chevron-right ms-1"></i>
+      <% end %>
+    </div>
+
+    <div class="row g-4">
+      <!-- Update Card 1 -->
+      <div class="col-md-6 col-lg-4">
+        <article class="update-card">
+          <div class="update-image update-image-blue"></div>
+          <div class="update-content">
+            <div class="update-date">15 de Marzo, 2025</div>
+            <h3 class="update-title">Convocatoria 2025: Proyectos de Investigación</h3>
+            <p class="update-excerpt">
+              Abierta la convocatoria para financiamiento de proyectos de investigación individuales y grupales.
+            </p>
+            <%= link_to "#", class: "update-link" do %>
+              Leer más <i class="fas fa-chevron-right ms-1"></i>
+            <% end %>
+          </div>
+        </article>
+      </div>
+
+      <!-- Update Card 2 -->
+      <div class="col-md-6 col-lg-4">
+        <article class="update-card">
+          <div class="update-image update-image-green"></div>
+          <div class="update-content">
+            <div class="update-date">10 de Marzo, 2025</div>
+            <h3 class="update-title">Nuevas Publicaciones Disponibles</h3>
+            <p class="update-excerpt">
+              Accede al catálogo actualizado de publicaciones científicas y humanísticas del CDCH.
+            </p>
+            <%= link_to "#", class: "update-link" do %>
+              Leer más <i class="fas fa-chevron-right ms-1"></i>
+            <% end %>
+          </div>
+        </article>
+      </div>
+
+      <!-- Update Card 3 -->
+      <div class="col-md-6 col-lg-4">
+        <article class="update-card">
+          <div class="update-image update-image-purple"></div>
+          <div class="update-content">
+            <div class="update-date">5 de Marzo, 2025</div>
+            <h3 class="update-title">Taller: Metodología de la Investigación</h3>
+            <p class="update-excerpt">
+              Inscripciones abiertas para el taller dirigido a investigadores noveles de la UCV.
+            </p>
+            <%= link_to "#", class: "update-link" do %>
+              Leer más <i class="fas fa-chevron-right ms-1"></i>
+            <% end %>
+          </div>
+        </article>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <!-- Bootstrap 5 JS Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<%= render "layouts/counter" %>
+<%= render "layouts/CTA_section" %>
+
+
+
+<!-- Search Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title">Buscar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="¿Qué estás buscando?">
+            <button class="btn btn-primary" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render "layouts/footer" %>

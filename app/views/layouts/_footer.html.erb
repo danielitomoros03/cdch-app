@@ -1,0 +1,99 @@
+<footer class="main-footer">
+  <div class="container">
+    <div class="row g-4 mb-4">
+      <!-- Column 1 - About -->
+      <div class="col-md-6 col-lg-3">
+        <div class="footer-brand mb-3">
+          <div class="footer-logo-circle">
+            <span>C</span>
+          </div>
+          <div class="footer-logo-text">
+            <div class="footer-logo-title">CDCH-UCV</div>
+            <div class="footer-logo-subtitle">Universidad Central de Venezuela</div>
+          </div>
+        </div>
+        <p class="footer-description">
+          Promoviendo la excelencia en investigación científica y humanística desde 1958.
+        </p>
+        <div class="footer-social">
+          <%= link_to "#", class: "social-link" do %>
+            <i class="fab fa-facebook-f"></i>
+          <% end %>
+          <%= link_to "#", class: "social-link" do %>
+            <i class="fab fa-twitter"></i>
+          <% end %>
+          <%= link_to "#", class: "social-link" do %>
+            <i class="fab fa-instagram"></i>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Column 2 - Quick Links -->
+      <div class="col-md-6 col-lg-3">
+        <h5 class="footer-title">Enlaces Rápidos</h5>
+        <ul class="footer-list">
+          <li><%= link_to "Nosotros", "#" %></li>
+          <li><%= link_to "Investigación", "#" %></li>
+          <li><%= link_to "Publicaciones", "#" %></li>
+          <li><%= link_to "Convocatorias", "#" %></li>
+          <li><%= link_to "Eventos", "#" %></li>
+        </ul>
+      </div>
+
+      <!-- Column 3 - Services -->
+      <div class="col-md-6 col-lg-3">
+        <h5 class="footer-title">Servicios</h5>
+        <ul class="footer-list">
+          <li><%= link_to "Financiamiento de Proyectos", "#" %></li>
+          <li><%= link_to "Publicación de Investigaciones", "#" %></li>
+          <li><%= link_to "Becas y Ayudas", "#" %></li>
+          <li><%= link_to "Asesoría Técnica", "#" %></li>
+        </ul>
+      </div>
+
+      <!-- Column 4 - Contact -->
+      <div class="col-md-6 col-lg-3">
+        <h5 class="footer-title">Contacto</h5>
+        <ul class="footer-contact">
+          <li>
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Ciudad Universitaria de Caracas, Edificio del Rectorado, Piso 3</span>
+          </li>
+          <li>
+            <i class="fas fa-phone"></i>
+            <span>+58 212-605-2891</span>
+          </li>
+          <li>
+            <i class="fas fa-envelope"></i>
+            <span>cdch@ucv.ve</span>
+          </li>
+        </ul>
+        <div class="footer-hours">
+          <div class="footer-hours-title">Horario de Atención</div>
+          <div class="footer-hours-text">
+            Lunes a Viernes<br>
+            8:00 AM - 3:00 PM
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+          <p class="footer-copyright mb-0">
+            © <%= Date.today.year %> CDCH-UCV. Todos los derechos reservados.
+          </p>
+        </div>
+        <div class="col-md-6">
+          <ul class="footer-bottom-links">
+            <li><%= link_to "Política de Privacidad", "#" %></li>
+            <li><%= link_to "Términos de Uso", "#" %></li>
+            <li><%= link_to "Mapa del Sitio", "#" %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

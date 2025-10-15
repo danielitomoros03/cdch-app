@@ -13,6 +13,16 @@
  */
 
 // Custom bootstrap variables must be set or imported *before* bootstrap.
-@import "bootstrap";
+@import "variables";
+@import "base";
 @import "card";
+@import "buttons";
+@import "header";
+@import "footer";
+@import "home";
+
+// @import "sb-admin-2";
+
+
+@import "bootstrap";
 @import "font-awesome";

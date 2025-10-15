@@ -1,0 +1,78 @@
+// Top Bar
+.top-bar {
+  background-color: $primary-color;
+  color: white;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+
+  a {
+    color: white;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .top-bar-info {
+    gap: 1rem;
+  }
+}
+
+// Main Header
+.main-header {
+  .navbar-brand {
+    text-decoration: none;
+    
+    .logo-circle {
+      width: 48px;
+      height: 48px;
+      background-color: $primary-color;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      span {
+        color: white;
+        font-weight: 700;
+        font-size: 1.25rem;
+      }
+    }
+
+    .logo-text {
+      .logo-title {
+        font-weight: 700;
+        color: $primary-color;
+        font-size: 1.125rem;
+        line-height: 1.2;
+      }
+
+      .logo-subtitle {
+        font-size: 0.75rem;
+        color: $text-gray;
+        line-height: 1.2;
+      }
+    }
+  }
+
+  .nav-link {
+    color: #374151;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+
+    &:hover,
+    &.active {
+      color: $primary-color;
+    }
+  }
+
+  .btn-link {
+    color: $text-gray;
+    
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
