@@ -11,10 +11,16 @@
       </div>
       <div class="col-md-4 text-md-end d-none d-md-block">
         <div class="language-selector">
-          <%= link_to "ES", "#", class: "text-white text-decoration-none" %>
-          <span class="text-white">|</span>
-          <%= link_to new_user_session_path, class: "text-white text-decoration-none" do %>
-            <i class="fas fa-user me-1"></i>
+          <% if user_signed_in? %>
+            <%= link_to "Cerrar sesión ", destroy_user_session_path, class: "text-white text-decoration-none" %>
+            <%= link_to destroy_user_session_path, class: "text-white text-decoration-none" do %>
+              <i class="fas fa-user me-1"></i>
+            <% end %>
+          <% else %>
+            <%= link_to "Iniciar sesión ", new_user_session_path, class: "text-white text-decoration-none" %>
+            <%= link_to new_user_session_path, class: "text-white text-decoration-none" do %>
+              <i class="fas fa-user me-1"></i>
+            <% end %>
           <% end %>
         </div>
       </div>
