@@ -5,17 +5,18 @@ Rails.application.routes.draw do
   end
   
   # Routes for Landing Pages
-  get "inicio", to: "pages#inicio"
-  get "nosotros", to: "pages#nosotros"
   get "contacto", to: "pages#contacto"
-  get "publicaciones", to: "pages#publicaciones"
   get "convocatorias", to: "pages#convocatorias"
+  get "eventos", to: "pages#eventos"
+  get "inicio", to: "pages#inicio"
   get "investigacion", to: "pages#investigacion"
+  get "nosotros", to: "pages#nosotros"
+  get "publicaciones", to: "pages#publicaciones"
 
   # Scaffold's Routes from Dashboard
-  resources :publications, module: 'dashboard'
-  resources :directories, module: 'dashboard'
   resources :calls, module: 'dashboard'
+  resources :directories, module: 'dashboard'
+  resources :publications, module: 'dashboard'
   
   # Rutas internas de la aplicación
   get "dashboard/index"

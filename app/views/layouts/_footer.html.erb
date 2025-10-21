@@ -5,7 +5,9 @@
       <div class="col-md-6 col-lg-3">
         <div class="footer-brand mb-3">
           <div class="footer-logo-circle">
-            <span>C</span>
+            <span>
+              <%= image_tag("Logo-CDCH.png") %>
+            </span>
           </div>
           <div class="footer-logo-text">
             <div class="footer-logo-title">CDCH-UCV</div>
@@ -32,11 +34,12 @@
       <div class="col-md-6 col-lg-3">
         <h5 class="footer-title">Enlaces Rápidos</h5>
         <ul class="footer-list">
-          <li><%= link_to "Nosotros", "#" %></li>
-          <li><%= link_to "Investigación", "#" %></li>
-          <li><%= link_to "Publicaciones", "#" %></li>
-          <li><%= link_to "Convocatorias", "#" %></li>
-          <li><%= link_to "Eventos", "#" %></li>
+        <li><%= link_to "Contacto", contacto_path %></li>
+        <li><%= link_to "Convocatorias", convocatorias_path %></li>
+        <li><%= link_to "Eventos", eventos_path %></li>
+        <li><%= link_to "Investigación", investigacion_path %></li>
+        <li><%= link_to "Nosotros", nosotros_path %></li>
+        <li><%= link_to "Publicaciones", publicaciones_path %></li>
         </ul>
       </div>
 
@@ -57,7 +60,7 @@
         <ul class="footer-contact">
           <li>
             <i class="fas fa-map-marker-alt"></i>
-            <span>Ciudad Universitaria de Caracas, Edificio del Rectorado, Piso 3</span>
+            <span>Quinta Silenia, Urb. La Floresta</span>
           </li>
           <li>
             <i class="fas fa-phone"></i>
@@ -83,16 +86,18 @@
       <div class="row align-items-center">
         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
           <p class="footer-copyright mb-0">
-            © <%= Date.today.year %> CDCH-UCV. Todos los derechos reservados.
+            © <%= Date.today.year %> CDCH - UCV. Todos los derechos reservados.
           </p>
         </div>
-        <div class="col-md-6">
-          <ul class="footer-bottom-links">
-            <li><%= link_to "Política de Privacidad", "#" %></li>
-            <li><%= link_to "Términos de Uso", "#" %></li>
-            <li><%= link_to "Mapa del Sitio", "#" %></li>
-          </ul>
-        </div>
+        <!-- 
+          <div class="col-md-6">
+            <ul class="footer-bottom-links">
+              <li><%= link_to "Política de Privacidad", "#" %></li>
+              <li><%= link_to "Términos de Uso", "#" %></li>
+              <li><%= link_to "Mapa del Sitio", "#" %></li>
+            </ul>
+          </div>
+        -->
       </div>
     </div>
   </div>

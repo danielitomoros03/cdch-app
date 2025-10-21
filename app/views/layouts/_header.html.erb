@@ -5,7 +5,9 @@
             <nav class="navbar navbar-expand-lg navbar-light py-3">
             <%= link_to root_path, class: "navbar-brand d-flex align-items-center gap-3" do %>
                 <div class="logo-circle">
-                <span>C</span>
+                    <span>
+                        <%= image_tag("Logo-CDCH.png") %>
+                    </span>
                 </div>
                 <div class="logo-text">
                 <div class="logo-title">CDCH</div>
@@ -19,29 +21,34 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-lg-center">
-                <li class="nav-item">
-                    <%= link_to "Inicio", root_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Nosotros", nosotros_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Investigación", investigacion_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Publicaciones", publicaciones_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Convocatorias", convocatorias_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Contacto", contacto_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item ms-lg-2">
-                    <button class="btn btn-link nav-link p-2" data-bs-toggle="modal" data-bs-target="#searchModal">
-                    <i class="fas fa-search"></i>
-                    </button>
-                </li>
+                    <li class="nav-item">
+                        <%= link_to "Inicio", root_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Convocatorias", convocatorias_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Eventos", eventos_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Investigación", investigacion_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Publicaciones", publicaciones_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Nosotros", nosotros_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Contacto", contacto_path, class: "nav-link" %>
+                    </li>
+                    <!--
+                        <li class="nav-item ms-lg-2">
+                            <button class="btn btn-link nav-link p-2" data-bs-toggle="modal" data-bs-target="#searchModal">
+                            <i class="fas fa-search"></i>
+                            </button>
+                        </li>
+                    -->
                 </ul>
             </div>
             </nav>
