@@ -1,8 +1,19 @@
 class PagesController < ApplicationController
-  def index
+  def inicio
   end
 
   def nosotros
   end
+  
+  def investigacion
+  end
+  
+  def convocatorias
+  end
 
+  def publicaciones
+  end
+  
+  def contacto
+  end
 end
