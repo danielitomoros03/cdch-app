@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   end
   
   # Routes for Landing Pages
-  get "index", to: "home#index"
-  get "about", to: "home#about"
+  get "index", to: "pages#index"
+  get "nosotros", to: "pages#nosotros"
 
   # Scaffold's Routes from Dashboard
   resources :publications, module: 'dashboard'
@@ -26,5 +26,5 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  root "home#index"
+  root "pages#index"
 end
