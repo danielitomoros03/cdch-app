@@ -3,14 +3,14 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-8">
-        <div class="d-flex flex-wrap gap-3 small top-bar-info">
-          <span><i class="fas fa-map-marker-alt me-1"></i> Urb. La Floresta, Quinta Silenia, Caracas – Venezuela</span>
-          <span><i class="fas fa-phone me-1"></i> +58 212-605-2891</span>
-          <span><i class="fas fa-envelope me-1"></i> cdch@ucv.ve</span>
+        <div class="d-flex flex-wrap gap-3 small top-bar-info d-none d-sm-block d-md-block">
+          <span class="me-1"><i class="fas fa-map-marker-alt "></i>Urb. La Floresta, Quinta Silenia, Caracas – Venezuela </span>
+          <span class="me-1"><i class="fas fa-phone "></i>+58 212-605-2891 </span>
+          <span class="me-1"><i class="fas fa-envelope "></i>cdch@ucv.ve </span>
         </div>
       </div>
-      <div class="col-md-4 text-md-end d-none d-md-block">
-        <div class="language-selector">
+      <div class="col-md-4 text-sm-end">
+        <div class="session-links">
           <% if user_signed_in? %>
             <%= link_to "Cerrar sesión ", destroy_user_session_path, class: "text-white text-decoration-none" %>
             <%= link_to destroy_user_session_path, class: "text-white text-decoration-none" do %>

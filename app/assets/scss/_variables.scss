@@ -108,6 +108,26 @@ $box-shadow: 0 0.15rem 1.75rem 0 rgba($gray-900, .15) !default;
 $border-radius: 0.35rem !default;
 $border-color: darken($gray-200, 2%) !default;
 
+// Offcanvas Variables
+$modal-inner-padding:              1.5rem;
+$modal-content-border-color:       $border-color;
+$modal-content-border-width:       2px;
+$modal-title-line-height:          1.5;
+$modal-content-bg:                 $bg-white;
+$modal-content-color:              $text-dark;
+$modal-content-box-shadow-xs:     0 .125rem .25rem rgba(0, 0, 0, .075);
+$offcanvas-padding-y:               $modal-inner-padding;
+$offcanvas-padding-x:               $modal-inner-padding;
+$offcanvas-horizontal-width:        400px;
+$offcanvas-vertical-height:         30vh;
+$offcanvas-transition-duration:     .3s;
+$offcanvas-border-color:            $modal-content-border-color;
+$offcanvas-border-width:            $modal-content-border-width;
+$offcanvas-title-line-height:       $modal-title-line-height;
+$offcanvas-bg-color:                $modal-content-bg;
+$offcanvas-color:                   $modal-content-color;
+$offcanvas-box-shadow:              $modal-content-box-shadow-xs;
+
 // Spacing Variables
 // Change below variable if the height of the navbar changes
 $topbar-base-height: 4.375rem !default;

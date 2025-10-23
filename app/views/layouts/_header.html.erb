@@ -1,8 +1,7 @@
 <!-- Header/Navbar -->
-<% if !signed_in? %>
-    <header class="main-header sticky-top bg-white shadow-sm">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light py-3">
+<header class="main-header sticky-top bg-white shadow-sm">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light py-3">
             <%= link_to root_path, class: "navbar-brand d-flex align-items-center gap-3" do %>
                 <div class="logo-circle">
                     <span>
@@ -11,49 +10,262 @@
                 </div>
                 <div class="logo-text">
                 <div class="logo-title">CDCH</div>
-                <div class="logo-subtitle">Universidad Central de Venezuela</div>
+                <div class="logo-subtitle d-none d-sm-block">Universidad Central de Venezuela</div>
                 </div>
             <% end %>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-lg-center">
-                    <li class="nav-item">
-                        <%= link_to "Inicio", root_path, class: "nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                        <%= link_to "Convocatorias", convocatorias_path, class: "nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                        <%= link_to "Eventos", eventos_path, class: "nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                        <%= link_to "Investigación", investigacion_path, class: "nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                        <%= link_to "Publicaciones", publicaciones_path, class: "nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                        <%= link_to "Nosotros", nosotros_path, class: "nav-link" %>
-                    </li>
-                    <li class="nav-item">
-                        <%= link_to "Contacto", contacto_path, class: "nav-link" %>
-                    </li>
-                    <!--
-                        <li class="nav-item ms-lg-2">
-                            <button class="btn btn-link nav-link p-2" data-bs-toggle="modal" data-bs-target="#searchModal">
-                            <i class="fas fa-search"></i>
-                            </button>
+                <% if !signed_in? %>
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item">
+                            <%= link_to "Inicio", root_path, class: "nav-link" %>
                         </li>
-                    -->
-                </ul>
-            </div>
-            </nav>
-        </div>
-    </header>
-<% else %>
+                        <li class="nav-item">
+                            <%= link_to "Convocatorias", convocatorias_path, class: "nav-link" %>
+                        </li>
+                        <li class="nav-item">
+                            <%= link_to "Eventos", eventos_path, class: "nav-link" %>
+                        </li>
+                        <li class="nav-item">
+                            <%= link_to "Investigación", investigacion_path, class: "nav-link" %>
+                        </li>
+                        <li class="nav-item">
+                            <%= link_to "Publicaciones", publicaciones_path, class: "nav-link" %>
+                        </li>
+                        <li class="nav-item">
+                            <%= link_to "Nosotros", nosotros_path, class: "nav-link" %>
+                        </li>
+                        <li class="nav-item">
+                            <%= link_to "Contacto", contacto_path, class: "nav-link" %>
+                        </li>
+                        <!--
+                            <li class="nav-item ms-lg-2">
+                                <button class="btn btn-link nav-link p-2" data-bs-toggle="modal" data-bs-target="#searchModal">
+                                <i class="fas fa-search"></i>
+                                </button>
+                            </li>
+                        -->
+                    </ul>
+                <% else %>
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item d-lg-none d-md-block d-lg-none">
+                            <%= link_to "Inicio", dashboard_index_path, class: "nav-link" %>
+                        </li>
+                        <li class="nav-item d-lg-none d-md-block d-lg-none">
+                            <%= link_to "Directorios", directories_path, class: "nav-link" %>
+                        </li>
+                        <li class="nav-item d-lg-none d-md-block d-lg-none">
+                            <%= link_to "Convocatorias", calls_path, class: "nav-link" %>
+                        </li>
+                        <li class="nav-item d-lg-none d-md-block d-lg-none">
+                            <%= link_to "Publicaciones", publications_path, class: "nav-link" %>
+                        </li>
+                        <li class="nav-item">
+                            <!-- ACCIONES DE USUARIO: Solo visible en pantallas grandes (≥ 992px) -->
+                            <!-- Notificaciones
+                                <div class="dropdown me-3">
+                                    <button class="btn btn-link text-dark position-relative p-2" type="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-bell fa-lg"></i>
 
-<% end %>
+
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        3
+                                        <span class="visually-hidden">notificaciones no leídas</span>
+                                    </span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="notificationsDropdown" style="min-width: 300px;">
+                                    <li><h6 class="dropdown-header">Notificaciones</h6></li>
+                                    <li><hr class="dropdown-divider m-0"></li>
+                                    <li>
+                                        <a class="dropdown-item py-2" href="#">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                            <i class="fas fa-bullhorn text-primary"></i>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                            <div class="small text-muted">Hace 2 horas</div>
+                                            <div>Nueva convocatoria disponible</div>
+                                            </div>
+                                        </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-2" href="#">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                            <i class="fas fa-calendar text-success"></i>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                            <div class="small text-muted">Hace 5 horas</div>
+                                            <div>Evento próximo: Conferencia</div>
+                                            </div>
+                                        </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item py-2" href="#">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                            <i class="fas fa-check-circle text-info"></i>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                            <div class="small text-muted">Ayer</div>
+                                            <div>Publicación aprobada</div>
+                                            </div>
+                                        </div>
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider m-0"></li>
+                                    <li><a class="dropdown-item text-center small text-primary py-2" href="#">Ver todas las notificaciones</a></li>
+                                    </ul>
+                                </div>
+                            -->
+                            <!-- Usuario -->
+                            <div class="dropdown">
+                                <button class="btn btn-link text-dark d-flex align-items-center text-decoration-none p-0" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="avatar-circle me-2">
+                                    <% if current_user.email.present? %>
+                                        <%= current_user.email.first.upcase %>
+                                    <% else %>
+                                        U
+                                    <% end %>
+                                </div>
+                                <span class="d-print-inline d-xl-inline me-2">
+                                    <% if current_user.email.present? %>
+                                        <%= current_user.email.split('@').first %>
+                                    <% end %>
+                                </span>
+                                <i class="fas fa-chevron-down small"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown" style="min-width: 250px;">
+                                <li>
+                                    <div class="dropdown-header">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-circle-large me-3">
+                                            <% if current_user.email.present? %>
+                                                <%= current_user.email.first.upcase %>
+                                            <% else %>
+                                                U
+                                            <% end %>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold"><%= current_user.email.split('@').first if current_user.email %></div>
+                                                <div class="small text-muted"><%= current_user.email %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <%= link_to "#", class: "dropdown-item" do %>
+                                            <i class="fas fa-user me-2 text-primary"></i> Mi Perfil
+                                        <% end %>
+                                    </li>
+                                <!--
+                                    <li>
+                                        <%= link_to "#", class: "dropdown-item" do %>
+                                            <i class="fas fa-cog me-2 text-primary"></i> Configuración
+                                        <% end %>
+                                    </li>
+                                -->
+                                <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item text-danger" do %>
+                                            <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
+                                        <% end %>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                <% end %>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<style>
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .avatar-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .avatar-circle-large {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+
+  /* Asegurar que los dropdowns tengan buen estilo */
+  .dropdown-menu {
+    border: 1px solid #e5e7eb;
+  }
+
+  .dropdown-item:hover {
+    background-color: #f3f4f6;
+  }
+
+  /* Espaciado del menú móvil */
+  @media (max-width: 991.98px) {
+    #navbarNav {
+      margin-top: 1rem;
+    }
+    
+    #navbarNav .navbar-nav {
+      padding: 0.5rem 0;
+    }
+    
+    #navbarNav .nav-item {
+      padding: 0.25rem 0;
+    }
+
+    #navbarNav .nav-link {
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      transition: background-color 0.2s;
+    }
+
+    #navbarNav .nav-link:hover {
+      background-color: #f3f4f6;
+    }
+  }
+
+  /* Animación del badge de notificaciones */
+  .badge {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+</style>

@@ -1,10 +1,7 @@
-<%= render "/layouts/navbar" %>
 <div class="container-fluid">
   <div class="row">
-    <!-- Sidebar para pantallas grandes -->
-    <div class="col-lg-2 d-none d-lg-block">
-      <%= render "/layouts/sidebar" %>
-    </div>
+    <%= render "/layouts/header" %> <!-- Header -->
+    <%= render "/layouts/sidebar" %> <!-- Sidebar para pantallas grandes -->
 
     <!-- Contenido principal -->
     <div class="col-md mt-3 ms-auto col-lg-10 px-md-0 text-center">
@@ -44,13 +41,4 @@
   </div>
 </div>
 
-<!-- Offcanvas Sidebar para pantallas pequeñas -->
-<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
-  <div class="offcanvas-header bg-dark text-white">
-    <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><strong>UCV - La casa que vence la sombra</strong></h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <%= render "/layouts/sidebar" %>
-  </div>
-</div>
+<!-- mobile offcanvas provided by navbar -->
