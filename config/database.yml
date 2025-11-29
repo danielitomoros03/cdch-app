@@ -10,7 +10,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_CONNECTIONS") { 5 } %>
   username: admin_silenia
   password: Tul1p4n2025*$
-  host: localhost
+  host: silenia.ucv.ve
 
 development:
   <<: *default
