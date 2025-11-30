@@ -8,9 +8,9 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_CONNECTIONS") { 5 } %>
-  username: admin_silenia
-  password: Tul1p4n2025*$
-  host: silenia.ucv.ve
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] %>
 
 development:
   <<: *default
