@@ -35,7 +35,7 @@ production:
   adapter: postgresql
   encoding: unicode
   # Revisa estos 3 campos:
-  database: cdchapp_production  # <-- Debe coincidir con la que creaste
+  database: cdchapp_db  # <-- Debe coincidir con la que creaste
   username: <%= ENV['DB_USERNAME'] %>        # <-- El usuario que creaste o el de tu servidor
   password: <%= ENV['DB_PASSWORD'] %>     # <-- La contraseña que configuraste
   host: localhost
