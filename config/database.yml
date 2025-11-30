@@ -38,6 +38,6 @@ production:
   database: cdchapp_db  # <-- Debe coincidir con la que creaste
   username: <%= ENV['DB_USERNAME'] %>        # <-- El usuario que creaste o el de tu servidor
   password: <%= ENV['DB_PASSWORD'] %>     # <-- La contraseña que configuraste
-  host: localhost
+  host: silenia.ucv.ve
   port: 5432
   # database: path/to/persistent/storage/production.sqlite3
