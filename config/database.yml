@@ -32,7 +32,12 @@ test:
 # ensure the database is located in a persisted volume.
 production:
   <<: *default
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  host: <%= ENV['DB_HOST'] %>
+  adapter: postgresql
+  encoding: unicode
+  # Revisa estos 3 campos:
+  database: cdchapp_production  # <-- Debe coincidir con la que creaste
+  username: <%= ENV['DB_USERNAME'] %>        # <-- El usuario que creaste o el de tu servidor
+  password: <%= ENV['DB_PASSWORD'] %>     # <-- La contraseña que configuraste
+  host: localhost
+  port: 5432
   # database: path/to/persistent/storage/production.sqlite3
