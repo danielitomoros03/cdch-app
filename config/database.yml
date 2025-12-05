@@ -32,12 +32,5 @@ test:
 # ensure the database is located in a persisted volume.
 production:
   <<: *default
-  adapter: postgresql
-  encoding: unicode
-  # Revisa estos 3 campos:
-  database: cdchapp_db  # <-- Debe coincidir con la que creaste
-  username: <%= ENV['DB_USERNAME'] %>        # <-- El usuario que creaste o el de tu servidor
-  password: <%= ENV['DB_PASSWORD'] %>     # <-- La contraseña que configuraste
-  host: silenia.ucv.ve
-  port: 5432
+  database: app_production
   # database: path/to/persistent/storage/production.sqlite3
