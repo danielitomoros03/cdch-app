@@ -21,7 +21,7 @@
 
       <!-- Welcome Section -->
       <div class="mb-4">
-        <h2 class="mb-1">Bienvenido, <%= current_user.email.split('@').first.capitalize %></h2>
+        <h2 class="mb-1">Bienvenido, <%= current_user.full_name %></h2>
         <p class="text-muted mb-0">¿Qué desea hacer hoy?</p>
       </div>
 
@@ -458,25 +458,6 @@
                   Última actualización: <%= Time.current.strftime("%H:%M %p") %>
                 </small>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Tips (Optional) -->
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="alert alert-info border-0 shadow-sm" role="alert">
-            <div class="d-flex align-items-start">
-              <i class="fas fa-lightbulb fa-2x me-3 text-info"></i>
-              <div>
-                <h5 class="alert-heading mb-2">💡 Consejo del día</h5>
-                <p class="mb-0">
-                  ¿Sabías que puedes exportar los reportes de convocatorias en formato PDF? 
-                  <%= link_to "Aprende cómo aquí", "#", class: "alert-link" %>.
-                </p>
-              </div>
-              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
           </div>
         </div>

@@ -63,6 +63,9 @@
                         <li class="nav-item d-lg-none d-md-block d-lg-none">
                             <%= link_to "Publicaciones", publications_path, class: "nav-link" %>
                         </li>
+                        <li class="nav-item d-lg-none d-md-block d-lg-none">
+                            <%= link_to "Usuarios", users_path, class: "nav-link" %>
+                        </li>
                         <li class="nav-item">
                             <!-- ACCIONES DE USUARIO: Solo visible en pantallas grandes (≥ 992px) -->
                             <!-- Notificaciones
@@ -134,8 +137,10 @@
                                     <% end %>
                                 </div>
                                 <span class="d-print-inline d-xl-inline me-2">
-                                    <% if current_user.email.present? %>
-                                        <%= current_user.email.split('@').first %>
+                                    <% if current_user.name.present? %>
+                                        <%= current_user.full_name %>
+                                    <% else %>
+                                        Usuario
                                     <% end %>
                                 </span>
                                 <i class="fas fa-chevron-down small"></i>
@@ -158,12 +163,6 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <%= link_to "#", class: "dropdown-item" do %>
-                                            <i class="fas fa-user me-2 text-primary"></i> Mi Perfil
-                                        <% end %>
-                                    </li>
                                 <!--
                                     <li>
                                         <%= link_to "#", class: "dropdown-item" do %>

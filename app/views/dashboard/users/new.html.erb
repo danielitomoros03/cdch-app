@@ -1,0 +1,9 @@
+<% content_for :title, "Nuevo Usuario" %>
+
+<%= render layout: "dashboard/dashboard_form" do %>
+  <h1>Nuevo Usuario</h1>
+  <%= render "form", user: @user %>
+  <div>
+    <%= link_to "Volver", users_path %>
+  </div>
+<% end %>

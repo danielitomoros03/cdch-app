@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="row">
+    <%= render "/layouts/header" %>
+    <%= render "/layouts/sidebar" %>
+
+    <div class="col-md mt-3 ms-auto col-lg-10 px-md-0 text-center">
+      <div>
+        <% if notice %>
+          <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+        <% end %>
+      </div>
+
+      <% content_for :title, "Usuarios" %>
+      <p>
+        <h1>Usuarios <%= link_to "Crear Usuario", new_user_path, class: "btn btn-primary" %></h1>
+      </p>
+      <div class="container">
+        <div id="users">
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Email</th>
+                <th scope="col">Name</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <% @users.each do |user| %>
+              <%= render user %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Offcanvas Sidebar para pantallas pequeñas -->
+<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+  <div class="offcanvas-header bg-dark text-white">
+    <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><strong>UCV - La casa que vence la sombra</strong></h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <%= render "/layouts/sidebar" %>
+  </div>
+</div>
