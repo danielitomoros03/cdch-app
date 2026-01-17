@@ -4,10 +4,10 @@ Observaciones:
 1. Publicaciones, Saber UCV, Apoyo Académico, Proyectos (Pilares CDCH)
 2. Cambiar Nuestros Valores por Familia CDCH y fotos del equipo que mandó Virginia 
 
-quitar topbar
-poner nombre CDCH completo en Header
+quitar topbar CHECK
+poner nombre CDCH completo en Header CHECK
 Carrusel en hero section de inicio
-quitar contador en todos lados, por ahora
+quitar contador en todos lados, por ahora CHECK
 poner misión y visión como modal 
 crear vistas para cada Departamento (pensar en objetos para aprovecharlo en CanCan)
 

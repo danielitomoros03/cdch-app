@@ -17,6 +17,9 @@ class PagesController < ApplicationController
   def directorios
   end
   
+  def departamentos
+  end
+  
   def contacto
   end
 end

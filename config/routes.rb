@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # Routes for Landing Pages
   get "contacto", to: "pages#contacto"
   get "convocatorias", to: "pages#convocatorias"
+  get "departamentos", to: "pages#departamentos"
   get "directorios", to: "pages#directorios"
   get "eventos", to: "pages#eventos"
   get "inicio", to: "pages#inicio"
