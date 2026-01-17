@@ -8,8 +8,8 @@ quitar topbar CHECK
 poner nombre CDCH completo en Header CHECK
 Carrusel en hero section de inicio
 quitar contador en todos lados, por ahora CHECK
-poner misión y visión como modal 
-crear vistas para cada Departamento (pensar en objetos para aprovecharlo en CanCan)
+poner misión y visión como modal CHECK
+crear vistas para cada Departamento CHECK; (pensar en objetos para aprovecharlo en CanCan) 
 
 --------------------------------------------------------------------------------
 
