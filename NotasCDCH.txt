@@ -1,4 +1,21 @@
+--------------------------------------------------------------------------------
+
+Observaciones:
+1. Publicaciones, Saber UCV, Apoyo Académico, Proyectos (Pilares CDCH)
+2. Cambiar Nuestros Valores por Familia CDCH y fotos del equipo que mandó Virginia 
+
+quitar topbar
+poner nombre CDCH completo en Header
+Carrusel en hero section de inicio
+quitar contador en todos lados, por ahora
+poner misión y visión como modal 
+crear vistas para cada Departamento (pensar en objetos para aprovecharlo en CanCan)
+
+--------------------------------------------------------------------------------
+
 Dividir convocatorias en tres tipos, cada tarjeta es un tipo diferente
+
+--------------------------------------------------------------------------------
 
 Relevancia en website CDCH:
 1. Publicaciones (carátulas de libros IMAGEN, y libro completo en pdf)
@@ -7,24 +24,17 @@ Relevancia en website CDCH:
 4. Directorio (rich text, archivo en pdf, totalmente público, categorizar por acta de directorio o jurados)
 - Eventos y Efemérides (Noticias)
 
-
 ----------------------------------------------------------------------
- # get "home/about" << RUTA EN HOME  
+ 
+# get "home/about" << RUTA EN HOME  
 get "about", to: "home#about" << RENDERIZADO PARA QUE EL ENLACE SEA '/ABOUT'
 
-
 --------------------------------------------------------------------------------
+
 Reunión con SABER UCV:
 - DSPACE
 - Open Journal System
 - PKP 
 Usuarios de Saber UCV: docentes(investigadores también) y personal administrativo
 
-
 --------------------------------------------------------------------------------
-Observaciones:
-1. Dónde se muestra Directorio (son reuniones y de allí sale un acta)
-2. Enlace a Saber UCV
-3. Publicaciones, Saber UCV, Apoyo Académico, Proyectos (Pilares CDCH)
-4. Cambiar Nuestros Valores por Familia CDCH y fotos del equipo que mandó Virginia
-5. 
