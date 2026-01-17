@@ -14,6 +14,9 @@ class PagesController < ApplicationController
   def publicaciones
   end
   
+  def directorios
+  end
+  
   def contacto
   end
 end
