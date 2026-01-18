@@ -21,6 +21,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <% if !signed_in? %>
                     <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item d-none d-lg-none d-xl-none d-xxl-none d-sm-block">
+                            <%= link_to "Inicio", root_path, class: "nav-link" %>
+                        </li>
                         <li class="nav-item">
                             <%= link_to "Convocatorias", convocatorias_path, class: "nav-link" %>
                         </li>
