@@ -6,9 +6,9 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-xl-8">
-        <h1 class="hero-title">Consejo de Desarrollo Científico y Humanístico</h1>
-        <p class="hero-subtitle">Impulsando la excelencia en investigación y desarrollo académico de la Universidad Central de Venezuela</p>
-        <div class="hero-buttons">
+        <h1 class="hero-title reveal">Consejo de Desarrollo Científico y Humanístico</h1>
+        <p class="hero-subtitle reveal">Impulsando la excelencia en investigación y desarrollo académico de la Universidad Central de Venezuela</p>
+        <div class="hero-buttons reveal">
           <%= link_to "Ver Convocatorias", "#", class: "btn-white-custom" %>
           <%= link_to "Conocer Más", "#", class: "btn-white-outline" %>
         </div>
@@ -22,7 +22,7 @@
   <div class="container">
     <div class="row g-4">
       <div class="col-md-6 col-lg-3">
-        <%= link_to "#", class: "featured-card" do %>
+        <%= link_to "#", class: "featured-card reveal" do %>
           <div class="featured-icon featured-icon-blue">
             <i class="fas fa-users"></i>
           </div>
@@ -35,7 +35,7 @@
       </div>
 
       <div class="col-md-6 col-lg-3">
-        <%= link_to "#", class: "featured-card" do %>
+        <%= link_to "#", class: "featured-card reveal" do %>
           <div class="featured-icon featured-icon-green">
             <i class="fas fa-book"></i>
           </div>
@@ -48,7 +48,7 @@
       </div>
 
       <div class="col-md-6 col-lg-3">
-        <%= link_to "#", class: "featured-card" do %>
+        <%= link_to "#", class: "featured-card reveal" do %>
           <div class="featured-icon featured-icon-amber">
             <i class="fas fa-file-alt"></i>
           </div>
@@ -61,12 +61,12 @@
       </div>
 
       <div class="col-md-6 col-lg-3">
-        <%= link_to "#", class: "featured-card" do %>
+        <%= link_to "#", class: "featured-card reveal" do %>
           <div class="featured-icon featured-icon-purple">
             <i class="fas fa-calendar"></i>
           </div>
           <h3 class="featured-title">Saber UCV</h3>
-          <p class="featured-description">Departamento de Comunicación de la Tecnología e Innovación (DCTI)</p>
+          <p class="featured-description">Departamento de Comunicación de la Tecnología e Innovación</p>
           <span class="featured-link">
             Ver más <i class="fas fa-chevron-right ms-1"></i>
           </span>
@@ -80,8 +80,8 @@
 <section class="updates-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Noticias y Eventos</h2>
-      <%= link_to "#", class: "section-link" do %>
+      <h2 class="section-title reveal">Noticias y Eventos</h2>
+      <%= link_to "#", class: "section-title-link" do %>
         Ver todas <i class="fas fa-chevron-right ms-1"></i>
       <% end %>
     </div>
@@ -89,7 +89,7 @@
     <div class="row g-4">
       <!-- Update Card 1 -->
       <div class="col-md-6 col-lg-3">
-        <article class="update-card">
+        <article class="update-card reveal">
           <div class="update-image update-image-blue"></div>
           <div class="update-content">
             <div class="update-date">15 de Marzo, 2025</div>
@@ -106,7 +106,7 @@
 
       <!-- Update Card 2 -->
       <div class="col-md-6 col-lg-3">
-        <article class="update-card">
+        <article class="update-card reveal">
           <div class="update-image update-image-green"></div>
           <div class="update-content">
             <div class="update-date">10 de Marzo, 2025</div>
@@ -123,7 +123,7 @@
 
       <!-- Update Card 3 -->
       <div class="col-md-6 col-lg-3">
-        <article class="update-card">
+        <article class="update-card reveal">
           <div class="update-image update-image-purple"></div>
           <div class="update-content">
             <div class="update-date">5 de Marzo, 2025</div>
@@ -140,7 +140,7 @@
 
       <!-- Update Card 4 -->
       <div class="col-md-6 col-lg-3">
-        <article class="update-card">
+        <article class="update-card reveal">
           <div class="update-image update-image-orange"></div>
           <div class="update-content">
             <div class="update-date">5 de Marzo, 2025</div>
@@ -164,6 +164,26 @@
 
 
 <%= render "layouts/footer" %>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const reveals = document.querySelectorAll('.reveal');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  reveals.forEach(reveal => {
+    observer.observe(reveal);
+  });
+});
+</script>
 
 <!-- Search Modal -->
 <div class="modal fade" id="searchModal" tabindex="-1">
