@@ -6,9 +6,9 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-xl-8">
-        <h1 class="hero-title">Consejo de Desarrollo Científico y Humanístico</h1>
-        <p class="hero-subtitle">Impulsando la excelencia en investigación y desarrollo académico de la Universidad Central de Venezuela</p>
-        <div class="hero-buttons">
+        <h1 class="hero-title reveal animate__fadeInDown">Consejo de Desarrollo Científico y Humanístico</h1>
+        <p class="hero-subtitle reveal animate__fadeIn animate_delay-1s">Impulsando la excelencia en investigación y desarrollo académico de la Universidad Central de Venezuela</p>
+        <div class="hero-buttons reveal animate__fadeIn animate_delay-2s">
           <%= link_to "Ver Convocatorias", "#", class: "btn-white-custom" %>
           <%= link_to "Conocer Más", "#", class: "btn-white-outline" %>
         </div>
@@ -21,8 +21,8 @@
 <section class="featured-links-section">
   <div class="container">
     <div class="row g-4">
-      <div class="col-md-6 col-lg-3">
-        <%= link_to "#", class: "featured-card" do %>
+      <div class="col-md-6 col-lg-3 animate__fadeInLeft">
+        <%= link_to "#", class: "featured-card reveal" do %>
           <div class="featured-icon featured-icon-blue">
             <i class="fas fa-users"></i>
           </div>
@@ -34,8 +34,8 @@
         <% end %>
       </div>
 
-      <div class="col-md-6 col-lg-3">
-        <%= link_to "#", class: "featured-card" do %>
+      <div class="col-md-6 col-lg-3 animate__fadeInUp animate__delay-1s">
+        <%= link_to "#", class: "featured-card reveal" do %>
           <div class="featured-icon featured-icon-green">
             <i class="fas fa-book"></i>
           </div>
@@ -47,8 +47,8 @@
         <% end %>
       </div>
 
-      <div class="col-md-6 col-lg-3">
-        <%= link_to "#", class: "featured-card" do %>
+      <div class="col-md-6 col-lg-3 animate__fadeInDown animate__delay-2s">
+        <%= link_to "#", class: "featured-card reveal" do %>
           <div class="featured-icon featured-icon-amber">
             <i class="fas fa-file-alt"></i>
           </div>
@@ -60,8 +60,8 @@
         <% end %>
       </div>
 
-      <div class="col-md-6 col-lg-3">
-        <%= link_to "#", class: "featured-card" do %>
+      <div class="col-md-6 col-lg-3 animate__fadeInRight animate__delay-3s">
+        <%= link_to "#", class: "featured-card reveal" do %>
           <div class="featured-icon featured-icon-purple">
             <i class="fas fa-calendar"></i>
           </div>
@@ -80,8 +80,8 @@
 <section class="updates-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Noticias y Eventos</h2>
-      <%= link_to "#", class: "section-link" do %>
+      <h2 class="section-title reveal animate__slideInLeft">Noticias y Eventos</h2>
+      <%= link_to "#", class: "section-title-link" do %>
         Ver todas <i class="fas fa-chevron-right ms-1"></i>
       <% end %>
     </div>
@@ -89,7 +89,7 @@
     <div class="row g-4">
       <!-- Update Card 1 -->
       <div class="col-md-6 col-lg-3">
-        <article class="update-card">
+        <article class="update-card reveal animate__zoomIn">
           <div class="update-image update-image-blue"></div>
           <div class="update-content">
             <div class="update-date">15 de Marzo, 2025</div>
@@ -106,7 +106,7 @@
 
       <!-- Update Card 2 -->
       <div class="col-md-6 col-lg-3">
-        <article class="update-card">
+        <article class="update-card reveal animate__zoomIn animate__delay-1s">
           <div class="update-image update-image-green"></div>
           <div class="update-content">
             <div class="update-date">10 de Marzo, 2025</div>
@@ -123,7 +123,7 @@
 
       <!-- Update Card 3 -->
       <div class="col-md-6 col-lg-3">
-        <article class="update-card">
+        <article class="update-card reveal animate__zoomIn animate__delay-2s">
           <div class="update-image update-image-purple"></div>
           <div class="update-content">
             <div class="update-date">5 de Marzo, 2025</div>
@@ -140,7 +140,7 @@
 
       <!-- Update Card 4 -->
       <div class="col-md-6 col-lg-3">
-        <article class="update-card">
+        <article class="update-card reveal animate__zoomIn animate__delay-3s">
           <div class="update-image update-image-orange"></div>
           <div class="update-content">
             <div class="update-date">5 de Marzo, 2025</div>
@@ -164,6 +164,26 @@
 
 
 <%= render "layouts/footer" %>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const reveals = document.querySelectorAll('.reveal');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active', 'animate__animated');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  reveals.forEach(reveal => {
+    observer.observe(reveal);
+  });
+});
+</script>
 
 <!-- Search Modal -->
 <div class="modal fade" id="searchModal" tabindex="-1">
