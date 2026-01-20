@@ -1,0 +1,4 @@
+Paleta de colores Hexadecimales CDCH
+AZUL:	#0125ff
+ROJO: 	#e30101
+GRIS:	#585858
