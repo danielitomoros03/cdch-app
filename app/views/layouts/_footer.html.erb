@@ -19,14 +19,17 @@
           Promoviendo la excelencia en investigación científica y humanística desde 1958.
         </p>
         <div class="footer-social">
-          <%= link_to "#", class: "social-link" do %>
+          <%= link_to "#{Institution.first.facebook_url}", class: "social-link" do %>
             <i class="fab fa-facebook-f"></i>
           <% end %>
-          <%= link_to "#", class: "social-link" do %>
+          <%= link_to "#{Institution.first.twitter_url}", class: "social-link" do %>
             <i class="fab fa-twitter"></i>
           <% end %>
-          <%= link_to "#", class: "social-link" do %>
+          <%= link_to "#{Institution.first.instagram_url}", class: "social-link" do %>
             <i class="fab fa-instagram"></i>
+          <% end %>
+          <%= link_to "#{Institution.first.linkedin_url}", class: "social-link" do %>
+            <i class="fab fa-linkedin-in"></i>
           <% end %>
         </div>
       </div>
@@ -59,23 +62,24 @@
         <h5 class="footer-title">Contacto</h5>
         <ul class="footer-contact">
           <li>
-            <i class="fas fa-map-marker-alt"></i>
-            <span>Quinta Silenia, Urb. La Floresta</span>
+            <span>
+              <i class="fas fa-map-marker-alt"></i>
+              <%= Institution.first.address %>
+            </span>
           </li>
           <li>
             <i class="fas fa-phone"></i>
-            <span>+58 212-605-2891</span>
+            <span><%= Institution.first.primary_phone %></span>
           </li>
           <li>
             <i class="fas fa-envelope"></i>
-            <span>cdch@ucv.ve</span>
+            <span><%= Institution.first.primary_email %></span>
           </li>
         </ul>
         <div class="footer-hours">
           <div class="footer-hours-title">Horario de Atención</div>
           <div class="footer-hours-text">
-            Lunes a Viernes<br>
-            8:00 AM - 3:00 PM
+            <%= Institution.first.business_hours %>
           </div>
         </div>
       </div>
@@ -89,15 +93,6 @@
             © <%= Date.today.year %> CDCH - UCV. Todos los derechos reservados.
           </p>
         </div>
-        <!-- 
-          <div class="col-md-6">
-            <ul class="footer-bottom-links">
-              <li><%= link_to "Política de Privacidad", "#" %></li>
-              <li><%= link_to "Términos de Uso", "#" %></li>
-              <li><%= link_to "Mapa del Sitio", "#" %></li>
-            </ul>
-          </div>
-        -->
       </div>
     </div>
   </div>
