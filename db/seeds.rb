@@ -9,7 +9,7 @@
 #   end
 
 User.create!(email: "danielito.moros03@gmail.com", password: "123123", name: "Daniel", lastname: "Moros", number_phone: "04122539992", identification_number: "30035269")
-puts "Usuario #{user.last.full_name} creado."
+puts "Usuario #{User.last.full_name} creado."
 
 # Create departments
 departments_data = [
@@ -35,7 +35,7 @@ puts "#{Department.count} departamentos estándar creados."
 # Create institution data
 Institution.find_or_create_by!(name: "Centro de Desarrollo Científico y Humanístico") do |institution|
   institution.acronym = "CDCH"
-  institution.address = "Ciudad Universitaria, Caracas 1040, Venezuela"
+  institution.address = "Quinta Silenia, Urb. La Floresta, Caracas 1040, Venezuela."
   institution.primary_phone = "+58 212 6052860"
   institution.secondary_phone = "+58 212 6052861"
   institution.primary_email = "cdch@ucv.ve"
