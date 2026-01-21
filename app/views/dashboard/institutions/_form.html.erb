@@ -1,0 +1,218 @@
+<%= form_with(model: institution, html: { class: "needs-validation", novalidate: true }) do |form| %>
+  <% if institution.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading"><%= pluralize(institution.errors.count, "error") %> prohibited this institution from being saved:</h4>
+      <ul class="mb-0">
+        <% institution.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <!-- Información Básica -->
+    <div class="col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Información Básica</h6>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <%= form.label :name, "Nombre de la Institución *" %>
+            <%= form.text_field :name, class: "form-control", required: true, placeholder: "Centro de Desarrollo Científico y Humanístico" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :acronym, "Siglas" %>
+            <%= form.text_field :acronym, class: "form-control", placeholder: "CDCH" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :founded_year, "Año de Fundación" %>
+            <%= form.number_field :founded_year, class: "form-control", placeholder: "2024" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :director_name, "Nombre del Director" %>
+            <%= form.text_field :director_name, class: "form-control", placeholder: "Dr. Juan Pérez" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :director_email, "Email del Director" %>
+            <%= form.email_field :director_email, class: "form-control", placeholder: "director@cdch.edu.ec" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contacto -->
+    <div class="col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Información de Contacto</h6>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <%= form.label :address, "Dirección *" %>
+            <%= form.text_field :address, class: "form-control", required: true, placeholder: "Av. Principal 123, Ciudad, País" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :primary_phone, "Teléfono Principal *" %>
+            <%= form.text_field :primary_phone, class: "form-control", required: true, placeholder: "+593 2 123 4567" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :secondary_phone, "Teléfono Secundario" %>
+            <%= form.text_field :secondary_phone, class: "form-control", placeholder: "+593 2 123 4568" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :primary_email, "Email Principal *" %>
+            <%= form.email_field :primary_email, class: "form-control", required: true, placeholder: "info@cdch.edu.ec" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :secondary_email, "Email Secundario" %>
+            <%= form.text_field :secondary_email, class: "form-control", placeholder: "contacto@cdch.edu.ec" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :business_hours, "Horario de Atención" %>
+            <%= form.text_field :business_hours, class: "form-control", placeholder: "Lunes a Viernes: 8:00 AM - 5:00 PM" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Redes Sociales -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Redes Sociales</h6>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :facebook_url, "Facebook" %>
+                <%= form.url_field :facebook_url, class: "form-control", placeholder: "https://facebook.com/cdch" %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :twitter_url, "Twitter/X" %>
+                <%= form.url_field :twitter_url, class: "form-control", placeholder: "https://twitter.com/cdch" %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :instagram_url, "Instagram" %>
+                <%= form.url_field :instagram_url, class: "form-control", placeholder: "https://instagram.com/cdch" %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :linkedin_url, "LinkedIn" %>
+                <%= form.url_field :linkedin_url, class: "form-control", placeholder: "https://linkedin.com/company/cdch" %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <%= form.label :threads_url, "Threads" %>
+                <%= form.url_field :threads_url, class: "form-control", placeholder: "https://threads.net/@cdch" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Misión, Visión y Descripción -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Misión, Visión y Descripción</h6>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <%= form.label :mission, "Misión *" %>
+            <%= form.text_area :mission, class: "form-control", rows: 4, required: true, placeholder: "La misión de la institución es..." %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :vission, "Visión *" %>
+            <%= form.text_area :vission, class: "form-control", rows: 4, required: true, placeholder: "La visión de la institución es..." %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :description, "Descripción *" %>
+            <%= form.text_area :description, class: "form-control", rows: 4, required: true, placeholder: "Breve descripción de la institución..." %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Historia (Rich Text) -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Historia de la Institución</h6>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <%= form.label :history, "Historia (Texto enriquecido)" %>
+            <%= form.rich_text_area :history, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logo de la Institución -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Logo de la Institución</h6>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <%= form.label :logoInstitution, "Logo (Imagen)" %>
+            <%= form.file_field :logoInstitution, class: "form-control-file", accept: "image/*" %>
+            <% if institution.logoInstitution.attached? %>
+              <div class="mt-2">
+                <p>Logo actual:</p>
+                <%= image_tag institution.logoInstitution, class: "img-thumbnail", style: "max-width: 200px;" %>
+              </div>
+            <% end %>
+            <small class="form-text text-muted">Formatos permitidos: JPG, PNG, GIF. Tamaño recomendado: 300x300px</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botones -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card shadow mb-4">
+        <div class="card-body text-center">
+          <%= form.submit "Guardar Institución", class: "btn btn-primary btn-lg" %>
+          <%= link_to "Cancelar", dashboard_institutions_path, class: "btn btn-secondary btn-lg ml-2" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

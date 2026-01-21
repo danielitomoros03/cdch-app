@@ -1,0 +1,70 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# == Schema Information
+#
+# Table name: institutions
+#
+#  id              :bigint           not null, primary key
+#  acronym         :string
+#  address         :string
+#  business_hours  :string
+#  description     :text
+#  director_email  :string
+#  director_name   :string
+#  facebook_url    :string
+#  founded_year    :integer
+#  instagram_url   :string
+#  linkedin_url    :string
+#  mission         :text
+#  name            :string
+#  primary_email   :string
+#  primary_phone   :string
+#  secondary_email :string
+#  secondary_phone :string
+#  threads_url     :string
+#  twitter_url     :string
+#  vission         :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+one:
+  address: MyString
+  name: MyString
+  primary_phone: MyString
+  secondary_phone: MyString
+  primary_email: MyString
+  secondary_email: MyString
+  business_hours: MyString
+  mission: MyText
+  vission: MyText
+  twitter_url: MyString
+  facebook_url: MyString
+  instagram_url: MyString
+  threads_url: MyString
+  acronym: MyString
+  description: MyText
+  linkedin_url: MyString
+  director_name: MyString
+  director_email: MyString
+  founded_year: 1
+
+two:
+  address: MyString
+  name: MyString
+  primary_phone: MyString
+  secondary_phone: MyString
+  primary_email: MyString
+  secondary_email: MyString
+  business_hours: MyString
+  mission: MyText
+  vission: MyText
+  twitter_url: MyString
+  facebook_url: MyString
+  instagram_url: MyString
+  threads_url: MyString
+  acronym: MyString
+  description: MyText
+  linkedin_url: MyString
+  director_name: MyString
+  director_email: MyString
+  founded_year: 1

@@ -1,0 +1,202 @@
+<div class="container-fluid">
+  <div class="row">
+    <%= render "/layouts/header" %> <!-- Header -->
+    <%= render "/layouts/sidebar" %> <!-- Sidebar para pantallas grandes -->
+
+    <!-- Contenido principal -->
+    <div class="col-md mt-3 ms-auto col-lg-10 px-md-0">
+      <!-- Flash messages -->
+      <div class="w-100">
+        <% if notice %>
+          <h6 class="alert alert-success m-4 text-center"><%= notice %></h6>
+        <% end %>
+      </div>
+
+      <% content_for :title, "CDCH - Información Institucional" %>
+      <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h1>Información Institucional</h1>
+          <div>
+            <%= link_to 'Editar', edit_dashboard_institution_path(@institution), class: "btn btn-warning" %>
+            <%= link_to 'Volver', dashboard_institutions_path, class: "btn btn-secondary" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Información Básica -->
+          <div class="col-lg-8">
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Información Básica</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <p><strong>Nombre:</strong><br><%= @institution.name %></p>
+                    <p><strong>Sigla:</strong><br><%= @institution.acronym %></p>
+                    <p><strong>Sitio Web:</strong><br><%= link_to @institution.website, @institution.website, target: "_blank" if @institution.website %></p>
+                  </div>
+                  <div class="col-md-6">
+                    <p><strong>Director:</strong><br><%= @institution.director_name %></p>
+                    <p><strong>Email del Director:</strong><br><%= mail_to @institution.director_email if @institution.director_email %></p>
+                    <p><strong>Año de Fundación:</strong><br><%= @institution.founded_year %></p>
+                  </div>
+                </div>
+                <div class="mt-3">
+                  <p><strong>Descripción:</strong></p>
+                  <p><%= @institution.description %></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dirección -->
+            <% if @institution.address %>
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Dirección</h5>
+              </div>
+              <div class="card-body">
+                <p><%= @institution.address %></p>
+              </div>
+            </div>
+            <% end %>
+
+            <!-- Contacto -->
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Información de Contacto</h5>
+              </div>
+              <div class="card-body">
+                <% if @institution.phone_numbers %>
+                  <p><strong>Teléfonos:</strong></p>
+                  <ul>
+                    <% @institution.phone_numbers.split(',').each do |phone| %>
+                      <li><%= phone.strip %></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+
+                <% if @institution.emails %>
+                  <p><strong>Correos Electrónicos:</strong></p>
+                  <ul>
+                    <% @institution.emails.split(',').each do |email| %>
+                      <li><%= mail_to email.strip %></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Redes Sociales -->
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Redes Sociales</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <% if @institution.facebook_url %>
+                    <div class="col-md-4 mb-2">
+                      <a href="<%= @institution.facebook_url %>" target="_blank" class="btn btn-outline-primary w-100">
+                        <i class="fab fa-facebook-f me-2"></i>Facebook
+                      </a>
+                    </div>
+                  <% end %>
+                  <% if @institution.twitter_url %>
+                    <div class="col-md-4 mb-2">
+                      <a href="<%= @institution.twitter_url %>" target="_blank" class="btn btn-outline-info w-100">
+                        <i class="fab fa-twitter me-2"></i>Twitter
+                      </a>
+                    </div>
+                  <% end %>
+                  <% if @institution.instagram_url %>
+                    <div class="col-md-4 mb-2">
+                      <a href="<%= @institution.instagram_url %>" target="_blank" class="btn btn-outline-danger w-100">
+                        <i class="fab fa-instagram me-2"></i>Instagram
+                      </a>
+                    </div>
+                  <% end %>
+                  <% if @institution.linkedin_url %>
+                    <div class="col-md-4 mb-2">
+                      <a href="<%= @institution.linkedin_url %>" target="_blank" class="btn btn-outline-primary w-100">
+                        <i class="fab fa-linkedin-in me-2"></i>LinkedIn
+                      </a>
+                    </div>
+                  <% end %>
+                  <% if @institution.youtube_url %>
+                    <div class="col-md-4 mb-2">
+                      <a href="<%= @institution.youtube_url %>" target="_blank" class="btn btn-outline-danger w-100">
+                        <i class="fab fa-youtube me-2"></i>YouTube
+                      </a>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información Adicional -->
+          <div class="col-lg-4">
+            <!-- Logo -->
+            <% if @institution.logoInstitution.attached? %>
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Logo Institucional</h5>
+              </div>
+              <div class="card-body text-center">
+                <%= image_tag @institution.logoInstitution, class: "img-fluid", style: "max-height: 200px;" %>
+              </div>
+            </div>
+            <% end %>
+
+            <!-- Misión -->
+            <% if @institution.mission %>
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Misión</h5>
+              </div>
+              <div class="card-body">
+                <p><%= @institution.mission %></p>
+              </div>
+            </div>
+            <% end %>
+
+            <!-- Visión -->
+            <% if @institution.vision %>
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Visión</h5>
+              </div>
+              <div class="card-body">
+                <p><%= @institution.vision %></p>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Historia -->
+        <% if @institution.history %>
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Historia</h5>
+          </div>
+          <div class="card-body">
+            <%= @institution.history %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Offcanvas Sidebar para pantallas pequeñas -->
+<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+  <div class="offcanvas-header bg-dark text-white">
+    <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><strong>UCV - La casa que vence la sombra</strong></h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <%= render "/layouts/sidebar" %>
+  </div>
+</div>

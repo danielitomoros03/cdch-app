@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_21_213339) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_21_222619) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,6 +66,30 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_21_213339) do
   create_table "departments", force: :cascade do |t|
     t.string "name"
     t.string "acronym"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "institutions", force: :cascade do |t|
+    t.string "address"
+    t.string "name"
+    t.string "primary_phone"
+    t.string "secondary_phone"
+    t.string "primary_email"
+    t.string "secondary_email"
+    t.string "business_hours"
+    t.text "mission"
+    t.text "vission"
+    t.string "twitter_url"
+    t.string "facebook_url"
+    t.string "instagram_url"
+    t.string "threads_url"
+    t.string "acronym"
+    t.text "description"
+    t.string "linkedin_url"
+    t.string "director_name"
+    t.string "director_email"
+    t.integer "founded_year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

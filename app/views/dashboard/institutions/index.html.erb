@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <div class="row">
+    <%= render "/layouts/header" %> <!-- Header -->
+    <%= render "/layouts/sidebar" %> <!-- Sidebar para pantallas grandes -->
+
+    <!-- Contenido principal -->
+    <div class="col-md mt-3 ms-auto col-lg-10 px-md-0 text-center">
+      <!-- Flash messages -->
+      <div>
+        <% if notice %>
+          <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+        <% end %>
+      </div>
+
+      <% content_for :title, "CDCH - Información Institucional" %>
+      <p>
+        <h1>Información Institucional</h1>
+      </p>
+      <div class="container">
+        <div id="institutions">
+          <% if @institutions.any? %>
+            <div class="row g-4">
+              <% @institutions.each do |institution| %>
+                <div class="col-md-6 col-lg-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title"><%= institution.name %></h5>
+                      <p class="card-text"><%= institution.description&.truncate(100) %></p>
+                      <div class="d-flex gap-2">
+                        <%= link_to 'Ver', institution_path(institution), class: "btn btn-info btn-sm" %>
+                        <%= link_to 'Editar', edit_institution_path(institution), class: "btn btn-warning btn-sm" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center py-5">
+              <p class="text-muted">No hay información institucional configurada.</p>
+              <%= link_to 'Crear Información Institucional', new_institution_path, class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Offcanvas Sidebar para pantallas pequeñas -->
+<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+  <div class="offcanvas-header bg-dark text-white">
+    <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><strong>UCV - La casa que vence la sombra</strong></h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <%= render "/layouts/sidebar" %>
+  </div>
+</div>

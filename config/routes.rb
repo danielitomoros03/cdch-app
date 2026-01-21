@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   # Scaffold's Routes from Dashboard
   resources :users, module: 'dashboard'
   resources :calls, module: 'dashboard'
+  resources :institutions, module: 'dashboard', only: [:index, :show, :edit, :update]
   resources :minutes, module: 'dashboard'
   resources :publications, module: 'dashboard'
   resources :departments, module: 'dashboard'
