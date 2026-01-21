@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_08_230855) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_21_151828) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_08_230855) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "departments", force: :cascade do |t|
+    t.string "name"
+    t.string "acronym"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "minutes", force: :cascade do |t|
     t.date "day"
     t.string "title"
@@ -83,6 +90,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_08_230855) do
     t.string "lastname"
     t.string "number_phone"
     t.string "identification_number"
+    t.boolean "active", default: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

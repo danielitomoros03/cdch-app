@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :calls, module: 'dashboard'
   resources :minutes, module: 'dashboard'
   resources :publications, module: 'dashboard'
+  resources :departments, module: 'dashboard'
   
   # Rutas internas de la aplicación
   get "dashboard/index"

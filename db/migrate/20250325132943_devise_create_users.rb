@@ -9,7 +9,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.2]
       t.string :name   
       t.string :lastname              
       t.string :number_phone          
-      t.string :identification_number          
+      t.string :identification_number    
+      t.boolean :active, default: false   
 
       ## Recoverable
       t.string   :reset_password_token

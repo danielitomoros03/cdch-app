@@ -1,0 +1,8 @@
+<% content_for :title, "Nuevo Departamento" %>
+<%= render layout: "dashboard/dashboard_form" do %>
+  <h1>Nuevo Departamento</h1>
+  <%= render "form", department: @department %>
+  <div>
+    <%= link_to "Volver", departments_path %>
+  </div>
+<% end %>
