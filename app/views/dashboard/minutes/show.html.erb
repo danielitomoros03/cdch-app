@@ -12,9 +12,9 @@
         <% end %>
       </div>
 
-      <% content_for :title, "Showing Directory" %>
+      <% content_for :title, "Showing Minute" %>
       <p>
-        <h1>Directorio <%= @directory.id %></h1>
+        <h1>Actas del Directorio <%= @minute.id %></h1>
       </p>
       <div class="container">
 
@@ -27,16 +27,16 @@
           </tr>
         </thead>
         <tbody>
-          <div id="directories">
-            <%= render @directory %>
+          <div id="minutes">
+            <%= render @minute %>
           </div>
         </tbody>
       </table>
 
       <div class="container-fluid">
-        <%= link_to "Edit this directory", edit_directory_path(@directory), class: "btn btn-primary" %> |
-        <%= link_to "Back to directories", directories_path, class: "btn btn-dark" %> |
-        <%= button_to "Eliminar convocatoria", @directory, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar este directorio?' } } %>
+        <%= link_to "Edit this minute", edit_minute_path(@minute), class: "btn btn-primary" %> |
+        <%= link_to "Back to minutes", minutes_path, class: "btn btn-dark" %> |
+        <%= button_to "Eliminar convocatoria", @minute, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar esta acta del directorio?' } } %>
       </div>
     </div>
   </div>

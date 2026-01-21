@@ -11,12 +11,12 @@
         <% end %>
       </div>
 
-      <% content_for :title, "CDCH - Directorios" %>
+      <% content_for :title, "CDCH - Actas" %>
       <p>
-        <h1>Directorios <%= link_to "Crear Directorio", new_directory_path, class: "btn btn-primary" %></h1>
+        <h1>Actas <%= link_to "Crear Acta", new_minute_path, class: "btn btn-primary" %></h1>
       </p>
       <div class="container">
-        <div id="directories">
+        <div id="minutes">
           <table class="table table-striped table-hover table-bordered">
             <thead>
               <tr>
@@ -27,8 +27,8 @@
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
-            <% @directories.each do |directory| %>
-              <%= render directory %>
+            <% @minutes.each do |minute| %>
+              <%= render minute %>
             <% end %>
         </div>
       </div>

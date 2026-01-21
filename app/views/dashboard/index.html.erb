@@ -86,7 +86,7 @@
                 <div>
                   <p class="text-muted mb-1 small">Directorio</p>
                   <h3 class="mb-0 fw-bold">
-                    <%= Directory.count %>
+                    <%= Minute.count %>
                   </h3>
                   <small class="text-info">
                     <i class="fas fa-minus"></i> Sin cambios
@@ -98,7 +98,7 @@
               </div>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0">
-              <%= link_to directories_path, class: "text-decoration-none small" do %>
+              <%= link_to minutes_path, class: "text-decoration-none small" do %>
                 Ver todos <i class="fas fa-arrow-right ms-1"></i>
               <% end %>
             </div>
@@ -160,13 +160,13 @@
         </div>
 
         <div class="col-md-4">
-          <%= link_to new_directory_path, class: "text-decoration-none" do %>
+          <%= link_to new_minute_path, class: "text-decoration-none" do %>
             <div class="card border-0 shadow-sm h-100 action-card">
               <div class="card-body text-center p-4">
                 <div class="action-icon action-icon-success mb-3">
                   <i class="fas fa-users fa-3x"></i>
                 </div>
-                <h5 class="card-title mb-2 text-dark">Nuevo Directorio</h5>
+                <h5 class="card-title mb-2 text-dark">Nueva Acta de Directorio</h5>
                 <p class="card-text text-muted small mb-3">
                   Agregar un nuevo miembro al directorio institucional
                 </p>
@@ -363,7 +363,7 @@
                   </div>
                 <% end %>
                 
-                <%= link_to directories_path, class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
+                <%= link_to minutes_path, class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
                   <div class="d-flex align-items-center">
                     <div class="quick-link-icon bg-info-subtle text-info me-3">
                       <i class="fas fa-address-book"></i>

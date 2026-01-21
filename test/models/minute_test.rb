@@ -1,8 +1,6 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 # == Schema Information
 #
-# Table name: directories
+# Table name: minutes
 #
 #  id         :bigint           not null, primary key
 #  day        :date
@@ -10,10 +8,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-one:
-  day: 2025-05-08
-  title: MyString
+require "test_helper"
 
-two:
-  day: 2025-05-08
-  title: MyString
+class DirectoryTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+end

@@ -73,7 +73,7 @@ es:
       models:
         dashboard/call:
           attributes: {}
-        dashboard/directory:
+        dashboard/minute:
           attributes: {}
         dashboard/publication:
           attributes: {}
@@ -83,9 +83,9 @@ es:
       dashboard/call:
         one: 'Convocatoria'
         other: 'Convocatorias'
-      dashboard/directory:
-        one: 'Directorio'
-        other: 'Directorios'
+      dashboard/minute:
+        one: 'Acta del Directorio'
+        other: 'Actas del Directorio'
       dashboard/publication:
         one: 'Publicación'
         other: 'Publicaciones'
@@ -101,11 +101,11 @@ es:
         status: 'Estado'
         call_type: 'Tipo'
         active: 'Activo'
-        directory_id: 'Directorio'
+        minute_id: 'Acta del Directorio'
         publication_id: 'Publicación'
         created_at: 'Creado el'
         updated_at: 'Actualizado el'
-      dashboard/directory:
+      dashboard/minute:
         name: 'Nombre'
         description: 'Descripción'
         created_at: 'Creado el'

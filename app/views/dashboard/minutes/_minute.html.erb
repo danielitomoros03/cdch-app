@@ -1,0 +1,13 @@
+<div id="<%= dom_id minute %>">
+  <tbody>
+    <tr>
+      <th scope="row"> <%= minute.id %> </th>
+      <td> <%= minute.day %> </td>
+      <td> <%= minute.title %> </td>
+      <td> 
+        <a class="btn btn-info" href="/directories/<%= minute.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Monstar el detalle de la Convocatoria"><i class="fa-solid fa-circle-info"></i></a>
+        <a class="btn btn-warning" href="/directories/<%= minute.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar Convocatoria"><i class="fa-solid fa-pen"></i></a>
+      </td>
+    </tr>
+  </tbody>
+</div>

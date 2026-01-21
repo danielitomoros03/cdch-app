@@ -1,9 +1,0 @@
-<% content_for :title, "New directory" %>
-
-<%= render layout: "dashboard/dashboard_form" do %>
-  <h1>New directory</h1>
-  <%= render "form", directory: @directory %>
-  <div>
-    <%= link_to "Back to directories", directories_path %>
-  </div>
-<% end %>

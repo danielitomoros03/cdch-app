@@ -63,7 +63,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_08_230855) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "directories", force: :cascade do |t|
+  create_table "minutes", force: :cascade do |t|
     t.date "day"
     t.string "title"
     t.datetime "created_at", null: false

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get "contacto", to: "pages#contacto"
   get "convocatorias", to: "pages#convocatorias"
   get "departamentos", to: "pages#departamentos"
-  get "directorios", to: "pages#directorios"
+  get "actas", to: "pages#directorio"
   get "eventos", to: "pages#eventos"
   get "inicio", to: "pages#inicio"
   get "investigacion", to: "pages#investigacion"
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   # Scaffold's Routes from Dashboard
   resources :users, module: 'dashboard' # Admin-managed users
   resources :calls, module: 'dashboard'
-  resources :directories, module: 'dashboard'
+  resources :minutes, module: 'dashboard'
   resources :publications, module: 'dashboard'
   
   # Rutas internas de la aplicación

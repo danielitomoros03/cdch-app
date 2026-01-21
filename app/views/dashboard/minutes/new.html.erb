@@ -1,0 +1,9 @@
+<% content_for :title, "New minute" %>
+
+<%= render layout: "dashboard/dashboard_form" do %>
+  <h1>New minute</h1>
+  <%= render "form", minute: @minute %>
+  <div>
+    <%= link_to "Back to minutes", minutes_path %>
+  </div>
+<% end %>

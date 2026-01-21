@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: directories
+# Table name: minutes
 #
 #  id         :bigint           not null, primary key
 #  day        :date
@@ -8,5 +8,5 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class Directory < ApplicationRecord
+class Minute < ApplicationRecord
 end
