@@ -1,0 +1,47 @@
+<%= form_with(model: solicitude, url: url, local: true) do |form| %>
+  <% if solicitude.errors.any? %>
+    <div style="color: red" class="mb-3">
+      <h2><%= pluralize(solicitude.errors.count, "error") %> prohibited this solicitude from being saved:</h2>
+
+      <ul>
+        <% solicitude.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :full_name, style: "display: block" %>
+    <%= form.text_field :full_name, class: "form-control", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :email, style: "display: block" %>
+    <%= form.email_field :email, class: "form-control", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :phone_number, style: "display: block" %>
+    <%= form.text_field :phone_number, class: "form-control", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :matter, style: "display: block" %>
+    <%= form.select :matter, Department.all.map { |d| [d.name, d.id] }, { prompt: "Seleccione un departamento" }, { class: "form-control", required: true } %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :message, style: "display: block" %>
+    <%= form.text_area :message, class: "form-control", rows: 4, required: true %>
+  </div>
+
+  <div class="mb-3 form-check">
+    <%= form.check_box :policies, class: "form-check-input", required: true %>
+    <%= form.label :policies, class: "form-check-label" %>
+  </div>
+
+  <div>
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

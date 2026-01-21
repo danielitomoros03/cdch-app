@@ -57,6 +57,12 @@
         <div class="sidebar-heading">General</div>
 
         <li class="nav-item">
+            <%= link_to solicitudes_path, class: 'nav-link' do %>
+            <i class="fas fa-envelope"></i>
+            <span>Solicitudes</span>
+            <% end %>
+        </li>
+        <li class="nav-item">
             <%= link_to users_path, class: 'nav-link' do %>
             <i class="fas fa-user"></i>
             <span>Usuarios</span>

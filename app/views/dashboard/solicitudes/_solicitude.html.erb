@@ -1,0 +1,14 @@
+<div id="<%= dom_id solicitude %>">
+  <tbody>
+    <tr>
+      <th scope="row"> <%= solicitude.id %> </th>
+      <td> <%= solicitude.full_name %> </td>
+      <td> <%= solicitude.email %> </td>
+      <td> <%= solicitude.phone_number %> </td>
+      <td> <%= solicitude.message %> </td>
+      <td> <%= Department.find_by(id: solicitude.matter)&.name || "Sin asunto" %> </td>
+      <td> <%= solicitude.created_at.strftime("%d/%m/%Y %H:%M") %> </td>
+      <td> <%= solicitude.policies %> </td>
+    </tr>
+  </tbody>
+</div>

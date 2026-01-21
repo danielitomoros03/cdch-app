@@ -15,16 +15,18 @@ Rails.application.routes.draw do
   get "investigacion", to: "pages#investigacion"
   get "nosotros", to: "pages#nosotros"
   get "publicaciones", to: "pages#publicaciones"
-  
+  resources :solicitudes, only: [:create] # Public Route for submitting solicitudes
+
   # Scaffold's Routes from Dashboard
   resources :users, module: 'dashboard'
   resources :calls, module: 'dashboard'
   resources :minutes, module: 'dashboard'
   resources :publications, module: 'dashboard'
   resources :departments, module: 'dashboard'
-  
-  # Rutas internas de la aplicación
-  get "dashboard/index"
+  resources :solicitudes, module: 'dashboard', only: [:index, :show, :destroy]
+  get "dashboard/index" # INDEX DASHBOARD
+
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
