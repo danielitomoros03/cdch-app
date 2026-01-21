@@ -1,0 +1,98 @@
+<!-- DEPARTAMENTO - LANDING PAGE -->
+<%= render "layouts/header" %>
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title">Departamento <%= @department.acronym %></h1>
+    <p class="page-subtitle">
+      <%= @department.name %>
+    </p>
+  </div>
+</div>
+
+<!-- Department Description Section -->
+<section class="section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <h2 class="section-title">Acerca del Departamento</h2>
+        <%= @department.descriptionDepartment %>
+      </div>
+      <div class="col-lg-6">
+        <div class="about-image-placeholder" style="height: 400px; background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); border-radius: 1rem;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Department Members Section -->
+<section class="updates-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Integrantes del Departamento</h2>
+    </div>
+
+    <div class="row g-4">
+      <!-- Member Card 1 -->
+      <div class="col-md-6 col-lg-3">
+        <article class="update-card">
+          <div class="update-image update-image-blue"></div>
+          <div class="update-content">
+            <div class="update-date">Director</div>
+            <h3 class="update-title">Nombre del Director</h3>
+            <p class="update-excerpt">
+              Breve descripción del rol y responsabilidades.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Member Card 2 -->
+      <div class="col-md-6 col-lg-3">
+        <article class="update-card">
+          <div class="update-image update-image-green"></div>
+          <div class="update-content">
+            <div class="update-date">Coordinador</div>
+            <h3 class="update-title">Nombre del Coordinador</h3>
+            <p class="update-excerpt">
+              Breve descripción del rol y responsabilidades.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Member Card 3 -->
+      <div class="col-md-6 col-lg-3">
+        <article class="update-card">
+          <div class="update-image update-image-purple"></div>
+          <div class="update-content">
+            <div class="update-date">Especialista</div>
+            <h3 class="update-title">Nombre del Especialista</h3>
+            <p class="update-excerpt">
+              Breve descripción del rol y responsabilidades.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Member Card 4 -->
+      <div class="col-md-6 col-lg-3">
+        <article class="update-card">
+          <div class="update-image update-image-orange"></div>
+          <div class="update-content">
+            <div class="update-date">Asistente</div>
+            <h3 class="update-title">Nombre del Asistente</h3>
+            <p class="update-excerpt">
+              Breve descripción del rol y responsabilidades.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%#= render "layouts/counter" %>
+<%= render "layouts/CTA_section" %>
+<%= render "layouts/footer" %>

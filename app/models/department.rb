@@ -10,4 +10,7 @@
 #
 class Department < ApplicationRecord
     has_rich_text :descriptionDepartment
+
+    ## Validations
+    validates :acronym, presence: true, uniqueness: true
 end

@@ -1,2 +1,2 @@
-module Dashboard::DepartmentsHelper
+module DepartmentsHelper
 end

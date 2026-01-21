@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   end
 
   def nosotros
+    @departments = Department.all
   end
   
   def investigacion
@@ -14,10 +15,11 @@ class PagesController < ApplicationController
   def publicaciones
   end
   
-  def directorios
+  def directorio
   end
   
-  def departamentos
+  def departamento
+    @department = Department.find_by!(acronym: params[:acronym])
   end
   
   def contacto

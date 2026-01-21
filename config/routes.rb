@@ -4,11 +4,11 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
-  
   # Routes for Landing Pages
   get "contacto", to: "pages#contacto"
   get "convocatorias", to: "pages#convocatorias"
   get "departamentos", to: "pages#departamentos"
+  get "departamento/:acronym", to: "pages#departamento", as: :departamento
   get "actas", to: "pages#directorio"
   get "eventos", to: "pages#eventos"
   get "inicio", to: "pages#inicio"
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get "publicaciones", to: "pages#publicaciones"
   
   # Scaffold's Routes from Dashboard
-  resources :users, module: 'dashboard' # Admin-managed users
+  resources :users, module: 'dashboard'
   resources :calls, module: 'dashboard'
   resources :minutes, module: 'dashboard'
   resources :publications, module: 'dashboard'
