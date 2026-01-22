@@ -17,8 +17,8 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h1>Información Institucional</h1>
           <div>
-            <%= link_to 'Editar', edit_dashboard_institution_path(@institution), class: "btn btn-warning" %>
-            <%= link_to 'Volver', dashboard_institutions_path, class: "btn btn-secondary" %>
+            <%= link_to 'Editar', edit_institution_path(@institution), class: "btn btn-warning" %>
+            <%= link_to 'Volver', institutions_path, class: "btn btn-primary" %>
           </div>
         </div>
 
@@ -34,7 +34,6 @@
                   <div class="col-md-6">
                     <p><strong>Nombre:</strong><br><%= @institution.name %></p>
                     <p><strong>Sigla:</strong><br><%= @institution.acronym %></p>
-                    <p><strong>Sitio Web:</strong><br><%= link_to @institution.website, @institution.website, target: "_blank" if @institution.website %></p>
                   </div>
                   <div class="col-md-6">
                     <p><strong>Director:</strong><br><%= @institution.director_name %></p>
@@ -122,10 +121,10 @@
                       </a>
                     </div>
                   <% end %>
-                  <% if @institution.youtube_url %>
+                  <% if @institution.threads_url %>
                     <div class="col-md-4 mb-2">
-                      <a href="<%= @institution.youtube_url %>" target="_blank" class="btn btn-outline-danger w-100">
-                        <i class="fab fa-youtube me-2"></i>YouTube
+                      <a href="<%= @institution.threads_url %>" target="_blank" class="btn btn-outline-dark w-100">
+                        <i class="fab fa-threads me-2"></i>Threads
                       </a>
                     </div>
                   <% end %>
@@ -161,13 +160,13 @@
             <% end %>
 
             <!-- Visión -->
-            <% if @institution.vision %>
+            <% if @institution.vission %>
             <div class="card mb-4">
               <div class="card-header">
                 <h5 class="mb-0">Visión</h5>
               </div>
               <div class="card-body">
-                <p><%= @institution.vision %></p>
+                <p><%= @institution.vission %></p>
               </div>
             </div>
             <% end %>
@@ -175,16 +174,16 @@
         </div>
 
         <!-- Historia -->
-        <% if @institution.history %>
         <div class="card">
-          <div class="card-header">
-            <h5 class="mb-0">Historia</h5>
+            <div class="card-header">
+              <h5 class="mb-0">Historia</h5>
+            </div>
+            <div class="card-body">
+              <% if @institution.history %>
+                <%= @institution.history %>
+              <% end %>
+            </div>
           </div>
-          <div class="card-body">
-            <%= @institution.history %>
-          </div>
-        </div>
-        <% end %>
       </div>
     </div>
   </div>

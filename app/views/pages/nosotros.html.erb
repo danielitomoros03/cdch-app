@@ -18,23 +18,28 @@
       <div class="col-lg-6">
         <h2 class="section-title">Nuestra Historia</h2>
         <p class="text-gray mb-4">
-          El Consejo de Desarrollo Científico y Humanístico (CDCH) de la Universidad Central de Venezuela 
-          fue creado en 1958 con el propósito de promover, coordinar y fomentar la investigación científica 
-          y humanística en nuestra institución.
+          <% if Institution.first.history.empty? %>
+            <p class="text-gray mb-4">
+              El Consejo de Desarrollo Científico y Humanístico (CDCH) de la Universidad Central de Venezuela 
+              fue creado en 1958 con el propósito de promover, coordinar y fomentar la investigación científica 
+              y humanística en nuestra institución.
+            </p>
+            <p class="text-gray mb-4">
+              Durante más de 60 años, hemos sido el principal ente financiador de proyectos de investigación 
+              en la UCV, apoyando a miles de investigadores y contribuyendo significativamente al desarrollo 
+              científico y tecnológico del país.
+            </p>
+            <p class="text-gray mb-4">
+              Nuestro compromiso es fortalecer la investigación de calidad, fomentar la publicación científica 
+              y promover la formación de nuevos investigadores en todas las áreas del conocimiento.
+            </p>
+            <p class="text-gray mb-4">
+              <a href="#" data-bs-toggle="modal" data-bs-target="#misionVisionModal">Misión y Visión</a>
+            </p>
+          <% else %>
+            <%= Institution.first.history %>
+          <% end %>
         </p>
-        <p class="text-gray mb-4">
-          Durante más de 60 años, hemos sido el principal ente financiador de proyectos de investigación 
-          en la UCV, apoyando a miles de investigadores y contribuyendo significativamente al desarrollo 
-          científico y tecnológico del país.
-        </p>
-        <p class="text-gray mb-4">
-          Nuestro compromiso es fortalecer la investigación de calidad, fomentar la publicación científica 
-          y promover la formación de nuevos investigadores en todas las áreas del conocimiento.
-        </p>
-        <p class="text-gray mb-4">
-          <a href="#" data-bs-toggle="modal" data-bs-target="#misionVisionModal">Misión y Visión</a>
-        </p>
-
       </div>
       <div class="col-lg-6">
         <div class="about-image-placeholder" style="height: 400px; background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); border-radius: 1rem;"></div>
@@ -85,29 +90,16 @@
         <div class="mb-4">
           <h4 class="text-primary mb-3">Misión</h4>
           <p class="text-gray">
-            El Consejo de Desarrollo Científico y Humanístico (CDCH) de la Universidad Central de Venezuela 
-            tiene como misión promover, coordinar y financiar la investigación científica, tecnológica y 
-            humanística de excelencia en la institución, contribuyendo al desarrollo del conocimiento, la 
-            formación de investigadores y la solución de problemas nacionales e internacionales.
-          </p>
-          <p class="text-gray">
-            Nos comprometemos a apoyar proyectos innovadores que generen impacto social, económico y cultural, 
-            fomentando la publicación de resultados científicos y la transferencia de tecnología para el 
-            beneficio de la sociedad venezolana y la comunidad académica global.
+            <%= Institution.first.mission %>
           </p>
         </div>
         
         <div>
           <h4 class="text-primary mb-3">Visión</h4>
           <p class="text-gray">
-            Ser el ente líder en el financiamiento y promoción de la investigación de calidad en Venezuela, 
-            reconocido nacional e internacionalmente por su excelencia académica, innovación y contribución 
-            al desarrollo sostenible del país.
-          </p>
-          <p class="text-gray">
-            Aspiramos a ser un referente en la formación de investigadores altamente capacitados, en la 
-            generación de conocimiento científico y humanístico de vanguardia, y en la articulación efectiva 
-            entre la academia, la industria y el sector público para enfrentar los desafíos del siglo XXI.
+              Ser el ente líder en el financiamiento y promoción de la investigación de calidad en Venezuela, 
+              reconocido nacional e internacionalmente por su excelencia académica, innovación y contribución 
+              al desarrollo sostenible del país.
           </p>
         </div>
       </div>

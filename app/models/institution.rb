@@ -48,4 +48,17 @@ class Institution < ApplicationRecord
     validates :twitter_url, :facebook_url, :instagram_url, :linkedin_url, :threads_url,
               format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: "debe ser una URL válida" },
               allow_blank: true
+    
+    ## FUNCTIONS
+    def phone_numbers
+        phones = primary_phone.to_s
+        phones += ", #{secondary_phone}" if secondary_phone.present?
+        phones
+    end
+
+    def emails
+        emails = primary_email.to_s
+        emails += ", #{secondary_email}" if secondary_email.present?
+        emails
+    end
 end

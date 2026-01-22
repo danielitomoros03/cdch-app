@@ -18,24 +18,22 @@
       </p>
       <div class="container">
         <div id="institutions">
-          <% if @institutions.any? %>
-            <div class="row g-4">
-              <% @institutions.each do |institution| %>
-                <div class="col-md-6 col-lg-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title"><%= institution.name %></h5>
-                      <p class="card-text"><%= institution.description&.truncate(100) %></p>
-                      <div class="d-flex gap-2">
-                        <%= link_to 'Ver', institution_path(institution), class: "btn btn-info btn-sm" %>
-                        <%= link_to 'Editar', edit_institution_path(institution), class: "btn btn-warning btn-sm" %>
-                      </div>
+          <div class="container>
+            <% @institutions.each do |institution| %>
+              <div class="col-md-6 col-lg-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= institution.name %></h5>
+                    <p class="card-text"><%= institution.description&.truncate(100) %></p>
+                    <div class="d-flex gap-2 justify-content-center">
+                      <%= link_to 'Ver', institution_path(institution), class: "btn btn-info btn-sm" %>
                     </div>
                   </div>
                 </div>
-              <% end %>
-            </div>
-          <% else %>
+              </div>
+            <% end %>
+          </div>
+          <% if @institutions.empty? %>
             <div class="text-center py-5">
               <p class="text-muted">No hay información institucional configurada.</p>
               <%= link_to 'Crear Información Institucional', new_institution_path, class: "btn btn-primary" %>

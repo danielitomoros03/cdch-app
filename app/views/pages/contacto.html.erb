@@ -27,9 +27,7 @@
             <div class="contact-details">
               <h4>Dirección</h4>
               <p>
-                Ciudad Universitaria de Caracas<br>
-                Edificio del Rectorado, Piso 3<br>
-                Caracas 1050, Venezuela
+                <%= Institution.first.address %>
               </p>
             </div>
           </div>
@@ -40,7 +38,7 @@
             </div>
             <div class="contact-details">
               <h4>Teléfono</h4>
-              <p>+58 212-605-2891<br>+58 212-605-2892</p>
+              <p><%= Institution.first.primary_phone %><br><%= Institution.first.secondary_phone %></p>
             </div>
           </div>
 
@@ -49,10 +47,10 @@
               <i class="fas fa-envelope"></i>
             </div>
             <div class="contact-details">
-              <h4>Email</h4>
+              <h4>Correos</h4>
               <p>
-                cdch@ucv.ve<br>
-                info@cdch.ucv.ve
+                <%= Institution.first.primary_email %><br>
+                <%= Institution.first.secondary_email %>
               </p>
             </div>
           </div>
@@ -64,8 +62,7 @@
             <div class="contact-details">
               <h4>Horario de Atención</h4>
               <p>
-                Lunes a Viernes<br>
-                8:00 AM - 3:00 PM
+                <%= Institution.first.business_hours %>
               </p>
             </div>
           </div>
@@ -73,16 +70,16 @@
           <div class="social-links mt-4">
             <h4 class="mb-3">Síguenos</h4>
             <div class="d-flex gap-3">
-              <%= link_to "#", class: "social-icon" do %>
+              <%= link_to "#{Institution.first.facebook_url}", class: "social-icon" do %>
                 <i class="fab fa-facebook-f"></i>
               <% end %>
-              <%= link_to "#", class: "social-icon" do %>
+              <%= link_to "#{Institution.first.twitter_url}", class: "social-icon" do %>
                 <i class="fab fa-twitter"></i>
               <% end %>
-              <%= link_to "#", class: "social-icon" do %>
+              <%= link_to "#{Institution.first.instagram_url}", class: "social-icon" do %>
                 <i class="fab fa-instagram"></i>
               <% end %>
-              <%= link_to "#", class: "social-icon" do %>
+              <%= link_to "#{Institution.first.linkedin_url}", class: "social-icon" do %>
                 <i class="fab fa-linkedin-in"></i>
               <% end %>
             </div>
@@ -94,7 +91,6 @@
       <div class="col-lg-8">
         <div class="contact-form-section">
           <h3 class="mb-4">Envíanos un Mensaje</h3>
-
           <%= render "dashboard/solicitudes/form", solicitude: Solicitude.new, url: solicitudes_path %>
         </div>
       </div>

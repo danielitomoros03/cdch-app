@@ -172,8 +172,8 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-            <%= form.label :history, "Historia (Texto enriquecido)" %>
-            <%= form.rich_text_area :history, class: "form-control" %>
+            <%= form.label :history, "Historia CDCH" %>
+            <%= form.rich_text_area :history, class: "form-control trix-auto-height", placeholder: "Describa exhaustivamente la historia de la institución..." %>
           </div>
         </div>
       </div>
@@ -197,7 +197,7 @@
                 <%= image_tag institution.logoInstitution, class: "img-thumbnail", style: "max-width: 200px;" %>
               </div>
             <% end %>
-            <small class="form-text text-muted">Formatos permitidos: JPG, PNG, GIF. Tamaño recomendado: 300x300px</small>
+            <small class="form-text text-muted">Formatos permitidos: JPG o PNG. Tamaño recomendado: 300x300px</small>
           </div>
         </div>
       </div>
@@ -210,7 +210,7 @@
       <div class="card shadow mb-4">
         <div class="card-body text-center">
           <%= form.submit "Guardar Institución", class: "btn btn-primary btn-lg" %>
-          <%= link_to "Cancelar", dashboard_institutions_path, class: "btn btn-secondary btn-lg ml-2" %>
+          <%= link_to "Cancelar", institutions_path, class: "btn btn-outline-custom btn-lg ml-2" %>
         </div>
       </div>
     </div>

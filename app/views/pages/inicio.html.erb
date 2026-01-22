@@ -6,11 +6,11 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-xl-8">
-        <h1 class="hero-title reveal animate__fadeInDown">Consejo de Desarrollo Científico y Humanístico</h1>
-        <p class="hero-subtitle reveal animate__fadeIn animate_delay-1s">Impulsando la excelencia en investigación y desarrollo académico de la Universidad Central de Venezuela</p>
+        <h1 class="hero-title reveal animate__fadeInDown"><%= Institution.first.name %></h1>
+        <p class="hero-subtitle reveal animate__fadeIn animate_delay-1s"><%= Institution.first.description %></p>
         <div class="hero-buttons reveal animate__fadeIn animate_delay-2s">
           <%= link_to "Ver Convocatorias", convocatorias_path, class: "btn-white-custom" %>
-          <%= link_to "Conocer Más", "#", class: "btn-white-outline" %>
+          <%= link_to "Conocer Más", nosotros_path, class: "btn-white-outline" %>
         </div>
       </div>
     </div>
