@@ -22,11 +22,11 @@
   </div>
 
   <div class="field">
-    <%= form.label :descriptionDepartment %>
-    <%= form.rich_textarea :descriptionDepartment %>
+    <%= form.label :description %>
+    <%= form.rich_text_area :description, class: "form-control trix-auto-height" %>
   </div>
 
   <div>
-    <%= form.submit, class: "btn btn-primary" %>
+    <%= form.submit "Guardar Departamento", class: "btn btn-primary" %>
   </div>
 <% end %>

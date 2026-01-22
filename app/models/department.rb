@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 class Department < ApplicationRecord
-    has_rich_text :descriptionDepartment
+    has_rich_text :description
 
     ## Validations
     validates :acronym, presence: true, uniqueness: true

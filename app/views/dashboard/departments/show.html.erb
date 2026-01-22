@@ -36,9 +36,8 @@
       </table>
 
       <div class="container-fluid">
-        <%= link_to "Edit this department", edit_department_path(@department), class: "btn btn-primary" %> |
-        <%= link_to "Back to departments", departments_path, class: "btn btn-dark" %> |
-        <%= button_to "Eliminar departamento", @department, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar este departamento?' } } %>
+        <%= link_to "Edit this department", edit_department_path(@department), class: "btn btn-primary" %>
+        <%= link_to "Back to departments", departments_path, class: "btn btn-dark" %> 
       </div>
     </div>
   </div>

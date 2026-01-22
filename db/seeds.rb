@@ -13,20 +13,20 @@ puts "Usuario #{User.last.full_name} creado."
 
 # Create departments
 departments_data = [
-  { acronym: "DADA", name: "Departamentos de Apoyo al Desarrollo Académico", descriptionDepartment: "Encargado del apoyo y desarrollo académico en la Universidad Central de Venezuela." },
-  { acronym: "DADI", name: "Departamentos de Apoyo al Desarrollo de la Investigación", descriptionDepartment: "Facilita y promueve el desarrollo de proyectos de investigación científica y humanística." },
-  { acronym: "Publicaciones", name: "Relaciones y Publicaciones", descriptionDepartment: "Gestiona las publicaciones científicas, libros y materiales académicos del CDCH." },
-  { acronym: "Saber UCV", name: "Departamento de Comunicación de la Tecnología e Innovación", descriptionDepartment: "Encargado de la comunicación, tecnología y innovación en la plataforma Saber UCV." },
-  { acronym: "DEA", name: "Departamento de Evaluación y Acreditación", descriptionDepartment: "Evalúa y acredita proyectos de investigación y programas académicos." },
-  { acronym: "DRHC", name: "Departamento de Recursos Humanos y Capacitación", descriptionDepartment: "Gestiona el personal y programas de capacitación para investigadores y administrativos." },
-  { acronym: "DAF", name: "Departamento Administrativo y Financiero", descriptionDepartment: "Administra los recursos financieros y operaciones administrativas del CDCH." },
-  { acronym: "DEIC", name: "Departamento de Ética e Integridad Científica", descriptionDepartment: "Vigila el cumplimiento ético e integridad en todas las actividades de investigación." }
+  { acronym: "DADA", name: "Departamentos de Apoyo al Desarrollo Académico", description: "Encargado del apoyo y desarrollo académico en la Universidad Central de Venezuela." },
+  { acronym: "DADI", name: "Departamentos de Apoyo al Desarrollo de la Investigación", description: "Facilita y promueve el desarrollo de proyectos de investigación científica y humanística." },
+  { acronym: "Publicaciones", name: "Relaciones y Publicaciones", description: "Gestiona las publicaciones científicas, libros y materiales académicos del CDCH." },
+  { acronym: "Saber UCV", name: "Departamento de Comunicación de la Tecnología e Innovación", description: "Encargado de la comunicación, tecnología y innovación en la plataforma Saber UCV." },
+  { acronym: "DEA", name: "Departamento de Evaluación y Acreditación", description: "Evalúa y acredita proyectos de investigación y programas académicos." },
+  { acronym: "DRHC", name: "Departamento de Recursos Humanos y Capacitación", description: "Gestiona el personal y programas de capacitación para investigadores y administrativos." },
+  { acronym: "DAF", name: "Departamento Administrativo y Financiero", description: "Administra los recursos financieros y operaciones administrativas del CDCH." },
+  { acronym: "DEIC", name: "Departamento de Ética e Integridad Científica", description: "Vigila el cumplimiento ético e integridad en todas las actividades de investigación." }
 ]
 
 departments_data.each do |dept|
   Department.find_or_create_by!(acronym: dept[:acronym]) do |d|
     d.name = dept[:name]
-    d.descriptionDepartment = dept[:descriptionDepartment]
+    d.description = dept[:description]
   end
 end
 
@@ -52,6 +52,7 @@ Institution.find_or_create_by!(name: "Centro de Desarrollo Científico y Humaní
   institution.director_name = "Dr. José Antonio Rivas"
   institution.director_email = "director@cdch.ucv.ve"
   institution.founded_year = 1970
+  institution.description = "Descripción detallada del Centro de Desarrollo Científico y Humanístico de la UCV."
 end
 
 puts "Datos institucionales estándar del CDCH creados."
