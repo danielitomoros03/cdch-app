@@ -14,6 +14,24 @@
 #
 class Call < ApplicationRecord
     ## Enum for type
-    # This enum defines the type of call, which can be a call, holidays, or news.
+    # This enum defines the type of call
     enum type: [ :Call, :Holidays, :News ]
+
+    has_rich_text :large_description
+
+    ## Method to desactivate calls
+    def desactive
+        if self.end_date < Date.today
+            self.active = false
+            self.save
+        end
+    end
+
+    def timeLeft
+        if self.end_date > Date.today
+            return (self.end_date.to_date - Date.today).to_i
+        else
+            return 0
+        end
+    end
 end

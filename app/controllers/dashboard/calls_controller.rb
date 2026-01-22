@@ -53,7 +53,7 @@ module Dashboard
       @call.destroy!
 
       respond_to do |format|
-        format.html { redirect_to dashboard_calls_path, status: :see_other, notice: "Call was successfully destroyed." }
+        format.html { redirect_to calls_path, status: :see_other, notice: "Call was successfully destroyed." }
         format.json { head :no_content }
       end
     end
@@ -66,7 +66,7 @@ module Dashboard
 
       # Only allow a list of trusted parameters through.
       def call_params
-        params.require(:call).permit(:title, :short_description, :start_date, :end_date, :type, :active)
+        params.require(:call).permit(:title, :short_description, :start_date, :end_date, :type, :active, :large_description)
       end
   end
 end

@@ -1,0 +1,78 @@
+<!-- CONVOCATORIA DETALLE - LANDING PAGE -->
+<%= render "layouts/header" %>
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title"><%= @call.title %></h1>
+    <p class="page-subtitle">
+      Detalles de la convocatoria
+    </p>
+  </div>
+</div>
+
+<!-- Call Detail -->
+<section class="section">
+  <div class="container">
+    <div class="call-detail-card">
+      <div class="call-status mb-4">
+        <% if @call.active? %>
+          <span class="badge bg-success">Abierta</span>
+        <% else %>
+          <span class="badge bg-secondary">Cerrada</span>
+        <% end %>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8">
+          <h2 class="call-title"><%= @call.title %></h2>
+          <p class="call-description"><%= @call.short_description %></p>
+
+          <% if @call.large_description.present? %>
+            <div class="call-full-description mt-4">
+              <%= @call.large_description %>
+            </div>
+          <% end %>
+
+          <div class="call-meta mt-4">
+            <div class="row">
+              <div class="col-md-6">
+                <span><i class="fas fa-calendar"></i> Apertura: <%= @call.start_date.strftime('%d de %B, %Y') %></span>
+              </div>
+              <div class="col-md-6">
+                <span><i class="fas fa-clock"></i> Cierre: <%= @call.end_date.strftime('%d de %B, %Y') %></span>
+              </div>
+            </div>
+            <% if @call.active? && @call.timeLeft > 0 %>
+              <div class="mt-3">
+                <span><i class="fas fa-hourglass-half"></i> Tiempo restante: <%= @call.timeLeft %> días</span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+          <% if @call.active? %>
+            <div class="call-countdown mb-3">
+              <div class="countdown-label">Tiempo restante</div>
+              <div class="countdown-value"><%= @call.timeLeft %> días</div>
+            </div>
+            <div class="mb-3">
+                <%= link_to contacto_path, class: "btn btn-primary d-block d-lg-inline-block" do %>
+                Postularse
+                <% end %>
+            </div>
+          <% end %>
+          <div class="mb-3">
+            <%= link_to convocatorias_path, class: "btn btn-outline-primary d-block d-lg-inline-block mt-2" do %>
+                <i class="fas fa-arrow-left"></i> Volver a Convocatorias
+            <% end %>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= render "layouts/CTA_section" %>
+<%= render "layouts/footer" %>

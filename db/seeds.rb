@@ -56,3 +56,47 @@ Institution.find_or_create_by!(name: "Centro de Desarrollo Científico y Humaní
 end
 
 puts "Datos institucionales estándar del CDCH creados."
+
+# Create calls
+calls_data = [
+  {
+    title: "Convocatoria 2026 - Proyectos Individuales",
+    short_description: "Financiamiento para proyectos de investigación individuales en todas las áreas del conocimiento. Monto máximo: Bs. 50.000",
+    large_description: "<p>Esta convocatoria está dirigida a investigadores individuales de la Universidad Central de Venezuela que deseen desarrollar proyectos de investigación en cualquier área del conocimiento. Se financiarán hasta Bs. 50.000 por proyecto.</p><p>Requisitos: Ser docente o investigador activo de la UCV, presentar un proyecto innovador y tener experiencia previa en investigación.</p>",
+    start_date: Date.new(2026, 1, 1),
+    end_date: Date.new(2026, 4, 30),
+    active: true,
+    type: :Call
+  },
+  {
+    title: "Convocatoria 2026 - Proyectos Grupales",
+    short_description: "Financiamiento para proyectos de investigación grupales con impacto interdisciplinario. Monto máximo: Bs. 150.000",
+    large_description: "<p>Convocatoria para equipos de investigación interdisciplinarios. Se busca fomentar la colaboración entre diferentes áreas del conocimiento para abordar problemas complejos.</p><p>Monto máximo: Bs. 150.000. Se requiere al menos 3 investigadores de diferentes departamentos.</p>",
+    start_date: Date.new(2026, 1, 15),
+    end_date: Date.new(2026, 5, 15),
+    active: true,
+    type: :Call
+  },
+  {
+    title: "Convocatoria 2025 - Proyectos Emergentes",
+    short_description: "Proyectos de investigación sobre temas de relevancia nacional e internacional que han sido cerrados.",
+    large_description: "<p>Esta convocatoria anterior financió proyectos emergentes en temas críticos para Venezuela y el mundo. Ya cerró el 31 de diciembre de 2025.</p>",
+    start_date: Date.new(2025, 6, 1),
+    end_date: Date.new(2025, 12, 31),
+    active: false,
+    type: :Call
+  }
+]
+
+calls_data.each do |call_data|
+  Call.find_or_create_by!(title: call_data[:title]) do |call|
+    call.short_description = call_data[:short_description]
+    call.large_description = call_data[:large_description]
+    call.start_date = call_data[:start_date]
+    call.end_date = call_data[:end_date]
+    call.active = call_data[:active]
+    call.type = call_data[:type]
+  end
+end
+
+puts "#{Call.count} convocatorias creadas."

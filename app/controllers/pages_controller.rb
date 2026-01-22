@@ -10,6 +10,13 @@ class PagesController < ApplicationController
   end
   
   def convocatorias
+    if params[:id]
+      @call = Call.find(params[:id])
+      render :convocatoria
+    else
+      @callsActive = Call.where(active: true).order(created_at: :desc)
+      @callsInactive = Call.where(active: false).order(created_at: :desc)
+    end
   end
 
   def publicaciones
