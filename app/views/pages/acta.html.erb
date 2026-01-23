@@ -1,0 +1,49 @@
+<!-- ACTA DETALLE - LANDING PAGE -->
+<%= render "layouts/header" %>
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title"><%= @minute.title %></h1>
+    <p class="page-subtitle">
+      Acta de Directorio - <%= @minute.day.strftime('%d de %B, %Y') %>
+    </p>
+  </div>
+</div>
+
+<!-- Acta Detail -->
+<section class="section">
+  <div class="container">
+    <div class="acta-detail-card">
+      <div class="acta-meta mb-4">
+        <span class="badge bg-primary">Acta de Directorio</span>
+        <span class="ms-3"><i class="fas fa-calendar"></i> Fecha: <%= @minute.day.strftime('%d de %B, %Y') %></span>
+      </div>
+
+      <% if @minute.content.present? %>
+        <div class="acta-content">
+          <%= @minute.content %>
+        </div>
+      <% end %>
+
+      <% if @minute.attachment_minute.attached? %>
+        <div class="mt-4">
+          <h4>Documento Adjunto</h4>
+          <p>Puedes descargar el archivo completo de la acta.</p>
+          <%= link_to url_for(@minute.attachment_minute), class: "btn btn-primary", download: true do %>
+            <i class="fas fa-download"></i> Descargar Acta
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="mt-4">
+        <%= link_to actas_path, class: "btn btn-outline-primary" do %>
+          <i class="fas fa-arrow-left"></i> Volver a Actas
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= render "layouts/CTA_section" %>
+<%= render "layouts/footer" %>

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "departamentos", to: "pages#departamentos"
   get "departamento/:acronym", to: "pages#departamento", as: :departamento
   get "actas", to: "pages#directorio"
+  get "actas/:id", to: "pages#directorio", as: :acta
   get "eventos", to: "pages#eventos"
   get "inicio", to: "pages#inicio"
   get "investigacion", to: "pages#investigacion"

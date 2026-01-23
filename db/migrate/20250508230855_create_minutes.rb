@@ -3,6 +3,7 @@ class CreateMinutes < ActiveRecord::Migration[7.2]
     create_table :minutes do |t|
       t.date :day
       t.string :title
+      t.text :description
 
       t.timestamps
     end

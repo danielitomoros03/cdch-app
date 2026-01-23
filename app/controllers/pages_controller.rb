@@ -23,6 +23,12 @@ class PagesController < ApplicationController
   end
   
   def directorio
+    if params[:id]
+      @minute = Minute.find(params[:id])
+      render :acta
+    else
+      @minutes = Minute.paginate(page: params[:page], per_page: 8).order(day: :desc)
+    end
   end
   
   def departamento

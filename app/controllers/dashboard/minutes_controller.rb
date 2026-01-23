@@ -66,7 +66,7 @@ module Dashboard
 
       # Only allow a list of trusted parameters through.
       def minute_params
-        params.require(:minute).permit(:day, :title)
+        params.require(:minute).permit(:day, :title, :description, :content, :attachment_minute)
       end
   end
 end

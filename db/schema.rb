@@ -97,6 +97,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_21_222619) do
   create_table "minutes", force: :cascade do |t|
     t.date "day"
     t.string "title"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

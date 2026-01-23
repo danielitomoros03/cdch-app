@@ -57,6 +57,87 @@ end
 
 puts "Datos institucionales estándar del CDCH creados."
 
+# Create minutes
+minutes_data = [
+  {
+    title: "Acta de Directorio - Reunión Ordinaria",
+    day: Date.new(2024, 1, 15),
+    description: "Reunión ordinaria para discutir presupuesto anual y actividades de investigación.",
+    content: "<p>Acta correspondiente a la reunión ordinaria del directorio celebrada el 15 de enero de 2024. Se discutieron temas relacionados con el presupuesto anual y las actividades de investigación.</p>"
+  },
+  {
+    title: "Acta de Directorio - Reunión Extraordinaria",
+    day: Date.new(2023, 12, 28),
+    description: "Reunión extraordinaria para abordar asuntos urgentes sobre renovación de convenios.",
+    content: "<p>Acta de la reunión extraordinaria del directorio realizada el 28 de diciembre de 2023. Se abordaron asuntos urgentes sobre la renovación de convenios.</p>"
+  },
+  {
+    title: "Acta de Directorio - Reunión Ordinaria",
+    day: Date.new(2023, 11, 20),
+    description: "Evaluación de proyectos en curso y avances en investigación.",
+    content: "<p>Acta correspondiente a la reunión ordinaria del directorio celebrada el 20 de noviembre de 2023. Evaluación de proyectos en curso.</p>"
+  },
+  {
+    title: "Acta de Directorio - Reunión Ordinaria",
+    day: Date.new(2023, 10, 15),
+    description: "Planificación de actividades para el próximo trimestre.",
+    content: "<p>Acta correspondiente a la reunión ordinaria del directorio celebrada el 15 de octubre de 2023. Planificación de actividades para el próximo trimestre.</p>"
+  },
+  {
+    title: "Acta de Directorio - Reunión Extraordinaria",
+    day: Date.new(2023, 9, 5),
+    description: "Discusión sobre cambios en la normativa interna.",
+    content: "<p>Acta de la reunión extraordinaria del directorio realizada el 5 de septiembre de 2023. Discusión sobre cambios en la normativa interna.</p>"
+  },
+  {
+    title: "Acta de Directorio - Reunión Ordinaria",
+    day: Date.new(2023, 8, 18),
+    description: "Revisión de informes de investigación y resultados.",
+    content: "<p>Acta correspondiente a la reunión ordinaria del directorio celebrada el 18 de agosto de 2023. Revisión de informes de investigación.</p>"
+  },
+  {
+    title: "Acta de Directorio - Reunión Ordinaria",
+    day: Date.new(2023, 7, 10),
+    description: "Aprobación de nuevos proyectos de investigación.",
+    content: "<p>Acta correspondiente a la reunión ordinaria del directorio celebrada el 10 de julio de 2023. Aprobación de nuevos proyectos.</p>"
+  },
+  {
+    title: "Acta de Directorio - Reunión Extraordinaria",
+    day: Date.new(2023, 6, 22),
+    description: "Temas administrativos y operativos.",
+    content: "<p>Acta de la reunión extraordinaria del directorio realizada el 22 de junio de 2023. Temas administrativos.</p>"
+  },
+  {
+    title: "Acta de Directorio - Reunión Ordinaria",
+    day: Date.new(2023, 5, 15),
+    description: "Evaluación financiera y presupuestaria.",
+    content: "<p>Acta correspondiente a la reunión ordinaria del directorio celebrada el 15 de mayo de 2023. Evaluación financiera.</p>"
+  },
+  {
+    title: "Acta de Directorio - Reunión Ordinaria",
+    day: Date.new(2023, 4, 20),
+    description: "Planificación estratégica para el año académico.",
+    content: "<p>Acta correspondiente a la reunión ordinaria del directorio celebrada el 20 de abril de 2023. Planificación estratégica.</p>"
+  }
+]
+
+minutes_data.each do |minute_data|
+  Minute.find_or_create_by!(title: minute_data[:title], day: minute_data[:day]) do |minute|
+    minute.description = minute_data[:description]
+    minute.content = minute_data[:content]
+    # Simular attachment
+    if minute_data[:title].include?("Extraordinaria")
+      dummy_file = StringIO.new("Contenido del acta en PDF simulado.")
+      dummy_file.class.class_eval { attr_accessor :original_filename, :content_type }
+      dummy_file.original_filename = "acta_#{minute.day.strftime('%Y%m%d')}.pdf"
+      dummy_file.content_type = "application/pdf"
+      minute.attachment_minute.attach(io: dummy_file, filename: dummy_file.original_filename, content_type: dummy_file.content_type)
+    end
+  end
+end
+
+puts "#{Minute.count} actas creadas."
+
 # Create calls
 calls_data = [
   {
