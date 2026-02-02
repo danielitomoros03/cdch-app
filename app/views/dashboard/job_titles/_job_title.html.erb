@@ -1,0 +1,20 @@
+<div id="<%= dom_id job_title %>">
+  <tbody>
+    <tr>
+      <th scope="row"><%= job_title.id %></th>
+      <td><%= job_title.name %></td>
+      <td><%= job_title.role %></td>
+      <td>
+        <%= link_to job_title_path(job_title), class: 'btn btn-info', title: 'Mostrar', data: { bs_toggle: 'tooltip' } do %>
+          <i class="fa-solid fa-circle-info"></i>
+        <% end %>
+        <%= link_to edit_job_title_path(job_title), class: 'btn btn-warning', title: 'Editar', data: { bs_toggle: 'tooltip' } do %>
+          <i class="fa-solid fa-pen"></i>
+        <% end %>
+        <%= button_to job_title_path(job_title), method: :delete, class: 'btn btn-danger', form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar este cargo?' } } do %>
+            <i class="fa-solid fa-trash"></i>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</div>

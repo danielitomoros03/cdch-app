@@ -1,0 +1,27 @@
+<%= form_with(model: job_title) do |form| %>
+  <% if job_title.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(job_title.errors.count, "error") %> prohibited this job_title from being saved:</h2>
+
+      <ul>
+        <% job_title.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mt-3">
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :role, style: "display: block" %>
+    <%= form.select :role, JobTitle.roles.keys.map { |key| [key.humanize, key] }, {}, class: "form-control" %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.submit "Crear Cargo", class: "btn btn-primary" %>
+  </div>
+<% end %>

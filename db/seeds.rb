@@ -8,9 +8,6 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.create!(email: "danielito.moros03@gmail.com", password: "123123", name: "Daniel", lastname: "Moros", number_phone: "04122539992", identification_number: "30035269")
-puts "Usuario #{User.last.full_name} creado."
-
 # Create departments
 departments_data = [
   { acronym: "DADA", name: "Departamentos de Apoyo al Desarrollo Académico", description: "Encargado del apoyo y desarrollo académico en la Universidad Central de Venezuela." },
@@ -31,6 +28,42 @@ departments_data.each do |dept|
 end
 
 puts "#{Department.count} departamentos estándar creados."
+
+# Create JobTitles
+job_titles_data = [
+  { name: "Director", role: :Superadmin },
+  { name: "Sub-director", role: :Superadmin },
+  { name: "Coordinador", role: :Coordinador },
+  { name: "Investigador", role: :Regular },
+  { name: "Personal Administrativo", role: :Regular }
+]
+
+job_titles_data.each do |job_title|
+  JobTitle.find_or_create_by!(name: job_title[:name]) do |jt|
+    jt.role = job_title[:role]
+  end
+end
+
+puts "#{JobTitle.count} cargos estándares creados."
+
+User.create!(email: "danielito.moros03@gmail.com", password: "123123", department_id: 1, job_title_id: 3, name: "Daniel", lastname: "Moros", number_phone: "04122539992", identification_number: "30035269")
+puts "Usuario #{User.last.full_name} creado."
+
+User.create!(email: "director@ucv.ve", password: "123123", department_id: 1, job_title_id: 3, name: "Juana", lastname: "García", number_phone: "0416123120", identification_number: "12312311")
+puts "Usuario #{User.last.role} creado."
+
+User.create!(email: "subdirector@ucv.ve", password: "123123", department_id: 1, job_title_id: 3, name: "Carlos A.", lastname: "Saavedra A.", number_phone: "04143661978", identification_number: "12312312")
+puts "Usuario #{User.last.full_name} creado."
+
+User.create!(email: "coordinador@ucv.ve", password: "123123", department_id: 1, job_title_id: 2, name: "Virginia", lastname: "Plazas", number_phone: "0416123123", identification_number: "12312313")
+puts "Usuario #{User.last.role} creado."
+
+User.create!(email: "administrativo@ucv.ve", password: "123123", department_id: 1, job_title_id: 1, name: "Alexander", lastname: "Contreras", number_phone: "0416123124", identification_number: "12312314")
+puts "Usuario #{User.last.role} creado."
+
+User.create!(email: "regular@ucv.ve", password: "123123", department_id: 1, job_title_id: 0, name: "Josué", lastname: "Castillo", number_phone: "0416123125", identification_number: "12312315")
+puts "Usuario #{User.last.role} creado."
+
 
 # Create institution data
 Institution.find_or_create_by!(name: "Centro de Desarrollo Científico y Humanístico") do |institution|
