@@ -40,6 +40,229 @@
     flex-wrap: wrap;
     gap: 1rem;
   }
+
+  // Hero Carousel Styles
+  .hero-carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .hero-carousel__slides {
+    display: flex;
+    position: relative;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &.transitioning {
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+
+  .hero-carousel__slide {
+    min-width: 100%;
+    flex-shrink: 0;
+    padding: 2rem 3rem;
+    // background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: white;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    min-height: 300px;
+    animation: slideIn 0.8s ease-out forwards;
+
+    @media (max-width: 768px) {
+      padding: 30px 20px;
+      min-height: 250px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 20px 15px;
+      min-height: 200px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      word-break: break-word;
+
+      @media (max-width: 768px) {
+        font-size: 1.75rem;
+        margin-bottom: 15px;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+      }
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      max-width: 600px;
+      opacity: 0.95;
+
+      @media (max-width: 768px) {
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  // Animación de entrada
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // Controles del carrusel
+  .hero-carousel__controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+
+    @media (max-width: 480px) {
+      bottom: 15px;
+      gap: 8px;
+    }
+  }
+
+  .hero-carousel__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    &.active {
+      background-color: white;
+      width: 30px;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 480px) {
+      width: 10px;
+      height: 10px;
+
+      &.active {
+        width: 24px;
+      }
+    }
+  }
+
+  // Botones prev/next
+  .hero-carousel__button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+      width: 35px;
+      height: 35px;
+      font-size: 16px;
+      // display: none;
+    }
+  }
+
+  .hero-carousel__button--prev {
+    left: 15px;
+
+    @media (max-width: 768px) {
+      left: 10px;
+    }
+
+    @media (max-width: 480px) {
+      left: 8px;
+    }
+  }
+
+  .hero-carousel__button--next {
+    right: 15px;
+
+    @media (max-width: 768px) {
+      right: 10px;
+    }
+
+    @media (max-width: 480px) {
+      right: 8px;
+    }
+  }
+
+  // Auto-play indicator
+  .hero-carousel__autoplay {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    z-index: 5;
+
+    @media (max-width: 480px) {
+      top: 10px;
+      right: 10px;
+      font-size: 0.65rem;
+      padding: 4px 8px;
+    }
+  }
+
 }
 
 // Featured Links Section
@@ -50,6 +273,179 @@
 
   @media (max-width: 768px) {
     padding: 3rem 0;
+  }
+}
+
+// Profile Card Styles
+// Uso: Para tarjetas de directorio, equipo, o perfiles
+.profile-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 360px;
+  margin: 0 auto;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.profile-card__header {
+  background: linear-gradient(135deg, #d946ef 0%, #6366f1 100%);
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.profile-card__image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 16px;
+  object-fit: cover;
+  display: block;
+}
+
+.profile-card__name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 4px 0;
+  letter-spacing: 0.5px;
+}
+
+.profile-card__title {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 16px 0;
+  text-transform: none;
+}
+
+.profile-card__socials {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.profile-card__social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+  }
+
+  i {
+    font-size: 16px;
+  }
+}
+
+.profile-card__body {
+  padding: 24px;
+}
+
+.profile-card__description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+  text-align: center;
+}
+
+// Variantes de color del gradiente
+.profile-card__header--blue {
+  background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+}
+
+.profile-card__header--green {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.profile-card__header--red {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.profile-card__header--purple {
+  background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+}
+
+.profile-card__header--amber {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+// Variantes de card con border-top coloreado
+.profile-card--blue {
+  border-top: 4px solid #3b82f6;
+}
+
+.profile-card--green {
+  border-top: 4px solid #10b981;
+}
+
+.profile-card--red {
+  border-top: 4px solid #ef4444;
+}
+
+.profile-card--purple {
+  border-top: 4px solid #a855f7;
+}
+
+.profile-card--amber {
+  border-top: 4px solid #f59e0b;
+}
+
+// Wrapper para la imagen
+.profile-card__image-wrapper {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+// Layout en Grid
+.profile-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding: 20px;
+  max-width: 100%;
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 16px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 
