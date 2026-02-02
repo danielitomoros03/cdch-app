@@ -5,17 +5,17 @@
 #  id                :bigint           not null, primary key
 #  active            :boolean          default(FALSE)
 #  end_date          :datetime
+#  kind              :integer
 #  short_description :string
 #  start_date        :datetime
 #  title             :string           not null
-#  type              :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
 class Call < ApplicationRecord
-    ## Enum for type
-    # This enum defines the type of call
-    enum type: [ :Call, :Holidays, :News ]
+    ## Enum for kind
+    # This enum defines the kind of call
+    enum kind: [ :Call, :Holidays, :News ]
 
     has_rich_text :large_description
 

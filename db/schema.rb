@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_21_222619) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_23_164049) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,7 +57,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_21_222619) do
     t.string "short_description"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.integer "type"
+    t.integer "kind"
     t.boolean "active", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -66,6 +66,20 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_21_222619) do
   create_table "departments", force: :cascade do |t|
     t.string "name"
     t.string "acronym"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.boolean "show_in"
+    t.boolean "active"
+    t.text "description"
+    t.integer "kind"
+    t.date "day"
+    t.time "start_time"
+    t.time "end_time"
+    t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

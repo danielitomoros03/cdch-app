@@ -1,0 +1,57 @@
+<div class="container-fluid">
+  <div class="row">
+    <%= render "/layouts/header" %> <!-- Header -->
+    <%= render "/layouts/sidebar" %> <!-- Sidebar para pantallas grandes -->
+
+    <!-- Contenido principal -->
+    <div class="col-md mt-3 ms-auto col-lg-10 px-md-0 text-center">
+      <!-- Flash messages -->
+      <div>
+        <% if notice %>
+          <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+        <% end %>
+      </div>
+
+      <% content_for :title, "CDCH - Eventos" %>
+      <p>
+        <h1>Eventos y Noticias <%= link_to "Crear un Evento/Noticia", new_event_path, class: "btn btn-primary" %></h1>
+      </p>
+      <div class="container">
+        <div id="events">
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">N°</th>
+                <th scope="col">Título</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Contenido</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Activo</th>
+                <th scope="col">Inicio</th>
+                <th scope="col">Inicio</th>
+                <th scope="col">Final</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Ubicación</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <% @events.each do |event| %>
+              <%= render event %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Offcanvas Sidebar para pantallas pequeñas -->
+<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+  <div class="offcanvas-header bg-dark text-white">
+    <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><strong>UCV - La casa que vence la sombra</strong></h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <%= render "/layouts/sidebar" %>
+  </div>
+</div>

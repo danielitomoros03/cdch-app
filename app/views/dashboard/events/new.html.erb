@@ -1,0 +1,9 @@
+<% content_for :title, "Crear Evento/Noticia" %>
+
+<%= render layout: "dashboard/dashboard_form" do %>
+  <h1>Nueva Evento/Noticia</h1>
+  <%= render "form", event: @event %>
+  <div>
+    <%= link_to "Volver", events_path %>
+  </div>
+<% end %>

@@ -1,0 +1,60 @@
+<!-- EVENTO DETALLE - LANDING PAGE -->
+<%= render "layouts/header" %>
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title"><%= @event.title %></h1>
+    <p class="page-subtitle">
+      Evento - <%= @event.day %>
+    </p>
+  </div>
+</div>
+
+<!-- New Detail -->
+<section class="section">
+  <div class="container">
+    <div class="acta-detail-card">
+      <div class="acta-meta mb-4">
+        <span class="badge bg-primary"><%= @event.kind %></span>
+        <span class="ms-3"><i class="far fa-calendar"></i> Fecha: <%= @event.day %></span>
+        <span class="ms-3"><i class="fas fa-clock"></i> Inicio: <%= @event.start_time %></span>
+        <span class="ms-3"><i class="fas fa-clock"></i> Cierre: <%= @event.end_time %></span>
+      </div>
+
+      <% if @event.location.present? %>
+        <div class="acta-content">
+          <%= @event.location %>
+        </div>
+      <% end %>
+
+      <% if @event.content.present? %>
+        <div class="acta-content">
+          <%= @event.content %>
+        </div>
+      <% end %>
+
+      <% if @event.description.present? %>
+        <div class="acta-content">
+          <%= @event.description %>
+        </div>
+      <% end %>
+
+      <% if @event.image.attached? %>
+        <div class="mt-4">
+          <h4>Imagen Adjunta</h4>
+          <%= @event.image %>
+        </div>
+      <% end %>
+
+      <div class="mt-4">
+        <%= link_to eventos_path, class: "btn btn-outline-primary" do %>
+          <i class="fas fa-arrow-left"></i> Volver a Eventos
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= render "layouts/CTA_section" %>
+<%= render "layouts/footer" %>

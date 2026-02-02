@@ -4,147 +4,107 @@
 <!-- Page Header -->
 <div class="page-header">
   <div class="container">
-    <h1 class="page-title">Eventos</h1>
+    <h1 class="page-title">Eventos y Noticias</h1>
     <p class="page-subtitle">
-      Conferencias, talleres y actividades académicas
+      Mantente informado sobre los próximos eventos, talleres y mucho más, organizados por nuestra institución.
     </p>
   </div>
 </div>
 
-<!-- Event Filters -->
+<!-- Event Filters
 <section class="py-4 bg-light">
   <div class="container">
     <div class="d-flex flex-wrap gap-2 justify-content-center">
-      <button class="btn btn-primary">Todos</button>
-      <button class="btn btn-outline-primary">Conferencias</button>
-      <button class="btn btn-outline-primary">Talleres</button>
-      <button class="btn btn-outline-primary">Seminarios</button>
-      <button class="btn btn-outline-primary">Jornadas</button>
+      <% # Filtros de eventos - Puedes agregar funcionalidad de filtrado aquí %>
+      <%= link_to "Todos", eventos_path, class: "btn btn-outline-primary" %>
+      <%= link_to "Conferencias", eventos_path(filter: 'conferencia'), class: "btn btn-outline-primary" %>
+      <%= link_to "Talleres", eventos_path(filter: 'taller'), class: "btn btn-outline-primary" %>
+      <%= link_to "Seminarios", eventos_path(filter: 'seminario'), class: "btn btn-outline-primary" %>
     </div>
   </div>
 </section>
+-->
 
 <!-- Upcoming Events -->
-<section class="section">
+<section class="section py-5">
   <div class="container">
     <h2 class="section-title mb-4">Próximos Eventos</h2>
     
     <div class="row g-4">
-      <!-- Event Card 1 -->
-      <div class="col-lg-6">
-        <div class="event-card">
-          <div class="event-date-badge">
-            <div class="event-day">25</div>
-            <div class="event-month">MAR</div>
-          </div>
-          <div class="event-content">
-            <span class="event-category">Conferencia</span>
-            <h3 class="event-title">
-              Inteligencia Artificial en la Investigación Científica
-            </h3>
-            <p class="event-description">
-              Conferencia magistral sobre las aplicaciones de IA en metodología de investigación.
-            </p>
-            <div class="event-info">
-              <span><i class="fas fa-clock"></i> 10:00 AM - 12:00 PM</span>
-              <span><i class="fas fa-map-marker-alt"></i> Auditorio Principal</span>
+      <% if @eventsActive.present? %>
+      <!-- FALTA RENDEAR EVENTOS DESDE ESTA VISTA -->
+        <% @eventsActive.each do |event| %>
+          <div class="col-lg-6">
+            <div class="event-card h-100">
+              <div class="event-date-badge">
+                <div class="event-day"><%= event.day %></div>
+              </div>
+              <div class="event-content">
+                <%# Usamos .titleize o .humanize para que el enum se vea bien %>
+                <span class="event-kind"><%= event.kind.titleize %></span>
+                <h3 class="event-title"><%= event.title %></h3>
+                <p class="event-description">
+                  <%= event.description %>
+                </p>
+                <div class="event-info">
+                  <span><i class="far fa-clock"></i>Inicio: <%= event.start_time %> </span>
+                  <span><i class="fas fa-clock"></i>Cierre: <%= event.end_time %></span>
+                  <span><i class="fas fa-map-marker-alt"></i> <%= event.location %></span>
+                </div>
+                <div class="mt-3">
+                  <%= link_to "Ver detalles", event_path(event), class: "btn btn-sm btn-outline-primary" %>
+                </div>
+              </div>
             </div>
-            <div class="mt-3">
-              <%= link_to "#", class: "btn btn-sm btn-primary-custom me-2" do %>
-                Registrarse
-              <% end %>
-              <%= link_to "Ver detalles", "#", class: "btn btn-sm btn-outline-custom" %>
+          </div>
+        <% end %>
+      <% else %>
+        <%# Sección de Placeholder / Datos de ejemplo %>
+        <div class="col-lg-6">
+          <div class="event-card h-100">
+            <div class="event-date-badge">
+              <div class="event-day">25</div>
+              <div class="event-month">MAR</div>
+            </div>
+            <div class="event-content">
+              <span class="event-category">Conferencia</span>
+              <h3 class="event-title">Inteligencia Artificial en la Investigación Científica</h3>
+              <p class="event-description">Conferencia magistral sobre las aplicaciones de IA en metodología de investigación.</p>
+              <div class="event-info">
+                <span><i class="fas fa-clock"></i> 10:00 AM - 12:00 PM</span>
+                <span><i class="fas fa-map-marker-alt"></i> Auditorio Principal</span>
+              </div>
+              <div class="mt-3">
+                <%= link_to "Registrarse", "#", class: "btn btn-sm btn-primary-custom me-2" %>
+                <%= link_to "Ver detalles", "#", class: "btn btn-sm btn-outline-custom" %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Event Card 2 -->
-      <div class="col-lg-6">
-        <div class="event-card">
-          <div class="event-date-badge event-date-badge-green">
-            <div class="event-day">28</div>
-            <div class="event-month">MAR</div>
-          </div>
-          <div class="event-content">
-            <span class="event-category">Taller</span>
-            <h3 class="event-title">
-              Metodología de la Investigación Cualitativa
-            </h3>
-            <p class="event-description">
-              Taller práctico sobre técnicas y herramientas para investigación cualitativa.
-            </p>
-            <div class="event-info">
-              <span><i class="fas fa-clock"></i> 2:00 PM - 5:00 PM</span>
-              <span><i class="fas fa-map-marker-alt"></i> Sala de Conferencias</span>
+        <div class="col-lg-6">
+          <div class="event-card h-100">
+            <div class="event-date-badge event-date-badge-green">
+              <div class="event-day">28</div>
+              <div class="event-month">MAR</div>
             </div>
-            <div class="mt-3">
-              <%= link_to "#", class: "btn btn-sm btn-primary-custom me-2" do %>
-                Registrarse
-              <% end %>
-              <%= link_to "Ver detalles", "#", class: "btn btn-sm btn-outline-custom" %>
+            <div class="event-content">
+              <span class="event-category">Taller</span>
+              <h3 class="event-title">Metodología de la Investigación Cualitativa</h3>
+              <p class="event-description">Taller práctico sobre técnicas y herramientas para investigación cualitativa.</p>
+              <div class="event-info">
+                <span><i class="fas fa-clock"></i> 2:00 PM - 5:00 PM</span>
+                <span><i class="fas fa-map-marker-alt"></i> Sala de Conferencias</span>
+              </div>
+              <div class="mt-3">
+                <%= link_to "Registrarse", "#", class: "btn btn-sm btn-primary-custom me-2" %>
+                <%= link_to "Ver detalles", "#", class: "btn btn-sm btn-outline-custom" %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Event Card 3 -->
-      <div class="col-lg-6">
-        <div class="event-card">
-          <div class="event-date-badge event-date-badge-purple">
-            <div class="event-day">5</div>
-            <div class="event-month">ABR</div>
-          </div>
-          <div class="event-content">
-            <span class="event-category">Seminario</span>
-            <h3 class="event-title">
-              Ética en la Investigación Científica
-            </h3>
-            <p class="event-description">
-              Seminario sobre consideraciones éticas en la investigación con sujetos humanos.
-            </p>
-            <div class="event-info">
-              <span><i class="fas fa-clock"></i> 9:00 AM - 1:00 PM</span>
-              <span><i class="fas fa-map-marker-alt"></i> Aula Magna</span>
-            </div>
-            <div class="mt-3">
-              <%= link_to "#", class: "btn btn-sm btn-primary-custom me-2" do %>
-                Registrarse
-              <% end %>
-              <%= link_to "Ver detalles", "#", class: "btn btn-sm btn-outline-custom" %>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Event Card 4 -->
-      <div class="col-lg-6">
-        <div class="event-card">
-          <div class="event-date-badge event-date-badge-amber">
-            <div class="event-day">12</div>
-            <div class="event-month">ABR</div>
-          </div>
-          <div class="event-content">
-            <span class="event-category">Jornada</span>
-            <h3 class="event-title">
-              Jornadas de Investigación UCV 2025
-            </h3>
-            <p class="event-description">
-              Presentación de trabajos de investigación de estudiantes y profesores.
-            </p>
-            <div class="event-info">
-              <span><i class="fas fa-clock"></i> 8:00 AM - 6:00 PM</span>
-              <span><i class="fas fa-map-marker-alt"></i> Ciudad Universitaria</span>
-            </div>
-            <div class="mt-3">
-              <%= link_to "#", class: "btn btn-sm btn-primary-custom me-2" do %>
-                Registrarse
-              <% end %>
-              <%= link_to "Ver detalles", "#", class: "btn btn-sm btn-outline-custom" %>
-            </div>
-          </div>
-        </div>
-      </div>
+        <%# Agrega más placeholders si lo deseas aquí, siempre dentro de un col-lg-6 %>
+      <% end %>
     </div>
   </div>
 </section>
@@ -155,27 +115,44 @@
     <h2 class="section-title mb-4">Eventos Pasados</h2>
     
     <div class="row g-4">
-      <div class="col-md-6 col-lg-3">
-        <div class="past-event-card">
-          <div class="past-event-date">15 Feb 2025</div>
-          <h4 class="past-event-title">Taller de Redacción Científica</h4>
-          <%= link_to "Ver resumen", "#", class: "text-primary" %>
+      <% if @eventsInactive.present? %>
+        <% @eventsInactive.each do |event| %>
+          <div class="col-md-6 col-lg-3">
+            <div class="past-event-card">
+              <div class="past-event-date">
+                <%= event.day %>
+              </div>
+              <h4 class="past-event-title">
+                <%= event.title %>
+              </h4>
+              <%= link_to "Ver resumen", event_path(event), class: "text-primary" %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <!-- Placeholder Past Events -->
+        <div class="col-md-6 col-lg-3">
+          <div class="past-event-card">
+            <div class="past-event-date">15 Feb 2025</div>
+            <h4 class="past-event-title">Taller de Redacción Científica</h4>
+            <%= link_to "Ver resumen", "#", class: "text-primary" %>
+          </div>
         </div>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <div class="past-event-card">
-          <div class="past-event-date">8 Feb 2025</div>
-          <h4 class="past-event-title">Conferencia: Cambio Climático</h4>
-          <%= link_to "Ver resumen", "#", class: "text-primary" %>
+        <div class="col-md-6 col-lg-3">
+          <div class="past-event-card">
+            <div class="past-event-date">8 Feb 2025</div>
+            <h4 class="past-event-title">Conferencia: Cambio Climático</h4>
+            <%= link_to "Ver resumen", "#", class: "text-primary" %>
+          </div>
         </div>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <div class="past-event-card">
-          <div class="past-event-date">1 Feb 2025</div>
-          <h4 class="past-event-title">Seminario de Estadística</h4>
-          <%= link_to "Ver resumen", "#", class: "text-primary" %>
+        <div class="col-md-6 col-lg-3">
+          <div class="past-event-card">
+            <div class="past-event-date">1 Feb 2025</div>
+            <h4 class="past-event-title">Seminario de Estadística</h4>
+            <%= link_to "Ver resumen", "#", class: "text-primary" %>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </section>

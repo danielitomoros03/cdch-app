@@ -66,7 +66,7 @@ module Dashboard
 
       # Only allow a list of trusted parameters through.
       def call_params
-        params.require(:call).permit(:title, :short_description, :start_date, :end_date, :type, :active, :large_description)
+        params.require(:call).permit(:title, :short_description, :start_date, :end_date, :kind, :active, :large_description)
       end
   end
 end

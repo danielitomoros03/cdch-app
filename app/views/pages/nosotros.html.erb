@@ -33,12 +33,14 @@
               Nuestro compromiso es fortalecer la investigación de calidad, fomentar la publicación científica 
               y promover la formación de nuevos investigadores en todas las áreas del conocimiento.
             </p>
-            <p class="text-gray mb-4">
-              <a href="#" data-bs-toggle="modal" data-bs-target="#misionVisionModal">Misión y Visión</a>
-            </p>
           <% else %>
             <%= Institution.first.history %>
           <% end %>
+          <p class="text-gray mb-4">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#misionVisionModal">Misión y Visión</a>
+            <br>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#basicInformationModal">Información Básica</a>
+          </p>
         </p>
       </div>
       <div class="col-lg-6">
@@ -97,9 +99,47 @@
         <div>
           <h4 class="text-primary mb-3">Visión</h4>
           <p class="text-gray">
-              Ser el ente líder en el financiamiento y promoción de la investigación de calidad en Venezuela, 
-              reconocido nacional e internacionalmente por su excelencia académica, innovación y contribución 
-              al desarrollo sostenible del país.
+              <%= Institution.first.vission %>
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Basic Information Modal -->
+<div class="modal fade" id="basicInformationModal" tabindex="-1" aria-labelledby="basicInformationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="basicInformationModalLabel">Información Básica del CDCH</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-4">
+          <h4 class="text-primary mb-3">Fundado en <%= Institution.first.founded_year %></h4>
+        </div>
+        <div class="mb-4">
+          <h4 class="text-primary mb-3">Director(a)</h4>
+          <p class="text-gray">
+            <%= Institution.first.director_name %> - <%= Institution.first.director_email %>
+          </p>
+        </div>
+        <div>
+          <h4 class="text-primary mb-3">Descripción</h4>
+          <p class="text-gray">
+              <%= Institution.first.description %>
+          </p>
+        </div>
+        <div class="mb-4">
+          <h4 class="text-primary mb-3">Contactos</h4>
+          <p class="text-gray">
+            <%= Institution.first.emails %>
+            <br>
+            <%= Institution.first.phone_numbers %>
           </p>
         </div>
       </div>

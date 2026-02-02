@@ -6,11 +6,26 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-xl-8">
-        <h1 class="hero-title reveal animate__fadeInDown"><%= Institution.first.name %></h1>
-        <p class="hero-subtitle reveal animate__fadeIn animate_delay-1s"><%= Institution.first.description %></p>
+        <h1 class="hero-title reveal animate__fadeInDown">
+          <% if @eventsHero.present? %>
+            <%= @eventsHero.first.title %>
+          <% else %>
+            <%= Institution.first.name %>
+          <% end %>
+        </h1>
+        <p class="hero-subtitle reveal animate__fadeIn animate_delay-1s">
+          <% if @eventsHero.present? %>
+            <%= truncate(@eventsHero.first.description, length: 200) %>
+          <% else %>
+            <%= Institution.first.description %>
+          <% end %>
+        </p>
         <div class="hero-buttons reveal animate__fadeIn animate_delay-2s">
-          <%= link_to "Ver Convocatorias", convocatorias_path, class: "btn-white-custom" %>
-          <%= link_to "Conocer Más", nosotros_path, class: "btn-white-outline" %>
+          <% if @eventsHero.present? %>
+            <%= link_to "Ver Noticia", evento_path(@eventsHero.first), class: "btn-white-custom" %>
+          <% else %>
+            <%= link_to "Ver Eventos", eventos_path, class: "btn-white-custom" %>
+          <% end %>
         </div>
       </div>
     </div>
@@ -87,73 +102,97 @@
     </div>
 
     <div class="row g-4">
-      <!-- Update Card 1 -->
-      <div class="col-md-6 col-lg-3">
-        <article class="update-card reveal animate__zoomIn">
-          <div class="update-image update-image-blue"></div>
-          <div class="update-content">
-            <div class="update-date">15 de Marzo, 2025</div>
-            <h3 class="update-title">Convocatoria 2025: Proyectos de Investigación</h3>
-            <p class="update-excerpt">
-              Abierta la convocatoria para financiamiento de proyectos de investigación individuales y grupales.
-            </p>
-            <%= link_to "#", class: "update-link" do %>
-              Leer más <i class="fas fa-chevron-right ms-1"></i>
-            <% end %>
+      <% if @events.present? %>
+        <% @events.each_with_index do |event, index| %>
+          <div class="col-md-6 col-lg-3">
+            <article class="update-card reveal animate__zoomIn <%= "animate__delay-#{index}s" if index > 0 %>">
+              <% if event.image.attached? %>
+                <div class="update-image" style="background-image: url('<%= url_for(event.image) %>');"></div>
+              <% else %>
+                <div class="update-image update-image-blue"></div>
+              <% end %>
+              <div class="update-content">
+                <div class="update-date"><%= event.day %></div>
+                <h3 class="update-title"><%= event.title %></h3>
+                <p class="update-excerpt">
+                  <%= truncate(event.description, length: 100) %>
+                </p>
+                <%= link_to evento_path(event), class: "update-link" do %>
+                  Leer más <i class="fas fa-chevron-right ms-1"></i>
+                <% end %>
+              </div>
+            </article>
           </div>
-        </article>
-      </div>
+        <% end %>
+      <% else %>
+        <!-- Update Card 1 -->
+        <div class="col-md-6 col-lg-3">
+          <article class="update-card reveal animate__zoomIn">
+            <div class="update-image update-image-blue"></div>
+            <div class="update-content">
+              <div class="update-date">15 de Marzo, 2025</div>
+              <h3 class="update-title">Convocatoria 2025: Proyectos de Investigación</h3>
+              <p class="update-excerpt">
+                Abierta la convocatoria para financiamiento de proyectos de investigación individuales y grupales.
+              </p>
+              <%= link_to "#", class: "update-link" do %>
+                Leer más <i class="fas fa-chevron-right ms-1"></i>
+              <% end %>
+            </div>
+          </article>
+        </div>
 
-      <!-- Update Card 2 -->
-      <div class="col-md-6 col-lg-3">
-        <article class="update-card reveal animate__zoomIn animate__delay-1s">
-          <div class="update-image update-image-green"></div>
-          <div class="update-content">
-            <div class="update-date">10 de Marzo, 2025</div>
-            <h3 class="update-title">Nuevas Publicaciones Disponibles</h3>
-            <p class="update-excerpt">
-              Accede al catálogo actualizado de publicaciones científicas y humanísticas del CDCH.
-            </p>
-            <%= link_to "#", class: "update-link" do %>
-              Leer más <i class="fas fa-chevron-right ms-1"></i>
-            <% end %>
-          </div>
-        </article>
-      </div>
+        <!-- Update Card 2 -->
+        <div class="col-md-6 col-lg-3">
+          <article class="update-card reveal animate__zoomIn animate__delay-1s">
+            <div class="update-image update-image-green"></div>
+            <div class="update-content">
+              <div class="update-date">10 de Marzo, 2025</div>
+              <h3 class="update-title">Nuevas Publicaciones Disponibles</h3>
+              <p class="update-excerpt">
+                Accede al catálogo actualizado de publicaciones científicas y humanísticas del CDCH.
+              </p>
+              <%= link_to "#", class: "update-link" do %>
+                Leer más <i class="fas fa-chevron-right ms-1"></i>
+              <% end %>
+            </div>
+          </article>
+        </div>
 
-      <!-- Update Card 3 -->
-      <div class="col-md-6 col-lg-3">
-        <article class="update-card reveal animate__zoomIn animate__delay-2s">
-          <div class="update-image update-image-purple"></div>
-          <div class="update-content">
-            <div class="update-date">5 de Marzo, 2025</div>
-            <h3 class="update-title">Taller: Metodología de la Investigación</h3>
-            <p class="update-excerpt">
-              Inscripciones abiertas para el taller dirigido a investigadores noveles de la UCV.
-            </p>
-            <%= link_to "#", class: "update-link" do %>
-              Leer más <i class="fas fa-chevron-right ms-1"></i>
-            <% end %>
-          </div>
-        </article>
-      </div>
+        <!-- Update Card 3 -->
+        <div class="col-md-6 col-lg-3">
+          <article class="update-card reveal animate__zoomIn animate__delay-2s">
+            <div class="update-image update-image-purple"></div>
+            <div class="update-content">
+              <div class="update-date">5 de Marzo, 2025</div>
+              <h3 class="update-title">Taller: Metodología de la Investigación</h3>
+              <p class="update-excerpt">
+                Inscripciones abiertas para el taller dirigido a investigadores noveles de la UCV.
+              </p>
+              <%= link_to "#", class: "update-link" do %>
+                Leer más <i class="fas fa-chevron-right ms-1"></i>
+              <% end %>
+            </div>
+          </article>
+        </div>
 
-      <!-- Update Card 4 -->
-      <div class="col-md-6 col-lg-3">
-        <article class="update-card reveal animate__zoomIn animate__delay-3s">
-          <div class="update-image update-image-orange"></div>
-          <div class="update-content">
-            <div class="update-date">5 de Marzo, 2025</div>
-            <h3 class="update-title">Metodología Corporativa</h3>
-            <p class="update-excerpt">
-              Inscripciones abiertas para el taller dirigido a investigadores noveles de la UCV.
-            </p>
-            <%= link_to "#", class: "update-link" do %>
-              Leer más <i class="fas fa-chevron-right ms-1"></i>
-            <% end %>
-          </div>
-        </article>
-      </div>
+        <!-- Update Card 4 -->
+        <div class="col-md-6 col-lg-3">
+          <article class="update-card reveal animate__zoomIn animate__delay-3s">
+            <div class="update-image update-image-orange"></div>
+            <div class="update-content">
+              <div class="update-date">5 de Marzo, 2025</div>
+              <h3 class="update-title">Metodología Corporativa</h3>
+              <p class="update-excerpt">
+                Inscripciones abiertas para el taller dirigido a investigadores noveles de la UCV.
+              </p>
+              <%= link_to "#", class: "update-link" do %>
+                Leer más <i class="fas fa-chevron-right ms-1"></i>
+              <% end %>
+            </div>
+          </article>
+        </div>
+      <% end %>
     </div>
   </div>
 </section>

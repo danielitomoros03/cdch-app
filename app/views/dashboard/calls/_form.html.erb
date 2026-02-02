@@ -35,8 +35,8 @@
   </div>
 
   <div class="mt-3">
-    <%= form.label :type, style: "display: block" %>
-    <%= form.select :type, options_for_select(Call.types.keys.map { |k| [k.humanize, k] }, form.object.type), { include_blank: "Seleccione un tipo..." }, { class: "form-select" } %>
+    <%= form.label :kind, style: "display: block" %>
+    <%= form.select :kind, options_for_select(Call.kinds.keys.map { |k| [k.humanize, k] }, form.object.kind), { include_blank: "Seleccione un tipo..." }, { class: "form-select" } %>
   </div>
 
   <div class="field mt-3">

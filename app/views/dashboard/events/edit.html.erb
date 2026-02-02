@@ -1,0 +1,9 @@
+<% content_for :title, "Editar Evento" %>
+
+<%= render layout: "dashboard/dashboard_form" do %>
+  <h1>Editar Evento</h1>
+  <%= render "form", event: @event %>
+  <div>
+    <%= link_to "Volver", event_path %>
+  </div>
+<% end %>

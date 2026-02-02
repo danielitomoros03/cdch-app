@@ -5,7 +5,7 @@ class CreateCalls < ActiveRecord::Migration[7.2]
       t.string :short_description
       t.datetime :start_date
       t.datetime :end_date
-      t.integer :type
+      t.integer :kind
       t.boolean :active, default: false
 
       t.timestamps

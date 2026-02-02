@@ -147,7 +147,7 @@ calls_data = [
     start_date: Date.new(2026, 1, 1),
     end_date: Date.new(2026, 4, 30),
     active: true,
-    type: :Call
+    kind: :Call
   },
   {
     title: "Convocatoria 2026 - Proyectos Grupales",
@@ -156,7 +156,7 @@ calls_data = [
     start_date: Date.new(2026, 1, 15),
     end_date: Date.new(2026, 5, 15),
     active: true,
-    type: :Call
+    kind: :Call
   },
   {
     title: "Convocatoria 2025 - Proyectos Emergentes",
@@ -165,7 +165,7 @@ calls_data = [
     start_date: Date.new(2025, 6, 1),
     end_date: Date.new(2025, 12, 31),
     active: false,
-    type: :Call
+    kind: :Call
   }
 ]
 
@@ -176,8 +176,74 @@ calls_data.each do |call_data|
     call.start_date = call_data[:start_date]
     call.end_date = call_data[:end_date]
     call.active = call_data[:active]
-    call.type = call_data[:type]
+    call.kind = call_data[:kind]
   end
 end
 
 puts "#{Call.count} convocatorias creadas."
+
+# Create events
+events_data = [
+  {
+    title: "CDCH lanza nueva convocatoria de proyectos de investigación para 2026",
+    description: "El Centro de Desarrollo Científico y Humanístico (CDCH) de la UCV anuncia la apertura de su convocatoria anual para proyectos de investigación individuales y grupales.",
+    content: "<p>El CDCH invita a todos los investigadores de la UCV a participar en la convocatoria 2026, que ofrece financiamiento para proyectos innovadores en diversas áreas del conocimiento. La fecha límite para la presentación de propuestas es el 30 de abril de 2026.</p><p>Para más información, visite el sitio web oficial del CDCH.</p>",
+    published_at: Date.new(2024, 6, 1),
+    kind: 0,
+    show_in: true,
+    active: true,
+    start_time: Time.new(2024, 6, 1, 9, 0, 0),
+    end_time: Time.new(2024, 6, 1, 17, 0, 0),
+    location: "Auditorio Principal del CDCH"
+  },
+  {
+    title: "CDCH lanza nueva convocatoria de proyectos de investigación para 2026",
+    description: "El Centro de Desarrollo Científico y Humanístico (CDCH) de la UCV anuncia la apertura de su convocatoria anual para proyectos de investigación individuales y grupales.",
+    content: "<p>El CDCH invita a todos los investigadores de la UCV a participar en la convocatoria 2026, que ofrece financiamiento para proyectos innovadores en diversas áreas del conocimiento. La fecha límite para la presentación de propuestas es el 30 de abril de 2026.</p><p>Para más información, visite el sitio web oficial del CDCH.</p>",
+    published_at: Date.new(2024, 6, 1),
+    kind: 0,
+    show_in: true,
+    active: true,
+    start_time: Time.new(2024, 6, 1, 9, 0, 0),
+    end_time: Time.new(2024, 6, 1, 17, 0, 0),
+    location: "Auditorio Principal del CDCH"
+  },
+  {
+    title: "CDCH lanza nueva convocatoria de proyectos de investigación para 2026",
+    description: "El Centro de Desarrollo Científico y Humanístico (CDCH) de la UCV anuncia la apertura de su convocatoria anual para proyectos de investigación individuales y grupales.",
+    content: "<p>El CDCH invita a todos los investigadores de la UCV a participar en la convocatoria 2026, que ofrece financiamiento para proyectos innovadores en diversas áreas del conocimiento. La fecha límite para la presentación de propuestas es el 30 de abril de 2026.</p><p>Para más información, visite el sitio web oficial del CDCH.</p>",
+    published_at: Date.new(2024, 6, 1),
+    kind: 2,
+    show_in: true,
+    active: true,
+    start_time: Time.new(2024, 6, 1, 9, 0, 0),
+    end_time: Time.new(2024, 6, 1, 17, 0, 0),
+    location: "Auditorio Principal del CDCH"
+  },
+  {
+    title: "CDCH lanza nueva convocatoria de proyectos de investigación para 2026",
+    description: "El Centro de Desarrollo Científico y Humanístico (CDCH) de la UCV anuncia la apertura de su convocatoria anual para proyectos de investigación individuales y grupales.",
+    content: "<p>El CDCH invita a todos los investigadores de la UCV a participar en la convocatoria 2026, que ofrece financiamiento para proyectos innovadores en diversas áreas del conocimiento. La fecha límite para la presentación de propuestas es el 30 de abril de 2026.</p><p>Para más información, visite el sitio web oficial del CDCH.</p>",
+    published_at: Date.new(2024, 6, 1),
+    kind: 3,
+    show_in: true,
+    active: true,
+    start_time: Time.new(2024, 6, 1, 9, 0, 0),
+    end_time: Time.new(2024, 6, 1, 17, 0, 0),
+    location: "Auditorio Principal del CDCH"
+  }
+]
+events_data.each do |event_data|
+  Event.find_or_create_by!(title: event_data[:title]) do |event|
+    event.description = event_data[:description]
+    event.content = event_data[:content]
+    event.kind = event_data[:kind]
+    event.show_in = event_data[:show_in]
+    event.active = event_data[:active]
+    event.start_time = event_data[:start_time]
+    event.end_time = event_data[:end_time]
+    event.location = event_data[:location]
+  end
+end
+
+puts "#{Event.count} eventos creados."

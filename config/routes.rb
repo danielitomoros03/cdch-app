@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "departamento/:acronym", to: "pages#departamento", as: :departamento
   get "actas", to: "pages#directorio"
   get "actas/:id", to: "pages#directorio", as: :acta
+  get "eventos/:id", to: "pages#eventos", as: :evento
   get "eventos", to: "pages#eventos"
   get "inicio", to: "pages#inicio"
   get "investigacion", to: "pages#investigacion"
@@ -22,10 +23,11 @@ Rails.application.routes.draw do
   # Scaffold's Routes from Dashboard
   resources :users, module: 'dashboard'
   resources :calls, module: 'dashboard'
+  resources :departments, module: 'dashboard'
   resources :institutions, module: 'dashboard', only: [:index, :show, :edit, :update]
   resources :minutes, module: 'dashboard'
+  resources :events, module: 'dashboard'
   resources :publications, module: 'dashboard'
-  resources :departments, module: 'dashboard'
   resources :solicitudes, module: 'dashboard', only: [:index, :show, :destroy]
   get "dashboard/index" # INDEX DASHBOARD
 

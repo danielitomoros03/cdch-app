@@ -1,5 +1,24 @@
 class PagesController < ApplicationController
+  def eventos
+    if params[:id]
+      @event = Event.find(params[:id])
+      render :evento
+    else
+      @eventsActive = Event.where(active: true).order(day: :asc)
+      @eventsInactive = Event.where(active: false).order(day: :asc)
+    end
+  end
+
   def inicio
+    @events = Event.where(active: true).order(day: :asc).limit(4)
+    @eventsHero = @events.where(show_in: true).limit(3)
+    if params[:id]
+      @event = Event.find(params[:id])
+      render :evento
+    else
+      @eventsActive = Event.where(active: true).order(day: :asc)
+      @eventsInactive = Event.where(active: false).order(day: :asc)
+    end
   end
 
   def nosotros
