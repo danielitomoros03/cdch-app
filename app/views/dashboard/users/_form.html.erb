@@ -29,6 +29,16 @@
     <%= form.label :identification_number, style: "display: block" %>
     <%= form.text_field :identification_number, class: "form-control" %>
   </div>
+  
+  <div>
+    <%= form.label :job_title_id, style: "display: block" %>
+    <%= form.select :job_title_id, options_from_collection_for_select(JobTitle.all, :id, :name), include_blank: {"Seleccione un cargo para este usuario"}, class: "form-control" %>
+  </div>
+  
+  <div>
+    <%= form.label :department_id, style: "display: block" %>
+    <%= form.select :department_id, options_from_collection_for_select(Department.all, :id, :name), include_blank: {"Seleccione un departamento para este usuario"}, class: "form-control" %>
+  </div>
 
   <div>
     <%= form.label :number_phone, style: "display: block" %>

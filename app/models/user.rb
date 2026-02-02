@@ -24,9 +24,26 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :validatable
+  
+  ## Associations
+  belongs_to :job_title
+  belongs_to :department
+
+  ## Validations
+  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true
+  validates :lastname, presence: true
+  validates :job_title_id, presence: true
+  validates :department_id, presence: true
+  validates :identification_number, presence: true, uniqueness: true
+  validates :number_phone, presence: true, uniqueness: true
+
+  # Delegate rol for access simple: user.role
+  delegate :role, to: :job_title, allow_nil: true
+
+
   def full_name
     name + ' ' + lastname
-  end 
+  end
 end

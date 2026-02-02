@@ -67,6 +67,8 @@ module Dashboard
         :name,
         :lastname,
         :identification_number,
+        :job_title_id,
+        :department_id,
         :number_phone,
         :password,
         :password_confirmation
