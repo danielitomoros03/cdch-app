@@ -1,91 +1,174 @@
 <!-- MAIN - LANDING PAGE -->
 <%= render "layouts/header" %>
 
-<!-- Hero Section -->
-<section class="hero-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 col-xl-8">
-        <h1 class="hero-title reveal animate__fadeInDown">
-          <% if @eventsHero.present? %>
-            <%= @eventsHero.first.title %>
-          <% else %>
-            <%= Institution.first.name %>
-          <% end %>
-        </h1>
-        <p class="hero-subtitle reveal animate__fadeIn animate_delay-1s">
-          <% if @eventsHero.present? %>
-            <%= truncate(@eventsHero.first.description, length: 200) %>
-          <% else %>
-            <%= Institution.first.description %>
-          <% end %>
-        </p>
-        <div class="hero-buttons reveal animate__fadeIn animate_delay-2s">
-          <% if @eventsHero.present? %>
-            <%= link_to "Ver Noticia", evento_path(@eventsHero.first), class: "btn-white-custom" %>
-          <% else %>
-            <%= link_to "Ver Eventos", eventos_path, class: "btn-white-custom" %>
-          <% end %>
+<!-- Hero Carousel Section -->
+<section class="hero-section" id="heroCarousel">
+  <div class="hero-carousel">
+    <!-- Slides Container -->
+    <div class="hero-carousel__slides" id="carouselSlides">
+      <% if @eventsHero.present? %>
+        <% @eventsHero.each do |event| %>
+          <div class="hero-carousel__slide">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-10 col-xl-8">
+                  <h1 class="hero-title reveal animate__fadeInDown">
+                    <%= event.title %>
+                  </h1>
+                  <p class="hero-subtitle reveal animate__fadeIn animate_delay-1s">
+                    <%= truncate(event.description, length: 200) %>
+                  </p>
+                  <div class="hero-buttons reveal animate__fadeIn animate_delay-2s">
+                    <%= link_to "Ver Noticia", evento_path(event), class: "btn-white-custom" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="hero-carousel__slide">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 col-xl-8 mx-auto">
+                <h1 class="hero-title reveal animate__fadeInDown">
+                  <%= Institution.first.name %>
+                </h1>
+                <p class="hero-subtitle reveal animate__fadeIn animate_delay-1s">
+                  <%= Institution.first.description %>
+                </p>
+                <div class="hero-buttons reveal animate__fadeIn animate_delay-2s">
+                  <%= link_to "Ver Eventos", eventos_path, class: "btn-white-custom" %>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
+
+    <!-- Navigation Buttons -->
+    <% if @eventsHero.present? && @eventsHero.length > 1 %>
+      <!-- Prev/Next Buttons
+        <button class="hero-carousel__button hero-carousel__button--prev" id="prevBtn" aria-label="Slide anterior">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="hero-carousel__button hero-carousel__button--next" id="nextBtn" aria-label="Siguiente slide">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      -->
+
+      <!-- Dots Indicators -->
+      <div class="hero-carousel__controls">
+        <% @eventsHero.each_with_index do |_, index| %>
+          <button 
+            class="hero-carousel__dot <%= 'active' if index == 0 %>"
+            data-slide="<%= index %>"
+            aria-label="Ir al slide <%= index + 1 %>"
+          ></button>
+        <% end %>
+      </div>
+
+      <!-- Autoplay Indicator 
+        <div class="hero-carousel__autoplay">
+          <i class="fas fa-redo-alt"></i> Auto (5s)
+        </div>
+      -->
+    <% end %>
   </div>
 </section>
 
 <!-- Featured Links Section -->
-<section class="featured-links-section">
+<section class="featured-links-section py-5">
   <div class="container">
-    <div class="row g-4">
-      <div class="col-md-6 col-lg-3 animate__fadeInLeft">
-        <%= link_to "#", class: "featured-card reveal" do %>
-          <div class="featured-icon featured-icon-blue">
+    <div class="section-header text-center mb-5">
+      <h2 class="section-title">Departamentos y Servicios</h2>
+      <p class="section-subtitle">Accede a los principales departamentos del CDCH - UCV</p>
+    </div>
+
+    <div class="profile-cards-grid">
+      <!-- DADA Card -->
+      <div class="profile-card profile-card--blue">
+        <div class="profile-card__header profile-card__header--blue">
+          <div class="featured-icon-large">
             <i class="fas fa-users"></i>
           </div>
-          <h3 class="featured-title">DADA</h3>
-          <p class="featured-description">Departamentos de Apoyo al Desarrollo Académico</p>
-          <span class="featured-link">
-            Ver más <i class="fas fa-chevron-right ms-1"></i>
-          </span>
-        <% end %>
+          <h3 class="profile-card__name">DADA</h3>
+          <p class="profile-card__title">Departamentos de Apoyo</p>
+        </div>
+        <div class="profile-card__body">
+          <p class="profile-card__description">
+            Departamentos de Apoyo al Desarrollo Académico. Brindamos soporte integral a estudiantes y docentes.
+          </p>
+          <div style="text-align: center; margin-top: 16px;">
+            <%= link_to "#", class: "btn btn-sm btn-primary" do %>
+              Ver más <i class="fas fa-chevron-right ms-1"></i>
+            <% end %>
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-6 col-lg-3 animate__fadeInUp animate__delay-1s">
-        <%= link_to "#", class: "featured-card reveal" do %>
-          <div class="featured-icon featured-icon-green">
+      <!-- DADI Card -->
+      <div class="profile-card profile-card--green">
+        <div class="profile-card__header profile-card__header--green">
+          <div class="featured-icon-large">
             <i class="fas fa-book"></i>
           </div>
-          <h3 class="featured-title">DADI</h3>
-          <p class="featured-description">Departamentos de Apoyo al Desarrollo de la Investigación</p>
-          <span class="featured-link">
-            Ver más <i class="fas fa-chevron-right ms-1"></i>
-          </span>
-        <% end %>
+          <h3 class="profile-card__name">DADI</h3>
+          <p class="profile-card__title">Apoyo a la Investigación</p>
+        </div>
+        <div class="profile-card__body">
+          <p class="profile-card__description">
+            Departamentos de Apoyo al Desarrollo de la Investigación. Impulsamos proyectos de investigación innovadores.
+          </p>
+          <div style="text-align: center; margin-top: 16px;">
+            <%= link_to "#", class: "btn btn-sm btn-success" do %>
+              Ver más <i class="fas fa-chevron-right ms-1"></i>
+            <% end %>
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-6 col-lg-3 animate__fadeInDown animate__delay-2s">
-        <%= link_to publicaciones_path, class: "featured-card reveal" do %>
-          <div class="featured-icon featured-icon-amber">
+      <!-- Publicaciones Card -->
+      <div class="profile-card profile-card--amber">
+        <div class="profile-card__header profile-card__header--amber">
+          <div class="featured-icon-large">
             <i class="fas fa-file-alt"></i>
           </div>
-          <h3 class="featured-title">Publicaciones</h3>
-          <p class="featured-description">Relaciones y Publicaciones</p>
-          <span class="featured-link">
-            Ver más <i class="fas fa-chevron-right ms-1"></i>
-          </span>
-        <% end %>
+          <h3 class="profile-card__name">Publicaciones</h3>
+          <p class="profile-card__title">Relaciones y Difusión</p>
+        </div>
+        <div class="profile-card__body">
+          <p class="profile-card__description">
+            Relaciones y Publicaciones. Difundimos los resultados y trabajos del CDCH a nivel nacional e internacional.
+          </p>
+          <div style="text-align: center; margin-top: 16px;">
+            <%= link_to publicaciones_path, class: "btn btn-sm btn-warning" do %>
+              Ver más <i class="fas fa-chevron-right ms-1"></i>
+            <% end %>
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-6 col-lg-3 animate__fadeInRight animate__delay-3s">
-        <%= link_to "https://saber.ucv.ve/", class: "featured-card reveal" do %>
-          <div class="featured-icon featured-icon-purple">
+      <!-- Saber UCV Card -->
+      <div class="profile-card profile-card--purple">
+        <div class="profile-card__header profile-card__header--purple">
+          <div class="featured-icon-large">
             <i class="fas fa-calendar"></i>
           </div>
-          <h3 class="featured-title">Saber UCV</h3>
-          <p class="featured-description">Departamento de Comunicación de la Tecnología e Innovación</p>
-          <span class="featured-link">
-            Ver más <i class="fas fa-chevron-right ms-1"></i>
-          </span>
-        <% end %>
+          <h3 class="profile-card__name">Saber UCV</h3>
+          <p class="profile-card__title">Comunicación e Innovación</p>
+        </div>
+        <div class="profile-card__body">
+          <p class="profile-card__description">
+            Departamento de Comunicación de la Tecnología e Innovación. Conectamos la ciencia con la sociedad.
+          </p>
+          <div style="text-align: center; margin-top: 16px;">
+            <%= link_to "https://saber.ucv.ve/", class: "btn btn-sm btn-secondary", target: "_blank" do %>
+              Ver más <i class="fas fa-chevron-right ms-1"></i>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -222,3 +305,90 @@
     </div>
   </div>
 </div>
+
+<style>
+  .featured-icon-large {
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 12px;
+    display: inline-block;
+  }
+
+  .btn-primary { background-color: #3b82f6; color: white; }
+  .btn-success { background-color: #10b981; color: white; }
+  .btn-warning { background-color: #f59e0b; color: white; }
+  .btn-secondary { background: linear-gradient(135deg, #d946ef 0%, #6366f1 100%); color: white; }
+</style>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.getElementById('heroCarousel');
+    if (!carousel) return;
+
+    const slidesContainer = document.getElementById('carouselSlides');
+    const slides = document.querySelectorAll('.hero-carousel__slide');
+    const dots = document.querySelectorAll('.hero-carousel__dot');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    // Si hay menos de 2 slides, no inicializar carrusel
+    if (slides.length < 2) return;
+
+    let currentIndex = 0;
+    let autoplayInterval;
+    const SLIDE_DURATION = 5000; // 5 segundos
+
+    // Función para actualizar slide
+    function goToSlide(index) {
+      currentIndex = (index + slides.length) % slides.length;
+      const offset = -currentIndex * 100;
+      slidesContainer.style.transform = `translateX(${offset}%)`;
+      
+      // Actualizar dots
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+      
+      // Reiniciar autoplay
+      clearInterval(autoplayInterval);
+      startAutoplay();
+    }
+
+    // Función para siguiente slide
+    function nextSlide() {
+      goToSlide(currentIndex + 1);
+    }
+
+    // Función para slide anterior
+    function prevSlide() {
+      goToSlide(currentIndex - 1);
+    }
+
+    // Autoplay
+    function startAutoplay() {
+      autoplayInterval = setInterval(nextSlide, SLIDE_DURATION);
+    }
+
+    // Event listeners
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => goToSlide(index));
+    });
+
+    // Pausar autoplay cuando interactúa el usuario
+    carousel.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+    carousel.addEventListener('mouseleave', startAutoplay);
+
+    // Iniciar autoplay
+    startAutoplay();
+
+    // Soporte para teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+    });
+  });
+</script>
