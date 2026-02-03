@@ -11,9 +11,13 @@
       </div>
 
       <% content_for :title, "Usuarios" %>
-      <p>
-        <h1>Usuarios <%= link_to "Crear Usuario", new_user_path, class: "btn btn-primary" %></h1>
-      </p>
+      <% if can? :manage, User %>
+        <p>
+          <h1>Usuarios <%= link_to "Crear Usuario", new_user_path, class: "btn btn-primary" %></h1>
+        </p>
+      <% else %>
+        <h1>Usuarios</h1>
+      <% end %>
       <div class="container">
         <div id="users">
           <table class="table table-striped table-hover table-bordered">

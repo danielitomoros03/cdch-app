@@ -76,3 +76,6 @@ gem 'jquery-rails'
 gem "importmap-rails"
 gem "font-awesome-sass"
 gem "sassc-rails"
+
+# User's Roles and Permissions
+gem 'cancancan'

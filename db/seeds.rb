@@ -31,6 +31,7 @@ puts "#{Department.count} departamentos estándar creados."
 
 # Create JobTitles
 job_titles_data = [
+  { name: "Desarrollador", role: :Superadmin },
   { name: "Director", role: :Superadmin },
   { name: "Sub-director", role: :Superadmin },
   { name: "Coordinador", role: :Coordinador },
@@ -46,22 +47,22 @@ end
 
 puts "#{JobTitle.count} cargos estándares creados."
 
-User.create!(email: "danielito.moros03@gmail.com", password: "123123", department_id: 1, job_title_id: 3, name: "Daniel", lastname: "Moros", number_phone: "04122539992", identification_number: "30035269")
+User.create!(email: "danielito.moros03@gmail.com", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Desarrollador").id, name: "Daniel", lastname: "Moros", number_phone: "04122539992", identification_number: "30035269")
 puts "Usuario #{User.last.full_name} creado."
 
-User.create!(email: "director@ucv.ve", password: "123123", department_id: 1, job_title_id: 3, name: "Juana", lastname: "García", number_phone: "0416123120", identification_number: "12312311")
+User.create!(email: "director@ucv.ve", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Director").id, name: "Juana", lastname: "García", number_phone: "0416123120", identification_number: "12312311")
 puts "Usuario #{User.last.role} creado."
 
-User.create!(email: "subdirector@ucv.ve", password: "123123", department_id: 1, job_title_id: 3, name: "Carlos A.", lastname: "Saavedra A.", number_phone: "04143661978", identification_number: "12312312")
+User.create!(email: "subdirector@ucv.ve", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Sub-director").id, name: "Carlos A.", lastname: "Saavedra A.", number_phone: "04143661978", identification_number: "12312312")
 puts "Usuario #{User.last.full_name} creado."
 
-User.create!(email: "coordinador@ucv.ve", password: "123123", department_id: 1, job_title_id: 2, name: "Virginia", lastname: "Plazas", number_phone: "0416123123", identification_number: "12312313")
+User.create!(email: "coordinador@ucv.ve", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Coordinador").id, name: "Virginia", lastname: "Plazas", number_phone: "0416123123", identification_number: "12312313")
 puts "Usuario #{User.last.role} creado."
 
-User.create!(email: "administrativo@ucv.ve", password: "123123", department_id: 1, job_title_id: 1, name: "Alexander", lastname: "Contreras", number_phone: "0416123124", identification_number: "12312314")
+User.create!(email: "administrativo@ucv.ve", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Personal Administrativo").id, name: "Alexander", lastname: "Contreras", number_phone: "0416123124", identification_number: "12312314")
 puts "Usuario #{User.last.role} creado."
 
-User.create!(email: "regular@ucv.ve", password: "123123", department_id: 1, job_title_id: 0, name: "Josué", lastname: "Castillo", number_phone: "0416123125", identification_number: "12312315")
+User.create!(email: "regular@ucv.ve", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Investigador").id, name: "Josué", lastname: "Castillo", number_phone: "0416123125", identification_number: "12312315")
 puts "Usuario #{User.last.role} creado."
 
 

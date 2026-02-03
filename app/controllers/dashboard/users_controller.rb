@@ -1,6 +1,8 @@
 module Dashboard
   class UsersController < ApplicationController
+    load_and_authorize_resource
     before_action :set_user, only: %i[show edit update destroy]
+    before_action :set_collections, only: %i[new create edit update]
 
     def index
       @users = User.order(:lastname, :name)
@@ -55,6 +57,19 @@ module Dashboard
       end
     end
 
+    # Edit o create their department and job title lists
+    def set_collections
+      if current_user.role == "Superadmin" || current_user.role == 3
+        @departments = Department.all
+        @job_titles = JobTitle.all
+      else
+        @departments = Department.where(id: current_user.department_id)
+        # Limit job titles to those with role less than or equal to current user's role
+        current_role_value = JobTitle.roles[current_user.role]
+        @job_titles = JobTitle.where("role <= ?", current_role_value)
+      end
+    end
+
     private
 
     def set_user
@@ -73,6 +88,7 @@ module Dashboard
         :password,
         :password_confirmation
       )
+      end
     end
   end
-end
+
