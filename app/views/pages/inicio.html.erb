@@ -101,7 +101,7 @@
             Departamentos de Apoyo al Desarrollo Académico. Brindamos soporte integral a estudiantes y docentes.
           </p>
           <div style="text-align: center; margin-top: 16px;">
-            <%= link_to "#", class: "btn btn-sm btn-primary" do %>
+            <%= link_to departamento_path("DADA"), class: "btn btn-sm btn-primary" do %>
               Ver más <i class="fas fa-chevron-right ms-1"></i>
             <% end %>
           </div>
@@ -122,7 +122,7 @@
             Departamentos de Apoyo al Desarrollo de la Investigación. Impulsamos proyectos de investigación innovadores.
           </p>
           <div style="text-align: center; margin-top: 16px;">
-            <%= link_to "#", class: "btn btn-sm btn-success" do %>
+            <%= link_to departamento_path("DADI"), class: "btn btn-sm btn-success" do %>
               Ver más <i class="fas fa-chevron-right ms-1"></i>
             <% end %>
           </div>
@@ -143,7 +143,7 @@
             Relaciones y Publicaciones. Difundimos los resultados y trabajos del CDCH a nivel nacional e internacional.
           </p>
           <div style="text-align: center; margin-top: 16px;">
-            <%= link_to publicaciones_path, class: "btn btn-sm btn-warning" do %>
+            <%= link_to departamento_path("Publicaciones"), class: "btn btn-sm btn-warning" do %>
               Ver más <i class="fas fa-chevron-right ms-1"></i>
             <% end %>
           </div>
@@ -156,12 +156,12 @@
           <div class="featured-icon-large">
             <i class="fas fa-calendar"></i>
           </div>
-          <h3 class="profile-card__name">Saber UCV</h3>
-          <p class="profile-card__title">Comunicación e Innovación</p>
+          <h3 class="profile-card__name">DAPDA</h3>
+          <p class="profile-card__title">Saber UCV</p>
         </div>
         <div class="profile-card__body">
           <p class="profile-card__description">
-            Departamento de Comunicación de la Tecnología e Innovación. Conectamos la ciencia con la sociedad.
+            Departamento de Apoyo para la Planificación y el Desarrollo Académico. Plataforma Saber UCV para la gestión académica.
           </p>
           <div style="text-align: center; margin-top: 16px;">
             <%= link_to "https://saber.ucv.ve/", class: "btn btn-sm btn-secondary", target: "_blank" do %>
@@ -189,10 +189,14 @@
         <% @events.each_with_index do |event, index| %>
           <div class="col-md-6 col-lg-3">
             <article class="update-card reveal animate__zoomIn <%= "animate__delay-#{index}s" if index > 0 %>">
-              <% if event.image.attached? %>
-                <div class="update-image" style="background-image: url('<%= url_for(event.image) %>');"></div>
+              <% if event.image.present? %>
+                <div class="update-image">
+                  <%= image_tag event.image, alt: "Imagen del evento #{event.title}", style: "width: 100%; height: 100%; object-fit: cover;" %>
+                </div>
               <% else %>
-                <div class="update-image update-image-blue"></div>
+                <div class="update-image update-image-blue">
+                  <%= image_tag "Detalle_vitral_CDCH.JPG", alt: "Imagen por defecto de eventos", style: "width: 100%; height: 100%; object-fit: cover;" %>
+                </div>
               <% end %>
               <div class="update-content">
                 <div class="update-date"><%= event.day %></div>
