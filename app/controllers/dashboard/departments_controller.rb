@@ -66,7 +66,7 @@ module Dashboard
 
     # Only allow a list of trusted parameters through.
     def department_params
-      params.require(:department).permit(:name, :acronym)
+      params.require(:department).permit(:name, :acronym, :description)
     end
   end
 end
