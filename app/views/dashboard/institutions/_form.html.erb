@@ -18,29 +18,44 @@
           <h6 class="m-0 font-weight-bold text-primary">Información Básica</h6>
         </div>
         <div class="card-body">
-          <div class="form-group">
+          <div class="form-group mt-2">
             <%= form.label :name, "Nombre de la Institución *" %>
             <%= form.text_field :name, class: "form-control", required: true, placeholder: "Centro de Desarrollo Científico y Humanístico" %>
           </div>
 
-          <div class="form-group">
+          <div class="form-group mt-2">
             <%= form.label :acronym, "Siglas" %>
             <%= form.text_field :acronym, class: "form-control", placeholder: "CDCH" %>
           </div>
 
-          <div class="form-group">
+          <div class="form-group mt-2">
+            <%= form.label :address, "Dirección *" %>
+            <%= form.text_field :address, class: "form-control", required: true, placeholder: "Av. Principal 123, Ciudad, País" %>
+          </div>
+
+          <div class="form-group mt-2">
             <%= form.label :founded_year, "Año de Fundación" %>
             <%= form.number_field :founded_year, class: "form-control", placeholder: "2024" %>
           </div>
 
-          <div class="form-group">
+          <div class="form-group mt-2">
             <%= form.label :director_name, "Nombre del Director" %>
-            <%= form.text_field :director_name, class: "form-control", placeholder: "Dr. Juan Pérez" %>
+            <%= form.text_field :director_name, class: "form-control", placeholder: "Dra. María Rodríguez" %>
           </div>
 
-          <div class="form-group">
-            <%= form.label :director_email, "Email del Director" %>
-            <%= form.email_field :director_email, class: "form-control", placeholder: "director@cdch.edu.ec" %>
+          <div class="form-group mt-2">
+            <%= form.label :subdirector_name, "Nombre del Sub-Director" %>
+            <%= form.email_field :subdirector_name, class: "form-control", placeholder: "maria.rodriguez@ucv.ve" %>
+          </div>
+
+          <div class="form-group mt-2">
+            <%= form.label :director_primary_email, "Email secundario del Director" %>
+            <%= form.email_field :director_primary_email, class: "form-control", placeholder: "carlos.a.saavedra@cdch.ve" %>
+          </div>
+
+          <div class="form-group mt-2">
+            <%= form.label :business_hours, "Horario de Atención" %>
+            <%= form.text_field :business_hours, class: "form-control", placeholder: "Lunes a Viernes: 8:00 AM - 5:00 PM" %>
           </div>
         </div>
       </div>
@@ -53,34 +68,44 @@
           <h6 class="m-0 font-weight-bold text-primary">Información de Contacto</h6>
         </div>
         <div class="card-body">
-          <div class="form-group">
-            <%= form.label :address, "Dirección *" %>
-            <%= form.text_field :address, class: "form-control", required: true, placeholder: "Av. Principal 123, Ciudad, País" %>
-          </div>
-
-          <div class="form-group">
+          <div class="form-group mt-2">
             <%= form.label :primary_phone, "Teléfono Principal *" %>
-            <%= form.text_field :primary_phone, class: "form-control", required: true, placeholder: "+593 2 123 4567" %>
+            <%= form.text_field :primary_phone, class: "form-control", required: true, placeholder: "+58 212 2871325" %>
           </div>
 
-          <div class="form-group">
+          <div class="form-group mt-2">
             <%= form.label :secondary_phone, "Teléfono Secundario" %>
-            <%= form.text_field :secondary_phone, class: "form-control", placeholder: "+593 2 123 4568" %>
+            <%= form.text_field :secondary_phone, class: "form-control", placeholder: "+58 212 2871326" %>
           </div>
 
-          <div class="form-group">
-            <%= form.label :primary_email, "Email Principal *" %>
-            <%= form.email_field :primary_email, class: "form-control", required: true, placeholder: "info@cdch.edu.ec" %>
+          <div class="form-group mt-2">
+            <%= form.label :primary_email, "Email Principal del CDCH*" %>
+            <%= form.email_field :primary_email, class: "form-control", required: true, placeholder: "info.cdch@ucv.ve" %>
           </div>
 
-          <div class="form-group">
-            <%= form.label :secondary_email, "Email Secundario" %>
-            <%= form.text_field :secondary_email, class: "form-control", placeholder: "contacto@cdch.edu.ec" %>
+          <div class="form-group mt-2">
+            <%= form.label :secondary_email, "Email Secundario del CDCH" %>
+            <%= form.email_field :secondary_email, class: "form-control", placeholder: "contacto.cdch@ucv.ve" %>
           </div>
 
-          <div class="form-group">
-            <%= form.label :business_hours, "Horario de Atención" %>
-            <%= form.text_field :business_hours, class: "form-control", placeholder: "Lunes a Viernes: 8:00 AM - 5:00 PM" %>
+          <div class="form-group mt-2">
+            <%= form.label :director_primary_email, "Email Principal del Director(a) *" %>
+            <%= form.email_field :director_primary_email, class: "form-control", required: true, placeholder: "director.cdch@ucv.ve" %>
+          </div>
+
+          <div class="form-group mt-2">
+            <%= form.label :director_secondary_email, "Email Secundario del Director(a) *" %>
+            <%= form.email_field :director_secondary_email, class: "form-control", required: true, placeholder: "director.aux.cdch@ucv.ve" %>
+          </div>
+
+          <div class="form-group mt-2">
+            <%= form.label :subdirector_primary_email, "Email Principal del Sub-Director" %>
+            <%= form.email_field :subdirector_primary_email, class: "form-control", placeholder: "subdirector.cdch@ucv.ve" %>
+          </div>
+
+          <div class="form-group mt-2">
+            <%= form.label :subdirector_secondary_email_email, "Email Secundario del Sub-Director" %>
+            <%= form.email_field :subdirector_secondary_email_email, class: "form-control", placeholder: "contacto.cdch@ucv.ve" %>
           </div>
         </div>
       </div>
@@ -189,8 +214,8 @@
         </div>
         <div class="card-body">
           <div class="form-group">
-            <%= form.label :logoInstitution, "Logo (Imagen)" %>
-            <%= form.file_field :logoInstitution, class: "form-control-file", accept: "image/*" %>
+            <%= form.label :logoInstitution, "Logotipo (Imagen)" %>
+            <%= form.file_field :logoInstitution, class: "form-control", accept: "image/*" %>
             <% if institution.logoInstitution.attached? %>
               <div class="mt-2">
                 <p>Logo actual:</p>
@@ -210,7 +235,7 @@
       <div class="card shadow mb-4">
         <div class="card-body text-center">
           <%= form.submit "Guardar Institución", class: "btn btn-primary btn-lg" %>
-          <%= link_to "Cancelar", institutions_path, class: "btn btn-outline-custom btn-lg ml-2" %>
+          <%= link_to "Cancelar", institutions_path, class: "btn btn-outline-primary btn-lg ml-2" %>
         </div>
       </div>
     </div>

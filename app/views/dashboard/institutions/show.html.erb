@@ -34,30 +34,36 @@
                   <div class="col-md-6">
                     <p><strong>Nombre:</strong><br><%= @institution.name %></p>
                     <p><strong>Sigla:</strong><br><%= @institution.acronym %></p>
+                    <p><strong>Año de Fundación:</strong><br><%= @institution.founded_year %></p>
                   </div>
                   <div class="col-md-6">
                     <p><strong>Director:</strong><br><%= @institution.director_name %></p>
-                    <p><strong>Email del Director:</strong><br><%= mail_to @institution.director_email if @institution.director_email %></p>
-                    <p><strong>Año de Fundación:</strong><br><%= @institution.founded_year %></p>
+                    <p><strong>Email del Director(a):</strong><br><%= mail_to @institution.director_primary_email if @institution.director_primary_email %></p>
+                    <p><strong>Email Secundario del Director(a):</strong><br><%= mail_to @institution.director_secondary_email if @institution.director_secondary_email %></p>
                   </div>
-                </div>
-                <div class="mt-3">
-                  <p><strong>Descripción:</strong></p>
-                  <p><%= @institution.description %></p>
+                  <div class="col-md-6">
+                    <p><strong>Sub-Director:</strong><br><%= @institution.subdirector_name %></p>
+                    <p><strong>Email del Sub-Director:</strong><br><%= mail_to @institution.subdirector_primary_email if @institution.subdirector_primary_email %></p>
+                    <p><strong>Email Secundario del Sub-Director:</strong><br><%= mail_to @institution.subdirector_secondary_email if @institution.subdirector_secondary_email %></p>
+                  </div>
+                  <div class="col-md-6">
+                    <p><strong>Descripción:</strong></p>
+                    <p><%= @institution.description %></p>
+                  </div>
                 </div>
               </div>
             </div>
 
             <!-- Dirección -->
             <% if @institution.address %>
-            <div class="card mb-4">
-              <div class="card-header">
-                <h5 class="mb-0">Dirección</h5>
+              <div class="card mb-4">
+                <div class="card-header">
+                  <h5 class="mb-0">Dirección</h5>
+                </div>
+                <div class="card-body">
+                  <p><%= @institution.address %></p>
+                </div>
               </div>
-              <div class="card-body">
-                <p><%= @institution.address %></p>
-              </div>
-            </div>
             <% end %>
 
             <!-- Contacto -->
@@ -174,16 +180,16 @@
         </div>
 
         <!-- Historia -->
-        <div class="card">
-            <div class="card-header">
-              <h5 class="mb-0">Historia</h5>
-            </div>
-            <div class="card-body">
-              <% if @institution.history %>
-                <%= @institution.history %>
-              <% end %>
-            </div>
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">Historia</h5>
           </div>
+          <div class="card-body">
+            <% if @institution.history %>
+              <%= @institution.history %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -18,8 +18,12 @@ class InstitutionsTest < ApplicationSystemTestCase
     fill_in "Address", with: @institution.address
     fill_in "Business hours", with: @institution.business_hours
     fill_in "Description", with: @institution.description
-    fill_in "Director email", with: @institution.director_email
+    fill_in "Director email", with: @institution.director_primary_email
+    fill_in "Director secondary email", with: @institution.director_secondary_email
     fill_in "Director name", with: @institution.director_name
+    fill_in "Sub-Director email", with: @institution.subdirector_primary_email
+    fill_in "Sub-Director secondary email", with: @institution.subdirector_secondary_email
+    fill_in "Sub-Director name", with: @institution.subdirector_name
     fill_in "Facebook url", with: @institution.facebook_url
     fill_in "Founded year", with: @institution.founded_year
     fill_in "Instagram url", with: @institution.instagram_url
@@ -47,7 +51,8 @@ class InstitutionsTest < ApplicationSystemTestCase
     fill_in "Address", with: @institution.address
     fill_in "Business hours", with: @institution.business_hours
     fill_in "Description", with: @institution.description
-    fill_in "Director email", with: @institution.director_email
+    fill_in "Director email", with: @institution.director_primary_email
+    fill_in "Director email", with: @institution.director_primary_email
     fill_in "Director name", with: @institution.director_name
     fill_in "Facebook url", with: @institution.facebook_url
     fill_in "Founded year", with: @institution.founded_year

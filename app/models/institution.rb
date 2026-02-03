@@ -2,32 +2,41 @@
 #
 # Table name: institutions
 #
-#  id              :bigint           not null, primary key
-#  acronym         :string
-#  address         :string
-#  business_hours  :string
-#  description     :text
-#  director_email  :string
-#  director_name   :string
-#  facebook_url    :string
-#  founded_year    :integer
-#  instagram_url   :string
-#  linkedin_url    :string
-#  mission         :text
-#  name            :string
-#  primary_email   :string
-#  primary_phone   :string
-#  secondary_email :string
-#  secondary_phone :string
-#  threads_url     :string
-#  twitter_url     :string
-#  vission         :text
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id                          :bigint           not null, primary key
+#  acronym                     :string
+#  address                     :string
+#  business_hours              :string
+#  description                 :text
+#  director_name               :string
+#  director_primary_email      :string
+#  director_secondary_email    :string
+#  facebook_url                :string
+#  founded_year                :integer
+#  instagram_url               :string
+#  linkedin_url                :string
+#  mission                     :text
+#  name                        :string
+#  primary_email               :string
+#  primary_phone               :string
+#  secondary_email             :string
+#  secondary_phone             :string
+#  subdirector_name            :string
+#  subdirector_primary_email   :string
+#  subdirector_secondary_email :string
+#  threads_url                 :string
+#  twitter_url                 :string
+#  vission                     :text
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
 #
 class Institution < ApplicationRecord
     # Attachment for Institution's Logo
     has_one_attached :logoInstitution
+    # Atributo virtual para el checkbox de eliminar
+    attr_accessor :remove_logo
+    
+    # Antes de guardar, verificamos si se marcó para eliminar
+    after_save :purge_logo, if: -> { remove_logo == '1' }
 
     # CDCH's History with Rich Text
     has_rich_text :history
@@ -38,7 +47,10 @@ class Institution < ApplicationRecord
     validates :primary_phone, presence: true
     validates :primary_email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :secondary_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
-    validates :director_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
+    validates :director_primary_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
+    validates :director_secondary_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
+    validates :subdirector_primary_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
+    validates :subdirector_secondary_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
     validates :mission, presence: true
     validates :vission, presence: true
     validates :description, presence: true
@@ -60,5 +72,10 @@ class Institution < ApplicationRecord
         emails = primary_email.to_s
         emails += ", #{secondary_email}" if secondary_email.present?
         emails
+    end
+
+    private
+    def purge_logo
+        logoInstitution.purge  
     end
 end
