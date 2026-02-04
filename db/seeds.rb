@@ -52,7 +52,7 @@ Institution.find_or_create_by!(name: "Centro de Desarrollo Científico y Humaní
   institution.director_name = "Dra. María Rodríguez"
   institution.director_primary_email = "maria.rodriguez@ucv.ve"
   institution.director_secondary_email = "maria.rodriguez.cdch@ucv.ve"
-  institution.subdirector_name = "Lic. Carlos A. Saavedra A."
+  institution.subdirector_name = "MSc. Carlos A. Saavedra A."
   institution.subdirector_primary_email = "carlos.a.saavedra.a@ucv.ve"
   institution.subdirector_secondary_email = "carlos.a.saavedra.cdch@ucv.ve"
   institution.founded_year = 1958
