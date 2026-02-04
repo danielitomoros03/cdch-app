@@ -49,7 +49,7 @@
           </div>
 
           <div class="form-group mt-2">
-            <%= form.label :director_primary_email, "Email secundario del Director" %>
+            <%= form.label :director_primary_email, "Email principal del Director" %>
             <%= form.email_field :director_primary_email, class: "form-control", placeholder: "carlos.a.saavedra@cdch.ve" %>
           </div>
 
@@ -89,13 +89,8 @@
           </div>
 
           <div class="form-group mt-2">
-            <%= form.label :director_primary_email, "Email Principal del Director(a) *" %>
-            <%= form.email_field :director_primary_email, class: "form-control", required: true, placeholder: "director.cdch@ucv.ve" %>
-          </div>
-
-          <div class="form-group mt-2">
-            <%= form.label :director_secondary_email, "Email Secundario del Director(a) *" %>
-            <%= form.email_field :director_secondary_email, class: "form-control", required: true, placeholder: "director.aux.cdch@ucv.ve" %>
+            <%= form.label :director_secondary_email, "Email secundario del Director(a) *" %>
+            <%= form.email_field :director_secondary_email, class: "form-control", required: true, placeholder: "director.cdch@ucv.ve" %>
           </div>
 
           <div class="form-group mt-2">
@@ -104,8 +99,8 @@
           </div>
 
           <div class="form-group mt-2">
-            <%= form.label :subdirector_secondary_email_email, "Email Secundario del Sub-Director" %>
-            <%= form.email_field :subdirector_secondary_email_email, class: "form-control", placeholder: "contacto.cdch@ucv.ve" %>
+            <%= form.label :subdirector_secondary_email, "Email Secundario del Sub-Director" %>
+            <%= form.email_field :subdirector_secondary_email, class: "form-control", placeholder: "contacto.cdch@ucv.ve" %>
           </div>
         </div>
       </div>
