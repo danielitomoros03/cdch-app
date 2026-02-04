@@ -122,6 +122,10 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_23_164049) do
 
   create_table "publications", force: :cascade do |t|
     t.string "title"
+    t.string "author_name"
+    t.date "date_publication"
+    t.integer "kind", default: 0
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

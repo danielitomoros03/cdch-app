@@ -61,6 +61,26 @@ end
 
 puts "Datos institucionales estándar del CDCH creados."
 
+publications_data = [
+  { kind: "Libro", title: "Investigación Científica en Venezuela", author_name: "Dr. Juan Pérez", date_publication: Date.new(2024, 1, 15), description: "Una exploración profunda del estado actual de la investigación científica en el contexto venezolano." },
+  { kind: "Revista", title: "Revista de Ciencias Sociales Vol. 45", author_name: "Varios autores", date_publication: Date.new(2024, 1, 15), description: "Edición especial dedicada a los estudios contemporáneos en ciencias sociales." },
+  { kind: "Articulo", title: "Avances en Biotecnología Aplicada", author_name: "Dra. María González", date_publication: Date.new(2024, 1, 15), description: "Investigación sobre las últimas innovaciones en biotecnología médica." },
+  { kind: "Libro", title: "Historia de la UCV: 300 Años", author_name: "Prof. Carlos Rodríguez", date_publication: Date.new(2023, 1, 15), description: "Recorrido histórico por los tres siglos de la Universidad Central de Venezuela." },
+  { kind: "Revista", title: "Acta Científica Venezolana Vol. 74", author_name: "Varios autores", date_publication: Date.new(2023, 1, 15), description: "Publicación trimestral de investigaciones en ciencias exactas y naturales." },
+  { kind: "Tesis", title: "Innovación Tecnológica en Educación", author_name: "MSc. Ana Martínez", date_publication: Date.new(2023, 1, 15), description: "Tesis doctoral sobre la implementación de tecnologías en el aula." }
+]
+
+publications_data.each do |pub|
+  Publication.find_or_create_by!(title: pub[:title]) do |p|
+    p.kind = pub[:kind]
+    p.author_name = pub[:author_name]
+    p.date_publication = pub[:date_publication]
+    p.description = pub[:description]
+  end
+end
+
+puts "#{Publication.count} publicaciones creadas."
+
 # Create minutes
 minutes_data = [
   {

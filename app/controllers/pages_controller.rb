@@ -39,6 +39,7 @@ class PagesController < ApplicationController
   end
 
   def publicaciones
+    @publications = Publication.all.order(created_at: :desc).limit(8)
   end
   
   def directorio
