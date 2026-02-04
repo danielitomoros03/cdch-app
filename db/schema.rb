@@ -102,7 +102,11 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_02_143321) do
     t.text "description"
     t.string "linkedin_url"
     t.string "director_name"
-    t.string "director_email"
+    t.string "director_primary_email"
+    t.string "director_secondary_email"
+    t.string "subdirector_name"
+    t.string "subdirector_primary_email"
+    t.string "subdirector_secondary_email"
     t.integer "founded_year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

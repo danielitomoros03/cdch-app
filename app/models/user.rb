@@ -34,6 +34,8 @@ class User < ApplicationRecord
   belongs_to :job_title
   belongs_to :department
 
+  has_one_attached :photoUser # Active Storage association for user avatar
+
   ## Validations
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
@@ -42,6 +44,7 @@ class User < ApplicationRecord
   validates :department_id, presence: true
   validates :identification_number, presence: true, uniqueness: true
   validates :number_phone, presence: true, uniqueness: true
+  # validates :avatarUser, presence: true
 
   # Delegate rol for access simple: user.role
   delegate :role, to: :job_title, allow_nil: true

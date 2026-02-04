@@ -10,8 +10,8 @@ class PagesController < ApplicationController
   end
 
   def inicio
-    @events = Event.where(active: true).order(day: :asc).limit(4)
-    @eventsHero = @events.where(show_in: true).limit(3)
+    @events = Event.where(active: true).order(day: :desc).limit(4) # Filter for last edited active events
+    @eventsHero = @events.where(show_in: true).order(day: :desc).limit(3) # Filter for events to show in hero section
     if params[:id]
       @event = Event.find(params[:id])
       render :evento

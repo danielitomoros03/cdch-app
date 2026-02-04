@@ -36,15 +36,19 @@
           <% else %>
             <%= Institution.first.history %>
           <% end %>
-          <p class="text-gray mb-4">
-            <a href="#" data-bs-toggle="modal" data-bs-target="#misionVisionModal">Misión y Visión</a>
+          <p class="text-gray mt-3">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#misionVisionModal" class="pb-2">Misión y Visión</a>
             <br>
             <a href="#" data-bs-toggle="modal" data-bs-target="#basicInformationModal">Información Básica</a>
           </p>
         </p>
       </div>
       <div class="col-lg-6">
-        <div class="about-image-placeholder" style="height: 400px; background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); border-radius: 1rem;"></div>
+        <% if Institution.first.logoInstitution.present? %>
+          <%= image_tag Institution.first.logoInstitution, class: "about-image-placeholder rounded", alt: "Imagen sobre nosotros" %>
+        <% else %>
+          <%= image_tag "Foto-Emblema-CDCH.jpg", class: "about-image-placeholder rounded", alt: "Imagen sobre nosotros" %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -61,7 +65,13 @@
       <% @departments.each do |department| %>
         <div class="col-md-6 col-lg-3">
           <article class="update-card">
-            <div class="update-image update-image-blue"></div>
+            <div class="update-image update-image-blue">
+              <% if department.logoDepartment.attached? %>
+                <%= image_tag department.logoDepartment, alt: "Logo #{department.name}", class: "department-logo" %>
+              <% else %>
+                <%= image_tag "Huella.JPG", alt: "Default Department Image", class: "department-logo" %>
+              <% end %>
+            </div>
             <div class="update-content">
               <div class="update-date"><%= department.acronym %></div>
               <h3 class="update-title"><%= department.name %></h3>
@@ -125,7 +135,13 @@
         <div class="mb-4">
           <h4 class="text-primary mb-3">Director(a)</h4>
           <p class="text-gray">
-            <%= Institution.first.director_name %> - <%= Institution.first.director_email %>
+            <%= Institution.first.director_name %> - <%= Institution.first.director_primary_email %> - <%= Institution.first.director_secondary_email %>
+          </p>
+        </div>
+        <div class="mb-4">
+          <h4 class="text-primary mb-3">Sub-Director(a)</h4>
+          <p class="text-gray">
+            <%= Institution.first.subdirector_name %> - <%= Institution.first.subdirector_primary_email %> - <%= Institution.first.subdirector_secondary_email %>
           </p>
         </div>
         <div>
@@ -135,7 +151,7 @@
           </p>
         </div>
         <div class="mb-4">
-          <h4 class="text-primary mb-3">Contactos</h4>
+          <h4 class="text-primary mb-3">Contactos CDCH</h4>
           <p class="text-gray">
             <%= Institution.first.emails %>
             <br>

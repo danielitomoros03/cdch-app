@@ -10,14 +10,14 @@
 
 # Create departments
 departments_data = [
-  { acronym: "DADA", name: "Departamentos de Apoyo al Desarrollo Académico", description: "Encargado del apoyo y desarrollo académico en la Universidad Central de Venezuela." },
-  { acronym: "DADI", name: "Departamentos de Apoyo al Desarrollo de la Investigación", description: "Facilita y promueve el desarrollo de proyectos de investigación científica y humanística." },
-  { acronym: "Publicaciones", name: "Relaciones y Publicaciones", description: "Gestiona las publicaciones científicas, libros y materiales académicos del CDCH." },
-  { acronym: "Saber UCV", name: "Departamento de Comunicación de la Tecnología e Innovación", description: "Encargado de la comunicación, tecnología y innovación en la plataforma Saber UCV." },
-  { acronym: "DEA", name: "Departamento de Evaluación y Acreditación", description: "Evalúa y acredita proyectos de investigación y programas académicos." },
-  { acronym: "DRHC", name: "Departamento de Recursos Humanos y Capacitación", description: "Gestiona el personal y programas de capacitación para investigadores y administrativos." },
-  { acronym: "DAF", name: "Departamento Administrativo y Financiero", description: "Administra los recursos financieros y operaciones administrativas del CDCH." },
-  { acronym: "DEIC", name: "Departamento de Ética e Integridad Científica", description: "Vigila el cumplimiento ético e integridad en todas las actividades de investigación." }
+  { acronym: "DADA", name: "Departamentos de Apoyo al Desarrollo Académico", description: "Promover la disponibilidad y asignación eficiente de recursos financieros destinados a la formación y actualización del capital intelectual, mediante el establecimiento de normativas y estándares de calidad que aseguren la competitividad profesional y contribuyan al desarrollo estratégico nacional." },
+  { acronym: "DADI", name: "Departamentos de Apoyo al Desarrollo de la Investigación", description: "Potenciar la producción científica y académica de la UCV mediante la gestión estratégica de ayudas financieras y el fortalecimiento de la infraestructura investigativa, con el fin de elevar la calidad de la enseñanza y posicionar la generación de conocimiento como motor de productividad institucional." },
+  { acronym: "Publicaciones", name: "Relaciones y Publicaciones", description: "Gestionar y financiar la difusión del conocimiento científico generado por el personal docente e investigador, mediante el apoyo a publicaciones especializadas y la ejecución de estrategias de comunicación institucional, con el fin de proyectar la productividad académica y el quehacer científico de la institución ante la comunidad nacional e internacional." },
+  { acronym: "DAPDA", name: "Departamento de Comunicación de la Tecnología e Innovación", description: "Administrar, preservar y difundir el patrimonio intelectual de la institución a través del Repositorio Institucional 'Saber UCV', garantizando el acceso abierto a la producción científica y académica (revistas, libros y artículos) bajo estándares internacionales de calidad, para consolidar el liderazgo de la universidad como el principal referente de conocimiento del país." },
+  { acronym: "DTIC - CTIC", name: "Departamento de Tecnología, Informática y Comunicaciones", description: "Gestionar y optimizar la infraestructura tecnológica y los sistemas de información del CDCH, mediante la implementación de soluciones de vanguardia, el desarrollo de software a medida y un soporte técnico proactivo, con el fin de garantizar la eficiencia operativa, la seguridad de la data y la excelencia en los servicios digitales ofrecidos a la comunidad académica y administrativa." },
+  { acronym: "DRHC", name: "Departamento de Recursos Humanos y Capacitación", description: "Gestionar el desarrollo profesional del personal docente e investigador, mediante la implementación de estrategias de capacitación, evaluación y promoción del talento humano, con el fin de fortalecer la calidad académica y administrativa del CDCH." },
+  { acronym: "DAF", name: "Departamento Administrativo y Financiero", description: "Gestionar los recursos administrativos y financieros del CDCH, mediante la implementación de procesos eficientes de control presupuestario, gestión contable y optimización de recursos humanos y materiales." },
+  { acronym: "DEIC", name: "Departamento de Ética e Integridad Científica", description: "Promover y garantizar la ética científica y la integridad académica en todas las actividades del CDCH, mediante la implementación de políticas claras, el seguimiento ético de investigaciones y el fomento de una cultura institucional basada en principios de honestidad, responsabilidad y transparencia." }
 ]
 
 departments_data.each do |dept|
@@ -70,10 +70,10 @@ puts "Usuario #{User.last.role} creado."
 Institution.find_or_create_by!(name: "Centro de Desarrollo Científico y Humanístico") do |institution|
   institution.acronym = "CDCH"
   institution.address = "Quinta Silenia, Urb. La Floresta, Caracas 1040, Venezuela."
-  institution.primary_phone = "+58 212 6052860"
+  institution.primary_phone = "+58 212 2871325"
   institution.secondary_phone = "+58 212 6052861"
   institution.primary_email = "cdch@ucv.ve"
-  institution.secondary_email = "info@cdch.ucv.ve"
+  institution.secondary_email = "ucv.cdch.coordinacion@gmail.com"
   institution.business_hours = "Lunes a Viernes: 8:00 AM - 4:00 PM"
   institution.mission = "El Centro de Desarrollo Científico y Humanístico (CDCH) de la UCV tiene como misión promover, coordinar y apoyar el desarrollo de la investigación científica y humanística en la institución, contribuyendo al avance del conocimiento y al fortalecimiento de la formación académica de la comunidad universitaria."
   institution.vission = "Ser el centro de referencia nacional e internacional en el desarrollo de la investigación científica y humanística, reconocido por su excelencia académica, innovación y contribución al desarrollo sostenible de Venezuela."
@@ -83,10 +83,14 @@ Institution.find_or_create_by!(name: "Centro de Desarrollo Científico y Humaní
   institution.instagram_url = "https://instagram.com/cdch_ucv"
   institution.linkedin_url = "https://linkedin.com/company/cdch-ucv"
   institution.threads_url = "https://threads.net/@cdch_ucv"
-  institution.director_name = "Dr. José Antonio Rivas"
-  institution.director_email = "director@cdch.ucv.ve"
-  institution.founded_year = 1970
-  institution.description = "Descripción detallada del Centro de Desarrollo Científico y Humanístico de la UCV."
+  institution.director_name = "Dra. María Rodríguez"
+  institution.director_primary_email = "maria.rodriguez@ucv.ve"
+  institution.director_secondary_email = "maria.rodriguez.cdch@ucv.ve"
+  institution.subdirector_name = "Lic. Carlos A. Saavedra A."
+  institution.subdirector_primary_email = "carlos.a.saavedra.a@ucv.ve"
+  institution.subdirector_secondary_email = "carlos.a.saavedra.cdch@ucv.ve"
+  institution.founded_year = 1958
+  institution.history = "<div><strong>Nuestra Trayectoria: Legado y Futuro de la Excelencia Académica<br></strong><br></div><div><strong>Fundados en la Visión de un País</strong> El <strong>28 de junio de 1958</strong>, bajo el liderazgo del Rector <strong>Dr. Francisco de Venanzi</strong>, nació esta institución con una misión clara: ser el motor del desarrollo científico y humanístico de la Universidad Central de Venezuela. Lo que comenzó como un proyecto de vanguardia, se ha consolidado en más de seis décadas de labor ininterrumpida.<br><br></div><div><strong>Impacto y Compromiso</strong> No solo financiamos proyectos; impulsamos el conocimiento. Hemos sido el puente para la formación de miles de investigadores a nivel de postgrado y el soporte de hallazgos que han transformado la realidad técnica y social de Venezuela. Nuestra historia es la historia de la excelencia en la UCV.<br><br></div><div><strong>Evolución Estratégica</strong> Para responder a los desafíos del siglo XXI, nos hemos transformado:<br><br></div><ul><li><strong>2013:</strong> Evolucionamos de Gerencia a <strong>Dirección</strong>, fortaleciendo nuestra autoridad institucional.<br><br></li><li><strong>2025:</strong> Optimizamos nuestra estructura para ser más ágiles. Elevamos el nivel de nuestras operaciones y colocamos a la <strong>Ciencia, Tecnología e Innovación</strong> en el centro de nuestra ejecución operativa.</li></ul>"
 end
 
 puts "Datos institucionales estándar del CDCH creados."

@@ -87,8 +87,16 @@
         </div>
       </div>
 
+
       <!-- Contact Form -->
       <div class="col-lg-8">
+        <!-- Flash messages -->
+        <% if notice %>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i><%= notice %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        <% end %>
         <div class="contact-form-section">
           <h3 class="mb-4">Envíanos un Mensaje</h3>
           <%= render "dashboard/solicitudes/form", solicitude: Solicitude.new, url: solicitudes_path %>

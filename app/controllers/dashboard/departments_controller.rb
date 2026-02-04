@@ -4,7 +4,7 @@ module Dashboard
 
   # GET /dashboard/departments or /dashboard/departments.json
   def index
-    @departments = Department.all
+    @departments = Department.all.order(created_at: :desc)
   end
 
   # GET /dashboard/departments/1 or /dashboard/departments/1.json
@@ -39,7 +39,7 @@ module Dashboard
   def update
     respond_to do |format|
       if @department.update(department_params)
-        format.html { redirect_to @department, notice: "Department was successfully updated." }
+        format.html { redirect_to @department, notice: "Departamento actualizado correctamente." }
         format.json { render :show, status: :ok, location: @department }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ module Dashboard
     @department.destroy!
 
     respond_to do |format|
-      format.html { redirect_to departments_path, status: :see_other, notice: "Department was successfully destroyed." }
+      format.html { redirect_to departments_path, status: :see_other, notice: "Departamento eliminado correctamente." }
       format.json { head :no_content }
     end
   end
@@ -66,7 +66,7 @@ module Dashboard
 
     # Only allow a list of trusted parameters through.
     def department_params
-      params.require(:department).permit(:name, :acronym)
+      params.require(:department).permit(:name, :acronym, :description, :logoDepartment)
     end
   end
 end

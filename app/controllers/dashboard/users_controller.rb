@@ -85,6 +85,7 @@ module Dashboard
         :job_title_id,
         :department_id,
         :number_phone,
+        :photoUser,
         :password,
         :password_confirmation
       )

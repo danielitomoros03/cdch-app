@@ -22,8 +22,10 @@
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Day</th>
-            <th scope="col">Title</th>
+            <th scope="col">Título</th>
+            <th scope="col">Día de reunión</th>
+            <th scope="col">Contenido</th>
+            <th scope="col">Archivo</th>
           </tr>
         </thead>
         <tbody>
@@ -34,9 +36,9 @@
       </table>
 
       <div class="container-fluid">
-        <%= link_to "Edit this minute", edit_minute_path(@minute), class: "btn btn-primary" %> |
-        <%= link_to "Back to minutes", minutes_path, class: "btn btn-dark" %> |
-        <%= button_to "Eliminar convocatoria", @minute, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar esta acta del directorio?' } } %>
+        <%= link_to "Editar acta", edit_minute_path(@minute), class: "btn btn-primary m-2" %> 
+        <%= link_to "Volver", minutes_path, class: "btn btn-dark m-2" %> 
+        <%= button_to "Eliminar acta", @minute, method: :delete, class: "btn btn-danger m-2", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar esta acta del directorio?' } } %>
       </div>
     </div>
   </div>

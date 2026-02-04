@@ -4,7 +4,7 @@ module Dashboard
 
     # GET /minutes or /minutes.json
     def index
-      @minutes = Minute.all
+      @minutes = Minute.all.order(created_at: :desc)
     end
 
     # GET /minutes/1 or /minutes/1.json
@@ -26,11 +26,11 @@ module Dashboard
 
       respond_to do |format|
         if @minute.save
-          format.html { redirect_to @minute, notice: "Minute was successfully created." }
-          format.json { render :show, status: :created, location: @directory }
+          format.html { redirect_to @minute, notice: "Acta creada correctamente." }
+          format.json { render :show, status: :created, location: @minute }
         else
           format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @directory.errors, status: :unprocessable_entity }
+          format.json { render json: @minute.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -39,7 +39,7 @@ module Dashboard
     def update
       respond_to do |format|
         if @minute.update(minute_params)
-          format.html { redirect_to @minute, notice: "Minute was successfully updated." }
+          format.html { redirect_to @minute, notice: "Acta actualizada correctamente." }
           format.json { render :show, status: :ok, location: @minute }
         else
           format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ module Dashboard
       @minute.destroy!
 
       respond_to do |format|
-        format.html { redirect_to minutes_path, status: :see_other, notice: "Minute was successfully destroyed." }
+        format.html { redirect_to minutes_path, status: :see_other, notice: "Acta eliminada correctamente." }
         format.json { head :no_content }
       end
     end

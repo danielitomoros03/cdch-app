@@ -13,4 +13,10 @@ class Minute < ApplicationRecord
     ## Rich text
     has_rich_text :content
     has_one_attached :attachment_minute
+
+    ## Validations
+    validates :day, presence: true
+    validates :title, presence: true
+    validates :content, presence: true
+    validates :attachment_minute, presence: true
 end
