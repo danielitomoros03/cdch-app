@@ -19,7 +19,7 @@ module Dashboard
     def update
       respond_to do |format|
         if @institution.update(institution_params)
-          format.html { redirect_to @institution, notice: "Institution was successfully updated." }
+          format.html { redirect_to @institution, notice: "Datos de la institución correctamente actualizados." }
           format.json { render :show, status: :ok, location: @institution }
         else
           format.html { render :edit, status: :unprocessable_entity }
