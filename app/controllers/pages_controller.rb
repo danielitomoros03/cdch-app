@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  skip_before_action :authenticate_user!
   def eventos
     if params[:id]
       @event = Event.find(params[:id])
