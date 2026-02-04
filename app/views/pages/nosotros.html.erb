@@ -76,10 +76,20 @@
             <h3 class="profile-card__name"><%= Institution.first.director_name %></h3>
             <p class="profile-card__title">Director(a) del CDCH</p>
             <div class="profile-card__socials">
-              <a href="<%= Institution.first.director_primary_email %>" class="profile-card__social-link" title="Email">
+              <% email = Institution.first.director_primary_email %>
+              <a href="javascript:void(0);" 
+                class="profile-card__social-link" 
+                title="Copiar: <%= email %>"
+                data-bs-toggle="tooltip" 
+                onclick="navigator.clipboard.writeText('<%= email %>'); alert('Correo copiado: <%= email %>');">
                 <i class="fas fa-envelope"></i>
               </a>
-              <a href="<%= Institution.first.director_secondary_email %>" class="profile-card__social-link" title="Email">
+              <% email2 = Institution.first.director_secondary_email %>
+              <a href="javascript:void(0);" 
+                class="profile-card__social-link" 
+                title="Copiar: <%= email2 %>"
+                data-bs-toggle="tooltip" 
+                onclick="navigator.clipboard.writeText('<%= email %>'); alert('Correo copiado: <%= email2 %>');">
                 <i class="fas fa-envelope"></i>
               </a>
             </div>
@@ -110,10 +120,21 @@
             <h3 class="profile-card__name"><%= Institution.first.subdirector_name %> </h3>
             <p class="profile-card__title">SubDirector del CDCH</p>
             <div class="profile-card__socials">
-              <a href="<%= Institution.first.subdirector_primary_email %>" class="profile-card__social-link" title="Email">
+              <% email3 = Institution.first.subdirector_primary_email %>
+              <a href="javascript:void(0);" 
+                class="profile-card__social-link" 
+                title="Copiar: <%= email3 %>"
+                data-bs-toggle="tooltip" 
+                data-placement="bottom" 
+                onclick="navigator.clipboard.writeText('<%= email3 %>'); alert('Correo copiado: <%= email3 %>');">
                 <i class="fas fa-envelope"></i>
               </a>
-              <a href="<%= Institution.first.subdirector_secondary_email %>" class="profile-card__social-link" title="Email">
+              <% email4 = Institution.first.subdirector_secondary_email %>
+              <a href="javascript:void(0);" 
+                class="profile-card__social-link" 
+                title="Copiar: <%= email4 %>"
+                data-bs-toggle="tooltip" 
+                onclick="navigator.clipboard.writeText('<%= email4 %>'); alert('Correo copiado: <%= email4 %>');">
                 <i class="fas fa-envelope"></i>
               </a>
             </div>
