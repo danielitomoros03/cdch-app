@@ -18,5 +18,5 @@ class Minute < ApplicationRecord
     validates :day, presence: true
     validates :title, presence: true
     validates :content, presence: true
-    validates :attachment_minute, presence: true
+    # validates :attachment_minute, presence: true
 end

@@ -16,5 +16,5 @@ class Department < ApplicationRecord
     validates :acronym, presence: true, uniqueness: true
     validates :name, presence: true, uniqueness: true
     validates :description, presence: true
-    validates :logoDepartment, presence: true
+    # validates :logoDepartment, presence: true
 end
