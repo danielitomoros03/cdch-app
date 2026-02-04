@@ -23,7 +23,7 @@ class PagesController < ApplicationController
   end
 
   def nosotros
-    @departments = Department.all
+    @departments = Department.all.order(created_at: :desc)
   end
   
   def investigacion
