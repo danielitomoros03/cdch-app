@@ -43,7 +43,7 @@
       <% if @event.image.attached? %>
         <div class="mt-4">
           <h4>Imagen Adjunta</h4>
-          <%= @event.image %>
+          <%= image_tag @event.image, class: "img-fluid rounded-3", style: "max-height: 300px;" %>
         </div>
       <% end %>
 
