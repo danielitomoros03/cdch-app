@@ -13,7 +13,7 @@
 
       <% content_for :title, "CDCH - Actas" %>
       <p>
-        <h1>Actas del Directorio <%= link_to "Crear Acta", new_minute_path, class: "btn btn-primary" %></h1>
+        <h1>Actas del Directorio <%= link_to "Crear Acta", new_minute_path, class: "btn btn-primary ps-2" %></h1>
       </p>
       <div class="container">
         <div id="minutes">
@@ -21,9 +21,10 @@
             <thead>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Title</th>
+                <th scope="col">Título</th>
                 <th scope="col">Day</th>
-                <!-- <th scope="col">Day</th> -->
+                <th scope="col">Contenido</th>
+                <th scope="col">Archivo adjunto</th>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>

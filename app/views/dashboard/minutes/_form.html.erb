@@ -11,17 +11,27 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :day, style: "display: block" %>
-    <%= form.date_field :day, class: "form-control" %>
-  </div>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
+  <div class="mt-3">
+    <%= form.label :title, "Título de la Reunión" %>
     <%= form.text_field :title, class: "form-control" %>
   </div>
 
+  <div class="mt-3">
+    <%= form.label :day, "Día de la Reunión" %>
+    <%= form.date_field :day, class: "form-control" %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :content, "Contenido de la Reunión" %>
+    <%= form.rich_text_area :content, class: "form-control trix-auto-height" %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :attachment_minute, "Archivo del acta" %>
+    <%= form.file_field :attachment_minute, class: "form-control" %>
+  </div>
+
   <div class="pt-3">
-    <%= form.submit %>
+    <%= form.submit "Guardar acta", class: "btn btn-primary" %>
   </div>
 <% end %>
