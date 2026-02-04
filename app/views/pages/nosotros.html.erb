@@ -65,7 +65,13 @@
       <% @departments.each do |department| %>
         <div class="col-md-6 col-lg-3">
           <article class="update-card">
-            <div class="update-image update-image-blue"></div>
+            <div class="update-image update-image-blue">
+              <% if department.logoDepartment.attached? %>
+                <%= image_tag department.logoDepartment, alt: "Logo #{department.name}", class: "department-logo" %>
+              <% else %>
+                <%= image_tag "Huella.JPG", alt: "Default Department Image", class: "department-logo" %>
+              <% end %>
+            </div>
             <div class="update-content">
               <div class="update-date"><%= department.acronym %></div>
               <h3 class="update-title"><%= department.name %></h3>

@@ -6,6 +6,13 @@
       <td> <%= department.acronym %> </td>
       <td> <%= department.description %> </td>
       <td> 
+      <% if department.logoDepartment.attached? %>
+        <%= image_tag department.logoDepartment, class: "department-logo-small" %>
+      <% else %>
+        <span class="text-muted">Sin logo</span>
+      <% end %>
+      </td>
+      <td> 
         <a class="btn btn-info" href="/departments/<%= department.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Monstar el detalle"><i class="fa-solid fa-circle-info"></i></a>
         <a class="btn btn-warning" href="/departments/<%= department.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar"><i class="fa-solid fa-pen"></i></a>
       </td>

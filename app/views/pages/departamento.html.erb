@@ -20,7 +20,11 @@
         <%= @department.description %>
       </div>
       <div class="col-lg-6">
-        <div class="about-image-placeholder" style="height: 400px; background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); border-radius: 1rem;"></div>
+        <% if @department.logoDepartment.attached? %>
+          <%= image_tag @department.logoDepartment, class: "about-image-placeholder rounded", alt: "Logo de #{@department.acronym}" %>
+        <% else %>
+          <div class="about-image-placeholder" style="height: 400px; background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); border-radius: 1rem;"></div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -39,8 +43,8 @@
         <article class="update-card">
           <div class="update-image update-image-blue"></div>
           <div class="update-content">
-            <div class="update-date">Director</div>
-            <h3 class="update-title">Nombre del Director</h3>
+            <div class="update-date">Jefe de Departamento</div>
+            <h3 class="update-title">Nombre del mismo</h3>
             <p class="update-excerpt">
               Breve descripción del rol y responsabilidades.
             </p>
