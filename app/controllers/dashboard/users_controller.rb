@@ -68,6 +68,7 @@ module Dashboard
         :lastname,
         :identification_number,
         :number_phone,
+        :photoUser,
         :password,
         :password_confirmation
       )

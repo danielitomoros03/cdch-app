@@ -24,8 +24,18 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :validatable
+
+  has_one_attached :photoUser # Active Storage association for user avatar
+
+  ## Validations
+  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true
+  validates :lastname, presence: true
+  validates :identification_number, presence: true, uniqueness: true
+  validates :number_phone, presence: true, uniqueness: true
+  # validates :avatarUser, presence: true
+
   def full_name
     name + ' ' + lastname
   end 
