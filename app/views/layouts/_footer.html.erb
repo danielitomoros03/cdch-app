@@ -4,16 +4,22 @@
       <!-- Column 1 - About -->
       <div class="col-md-6 col-lg-3">
         <div class="footer-brand mb-3">
-          <div class="footer-logo-circle">
-            <span>
-              <%= image_tag("Logo-CDCH.png") %>
-            </span>
+          <div class="footer-logos-group">
+            <div class="footer-logo-circle">
+              <a href="https://ucv.ve"><%= image_tag("Logo_UCV.png") %></a>
+            </div>
+            <div class="footer-logo-circle">
+              <a href="https://ucv.ve/vrac"><%= image_tag("Logo-Vicerrectorado-UCV.jpg") %></a>
+            </div>
+            <div class="footer-logo-circle">
+              <a href="#"> <%= image_tag("Logo-CDCH.png") %></a>
+            </div>
           </div>
-          <div class="footer-logo-text">
-            <div class="footer-logo-title">CDCH - UCV</div>
-            <div class="footer-logo-subtitle">Vicerectorado académico</div>
-            <div class="footer-logo-subtitle">Universidad Central de Venezuela</div>
-          </div>
+        </div>
+        <div class="footer-logo-text">
+          <div class="footer-logo-title">CDCH - UCV</div>
+          <div class="footer-logo-subtitle">Vicerectorado académico</div>
+          <div class="footer-logo-subtitle">Universidad Central de Venezuela</div>
         </div>
         <p class="footer-description">
           Promoviendo la excelencia en investigación científica y humanística desde 1958.
@@ -50,10 +56,10 @@
       <div class="col-md-6 col-lg-3">
         <h5 class="footer-title">Servicios</h5>
         <ul class="footer-list">
-          <li><%= link_to "Editorial CDCH", "#" %></li>
-          <li><%= link_to "Apoyo Académico", "#" %></li>
-          <li><%= link_to "Apoyo a la Investigación", "#" %></li>
-          <li><%= link_to "Saber UCV", "#" %></li>
+          <li><%= link_to "Editorial CDCH", departamento_path("Publicaciones") %></li>
+          <li><%= link_to "Apoyo Académico", departamento_path("DADA") %></li>
+          <li><%= link_to "Apoyo a la Investigación", departamento_path("DADI") %></li>
+          <li><%= link_to "Saber UCV", "https://saber.ucv.ve/" %></li>
         </ul>
       </div>
 

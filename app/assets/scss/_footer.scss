@@ -11,20 +11,34 @@
     gap: 0.75rem;
   }
 
+  // Contenedor para los 3 logos
+  .footer-logos-group {
+    display: flex;
+    gap: 15px; // Espacio entre los círculos
+    align-items: center;
+    margin-bottom: 1rem; // Ajusta según necesites
+  }
+
   .footer-logo-circle {
-    width: 40px;
-    height: 40px;
-    // background-color: white;
+    width: 45px; // Un poco más grandes para que luzcan
+    height: 45px;
+    // background-color: white;Recomendado para que resalten sobre el footer oscuro
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); // Sombra suave para dar profundidad
     
+    img {
+      width: 70px; // Ajusta el tamaño de la imagen dentro del círculo
+      height: auto;
+    }
+
     span {
       color: $primary-color;
       font-weight: 700;
-      font-size: 1.125rem;
+      font-size: 1rem;
     }
   }
 
