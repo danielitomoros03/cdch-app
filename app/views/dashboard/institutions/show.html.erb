@@ -71,6 +71,29 @@
                   </ul>
                 <% end %>
 
+                <!-- Logo Institution & Logo Direction -->
+                <% if @institution.logoInstitution.attached? %>
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h5 class="mb-0">Logo Institucional</h5>
+                    </div>
+                    <div class="card-body text-center">
+                      <%= image_tag @institution.logoInstitution, class: "img-fluid", style: "max-height: 200px;" %>
+                    </div>
+                  </div>
+                <% end %>
+
+                <% if @institution.logoDirection.attached? %>
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h5 class="mb-0">Logo de la Dirección CDCH</h5>
+                    </div>
+                    <div class="card-body text-center">
+                      <%= image_tag @institution.logoDirection, class: "img-fluid", style: "max-height: 200px;" %>
+                    </div>
+                  </div>
+                <% end %>
+
                 <% if @institution.emails %>
                   <p><strong>Correos Electrónicos:</strong></p>
                   <ul>
@@ -130,20 +153,7 @@
           </div>
 
           <!-- Información Adicional -->
-          <div class="col-lg-4">
-            <!-- Logo -->
-            <% if @institution.logoInstitution.attached? %>
-              <div class="card mb-4">
-                <div class="card-header">
-                  <h5 class="mb-0">Logo Institucional</h5>
-                </div>
-                <div class="card-body text-center">
-                  <%= image_tag @institution.logoInstitution, class: "img-fluid", style: "max-height: 200px;" %>
-                </div>
-              </div>
-            <% end %>
-
-            
+          <div class="col-lg-4">  
             <!-- Dirección y Subidirección -->
             <div class="card mb-4">
               <div class="card-header">

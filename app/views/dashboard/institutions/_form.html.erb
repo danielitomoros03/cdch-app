@@ -127,6 +127,31 @@
         </div>
       </div>
     </div>
+
+    <!-- Logo Direction CDCH -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Logo de la Dirección CDCH</h6>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <%= form.label :logoDirection, "Logotipo (Imagen) de la Dirección CDCH" %>
+              <%= form.file_field :logoDirection, class: "form-control", accept: "image/*" %>
+              <% if institution.logoDirection.attached? %>
+                <div class="mt-2">
+                  <p>Si desea cambiar esta imagen, sólo agregue otra.</p>
+                  <p>Logo actual:</p>
+                  <%= image_tag institution.logoDirection, class: "img-thumbnail", style: "max-width: 200px;" %>
+                </div>
+              <% end %>
+              <small class="form-text text-muted">Formatos permitidos: JPG o PNG. Tamaño recomendado: 300x300px</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Redes Sociales -->

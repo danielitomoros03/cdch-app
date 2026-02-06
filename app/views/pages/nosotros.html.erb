@@ -104,47 +104,14 @@
         </div>
       </div>
 
-      <!-- Image Directives ACOMODAR PARA PONER IMAGEN -->
-      <div class="col-lg-4 col-md-6 d-flex justify-content-center reveal animate__slideInLeft">
-        <div class="profile-card profile-card--blue w-100">
-          <div class="profile-card__header profile-card__header--blue">
-            <!--
-              <div class="profile-card__image-wrapper">
-                <img 
-                  src="https://via.placeholder.com/150?text=Director" 
-                  alt="Director CDCH" 
-                  class="profile-card__image"
-                >
-              </div>
-            -->
-            <h3 class="profile-card__name"><%= Institution.first.director_name %></h3>
-            <p class="profile-card__title">Director(a) del CDCH</p>
-            <div class="profile-card__socials">
-              <% email = Institution.first.director_primary_email %>
-              <a href="javascript:void(0);" 
-                class="profile-card__social-link" 
-                title="Copiar: <%= email %>"
-                data-bs-toggle="tooltip" 
-                onclick="navigator.clipboard.writeText('<%= email %>'); alert('Correo copiado: <%= email %>');">
-                <i class="fas fa-envelope"></i>
-              </a>
-              <% email2 = Institution.first.director_secondary_email %>
-              <a href="javascript:void(0);" 
-                class="profile-card__social-link" 
-                title="Copiar: <%= email2 %>"
-                data-bs-toggle="tooltip" 
-                onclick="navigator.clipboard.writeText('<%= email %>'); alert('Correo copiado: <%= email2 %>');">
-                <i class="fas fa-envelope"></i>
-              </a>
-            </div>
-          </div>
-          <!--
-            <div class="profile-card__body">
-              <p class="profile-card__description">
-                Responsable de la dirección estratégica y coordinación de todas las actividades de investigación científica y humanística de la institución.
-              </p>
-            </div>
-          -->
+      <!-- Image Direction -->
+      <div class="col-lg-4 col-md-6 d-flex justify-content-center reveal animate__backInDown">
+        <div class="image-direction-wrapper rounded">
+          <% if Institution.first.logoDirection.present? %>
+            <%= image_tag Institution.first.logoDirection, alt: "Logo", class: "img-fluid-fit" %>
+          <% else %>
+            <%= image_tag "Foto-Emblema-CDCH.jpg", alt: "Logo", class: "img-fluid-fit" %>
+          <% end %>
         </div>
       </div>
 
