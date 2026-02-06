@@ -37,16 +37,6 @@
                     <p><strong>Año de Fundación:</strong><br><%= @institution.founded_year %></p>
                   </div>
                   <div class="col-md-6">
-                    <p><strong>Director:</strong><br><%= @institution.director_name %></p>
-                    <p><strong>Email del Director(a):</strong><br><%= mail_to @institution.director_primary_email if @institution.director_primary_email %></p>
-                    <p><strong>Email Secundario del Director(a):</strong><br><%= mail_to @institution.director_secondary_email if @institution.director_secondary_email %></p>
-                  </div>
-                  <div class="col-md-6">
-                    <p><strong>Sub-Director:</strong><br><%= @institution.subdirector_name %></p>
-                    <p><strong>Email del Sub-Director:</strong><br><%= mail_to @institution.subdirector_primary_email if @institution.subdirector_primary_email %></p>
-                    <p><strong>Email Secundario del Sub-Director:</strong><br><%= mail_to @institution.subdirector_secondary_email if @institution.subdirector_secondary_email %></p>
-                  </div>
-                  <div class="col-md-6">
                     <p><strong>Descripción:</strong></p>
                     <p><%= @institution.description %></p>
                   </div>
@@ -54,11 +44,11 @@
               </div>
             </div>
 
-            <!-- Dirección -->
+            <!-- Dirección (Ubicación de sede) -->
             <% if @institution.address %>
               <div class="card mb-4">
                 <div class="card-header">
-                  <h5 class="mb-0">Dirección</h5>
+                  <h5 class="mb-0">Ubicación</h5>
                 </div>
                 <div class="card-body">
                   <p><%= @institution.address %></p>
@@ -143,15 +133,39 @@
           <div class="col-lg-4">
             <!-- Logo -->
             <% if @institution.logoInstitution.attached? %>
+              <div class="card mb-4">
+                <div class="card-header">
+                  <h5 class="mb-0">Logo Institucional</h5>
+                </div>
+                <div class="card-body text-center">
+                  <%= image_tag @institution.logoInstitution, class: "img-fluid", style: "max-height: 200px;" %>
+                </div>
+              </div>
+            <% end %>
+
+            
+            <!-- Dirección y Subidirección -->
             <div class="card mb-4">
               <div class="card-header">
-                <h5 class="mb-0">Logo Institucional</h5>
+                <h5 class="mb-0">Dirección CDCH</h5>
               </div>
-              <div class="card-body text-center">
-                <%= image_tag @institution.logoInstitution, class: "img-fluid", style: "max-height: 200px;" %>
+              <div class="card-body">
+                <p><strong>Nombre:</strong> <%= @institution.director_name %></p>
+                <p><strong>Correo principal:</strong> <%= @institution.director_primary_email %></p>
+                <p><strong>Correo secundario:</strong> <%= @institution.director_secondary_email %></p>
               </div>
             </div>
-            <% end %>
+
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Subdirección CDCH</h5>
+              </div>
+              <div class="card-body">
+                <p><strong>Nombre:</strong> <%= @institution.subdirector_name %></p>
+                <p><strong>Correo principal:</strong> <%= @institution.subdirector_primary_email %></p>
+                <p><strong>Correo secundario:</strong> <%= @institution.subdirector_secondary_email %></p>
+              </div>
+            </div>
 
             <!-- Misión -->
             <% if @institution.mission %>

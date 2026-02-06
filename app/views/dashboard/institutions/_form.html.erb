@@ -39,21 +39,6 @@
           </div>
 
           <div class="form-group mt-2">
-            <%= form.label :director_name, "Nombre del Director" %>
-            <%= form.text_field :director_name, class: "form-control", placeholder: "Dra. María Rodríguez" %>
-          </div>
-
-          <div class="form-group mt-2">
-            <%= form.label :subdirector_name, "Nombre del Sub-Director" %>
-            <%= form.email_field :subdirector_name, class: "form-control", placeholder: "maria.rodriguez@ucv.ve" %>
-          </div>
-
-          <div class="form-group mt-2">
-            <%= form.label :director_primary_email, "Email principal del Director" %>
-            <%= form.email_field :director_primary_email, class: "form-control", placeholder: "carlos.a.saavedra@cdch.ve" %>
-          </div>
-
-          <div class="form-group mt-2">
             <%= form.label :business_hours, "Horario de Atención" %>
             <%= form.text_field :business_hours, class: "form-control", placeholder: "Lunes a Viernes: 8:00 AM - 5:00 PM" %>
           </div>
@@ -87,20 +72,57 @@
             <%= form.label :secondary_email, "Email Secundario del CDCH" %>
             <%= form.email_field :secondary_email, class: "form-control", placeholder: "contacto.cdch@ucv.ve" %>
           </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- DIRECTION AND SUBDIRECTION CDCH -->
+
+    <!-- Director CDCH -->
+    <div class="col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Dirección CDCH</h6>
+        </div>
+        <div class="card-body">
           <div class="form-group mt-2">
-            <%= form.label :director_secondary_email, "Email secundario del Director(a) *" %>
-            <%= form.email_field :director_secondary_email, class: "form-control", required: true, placeholder: "director.cdch@ucv.ve" %>
+            <%= form.label :director_name, "Nombre del Director(a)*" %>
+            <%= form.text_field :director_name, class: "form-control", required: true, placeholder: "Dr. Director CDCH" %>
           </div>
 
           <div class="form-group mt-2">
-            <%= form.label :subdirector_primary_email, "Email Principal del Sub-Director" %>
-            <%= form.email_field :subdirector_primary_email, class: "form-control", placeholder: "subdirector.cdch@ucv.ve" %>
+            <%= form.label :director_primary_email, "Email principal del Director(a)*" %>
+            <%= form.email_field :director_primary_email, class: "form-control", required: true, placeholder: "director.cdch@ucv.ve" %>
+          </div>
+
+          <div class="form-group mt-2">
+            <%= form.label :director_secondary_email, "Email secundario del Director(a)" %>
+            <%= form.email_field :director_secondary_email, class: "form-control", placeholder: "director.cdch.ucv@gmail.com" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subdirector CDCH -->
+    <div class="col-lg-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Subdirección CDCH</h6>
+        </div>
+        <div class="card-body">
+          <div class="form-group mt-2">
+            <%= form.label :subdirector_name, "Nombre del Sub-Director(a)*" %>
+            <%= form.email_field :subdirector_name, class: "form-control", required: true, placeholder: "MSc. Subdirector CDCH" %>
+          </div>
+
+          <div class="form-group mt-2">
+            <%= form.label :subdirector_primary_email, "Email Principal del Sub-Director(a)*" %>
+            <%= form.email_field :subdirector_primary_email, class: "form-control", required: true, placeholder: "subdirector.cdch@ucv.ve" %>
           </div>
 
           <div class="form-group mt-2">
             <%= form.label :subdirector_secondary_email, "Email Secundario del Sub-Director" %>
-            <%= form.email_field :subdirector_secondary_email, class: "form-control", placeholder: "contacto.cdch@ucv.ve" %>
+            <%= form.email_field :subdirector_secondary_email, class: "form-control", placeholder: "subdirector.cdch.ucv@ucv.ve" %>
           </div>
         </div>
       </div>
