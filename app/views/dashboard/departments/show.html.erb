@@ -22,8 +22,9 @@
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Acrónimo</th>
             <th scope="col">Nombre</th>
+            <th scope="col">Acrónimo</th>
+            <th scope="col">N° de Orden</th>
             <th scope="col">Descripción</th>
             <th scope="col">Acciones</th>
           </tr>
@@ -36,8 +37,8 @@
       </table>
 
       <div class="container-fluid">
-        <%= link_to "Edit this department", edit_department_path(@department), class: "btn btn-primary" %>
-        <%= link_to "Back to departments", departments_path, class: "btn btn-dark" %> 
+        <%= link_to "Editar", edit_department_path(@department), class: "btn btn-primary" %>
+        <%= link_to "Volver", departments_path, class: "btn btn-dark" %> 
       </div>
     </div>
   </div>

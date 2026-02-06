@@ -66,6 +66,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_23_164049) do
   create_table "departments", force: :cascade do |t|
     t.string "name"
     t.string "acronym"
+    t.integer "organize"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

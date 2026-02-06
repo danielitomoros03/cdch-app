@@ -11,6 +11,7 @@ class PagesController < ApplicationController
   end
 
   def inicio
+    @fourDepartments = Department.all.order(organize: :asc).limit(4)
     @events = Event.where(active: true).order(day: :desc).limit(4) # Filter for last edited active events
     @eventsHero = @events.where(show_in: true).order(day: :desc).limit(3) # Filter for events to show in hero section
     if params[:id]
@@ -23,7 +24,7 @@ class PagesController < ApplicationController
   end
 
   def nosotros
-    @departments = Department.all.order(created_at: :asc)
+    @departments = Department.all.order(organize: :asc)
   end
   
   def investigacion

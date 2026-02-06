@@ -12,8 +12,19 @@
   <% end %>
 
   <div class="mt-3">
+    <%= form.label :acronym, style: "display: block" %>
+    <%= form.text_field :acronym, class: "form-control" %>
+  </div>
+  
+  <div class="mt-3">
     <%= form.label :name, "Nombre del Departamento" %>
     <%= form.text_field :name, class: "form-control" %>
+  </div>
+  
+  <div class="mt-3">
+    <%= form.label :organize, "Número de Orden del Departamento" %>
+    <%= form.number_field :organize, min: 0, max: 10, class: "form-control" %>
+    <small class="form-text text-muted">Números permitidos: desde el 0 hasta el 10</small>
   </div>
 
   <div class="mt-3">
@@ -22,10 +33,6 @@
     <small class="form-text text-muted">Formatos permitidos: JPG o PNG. Tamaño recomendado: 300x300px</small>
   </div>
 
-  <div class="mt-3">
-    <%= form.label :acronym, style: "display: block" %>
-    <%= form.text_field :acronym, class: "form-control" %>
-  </div>
 
   <div class="field mt-3">
     <%= form.label :description, "Descripción del Departamento" %>
