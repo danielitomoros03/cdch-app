@@ -255,7 +255,7 @@ es:
       new:
         sign_in: "Iniciar sesión"
         email: "Correo electrónico"
-        password: "Contraseña"
+        password_encrypted: "Contraseña"
         remember_me: "Recuérdame"
         submit: "Entrar"
     registrations:
