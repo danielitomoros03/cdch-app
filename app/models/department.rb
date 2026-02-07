@@ -5,6 +5,7 @@
 #  id         :bigint           not null, primary key
 #  acronym    :string
 #  name       :string
+#  organize   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -16,5 +17,6 @@ class Department < ApplicationRecord
     validates :acronym, presence: true, uniqueness: true
     validates :name, presence: true, uniqueness: true
     validates :description, presence: true
+    validates :organize, presence: true, uniqueness: true
     # validates :logoDepartment, presence: true
 end

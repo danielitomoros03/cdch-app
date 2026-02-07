@@ -54,6 +54,115 @@
   </div>
 </section>
 
+<!-- Leadership Section -->
+<section class="section bg-light py-5">
+  <div class="container">
+    <h2 class="text-center mb-5 reveal animate__animate__backInDown">Directiva del CDCH</h2>
+    
+    <div class="row justify-content-center g-4">
+      <!-- Director Card -->
+      <div class="col-lg-4 col-md-6 d-flex justify-content-center reveal animate__slideInLeft">
+        <div class="profile-card profile-card--blue w-100">
+          <div class="profile-card__header profile-card__header--blue">
+            <!--
+              <div class="profile-card__image-wrapper">
+                <img 
+                  src="https://via.placeholder.com/150?text=Director" 
+                  alt="Director CDCH" 
+                  class="profile-card__image"
+                >
+              </div>
+            -->
+            <h3 class="profile-card__name"><%= Institution.first.director_name %></h3>
+            <p class="profile-card__title">Director(a) del CDCH</p>
+            <div class="profile-card__socials">
+              <% email = Institution.first.director_primary_email %>
+              <a href="javascript:void(0);" 
+                class="profile-card__social-link" 
+                title="Copiar: <%= email %>"
+                data-bs-toggle="tooltip" 
+                onclick="navigator.clipboard.writeText('<%= email %>'); alert('Correo copiado: <%= email %>');">
+                <i class="fas fa-envelope"></i>
+              </a>
+              <% email2 = Institution.first.director_secondary_email %>
+              <a href="javascript:void(0);" 
+                class="profile-card__social-link" 
+                title="Copiar: <%= email2 %>"
+                data-bs-toggle="tooltip" 
+                onclick="navigator.clipboard.writeText('<%= email %>'); alert('Correo copiado: <%= email2 %>');">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+          <!--
+            <div class="profile-card__body">
+              <p class="profile-card__description">
+                Responsable de la dirección estratégica y coordinación de todas las actividades de investigación científica y humanística de la institución.
+              </p>
+            </div>
+          -->
+        </div>
+      </div>
+
+      <!-- Image Direction -->
+      <div class="col-lg-4 col-md-6 d-flex justify-content-center reveal animate__backInDown">
+        <div class="image-direction-wrapper rounded">
+          <% if Institution.first.logoDirection.present? %>
+            <%= image_tag Institution.first.logoDirection, alt: "Logo", class: "img-fluid-fit" %>
+          <% else %>
+            <%= image_tag "Foto-Emblema-CDCH.jpg", alt: "Logo", class: "img-fluid-fit" %>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- SubDirector Card -->
+      <div class="col-lg-4 col-md-6 d-flex justify-content-center reveal animate__slideInRight">
+        <div class="profile-card profile-card--green w-100">
+          <div class="profile-card__header profile-card__header--green">
+            <!--
+              <div class="profile-card__image-wrapper">
+                <img 
+                  src="https://via.placeholder.com/150?text=SubDirector" 
+                  alt="SubDirector CDCH" 
+                  class="profile-card__image"
+                >
+              </div>
+            -->
+            <h3 class="profile-card__name"><%= Institution.first.subdirector_name %> </h3>
+            <p class="profile-card__title">SubDirector del CDCH</p>
+            <div class="profile-card__socials">
+              <% email3 = Institution.first.subdirector_primary_email %>
+              <a href="javascript:void(0);" 
+                class="profile-card__social-link" 
+                title="Copiar: <%= email3 %>"
+                data-bs-toggle="tooltip" 
+                data-placement="bottom" 
+                onclick="navigator.clipboard.writeText('<%= email3 %>'); alert('Correo copiado: <%= email3 %>');">
+                <i class="fas fa-envelope"></i>
+              </a>
+              <% email4 = Institution.first.subdirector_secondary_email %>
+              <a href="javascript:void(0);" 
+                class="profile-card__social-link" 
+                title="Copiar: <%= email4 %>"
+                data-bs-toggle="tooltip" 
+                onclick="navigator.clipboard.writeText('<%= email4 %>'); alert('Correo copiado: <%= email4 %>');">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+          <!--
+            <div class="profile-card__body">
+              <p class="profile-card__description">
+                Apoya la gestión administrativa y coordina los programas de fomento a la investigación en todas las áreas del conocimiento.
+              </p>
+            </div>
+          -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CDCH Family -->
 <section class="updates-section">
   <div class="container">
@@ -154,7 +263,6 @@
           <h4 class="text-primary mb-3">Contactos CDCH</h4>
           <p class="text-gray">
             <%= Institution.first.emails %>
-            <br>
             <%= Institution.first.phone_numbers %>
           </p>
         </div>

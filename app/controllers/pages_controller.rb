@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  skip_before_action :authenticate_user!
   def eventos
     if params[:id]
       @event = Event.find(params[:id])
@@ -10,6 +11,7 @@ class PagesController < ApplicationController
   end
 
   def inicio
+    @fourDepartments = Department.all.order(organize: :asc).limit(4)
     @events = Event.where(active: true).order(day: :desc).limit(4) # Filter for last edited active events
     @eventsHero = @events.where(show_in: true).order(day: :desc).limit(3) # Filter for events to show in hero section
     if params[:id]
@@ -22,7 +24,7 @@ class PagesController < ApplicationController
   end
 
   def nosotros
-    @departments = Department.all
+    @departments = Department.all.order(organize: :asc)
   end
   
   def investigacion
@@ -39,6 +41,7 @@ class PagesController < ApplicationController
   end
 
   def publicaciones
+    @publications = Publication.all.order(created_at: :desc).limit(8)
   end
   
   def directorio

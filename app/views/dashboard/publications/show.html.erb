@@ -12,7 +12,7 @@
         <% end %>
       </div>
 
-      <% content_for :title, "Showing publication" %>
+      <% content_for :title, "Publicación #{@publication.id}" %>
       <p>
         <h1>Publicación <%= @publication.id %></h1>
       </p>
@@ -22,7 +22,12 @@
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Title</th>
+            <th scope="col">Título</th>
+            <th scope="col">Nombre del Autor(a)</th>
+            <th scope="col">Fecha de publicación</th>
+            <th scope="col">Fecha de publicación</th>
+            <th scope="col">Tipo de publicación</th>
+            <th scope="col">Archivo adjunto</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
@@ -34,9 +39,9 @@
       </table>
 
       <div class="container-fluid">
-        <%= link_to "Edit this publication", edit_publication_path(@publication), class: "btn btn-primary" %> |
-        <%= link_to "Back to publications", publications_path, class: "btn btn-dark" %> |
-        <%= button_to "Eliminar convocatoria", @publication, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar esta convocatoria?' } } %>
+        <%= link_to "Editar publicación", edit_publication_path(@publication), class: "btn btn-primary m-2" %>
+        <%= link_to "Volver", publications_path, class: "btn btn-dark m-2" %> 
+        <%= button_to "Eliminar publicación", @publication, method: :delete, class: "btn btn-danger m-2", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar esta convocatoria?' } } %>
       </div>
     </div>
   </div>

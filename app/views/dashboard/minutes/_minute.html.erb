@@ -7,8 +7,8 @@
       <td> <%= minute.content %> </td>
       <td> <%= minute.attachment_minute.attached? ? link_to("Ver archivo", minute.attachment_minute) : "Sin archivo adjunto" %> </td>
       <td> 
-        <a class="btn btn-info" href="/directories/<%= minute.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Monstar el detalle de la Convocatoria"><i class="fa-solid fa-circle-info"></i></a>
-        <a class="btn btn-warning" href="/directories/<%= minute.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar Convocatoria"><i class="fa-solid fa-pen"></i></a>
+        <a class="btn btn-info" href="/minutes/<%= minute.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Monstar el detalle de la Convocatoria"><i class="fa-solid fa-circle-info"></i></a>
+        <a class="btn btn-warning" href="/minutes/<%= minute.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar Convocatoria"><i class="fa-solid fa-pen"></i></a>
       </td>
     </tr>
   </tbody>

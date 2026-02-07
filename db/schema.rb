@@ -66,6 +66,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_02_143321) do
   create_table "departments", force: :cascade do |t|
     t.string "name"
     t.string "acronym"
+    t.integer "organize"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -129,6 +130,10 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_02_143321) do
 
   create_table "publications", force: :cascade do |t|
     t.string "title"
+    t.string "author_name"
+    t.date "date_publication"
+    t.integer "kind", default: 0
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

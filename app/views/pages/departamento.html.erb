@@ -4,9 +4,9 @@
 <!-- Page Header -->
 <div class="page-header">
   <div class="container">
-    <h1 class="page-title">Departamento <%= @department.acronym %></h1>
+    <h1 class="page-title"><%= @department.name %></h1>
     <p class="page-subtitle">
-      <%= @department.name %>
+      <%= @department.acronym %>
     </p>
   </div>
 </div>
@@ -16,14 +16,14 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
-        <h2 class="section-title">Acerca del Departamento</h2>
+        <h2 class="section-title mb-2">Descripción General del Departamento</h2>
         <%= @department.description %>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-6 mt-3">
         <% if @department.logoDepartment.attached? %>
           <%= image_tag @department.logoDepartment, class: "about-image-placeholder rounded", alt: "Logo de #{@department.acronym}" %>
         <% else %>
-          <div class="about-image-placeholder" style="height: 400px; background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); border-radius: 1rem;"></div>
+          <%= image_tag "Foto-Emblema-CDCH.jpg", class: "about-image-placeholder rounded", alt: "Logo por defecto CDCH" %>
         <% end %>
       </div>
     </div>

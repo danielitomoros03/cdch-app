@@ -3,9 +3,24 @@
     <tr>
       <th scope="row"> <%= publication.id %> </th>
       <td> <%= publication.title %> </td>
+      <td> <%= publication.author_name %> </td>
+      <td> <%= publication.description %> </td>
+      <td> <%= publication.kind %> </td>
+      <td> <%= publication.date_publication %> </td>
       <td> 
-        <a class="btn btn-info" href="/publications/<%= publication.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Monstar el detalle de la Publicación"><i class="fa-solid fa-circle-info"></i></a>
-        <a class="btn btn-warning" href="/publications/<%= publication.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar Publicación"><i class="fa-solid fa-pen"></i></a>
+        <% if publication.publication_field.present? %>
+          <%= link_to url_for(publication.publication_field), class: "btn btn-primary", download: true do %>
+            <i class="fas fa-download"></i> Descargar
+          <% end %>
+        <% else %>
+          <%= link_to "#", class: "btn btn-outline-primary" do %>
+            <i class="fas fa-x"></i> Sin archivo adjunto
+          <% end %>
+        <% end %>
+      </td>
+      <td> 
+        <a class="btn btn-info p-1" href="/publications/<%= publication.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Monstar el detalle de la Publicación"><i class="fa-solid fa-circle-info"></i></a>
+        <a class="btn btn-warning p-1" href="/publications/<%= publication.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar Publicación"><i class="fa-solid fa-pen"></i></a>
       </td>
     </tr>
   </tbody>

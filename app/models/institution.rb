@@ -32,11 +32,14 @@
 class Institution < ApplicationRecord
     # Attachment for Institution's Logo
     has_one_attached :logoInstitution
+    has_one_attached :logoDirection
     # Atributo virtual para el checkbox de eliminar
-    attr_accessor :remove_logo
+    attr_accessor :remove_logoInstitution
+    attr_accessor :remove_logoDirection
     
     # Antes de guardar, verificamos si se marcó para eliminar
-    after_save :purge_logo, if: -> { remove_logo == '1' }
+    after_save :purge_logo, if: -> { remove_logoInstitution == '1' }
+    after_save :purge_logo, if: -> { remove_logoDirection == '1' }
 
     # CDCH's History with Rich Text
     has_rich_text :history
@@ -75,7 +78,10 @@ class Institution < ApplicationRecord
     end
 
     private
-    def purge_logo
+    def purge_logoInstitution
         logoInstitution.purge  
+    end
+    def purge_logoDirection
+        logoDirection.purge  
     end
 end

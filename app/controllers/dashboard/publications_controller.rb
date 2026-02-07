@@ -4,7 +4,7 @@ module Dashboard
 
     # GET /publications or /publications.json
     def index
-      @publications = Publication.all
+      @publications = Publication.all.order(created_at: :desc)
     end
 
     # GET /publications/1 or /publications/1.json
@@ -26,7 +26,7 @@ module Dashboard
 
       respond_to do |format|
         if @publication.save
-          format.html { redirect_to @publication, notice: "Publication was successfully created." }
+          format.html { redirect_to @publication, notice: "Publicación creada satisfactoriamente." }
           format.json { render :show, status: :created, location: @publication }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ module Dashboard
     def update
       respond_to do |format|
         if @publication.update(publication_params)
-          format.html { redirect_to @publication, notice: "Publication was successfully updated." }
+          format.html { redirect_to @publication, notice: "Publicación editada satisfactoriamente." }
           format.json { render :show, status: :ok, location: @publication }
         else
           format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ module Dashboard
       @publication.destroy!
 
       respond_to do |format|
-        format.html { redirect_to publications_path, status: :see_other, notice: "Publication was successfully destroyed." }
+        format.html { redirect_to publications_path, status: :see_other, notice: "Publicación eliminada correctamente." }
         format.json { head :no_content }
       end
     end
@@ -66,7 +66,7 @@ module Dashboard
 
       # Only allow a list of trusted parameters through.
       def publication_params
-        params.require(:publication).permit(:title)
+        params.require(:publication).permit(:title, :author_name, :publication_field, :date_publication, :kind, :description)
       end
   end
 end

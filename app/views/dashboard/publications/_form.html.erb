@@ -11,12 +11,37 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
+  <div class="mt-3">
+    <%= form.label :title, "Título de la publicación" %>
     <%= form.text_field :title, class: "form-control" %>
+  </div>
+  
+  <div class="mt-3">
+    <%= form.label :author_name, "Nombre del Autor" %>
+    <%= form.text_field :author_name, class: "form-control" %>
+  </div>
+  
+  <div class="mt-3">
+    <%= form.label :date_publication, "Fecha de la publicación" %>
+    <%= form.date_field :date_publication, class: "form-control" %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :kind, "Tipo de publicación" %>
+    <%= form.select :kind, options_for_select(Publication.kinds.keys.map { |k| [k.humanize, k] }, form.object.kind), { include_blank: "Seleccione un tipo de publicación..." }, { class: "form-select" } %>
+  </div>
+  
+  <div class="mt-3">
+    <%= form.label :description, "Descripción breve de la publicación" %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="field mt-3">
+    <%= form.label :publication_field, "Archivo de publicación" %>
+    <%= form.file_field :publication_field, class: "form-control" %>
   </div>
 
   <div class="pt-3">
-    <%= form.submit %>
+    <%= form.submit "Guardar publicación", class: "btn btn-primary" %>
   </div>
 <% end %>

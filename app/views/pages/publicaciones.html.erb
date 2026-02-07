@@ -41,129 +41,33 @@
 <section class="section">
   <div class="container">
     <div class="row g-4">
-      <!-- Publication Card 1 -->
-      <div class="col-md-6 col-lg-3">
-        <article class="publication-card">
-          <div class="publication-cover">
-            <div class="publication-type">Libro</div>
-          </div>
-          <div class="publication-content">
-            <h3 class="publication-title">Investigación Científica en Venezuela</h3>
-            <p class="publication-author">Dr. Juan Pérez</p>
-            <p class="publication-year">2024</p>
-            <p class="publication-excerpt">
-              Una exploración profunda del estado actual de la investigación científica 
-              en el contexto venezolano.
-            </p>
-            <%= link_to "#", class: "btn btn-sm btn-primary-custom" do %>
-              Ver detalles
-            <% end %>
-          </div>
-        </article>
-      </div>
-
-      <!-- Publication Card 2 -->
-      <div class="col-md-6 col-lg-4">
-        <article class="publication-card">
-          <div class="publication-cover publication-cover-green">
-            <div class="publication-type">Revista</div>
-          </div>
-          <div class="publication-content">
-            <h3 class="publication-title">Revista de Ciencias Sociales Vol. 45</h3>
-            <p class="publication-author">Varios autores</p>
-            <p class="publication-year">2024</p>
-            <p class="publication-excerpt">
-              Edición especial dedicada a los estudios contemporáneos en ciencias sociales.
-            </p>
-            <%= link_to "#", class: "btn btn-sm btn-primary-custom" do %>
-              Ver detalles
-            <% end %>
-          </div>
-        </article>
-      </div>
-
-      <!-- Publication Card 3 -->
-      <div class="col-md-6 col-lg-4">
-        <article class="publication-card">
-          <div class="publication-cover publication-cover-purple">
-            <div class="publication-type">Artículo</div>
-          </div>
-          <div class="publication-content">
-            <h3 class="publication-title">Avances en Biotecnología Aplicada</h3>
-            <p class="publication-author">Dra. María González</p>
-            <p class="publication-year">2024</p>
-            <p class="publication-excerpt">
-              Investigación sobre las últimas innovaciones en biotecnología médica.
-            </p>
-            <%= link_to "#", class: "btn btn-sm btn-primary-custom" do %>
-              Ver detalles
-            <% end %>
-          </div>
-        </article>
-      </div>
-
-      <!-- Publication Card 4 -->
-      <div class="col-md-6 col-lg-4">
-        <article class="publication-card">
-          <div class="publication-cover publication-cover-amber">
-            <div class="publication-type">Libro</div>
-          </div>
-          <div class="publication-content">
-            <h3 class="publication-title">Historia de la UCV: 300 Años</h3>
-            <p class="publication-author">Prof. Carlos Rodríguez</p>
-            <p class="publication-year">2023</p>
-            <p class="publication-excerpt">
-              Recorrido histórico por los tres siglos de la Universidad Central de Venezuela.
-            </p>
-            <%= link_to "#", class: "btn btn-sm btn-primary-custom" do %>
-              Ver detalles
-            <% end %>
-          </div>
-        </article>
-      </div>
-
-      <!-- Publication Card 5 -->
-      <div class="col-md-6 col-lg-4">
-        <article class="publication-card">
-          <div class="publication-cover">
-            <div class="publication-type">Revista</div>
-          </div>
-          <div class="publication-content">
-            <h3 class="publication-title">Acta Científica Venezolana Vol. 74</h3>
-            <p class="publication-author">Varios autores</p>
-            <p class="publication-year">2023</p>
-            <p class="publication-excerpt">
-              Publicación trimestral de investigaciones en ciencias exactas y naturales.
-            </p>
-            <%= link_to "#", class: "btn btn-sm btn-primary-custom" do %>
-              Ver detalles
-            <% end %>
-          </div>
-        </article>
-      </div>
-
-      <!-- Publication Card 6 -->
-      <div class="col-md-6 col-lg-4">
-        <article class="publication-card">
-          <div class="publication-cover publication-cover-green">
-            <div class="publication-type">Tesis</div>
-          </div>
-          <div class="publication-content">
-            <h3 class="publication-title">Innovación Tecnológica en Educación</h3>
-            <p class="publication-author">MSc. Ana Martínez</p>
-            <p class="publication-year">2023</p>
-            <p class="publication-excerpt">
-              Tesis doctoral sobre la implementación de tecnologías en el aula.
-            </p>
-            <%= link_to "#", class: "btn btn-sm btn-primary-custom" do %>
-              Ver detalles
-            <% end %>
-          </div>
-        </article>
-      </div>
+      <% @publications.each do |publication| %>
+        <div class="col-md-6 col-lg-3">
+          <article class="publication-card">
+            <div class="publication-cover publication-cover-blue">
+              <div class="publication-type"><%= publication.kind.capitalize %></div>
+            </div>
+            <div class="publication-content">
+              <h3 class="publication-title"><%= publication.title %></h3>
+              <p class="publication-author"><%= publication.author_name %></p>
+              <p class="publication-date"><%= publication.date_publication %></p>
+              <p><%= publication.description %></p>
+              <% if publication.publication_field.present? %>
+                <%= link_to url_for(publication.publication_field), class: "btn btn-primary", download: true do %>
+                  <i class="fas fa-download"></i> Descargar publicación
+                <% end %>
+              <% else %>
+                <%= link_to "#", class: "btn btn-outline-primary" do %>
+                  <i class="fas fa-x"></i> Sin archivo adjunto
+                <% end %>
+              <% end %>
+            </div>
+          </article>
+        </div>
+      <% end %>
     </div>
 
-    <!-- Pagination -->
+    <!-- Pagination
     <nav class="mt-5">
       <ul class="pagination justify-content-center">
         <li class="page-item disabled">
@@ -177,10 +81,11 @@
         </li>
       </ul>
     </nav>
+    -->
   </div>
 </section>
 
 
-<!-- <%= render "layouts/counter" %> -->
+<%# render "layouts/counter" %>
 <%= render "layouts/CTA_section" %>
 <%= render "layouts/footer" %>

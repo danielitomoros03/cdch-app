@@ -10,19 +10,20 @@
 
 # Create departments
 departments_data = [
-  { acronym: "DADA", name: "Departamentos de Apoyo al Desarrollo Académico", description: "Promover la disponibilidad y asignación eficiente de recursos financieros destinados a la formación y actualización del capital intelectual, mediante el establecimiento de normativas y estándares de calidad que aseguren la competitividad profesional y contribuyan al desarrollo estratégico nacional." },
-  { acronym: "DADI", name: "Departamentos de Apoyo al Desarrollo de la Investigación", description: "Potenciar la producción científica y académica de la UCV mediante la gestión estratégica de ayudas financieras y el fortalecimiento de la infraestructura investigativa, con el fin de elevar la calidad de la enseñanza y posicionar la generación de conocimiento como motor de productividad institucional." },
-  { acronym: "Publicaciones", name: "Relaciones y Publicaciones", description: "Gestionar y financiar la difusión del conocimiento científico generado por el personal docente e investigador, mediante el apoyo a publicaciones especializadas y la ejecución de estrategias de comunicación institucional, con el fin de proyectar la productividad académica y el quehacer científico de la institución ante la comunidad nacional e internacional." },
-  { acronym: "DAPDA", name: "Departamento de Comunicación de la Tecnología e Innovación", description: "Administrar, preservar y difundir el patrimonio intelectual de la institución a través del Repositorio Institucional 'Saber UCV', garantizando el acceso abierto a la producción científica y académica (revistas, libros y artículos) bajo estándares internacionales de calidad, para consolidar el liderazgo de la universidad como el principal referente de conocimiento del país." },
-  { acronym: "DTIC - CTIC", name: "Departamento de Tecnología, Informática y Comunicaciones", description: "Gestionar y optimizar la infraestructura tecnológica y los sistemas de información del CDCH, mediante la implementación de soluciones de vanguardia, el desarrollo de software a medida y un soporte técnico proactivo, con el fin de garantizar la eficiencia operativa, la seguridad de la data y la excelencia en los servicios digitales ofrecidos a la comunidad académica y administrativa." },
-  { acronym: "DRHC", name: "Departamento de Recursos Humanos y Capacitación", description: "Gestionar el desarrollo profesional del personal docente e investigador, mediante la implementación de estrategias de capacitación, evaluación y promoción del talento humano, con el fin de fortalecer la calidad académica y administrativa del CDCH." },
-  { acronym: "DAF", name: "Departamento Administrativo y Financiero", description: "Gestionar los recursos administrativos y financieros del CDCH, mediante la implementación de procesos eficientes de control presupuestario, gestión contable y optimización de recursos humanos y materiales." },
-  { acronym: "DEIC", name: "Departamento de Ética e Integridad Científica", description: "Promover y garantizar la ética científica y la integridad académica en todas las actividades del CDCH, mediante la implementación de políticas claras, el seguimiento ético de investigaciones y el fomento de una cultura institucional basada en principios de honestidad, responsabilidad y transparencia." }
+  { organize: 0, acronym: "DADA", name: "Departamentos de Apoyo al Desarrollo Académico", description: "Promover la disponibilidad y asignación eficiente de recursos financieros destinados a la formación y actualización del capital intelectual, mediante el establecimiento de normativas y estándares de calidad que aseguren la competitividad profesional y contribuyan al desarrollo estratégico nacional." },
+  { organize: 1, acronym: "DADI", name: "Departamentos de Apoyo al Desarrollo de la Investigación", description: "Potenciar la producción científica y académica de la UCV mediante la gestión estratégica de ayudas financieras y el fortalecimiento de la infraestructura investigativa, con el fin de elevar la calidad de la enseñanza y posicionar la generación de conocimiento como motor de productividad institucional." },
+  { organize: 2, acronym: "Publicaciones", name: "Departamento de Relaciones y Publicaciones", description: "Potenciar la producción científica y académica de la UCV mediante la gestión estratégica de ayudas financieras y el fortalecimiento de la infraestructura investigativa, con el fin de elevar la calidad de la enseñanza y posicionar la generación de conocimiento como motor de productividad institucional." },
+  { organize: 3, acronym: "DAPDA - Saber UCV", name: "Departamento de Apoyo a la Preservación y Difusión Académica", description: "Administrar, preservar y difundir el patrimonio intelectual de la institución a través del Repositorio Institucional 'Saber UCV', garantizando el acceso abierto a la producción científica y académica (revistas, libros y artículos) bajo estándares internacionales de calidad, para consolidar el liderazgo de la universidad como el principal referente de conocimiento del país." },
+  { organize: 4, acronym: "DTIC", name: "Departamento de Tecnología, Información y Comunicaciones", description: "Gestionar y optimizar la infraestructura tecnológica y los sistemas de información del CDCH, mediante la implementación de soluciones de vanguardia, el desarrollo de software a medida y un soporte técnico proactivo, con el fin de garantizar la eficiencia operativa, la seguridad de la data y la excelencia en los servicios digitales ofrecidos a la comunidad académica y administrativa." },
+  { organize: 5, acronym: "Archivo y Correspondencia", name: "Departamento de Archivo y Correspondencia", description: "Gestionar el flujo integral de la información y el acervo documental del CDCH, mediante la administración técnica de la correspondencia, la digitalización de procesos y el resguardo del patrimonio bibliográfico, con el fin de garantizar la trazabilidad, la disponibilidad oportuna de la información y el soporte estratégico para la toma de decisiones institucionales." },
+  { organize: 6, acronym: "Administración", name: "Departamento de Administración", description: "Garantizar la sostenibilidad financiera y operativa del CDCH mediante la administración eficiente de los recursos, la transparencia en los procesos de adquisición y el estricto cumplimiento del marco legal vigente, con el fin de asegurar el abastecimiento oportuno y la integridad del patrimonio institucional en apoyo a la actividad científica y académica." },
+  { organize: 7, acronym: "Compras", name: "Departamento de Compras", description: "Gestionar los procesos de procura de bienes, servicios y obras del CDCH, garantizando el abastecimiento oportuno y la optimización de los recursos financieros a través de una planificación estratégica y el estricto cumplimiento del marco legal de contrataciones públicas, para asegurar la continuidad operativa de las unidades académicas y administrativas." }
 ]
 
 departments_data.each do |dept|
   Department.find_or_create_by!(acronym: dept[:acronym]) do |d|
     d.name = dept[:name]
+    d.organize = dept[:organize]
     d.description = dept[:description]
   end
 end
@@ -85,15 +86,35 @@ Institution.find_or_create_by!(name: "Centro de Desarrollo Científico y Humaní
   institution.threads_url = "https://threads.net/@cdch_ucv"
   institution.director_name = "Dra. María Rodríguez"
   institution.director_primary_email = "maria.rodriguez@ucv.ve"
-  institution.director_secondary_email = "maria.rodriguez.cdch@ucv.ve"
-  institution.subdirector_name = "Lic. Carlos A. Saavedra A."
-  institution.subdirector_primary_email = "carlos.a.saavedra.a@ucv.ve"
-  institution.subdirector_secondary_email = "carlos.a.saavedra.cdch@ucv.ve"
+  institution.director_secondary_email = "mariarodriguezchemical@gmail.com"
+  institution.subdirector_name = "MSc. Carlos A. Saavedra A."
+  institution.subdirector_primary_email = "carlos.saavedra@ucv.ve"
+  institution.subdirector_secondary_email = "c.saavedra.cdch@gmail.com"
   institution.founded_year = 1958
   institution.history = "<div><strong>Nuestra Trayectoria: Legado y Futuro de la Excelencia Académica<br></strong><br></div><div><strong>Fundados en la Visión de un País</strong> El <strong>28 de junio de 1958</strong>, bajo el liderazgo del Rector <strong>Dr. Francisco de Venanzi</strong>, nació esta institución con una misión clara: ser el motor del desarrollo científico y humanístico de la Universidad Central de Venezuela. Lo que comenzó como un proyecto de vanguardia, se ha consolidado en más de seis décadas de labor ininterrumpida.<br><br></div><div><strong>Impacto y Compromiso</strong> No solo financiamos proyectos; impulsamos el conocimiento. Hemos sido el puente para la formación de miles de investigadores a nivel de postgrado y el soporte de hallazgos que han transformado la realidad técnica y social de Venezuela. Nuestra historia es la historia de la excelencia en la UCV.<br><br></div><div><strong>Evolución Estratégica</strong> Para responder a los desafíos del siglo XXI, nos hemos transformado:<br><br></div><ul><li><strong>2013:</strong> Evolucionamos de Gerencia a <strong>Dirección</strong>, fortaleciendo nuestra autoridad institucional.<br><br></li><li><strong>2025:</strong> Optimizamos nuestra estructura para ser más ágiles. Elevamos el nivel de nuestras operaciones y colocamos a la <strong>Ciencia, Tecnología e Innovación</strong> en el centro de nuestra ejecución operativa.</li></ul>"
 end
 
 puts "Datos institucionales estándar del CDCH creados."
+
+publications_data = [
+  { kind: "Libro", title: "Investigación Científica en Venezuela", author_name: "Dr. Juan Pérez", date_publication: Date.new(2024, 1, 15), description: "Una exploración profunda del estado actual de la investigación científica en el contexto venezolano." },
+  { kind: "Revista", title: "Revista de Ciencias Sociales Vol. 45", author_name: "Varios autores", date_publication: Date.new(2024, 1, 15), description: "Edición especial dedicada a los estudios contemporáneos en ciencias sociales." },
+  { kind: "Articulo", title: "Avances en Biotecnología Aplicada", author_name: "Dra. María González", date_publication: Date.new(2024, 1, 15), description: "Investigación sobre las últimas innovaciones en biotecnología médica." },
+  { kind: "Libro", title: "Historia de la UCV: 300 Años", author_name: "Prof. Carlos Rodríguez", date_publication: Date.new(2023, 1, 15), description: "Recorrido histórico por los tres siglos de la Universidad Central de Venezuela." },
+  { kind: "Revista", title: "Acta Científica Venezolana Vol. 74", author_name: "Varios autores", date_publication: Date.new(2023, 1, 15), description: "Publicación trimestral de investigaciones en ciencias exactas y naturales." },
+  { kind: "Tesis", title: "Innovación Tecnológica en Educación", author_name: "MSc. Ana Martínez", date_publication: Date.new(2023, 1, 15), description: "Tesis doctoral sobre la implementación de tecnologías en el aula." }
+]
+
+publications_data.each do |pub|
+  Publication.find_or_create_by!(title: pub[:title]) do |p|
+    p.kind = pub[:kind]
+    p.author_name = pub[:author_name]
+    p.date_publication = pub[:date_publication]
+    p.description = pub[:description]
+  end
+end
+
+puts "#{Publication.count} publicaciones creadas."
 
 # Create minutes
 minutes_data = [

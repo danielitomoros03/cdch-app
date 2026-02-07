@@ -11,11 +11,11 @@
           <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
         <% end %>
       </div>
-      <% content_for :title, "CDCH - Publications" %>
+      <% content_for :title, "CDCH - Publicaciones" %>
       
       
       <p>
-        <h1>Publications <%= link_to "New publication", new_publication_path, class: "btn btn-primary" %></h1>
+        <h1>Publicaciones <%= link_to "Crear publicación", new_publication_path, class: "btn btn-primary" %></h1>
       </p>
 
       <div class="container">
@@ -24,11 +24,12 @@
             <thead>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Title</th>
-                <!-- 
-                  <th scope="col">Day</th>
-                  <th scope="col">Day</th> 
-                -->
+                <th scope="col">Título</th>
+                <th scope="col">Nombre del Autor(a)</th>
+                <th scope="col">Tipo de Publicación</th>
+                <th scope="col">Fecha de Publicación</th>
+                <th scope="col">Descripción breve</th>
+                <th scope="col">Archivo adjunto</th>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
