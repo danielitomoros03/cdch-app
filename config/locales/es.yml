@@ -28,110 +28,221 @@
 #       enabled: "ON"
 
 es:
+  # Saludos y básicos
   hello: "Hola mundo"
   js: 'Javascript'
-  destroy: Eliminar
-  edit: Editar
-  new: Nuevo
-  index: Listado
-  show: Detalle
+  destroy: "Eliminar"
+  edit: "Editar"
+  new: "Nuevo"
+  index: "Listado"
+  show: "Mostrar"
 
+  # Estructura para Listas
   support:
     array:
       words_connector: ", "
       two_words_connector: " y "
       last_word_connector: " y "
 
+  # Botones y Labels de Formularios
   helpers:
     select:
-      prompt: Seleccione...
+      prompt: "Seleccione una opción..."
     submit:
-      create: Crear %{model}
-      submit: Guardar %{model}
-      update: Actualizar %{model}
-      back: Regresar %{model}
-      destroy: Eliminar %{model}
-      cancel: Cancelar
+      create: "Crear %{model}"
+      submit: "Guardar %{model}"
+      update: "Actualizar %{model}"
+      back: "Regresar"
+      destroy: "Eliminar %{model}"
+      cancel: "Cancelar"
     actions: 'Acciones'
 
-  links:
-    back: 'Atrás'
-    cancel: 'Cancelar'
-    confirm: 'Esta acción es irreversible, ¿Estás seguro?'
-    destroy: 'Eliminar'
-    new: 'Nuevo'
-    edit: 'Editar'
-
-  titles:
-    edit: 'Editar'
-    save: 'Guardar'
-    new: 'Nuevo: %{model}'
-    delete: 'Eliminar'
-
+  # Traducciones de Modelos y sus Campos (ActiveRecord)
   activerecord:
-    errors:
-      models:
-        dashboard/call:
-          attributes: {}
-        dashboard/minute:
-          attributes: {}
-        dashboard/publication:
-          attributes: {}
-        user:
-          attributes: {}
     models:
-      dashboard/call:
-        one: 'Convocatoria'
-        other: 'Convocatorias'
-      dashboard/minute:
-        one: 'Acta del Directorio'
-        other: 'Actas del Directorio'
-      dashboard/publication:
-        one: 'Publicación'
-        other: 'Publicaciones'
-      user:
-        one: 'Usuario'
-        other: 'Usuarios'
+      user: "Usuario"
+      institution: "Institución"
+      department: "Departamento"
+      call: "Convocatoria"
+      event: "Evento"
+      publication: "Publicación"
+      minute: "Acta de Directorio"
+      solicitud: "Solicitud"
     attributes:
-      dashboard/call:
-        title: 'Nombre'
-        short_description: 'Descripción corta'
-        start_date: 'Fecha de inicio'
-        end_date: 'Fecha de cierre'
-        status: 'Estado'
-        call_type: 'Tipo'
-        active: 'Activo'
-        minute_id: 'Acta del Directorio'
-        publication_id: 'Publicación'
-        created_at: 'Creado el'
-        updated_at: 'Actualizado el'
-      dashboard/minute:
-        name: 'Nombre'
-        description: 'Descripción'
-        created_at: 'Creado el'
-        updated_at: 'Actualizado el'
-      dashboard/publication:
-        name: 'Nombre'
-        description: 'Descripción'
-        created_at: 'Creado el'
-        updated_at: 'Actualizado el'
+      active_storage/blob:
+        id: "ID"
+        key: "Llave"
+        filename: "Nombre del archivo"
+        content_type: "Tipo de contenido"
+        metadata: "Metadata"
+        service_name: "Nombre del servicio"
+        byte_size: "Tamaño en bytes"
+        checksum: "Chequeo de integridad"
+        created_at: "Creado en"
       user:
-        email: 'Correo electrónico'
-        password: 'Contraseña'
-        password_confirmation: 'Confirmación de contraseña'
-        remember_me: 'Recordarme'
-        current_password: 'Contraseña actual'
-        created_at: 'Creado el'
-        updated_at: 'Actualizado el'
+        id: "ID"
+        email: "Correo electrónico"
+        encrypted_password: "Contraseña"
+        name: "Nombre"
+        lastname: "Apellido"
+        number_phone: "Número telefónico"
+        identification_number: "Número de Cédula"
+        active: "Activo"
+        reset_password_token: "Token de restablecimiento de contraseña"
+        reset_password_sent_at: "Token de restablecimiento de contraseña enviado"
+        remember_created_at: "Recordarme"
+        created_at: "Creando en"
+        updated_at: "Editado en"
+      institution:
+        id: "ID"
+        name: "Nombre de la Institución"
+        acronym: "Acrónimo"
+        description: "Descripción"
+        director_name: "Nombre del Director"
+        subdirector_name: "Nombre del Subdirector"
+        director_primary_email: "Correo principal del Director"
+        subdirector_primary_email: "Correo principal del Subdirector"
+        director_secondary_email: "Correo secundario del Director"
+        subdirector_secondary_email: "Correo secundario del Subdirector"
+        primary_phone: "Teléfono Principal"
+        business_hours: "Horario de Atención"
+        address: "Ubicación"
+        founded_year: "Año de Fundación"
+        facebook_url: "Link de Facebook"
+        twitter_url: "Link de twitter"
+        instagram_url: "Link de instagram"
+        linkedin_url: "Link de LinkedIn"
+        threads_url: "Link de Threads"
+        mission: "Misión"
+        vision: "Visión"
+        logoInstitution: "Logo de la Institución CDCH"
+        logoDirection: "Logo de la Dirección CDCH"
+        history: "Historia"
+        created_at: "Creado en"
+        updated_at: "Editado en"
+      department:
+        name: "Nombre del Departamento"
+        acronym: "Acrónimo"
+        description: "Descripción"
+        organize: "N° de Orden"
+        logoDepartment: "Logo del Departamento"
+        description: "Descripción del Departamento"
+        created_at: "Creado en"
+        updated_at: "Editado en"
+      call:
+        id: "ID"
+        title: "Título de la Convocatoria"
+        short_description: "Resumen"
+        start_date: "Fecha de Inicio"
+        end_date: "Fecha de Cierre"
+        active: "Convocatoria Abierta"
+        kind: "Tipo de Convocatoria"
+        large_description: "Descripción Larga"
+        created_at: "Creado en"
+        updated_at: "Editado en"
+      event:
+        id: "ID"
+        title: "Título del Evento"
+        day: "Día"
+        location: "Lugar"
+        description: "Descripción"
+        kind: "Tipo de Evento"
+        start_time: "Hora de Inicio"
+        end_time: "Hora de Cierre"
+        content: "Contenido del evento"
+        image: "Imagen del evento"
+        created_at: "Creado en"
+        updated_at: "Editado en"
+      publication:
+        title: "Título"
+        author_name: "Autor"
+        date_publication: "Fecha de Publicación"
+        kind: "Tipo de Publicación"
+        description: "Descripción"
+        publication_field: "Archivo de publicación"
+        created_at: "Creado en"
+        updated_at: "Editado en"
+      solicitude:
+        id: "ID"
+        email: "Correo"
+        full_name: "Nombre completo"
+        matter: "Asunto"
+        message: "Mensaje"
+        policies: "Políticas de privacidad"
+        phone_number: "Teléfono"
+        created_at: "Creado en"
+        updated_at: "Editado en"
+  errors:
+    header:
+      one: "No se pudo guardar este(a) %{model}: 1 error encontrado"
+      other: "No se pudo guardar este(a) %{model}: %{count} errores encontrados"
+    body: "Se encontraron problemas en los siguientes campos:"
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: "debe ser aceptado"
+      blank: "no puede estar en blanco"
+      present: "debe estar en blanco"
+      confirmation: "no coincide con %{attribute}"
+      empty: "no puede estar vacío"
+      equal_to: "debe ser igual a %{count}"
+      even: "debe ser par"
+      exclusion: "está reservado"
+      greater_than: "debe ser mayor que %{count}"
+      greater_than_or_equal_to: "debe ser mayor que o igual a %{count}"
+      inclusion: "no está incluido en la lista"
+      invalid: "no es válido"
+      less_than: "debe ser menor que %{count}"
+      less_than_or_equal_to: "debe ser menor que o igual a %{count}"
+      model_invalid: "La validación falló: %{errors}"
+      not_a_number: "no es un número"
+      not_an_integer: "debe ser un entero"
+      odd: "debe ser impar"
+      other_than: "debe ser distinto de %{count}"
+      present: "debe estar en blanco"
+      required: "es obligatorio"
+      taken: "ya ha sido tomado"
+      too_long: "es demasiado largo (no más de %{count} caracteres)"
+      too_short: "es demasiado corto (no menos de %{count} caracteres)"
+      wrong_length: "no tiene la longitud correcta (debe tener %{count} caracteres)"
 
+  # Traducciones para Enumeraciones (Enums)
+  enums:
+    publication:
+      kind:
+        libro: "Libro"
+        revista: "Revista"
+        articulo: "Artículo"
+        tesis: "Tesis"
+    call:
+      kind:
+        call: "Convocatoria"
+        grant: "Subvención"
+
+  # Mensajes de Sistema (Flash)
   flash:
     actions:
-      destroy:
-        notice: '¡Recurso eliminado del sistema con éxito!'
-      update:
-        notice: '¡Recurso actualizado con éxito!'
       create:
-        notice: '¡Recurso creado con éxito!'
+        notice: "¡%{model} creado exitosamente!"
+      update:
+        notice: "¡%{model} actualizado correctamente!"
+      destroy:
+        notice: "¡%{model} ha sido eliminado!"
+      success: '¡Operación exitosa!'
+      error: '¡Ocurrió un error!'
+      alert: '¡Advertencia!'
+      notice: '¡Notificación!'
+      warning: '¡Advertencia!'
+
+  # Configuración de Fechas y Horas
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d %b"
+      long: "%d de %B de %Y"
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
+      short: "%H:%M"
 
   devise:
     failure:
