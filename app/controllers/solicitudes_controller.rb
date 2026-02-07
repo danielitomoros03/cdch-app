@@ -1,4 +1,5 @@
 class SolicitudesController < ApplicationController
+  skip_before_action :authenticate_user!
   # POST /solicitudes
   def create
     @solicitude = Solicitude.new(solicitude_params)
