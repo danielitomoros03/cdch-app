@@ -34,7 +34,7 @@ end
 puts "#{Department.count} departamentos estándar creados."
 
 # Create institution data
-Institution.find_or_create_by!(name: "Centro de Desarrollo Científico y Humanístico") do |institution|
+Institution.find_or_create_by!(name: "Consejo de Desarrollo Científico y Humanístico") do |institution|
   institution.acronym = "CDCH"
   institution.address = "Quinta Silenia, Urb. La Floresta, Caracas 1040, Venezuela."
   institution.primary_phone = "+58 212 2871325"
@@ -42,7 +42,7 @@ Institution.find_or_create_by!(name: "Centro de Desarrollo Científico y Humaní
   institution.primary_email = "cdch@ucv.ve"
   institution.secondary_email = "ucv.cdch.coordinacion@gmail.com"
   institution.business_hours = "Lunes a Viernes: 8:00 AM - 4:00 PM"
-  institution.mission = "El Centro de Desarrollo Científico y Humanístico (CDCH) de la UCV tiene como misión promover, coordinar y apoyar el desarrollo de la investigación científica y humanística en la institución, contribuyendo al avance del conocimiento y al fortalecimiento de la formación académica de la comunidad universitaria."
+  institution.mission = "El Consejo de Desarrollo Científico y Humanístico (CDCH) de la UCV tiene como misión promover, coordinar y apoyar el desarrollo de la investigación científica y humanística en la institución, contribuyendo al avance del conocimiento y al fortalecimiento de la formación académica de la comunidad universitaria."
   institution.vission = "Ser el centro de referencia nacional e internacional en el desarrollo de la investigación científica y humanística, reconocido por su excelencia académica, innovación y contribución al desarrollo sostenible de Venezuela."
   institution.description = "El CDCH es la instancia responsable de promover, coordinar y apoyar el desarrollo de la investigación científica y humanística en la UCV."
   institution.twitter_url = "https://twitter.com/CDCH_UCV"
@@ -212,7 +212,7 @@ puts "#{Call.count} convocatorias creadas."
 events_data = [
   {
     title: "Convocatoria de Proyectos de Investigación 2026",
-    description: "El Centro de Desarrollo Científico y Humanístico (CDCH) de la UCV anuncia la apertura de su convocatoria anual para proyectos de investigación individuales y grupales.",
+    description: "El Consejo de Desarrollo Científico y Humanístico (CDCH) de la UCV anuncia la apertura de su convocatoria anual para proyectos de investigación individuales y grupales.",
     content: "<p>El CDCH invita a todos los investigadores de la UCV a participar en la convocatoria 2026, que ofrece financiamiento para proyectos innovadores en diversas áreas del conocimiento. La fecha límite para la presentación de propuestas es el 30 de abril de 2026.</p><p>Para más información, visite el sitio web oficial del CDCH.</p>",
     day: Date.new(2024, 6, 1),
     kind: 0,
@@ -224,7 +224,7 @@ events_data = [
   },
   {
     title: "Seminario de Investigación Científica 2026",
-    description: "El Centro de Desarrollo Científico y Humanístico (CDCH) de la UCV anuncia la apertura de su convocatoria anual para proyectos de investigación individuales y grupales.",
+    description: "El Consejo de Desarrollo Científico y Humanístico (CDCH) de la UCV anuncia la apertura de su convocatoria anual para proyectos de investigación individuales y grupales.",
     content: "<p>El CDCH invita a todos los investigadores de la UCV a participar en la convocatoria 2026, que ofrece financiamiento para proyectos innovadores en diversas áreas del conocimiento. La fecha límite para la presentación de propuestas es el 30 de abril de 2026.</p><p>Para más información, visite el sitio web oficial del CDCH.</p>",
     day: Date.new(2024, 6, 1),
     kind: 0,
@@ -236,7 +236,7 @@ events_data = [
   },
   {
     title: "Jornada de Innovación y Tecnología",
-    description: "El Centro de Desarrollo Científico y Humanístico (CDCH) de la UCV anuncia la apertura de su convocatoria anual para proyectos de investigación individuales y grupales.",
+    description: "El Consejo de Desarrollo Científico y Humanístico (CDCH) de la UCV anuncia la apertura de su convocatoria anual para proyectos de investigación individuales y grupales.",
     content: "<p>El CDCH invita a todos los investigadores de la UCV a participar en la convocatoria 2026, que ofrece financiamiento para proyectos innovadores en diversas áreas del conocimiento. La fecha límite para la presentación de propuestas es el 30 de abril de 2026.</p><p>Para más información, visite el sitio web oficial del CDCH.</p>",
     day: Date.new(2024, 6, 1),
     kind: 2,
@@ -248,7 +248,7 @@ events_data = [
   },
   {
     title: "Foro de Debate Académico",
-    description: "El Centro de Desarrollo Científico y Humanístico (CDCH) de la UCV anuncia la apertura de su convocatoria anual para proyectos de investigación individuales y grupales.",
+    description: "El Consejo de Desarrollo Científico y Humanístico (CDCH) de la UCV anuncia la apertura de su convocatoria anual para proyectos de investigación individuales y grupales.",
     content: "<p>El CDCH invita a todos los investigadores de la UCV a participar en la convocatoria 2026, que ofrece financiamiento para proyectos innovadores en diversas áreas del conocimiento. La fecha límite para la presentación de propuestas es el 30 de abril de 2026.</p><p>Para más información, visite el sitio web oficial del CDCH.</p>",
     day: Date.new(2024, 6, 1),
     kind: 3,
