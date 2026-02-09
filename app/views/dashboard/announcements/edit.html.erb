@@ -1,0 +1,9 @@
+<% content_for :title, "Editar anuncio" %>
+
+<%= render layout: "dashboard/dashboard_form" do %>
+  <h1>Nuevo anuncio</h1>
+  <%= render "form", announcement: @announcement %>
+  <div>
+    <%= link_to "Volver", announcements_path %>
+  </div>
+<% end %>

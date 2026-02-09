@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_23_164049) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_09_172516) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_23_164049) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "announcements", force: :cascade do |t|
+    t.text "content"
+    t.boolean "is_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "calls", force: :cascade do |t|
@@ -113,6 +120,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_23_164049) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "job_titles", force: :cascade do |t|
+    t.string "name"
+    t.integer "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "minutes", force: :cascade do |t|
     t.date "day"
     t.string "title"
@@ -145,6 +159,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_23_164049) do
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.bigint "department_id", default: 0, null: false
+    t.bigint "job_title_id", default: 0, null: false
     t.string "name"
     t.string "lastname"
     t.string "number_phone"
@@ -155,7 +171,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_23_164049) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_users_on_department_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["job_title_id"], name: "index_users_on_job_title_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

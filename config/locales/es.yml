@@ -60,14 +60,15 @@ es:
   # Traducciones de Modelos y sus Campos (ActiveRecord)
   activerecord:
     models:
-      user: "Usuario"
-      institution: "Institución"
-      department: "Departamento"
+      Announcement: "Anuncio"
       call: "Convocatoria"
+      department: "Departamento"
       event: "Evento"
-      publication: "Publicación"
+      institution: "Institución"
       minute: "Acta de Directorio"
-      solicitud: "Solicitud"
+      publication: "Publicación"
+      solicitude: "Solicitud"
+      user: "Usuario"
     attributes:
       active_storage/blob:
         id: "ID"
@@ -79,6 +80,12 @@ es:
         byte_size: "Tamaño en bytes"
         checksum: "Chequeo de integridad"
         created_at: "Creado en"
+      announcement: 
+        id: "ID"
+        content: "Contenido"
+        is_active: "Está activo"
+        created_at: "Creado en"
+        updated_at: "Actualizado en"
       user:
         id: "ID"
         email: "Correo electrónico"

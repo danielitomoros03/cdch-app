@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   resources :solicitudes, only: [:create] # Public Route for submitting solicitudes
 
   # Scaffold's Routes from Dashboard
-  resources :users, module: 'dashboard'
+  resources :announcements, module: 'dashboard'
   resources :calls, module: 'dashboard'
   resources :departments, module: 'dashboard'
   resources :institutions, module: 'dashboard', only: [:index, :show, :edit, :update]
@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :events, module: 'dashboard'
   resources :publications, module: 'dashboard'
   resources :solicitudes, module: 'dashboard', only: [:index, :show, :destroy]
+  resources :users, module: 'dashboard'
   get "dashboard/index" # INDEX DASHBOARD
 
 

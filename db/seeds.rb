@@ -273,3 +273,23 @@ events_data.each do |event_data|
 end
 
 puts "#{Event.count} eventos creados."
+
+# Create announcements
+announcements_data = [
+  {
+    content: "<p>El CDCH invita a todos los investigadores de la UCV a participar en la convocatoria 2026, que ofrece financiamiento para proyectos innovadores en diversas áreas del conocimiento. La fecha límite para la presentación de propuestas es el 30 de abril de 2026.</p><p>Para más información, visite el sitio web oficial del CDCH.</p>",
+    is_active: true
+  },
+  {
+    content: "<p>El CDCH invita a todos los investigadores de la UCV a participar en la convocatoria 2026, que ofrece financiamiento para proyectos innovadores en diversas áreas del conocimiento. La fecha límite para la presentación de propuestas es el 30 de abril de 2026.</p><p>Para más información, visite el sitio web oficial del CDCH.</p>",
+    is_active: false
+  }
+]
+
+announcements.each do |announcement_data|
+  Announcement.find_or_create_by!(content: announcement_data[:content]) do |announcement|
+    announcement.is_active = announcement_data[:is_active]
+  end
+end
+
+puts "#{Announcement.count} announcementos creados."

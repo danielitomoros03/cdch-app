@@ -1,0 +1,13 @@
+<div id="<%= dom_id announcement %>">
+  <tbody>
+    <tr>
+      <th scope="row"> <%= announcement.id %> </th>
+      <td> <%= announcement.content %> </td>
+      <td> <%= announcement.is_active %> </td>
+      <td> 
+        <a class="btn btn-info" href="/announcements/<%= announcement.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Mostar el detalle del anuncio"><i class="fa-solid fa-circle-info"></i></a>
+        <a class="btn btn-warning" href="/announcements/<%= announcement.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar anuncio"><i class="fa-solid fa-pen"></i></a>
+      </td>
+    </tr>
+  </tbody>
+</div>
