@@ -76,22 +76,68 @@
             <h3 class="profile-card__name"><%= Institution.first.director_name %></h3>
             <p class="profile-card__title">Director(a) del CDCH</p>
             <div class="profile-card__socials">
-              <% email = Institution.first.director_primary_email %>
-              <a href="javascript:void(0);" 
-                class="profile-card__social-link" 
-                title="Copiar: <%= email %>"
-                data-bs-toggle="tooltip" 
-                onclick="navigator.clipboard.writeText('<%= email %>'); alert('Correo copiado: <%= email %>');">
-                <i class="fas fa-envelope"></i>
+              <div class="dropup">
+                <button class="profile-card__social-link dropdown-toggle" 
+                        type="button" 
+                        id="dropdownEmailsDirector" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false"
+                        title="Listar correos del Director(a)">
+                  <i class="fas fa-envelope"></i>
+                </button>
+                
+                <ul class="dropdown-menu shadow border-0 animate__animated animate__fadeIn animate__faster" aria-labelledby="dropdownEmailsDirector">
+                  <li><h6 class="dropdown-header">Correos del Director(a)</h6></li>
+                  <li><hr class="dropdown-divider"></li>
+                  
+                  <li>
+                    <% email = Institution.first.director_primary_email %>
+                    <a class="dropdown-item text-dark" href="javascript:void(0);"
+                      class="profile-card__social-link" 
+                      title="Copiar: <%= email %>"
+                      data-bs-toggle="tooltip" 
+                      onclick="navigator.clipboard.writeText('<%= email %>'); alert('Correo copiado: <%= email %>');">
+
+                    Email principal: <%= Institution.first.director_primary_email %>
+                    </a>
+                  </li>
+                  <li>
+                    <% email2 = Institution.first.director_secondary_email %>
+                    <a class="dropdown-item text-dark" href="javascript:void(0);" 
+                      class="profile-card__social-link" 
+                      title="Copiar: <%= email2 %>"
+                      data-bs-toggle="tooltip" 
+                      onclick="navigator.clipboard.writeText('<%= email2 %>'); alert('Correo copiado: <%= email2 %>');">
+
+                    Email secundario: <%= Institution.first.director_secondary_email %>
+                  </a></li>
+                </ul>
+              </div>
+
+              <a href="/direccion" class="profile-card__social-link profile-card__social-link--button">
+                <span>Ver más</span>
+                <i class="fas fa-chevron ms-1"></i>
               </a>
-              <% email2 = Institution.first.director_secondary_email %>
-              <a href="javascript:void(0);" 
-                class="profile-card__social-link" 
-                title="Copiar: <%= email2 %>"
-                data-bs-toggle="tooltip" 
-                onclick="navigator.clipboard.writeText('<%= email %>'); alert('Correo copiado: <%= email2 %>');">
-                <i class="fas fa-envelope"></i>
-              </a>
+
+              <div class="dropup">
+                <button class="profile-card__social-link dropdown-toggle"
+                        type="button" 
+                        id="dropdownSecretarias" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false"
+                        title="Listar Secretarias">
+                  <i class="fas fa-users"></i>
+                </button>
+                
+                <ul class="dropdown-menu shadow border-0 animate__animated animate__fadeIn animate__faster" aria-labelledby="dropdownSecretarias">
+                  <li><h6 class="dropdown-header">Secretarías Disponibles</h6></li>
+                  <li><hr class="dropdown-divider"></li>
+                  
+                  <li><a class="dropdown-item text-dark" href="#">Secretaría de Actas</a></li>
+                  <li><a class="dropdown-item text-dark" href="#">Secretaría Administrativa</a></li>
+                  <li><a class="dropdown-item text-dark" href="#">Secretaría de Correspondencia</a></li>
+                </ul>
+              </div>
             </div>
           </div>
           <!--
@@ -131,23 +177,67 @@
             <h3 class="profile-card__name"><%= Institution.first.subdirector_name %> </h3>
             <p class="profile-card__title">SubDirector del CDCH</p>
             <div class="profile-card__socials">
-              <% email3 = Institution.first.subdirector_primary_email %>
-              <a href="javascript:void(0);" 
-                class="profile-card__social-link" 
-                title="Copiar: <%= email3 %>"
-                data-bs-toggle="tooltip" 
-                data-placement="bottom" 
-                onclick="navigator.clipboard.writeText('<%= email3 %>'); alert('Correo copiado: <%= email3 %>');">
-                <i class="fas fa-envelope"></i>
+              <div class="dropup">
+                <button class="profile-card__social-link dropdown-toggle" 
+                        type="button" 
+                        id="dropdownEmailsDirector" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false"
+                        title="Listar correos del Subdirector(a)">
+                  <i class="fas fa-envelope"></i>
+                </button>
+                
+                <ul class="dropdown-menu shadow border-0 animate__animated animate__fadeIn animate__faster" aria-labelledby="dropdownEmailsDirector">
+                  <li><h6 class="dropdown-header">Correos del Subdirector(a)</h6></li>
+                  <li><hr class="dropdown-divider"></li>
+                  
+                  <li>
+                    <% email3 = Institution.first.subdirector_primary_email %>
+                    <a class="dropdown-item text-dark" href="javascript:void(0);"
+                      class="profile-card__social-link" 
+                      title="Copiar: <%= email3 %>"
+                      data-bs-toggle="tooltip" 
+                      onclick="navigator.clipboard.writeText('<%= email3 %>'); alert('Correo copiado: <%= email3 %>');">
+
+                    Email principal: <%= Institution.first.subdirector_primary_email %>
+                    </a>
+                  </li>
+                  <li>
+                    <% email4 = Institution.first.subdirector_secondary_email %>
+                    <a class="dropdown-item text-dark" href="javascript:void(0);" 
+                      class="profile-card__social-link" 
+                      title="Copiar: <%= email4 %>"
+                      data-bs-toggle="tooltip" 
+                      onclick="navigator.clipboard.writeText('<%= email4 %>'); alert('Correo copiado: <%= email4 %>');">
+
+                    Email secundario: <%= Institution.first.subdirector_secondary_email %>
+                  </a></li>
+                </ul>
+              </div>
+              <a href="/subdireccion" class="profile-card__social-link profile-card__social-link--button">
+                <span>Ver más</span>
+                <i class="fas fa-chevron ms-1"></i>
               </a>
-              <% email4 = Institution.first.subdirector_secondary_email %>
-              <a href="javascript:void(0);" 
-                class="profile-card__social-link" 
-                title="Copiar: <%= email4 %>"
-                data-bs-toggle="tooltip" 
-                onclick="navigator.clipboard.writeText('<%= email4 %>'); alert('Correo copiado: <%= email4 %>');">
-                <i class="fas fa-envelope"></i>
-              </a>
+              <div class="dropup">
+                <button class="profile-card__social-link dropdown-toggle" 
+                        type="button" 
+                        id="dropdownSecretarias" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false"
+                        title="Listar Secretarias">
+                  <i class="fas fa-users"></i>
+                </button>
+                
+                <ul class="dropdown-menu shadow border-0 animate__animated animate__fadeIn animate__faster" aria-labelledby="dropdownSecretarias">
+                  <li><h6 class="dropdown-header">Secretarías Disponibles</h6></li>
+                  <li><hr class="dropdown-divider"></li>
+                  
+                  <%# Aquí listarías tus secretarias desde la BD o manual %>
+                  <li><a class="dropdown-item" href="#">Secretaría de Actas</a></li>
+                  <li><a class="dropdown-item" href="#">Secretaría Administrativa</a></li>
+                  <li><a class="dropdown-item" href="#">Secretaría de Correspondencia</a></li>
+                </ul>
+              </div>
             </div>
           </div>
           <!--

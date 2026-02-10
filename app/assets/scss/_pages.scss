@@ -11,7 +11,7 @@
       transform: translateY(-5px);
       box-shadow: $shadow-lg;
     }
-  }
+}
   
   .mission-icon {
     width: 4rem;
@@ -614,3 +614,14 @@
     }
   }
   
+  /* Ajuste para el botón que dispara el dropdown */
+.dropdown-toggle {
+  &::after {
+    display: none; /* Quitamos la flechita predeterminada de Bootstrap para usar nuestro icono */
+  }
+  
+  &:hover {
+    background-color: #e9ecef;
+    color: var(--primary-color);
+  }
+}

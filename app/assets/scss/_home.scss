@@ -281,15 +281,38 @@
 .profile-card {
   background: #fff;
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   max-width: 360px;
   margin: 0 auto;
 
+  &__header {
+    border-radius: 12px 12px; 
+  }
+
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Estilo para los items del menú */
+.dropdown-menu {
+  border-radius: 12px;
+  padding: 8px;
+  min-width: 200px;
+  z-index: 9999 !important;
+
+  .dropdown-item {
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    
+    &:hover {
+      background-color: rgba(var(--primary-rgb), 0.1);
+      color: var(--primary-color);
+    }
   }
 }
 
@@ -383,6 +406,29 @@
 
   i {
     font-size: 16px;
+  }
+}
+
+.profile-card__social-link--button {
+  width: auto !important; // Quita el ancho fijo del círculo
+  height: auto !important; // Quita el alto fijo
+  padding: 8px 16px;      // Agrega espacio interno
+  border-radius: 50px;    // Hace que los bordes sean curvos como una píldora
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+
+  i {
+    font-size: 0.8rem; // Icono un poco más pequeño que el texto
+  }
+
+  &:hover {
+    background-color: var(--primary-color); // O el color de tu card
+    color: white;
+    transform: translateY(-2px);
   }
 }
 
