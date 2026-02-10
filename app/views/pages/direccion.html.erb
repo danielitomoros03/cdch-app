@@ -17,14 +17,10 @@
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
         <h2 class="section-title mb-2">Descripción General de la Dirección</h2>
-        <!-- -->
+        <%= @direction.description %>
       </div>
       <div class="col-lg-6 mt-3">
-        <% if Institution.first.logoInstitution.attached? %>
-          <%= image_tag Institution.first.logoInstitution, class: "about-image-placeholder rounded", alt: "Logo de #{Institution.acronym}" %>
-        <% else %>
-          <%= image_tag "Logo-CDCH-Vitral.png", class: "about-image-placeholder rounded", alt: "Logo de Dirección por defecto CDCH" %>
-        <% end %>
+        <%= image_tag "Logo-CDCH-Vitral.png", class: "about-image-placeholder rounded", alt: "Logo de Dirección CDCH" %>
       </div>
     </div>
   </div>
@@ -38,65 +34,37 @@
     </div>
 
     <div class="row g-4">
-      <!-- Member Card 1 -->
+      <!-- Member Card 1 - Only Director -->
       <div class="col-md-6 col-lg-3">
         <article class="update-card">
-          <div class="update-image update-image-blue"></div>
+          <div class="update-image update-image-blue">
+            <%= image_tag @direction.send_director.photoUser %>
+          </div>
           <div class="update-content">
             <div class="update-date">Director(a)</div>
-            <h3 class="update-title">Nombre del mismo</h3>
-            <p class="update-excerpt">
-              Breve descripción del rol y responsabilidades.
-            </p>
+            <h3 class="update-title"><%= @direction.send_director.full_name %></h3>
+            <!-- <p class="update-excerpt"></p> -->
           </div>
         </article>
       </div>
 
-      <!-- Member Card 2 -->
-      <div class="col-md-6 col-lg-3">
-        <article class="update-card">
-          <div class="update-image update-image-green"></div>
-          <div class="update-content">
-            <div class="update-date">Coordinador</div>
-            <h3 class="update-title">Nombre del Coordinador</h3>
-            <p class="update-excerpt">
-              Breve descripción del rol y responsabilidades.
-            </p>
-          </div>
-        </article>
-      </div>
-
-      <!-- Member Card 3 -->
-      <div class="col-md-6 col-lg-3">
-        <article class="update-card">
-          <div class="update-image update-image-purple"></div>
-          <div class="update-content">
-            <div class="update-date">Especialista</div>
-            <h3 class="update-title">Nombre del Especialista</h3>
-            <p class="update-excerpt">
-              Breve descripción del rol y responsabilidades.
-            </p>
-          </div>
-        </article>
-      </div>
-
-      <!-- Member Card 4 -->
-      <div class="col-md-6 col-lg-3">
-        <article class="update-card">
-          <div class="update-image update-image-orange"></div>
-          <div class="update-content">
-            <div class="update-date">Asistente</div>
-            <h3 class="update-title">Nombre del Asistente</h3>
-            <p class="update-excerpt">
-              Breve descripción del rol y responsabilidades.
-            </p>
-          </div>
-        </article>
-      </div>
+      <!-- Members Cards -->
+      <% @other_users.each do |u| %>
+        <div class="col-md-6 col-lg-3">
+          <article class="update-card">
+            <div class="update-image update-image-blue"></div>
+            <div class="update-content">
+              <div class="update-date"><%= u.job_title.name  %></div>
+              <h3 class="update-title"><%= u.full_name %></h3>
+              <!-- <p class="update-excerpt"></p> -->
+            </div>
+          </article>
+        </div>
+      <% end %>
     </div>
   </div>
 </section>
 
 <%#= render "layouts/counter" %>
 <%= render "layouts/CTA_section" %>
-<%= render "layouts/footer" %>  _
+<%= render "layouts/footer" %>

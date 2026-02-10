@@ -57,7 +57,7 @@
 <!-- Leadership Section -->
 <section class="section bg-light py-5">
   <div class="container">
-    <h2 class="text-center mb-5 reveal animate__animate__backInDown">Directiva del CDCH</h2>
+    <h2 class="text-center mb-5 reveal animate__animate__backInDown"><strong>Directiva del CDCH</strong></h2>
     
     <div class="row justify-content-center g-4">
       <!-- Director Card -->
@@ -130,12 +130,12 @@
                 </button>
                 
                 <ul class="dropdown-menu shadow border-0 animate__animated animate__fadeIn animate__faster" aria-labelledby="dropdownSecretarias">
-                  <li><h6 class="dropdown-header">Secretarías Disponibles</h6></li>
+                  <li><h6 class="dropdown-header">Secretaria(s) del Director(a)</h6></li>
                   <li><hr class="dropdown-divider"></li>
-                  
-                  <li><a class="dropdown-item text-dark" href="#">Secretaría de Actas</a></li>
-                  <li><a class="dropdown-item text-dark" href="#">Secretaría Administrativa</a></li>
-                  <li><a class="dropdown-item text-dark" href="#">Secretaría de Correspondencia</a></li>
+
+                  <% @secretariesDir.each do |sec| %>
+                    <li><a class="dropdown-item text-dark" href="#"><%= sec.full_name %></a></li> 
+                  <% end %>
                 </ul>
               </div>
             </div>
@@ -161,7 +161,7 @@
         </div>
       </div>
 
-      <!-- SubDirector Card -->
+      <!-- Subdirector Card -->
       <div class="col-lg-4 col-md-6 d-flex justify-content-center reveal animate__slideInRight">
         <div class="profile-card profile-card--green w-100">
           <div class="profile-card__header profile-card__header--green">
@@ -175,7 +175,7 @@
               </div>
             -->
             <h3 class="profile-card__name"><%= Institution.first.subdirector_name %> </h3>
-            <p class="profile-card__title">SubDirector del CDCH</p>
+            <p class="profile-card__title">Subdirector del CDCH</p>
             <div class="profile-card__socials">
               <div class="dropup">
                 <button class="profile-card__social-link dropdown-toggle" 
@@ -229,13 +229,12 @@
                 </button>
                 
                 <ul class="dropdown-menu shadow border-0 animate__animated animate__fadeIn animate__faster" aria-labelledby="dropdownSecretarias">
-                  <li><h6 class="dropdown-header">Secretarías Disponibles</h6></li>
+                  <li><h6 class="dropdown-header">Secretaria(s) del Subdirector</h6></li>
                   <li><hr class="dropdown-divider"></li>
-                  
-                  <%# Aquí listarías tus secretarias desde la BD o manual %>
-                  <li><a class="dropdown-item" href="#">Secretaría de Actas</a></li>
-                  <li><a class="dropdown-item" href="#">Secretaría Administrativa</a></li>
-                  <li><a class="dropdown-item" href="#">Secretaría de Correspondencia</a></li>
+
+                  <% @secretariesSubdir.each do |secSub| %>
+                    <li><a class="dropdown-item text-dark" href="#"><%= secSub.full_name %></a></li> 
+                  <% end %>
                 </ul>
               </div>
             </div>

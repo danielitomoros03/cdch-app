@@ -21,6 +21,16 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+#
+# Table name: departments
+#
+#  id         :bigint           not null, primary key
+#  acronym    :string
+#  name       :string
+#  organize   :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 one:
   name: MyString
   acronym: MyString

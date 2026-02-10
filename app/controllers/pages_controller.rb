@@ -24,13 +24,19 @@ class PagesController < ApplicationController
   end
 
   def direccion
+    @direction = Department.last
+    @other_users = User.where(department_id: @direction.id).where.not(job_title_id: JobTitle.find_by(name: "Director").id)
   end
-
+  
   def subdireccion
+    @subdirection = Department.find_by!(acronym: "Subdir")
+    @other_users = User.where(department_id: @subdirection.id).where.not(job_title_id: JobTitle.find_by(name: "Subdirector").id)
   end
-
+  
   def nosotros
-    @departments = Department.all.order(organize: :asc)
+    @departments = Department.all.order(organize: :asc).limit(8)
+    @secretariesDir = User.where(department_id: Department.last).where(job_title_id: JobTitle.find_by(name: "Secretario(a)").id)
+    @secretariesSubdir = User.where(department_id: Department.find_by!(acronym: "Subdir")).where(job_title_id: JobTitle.find_by(name: "Secretario(a)").id)
   end
   
   def investigacion

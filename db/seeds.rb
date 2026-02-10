@@ -17,7 +17,9 @@ departments_data = [
   { organize: 4, acronym: "DTIC", name: "Departamento de Tecnología, Información y Comunicaciones", description: "Gestionar y optimizar la infraestructura tecnológica y los sistemas de información del CDCH, mediante la implementación de soluciones de vanguardia, el desarrollo de software a medida y un soporte técnico proactivo, con el fin de garantizar la eficiencia operativa, la seguridad de la data y la excelencia en los servicios digitales ofrecidos a la comunidad académica y administrativa." },
   { organize: 5, acronym: "Archivo y Correspondencia", name: "Departamento de Archivo y Correspondencia", description: "Gestionar el flujo integral de la información y el acervo documental del CDCH, mediante la administración técnica de la correspondencia, la digitalización de procesos y el resguardo del patrimonio bibliográfico, con el fin de garantizar la trazabilidad, la disponibilidad oportuna de la información y el soporte estratégico para la toma de decisiones institucionales." },
   { organize: 6, acronym: "Administración", name: "Departamento de Administración", description: "Garantizar la sostenibilidad financiera y operativa del CDCH mediante la administración eficiente de los recursos, la transparencia en los procesos de adquisición y el estricto cumplimiento del marco legal vigente, con el fin de asegurar el abastecimiento oportuno y la integridad del patrimonio institucional en apoyo a la actividad científica y académica." },
-  { organize: 7, acronym: "Compras", name: "Departamento de Compras", description: "Gestionar los procesos de procura de bienes, servicios y obras del CDCH, garantizando el abastecimiento oportuno y la optimización de los recursos financieros a través de una planificación estratégica y el estricto cumplimiento del marco legal de contrataciones públicas, para asegurar la continuidad operativa de las unidades académicas y administrativas." }
+  { organize: 7, acronym: "Compras", name: "Departamento de Compras", description: "Gestionar los procesos de procura de bienes, servicios y obras del CDCH, garantizando el abastecimiento oportuno y la optimización de los recursos financieros a través de una planificación estratégica y el estricto cumplimiento del marco legal de contrataciones públicas, para asegurar la continuidad operativa de las unidades académicas y administrativas." },
+  { organize: 8, acronym: "Subdir", name: "Subdirección", description: "Gestionar los procesos generales del CDCH, garantizando el cumplimiento óptimo de las actividades y tareas de la institución a través de una planificación estratégica y el estricto cumplimiento del marco legal de contrataciones públicas, para asegurar la continuidad operativa de las unidades académicas y administrativas." },
+  { organize: 9, acronym: "Dir", name: "Dirección", description: "Gestionar los procesos generales del CDCH, garantizando el cumplimiento óptimo de las actividades y tareas de la institución a través de una planificación estratégica y el estricto cumplimiento del marco legal de contrataciones públicas, para asegurar la continuidad operativa de las unidades académicas y administrativas." }
 ]
 
 departments_data.each do |dept|
@@ -34,10 +36,12 @@ puts "#{Department.count} departamentos estándar creados."
 job_titles_data = [
   { name: "Desarrollador", role: :Superadmin },
   { name: "Director", role: :Superadmin },
-  { name: "Sub-director", role: :Superadmin },
+  { name: "Subdirector", role: :Superadmin },
+  { name: "Jefe de Departamento", role: :JefeDepartamento },
   { name: "Coordinador", role: :Coordinador },
   { name: "Investigador", role: :Regular },
-  { name: "Personal Administrativo", role: :Regular }
+  { name: "Personal Administrativo", role: :Regular },
+  { name: "Secreatario(a)", role: :Regular }
 ]
 
 job_titles_data.each do |job_title|
@@ -48,22 +52,37 @@ end
 
 puts "#{JobTitle.count} cargos estándares creados."
 
-User.create!(email: "danielito.moros03@gmail.com", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Desarrollador").id, name: "Daniel", lastname: "Moros", number_phone: "04122539992", identification_number: "30035269")
+User.create!(email: "danielito.moros03@gmail.com", password: "123123", department_id: 10, job_title_id: JobTitle.find_by(name: "Desarrollador").id, name: "Daniel", lastname: "Moros", number_phone: "04122539992", identification_number: "30035269")
 puts "Usuario #{User.last.full_name} creado."
 
-User.create!(email: "director@ucv.ve", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Director").id, name: "Juana", lastname: "García", number_phone: "0416123120", identification_number: "12312311")
+User.create!(email: "director@ucv.ve", password: "123123", department_id: 10, job_title_id: JobTitle.find_by(name: "Director").id, name: "Juana", lastname: "García", number_phone: "0416123120", identification_number: "12312311")
 puts "Usuario #{User.last.role} creado."
 
-User.create!(email: "subdirector@ucv.ve", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Sub-director").id, name: "Carlos A.", lastname: "Saavedra A.", number_phone: "04143661978", identification_number: "12312312")
+User.create!(email: "subdirector@ucv.ve", password: "123123", department_id: 9, job_title_id: JobTitle.find_by(name: "Subdirector").id, name: "Carlos A.", lastname: "Saavedra A.", number_phone: "04143661978", identification_number: "12312312")
 puts "Usuario #{User.last.full_name} creado."
 
-User.create!(email: "coordinador@ucv.ve", password: "123123", department_id: 2, job_title_id: JobTitle.find_by(name: "Coordinador").id, name: "Virginia", lastname: "Plazas", number_phone: "0416123123", identification_number: "12312313")
+User.create!(email: "dada@ucv.ve", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Jefe de Departamento").id, name: "Virginia", lastname: "Plazas", number_phone: "04161023123", identification_number: "12315231301")
 puts "Usuario #{User.last.role} creado."
 
-User.create!(email: "administrativo@ucv.ve", password: "123123", department_id: 2, job_title_id: JobTitle.find_by(name: "Personal Administrativo").id, name: "Alexander", lastname: "Contreras", number_phone: "0416123124", identification_number: "12312314")
+User.create!(email: "dadi@ucv.ve", password: "123123", department_id: 2, job_title_id: JobTitle.find_by(name: "Jefe de Departamento").id, name: "Virginia", lastname: "Plazas", number_phone: "0416112310123", identification_number: "12312631302")
 puts "Usuario #{User.last.role} creado."
 
-User.create!(email: "regular@ucv.ve", password: "123123", department_id: 3x|, job_title_id: JobTitle.find_by(name: "Investigador").id, name: "Josué", lastname: "Castillo", number_phone: "0416123125", identification_number: "12312315")
+User.create!(email: "publicaciones@ucv.ve", password: "123123", department_id: 3, job_title_id: JobTitle.find_by(name: "Jefe de Departamento").id, name: "Alexander", lastname: "Contreras", number_phone: "0416003123124", identification_number: "12318231403")
+puts "Usuario #{User.last.role} creado."
+
+User.create!(email: "dapda@ucv.ve", password: "123123", department_id: 4, job_title_id: JobTitle.find_by(name: "Jefe de Departamento").id, name: "Josué", lastname: "Castillo", number_phone: "0416122013125", identification_number: "12391231504")
+puts "Usuario #{User.last.role} creado."
+
+User.create!(email: "dtic@ucv.ve", password: "123123", department_id: 5, job_title_id: JobTitle.find_by(name: "Jefe de Departamento").id, name: "Virginia", lastname: "Plazas", number_phone: "0416100323123", identification_number: "12315231305")
+puts "Usuario #{User.last.role} creado."
+
+User.create!(email: "archivoycorrespondencia@ucv.ve", password: "123123", department_id: 6, job_title_id: JobTitle.find_by(name: "Jefe de Departamento").id, name: "Virginia", lastname: "Plazas", number_phone: "0416103123123", identification_number: "12312631306")
+puts "Usuario #{User.last.role} creado."
+
+User.create!(email: "administracion@ucv.ve", password: "123123", department_id: 7, job_title_id: JobTitle.find_by(name: "Jefe de Departamento").id, name: "Alexander", lastname: "Contreras", number_phone: "0416305123124", identification_number: "12318231407")
+puts "Usuario #{User.last.role} creado."
+
+User.create!(email: "compras@ucv.ve", password: "123123", department_id: 8, job_title_id: JobTitle.find_by(name: "Jefe de Departamento").id, name: "Josué", lastname: "Castillo", number_phone: "0416122312055", identification_number: "12391231508")
 puts "Usuario #{User.last.role} creado."
 
 

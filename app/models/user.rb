@@ -48,6 +48,8 @@ class User < ApplicationRecord
 
   # Delegate rol for access simple: user.role
   delegate :role, to: :job_title, allow_nil: true
+  delegate :name, to: :department, prefix: true, allow_nil: true
+  delegate :name, to: :role, prefix: true, allow_nil: true
 
 
   def full_name

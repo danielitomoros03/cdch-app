@@ -12,5 +12,5 @@ class JobTitle < ApplicationRecord
     ## Associations
     has_many :users
     # Mapeamos los nombres variados a roles lógicos para la gema
-    enum role: [ :Regular, :Coordinador, :Administrador, :Superadmin ]
+    enum role: [ :Regular, :Coordinador, :Administrador, :JefeDepartamento, :Superadmin ]
 end
