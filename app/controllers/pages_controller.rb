@@ -23,6 +23,12 @@ class PagesController < ApplicationController
     end
   end
 
+  def direccion
+  end
+
+  def subdireccion
+  end
+
   def nosotros
     @departments = Department.all.order(organize: :asc)
   end
