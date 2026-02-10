@@ -4,7 +4,7 @@ module Dashboard
 
   # GET /dashboard/departments or /dashboard/departments.json
   def index
-    @departments = Department.all.order(created_at: :desc)
+    @departments = Department.all.order(created_at: :asc).limit(8)
   end
 
   # GET /dashboard/departments/1 or /dashboard/departments/1.json
@@ -26,7 +26,7 @@ module Dashboard
 
     respond_to do |format|
       if @department.save
-        format.html { redirect_to @department, notice: "Department was successfully created." }
+        format.html { redirect_to @department, notice: "Departmento creado correctamente." }
         format.json { render :show, status: :created, location: @department }
       else
         format.html { render :new, status: :unprocessable_entity }
