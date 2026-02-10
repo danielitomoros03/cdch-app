@@ -57,13 +57,13 @@ puts "Usuario #{User.last.role} creado."
 User.create!(email: "subdirector@ucv.ve", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Sub-director").id, name: "Carlos A.", lastname: "Saavedra A.", number_phone: "04143661978", identification_number: "12312312")
 puts "Usuario #{User.last.full_name} creado."
 
-User.create!(email: "coordinador@ucv.ve", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Coordinador").id, name: "Virginia", lastname: "Plazas", number_phone: "0416123123", identification_number: "12312313")
+User.create!(email: "coordinador@ucv.ve", password: "123123", department_id: 2, job_title_id: JobTitle.find_by(name: "Coordinador").id, name: "Virginia", lastname: "Plazas", number_phone: "0416123123", identification_number: "12312313")
 puts "Usuario #{User.last.role} creado."
 
-User.create!(email: "administrativo@ucv.ve", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Personal Administrativo").id, name: "Alexander", lastname: "Contreras", number_phone: "0416123124", identification_number: "12312314")
+User.create!(email: "administrativo@ucv.ve", password: "123123", department_id: 2, job_title_id: JobTitle.find_by(name: "Personal Administrativo").id, name: "Alexander", lastname: "Contreras", number_phone: "0416123124", identification_number: "12312314")
 puts "Usuario #{User.last.role} creado."
 
-User.create!(email: "regular@ucv.ve", password: "123123", department_id: 1, job_title_id: JobTitle.find_by(name: "Investigador").id, name: "Josué", lastname: "Castillo", number_phone: "0416123125", identification_number: "12312315")
+User.create!(email: "regular@ucv.ve", password: "123123", department_id: 3x|, job_title_id: JobTitle.find_by(name: "Investigador").id, name: "Josué", lastname: "Castillo", number_phone: "0416123125", identification_number: "12312315")
 puts "Usuario #{User.last.role} creado."
 
 
