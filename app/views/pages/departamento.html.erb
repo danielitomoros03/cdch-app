@@ -23,7 +23,7 @@
         <% if @department.logoDepartment.attached? %>
           <%= image_tag @department.logoDepartment, class: "about-image-placeholder rounded", alt: "Logo de #{@department.acronym}" %>
         <% else %>
-          <%= image_tag "Foto-Emblema-CDCH.jpg", class: "about-image-placeholder rounded", alt: "Logo por defecto CDCH" %>
+          <%= image_tag "#{@department.acronym}.png", class: "about-image-placeholder rounded", alt: "Logo por defecto CDCH" %>
         <% end %>
       </div>
     </div>

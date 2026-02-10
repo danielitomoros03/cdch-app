@@ -263,18 +263,18 @@
       <% @departments.each do |department| %>
         <div class="col-md-6 col-lg-3">
           <article class="update-card">
-            <div class="update-image update-image-blue">
+            <div class="update-image update-image-white">
               <% if department.logoDepartment.attached? %>
                 <%= image_tag department.logoDepartment, alt: "Logo #{department.name}", class: "department-logo" %>
               <% else %>
-                <%= image_tag "Huella.JPG", alt: "Default Department Image", class: "department-logo" %>
+                <%= image_tag "#{department.acronym}.png", alt: "Default Department Image", class: "department-logo", style: "transform: scale(1.2);" %>
               <% end %>
             </div>
             <div class="update-content">
               <div class="update-date"><%= department.acronym %></div>
               <h3 class="update-title"><%= department.name %></h3>
-              <%= link_to departamento_path(department.acronym), class: "update-link" do %>
-                Leer más sobre <%= department.acronym %> <i class="fas fa-chevron-right ms-1"></i>
+              <%= link_to departamento_path(department.acronym), class: "update-link ms-1" do %>
+                Leer más <i class="fas fa-chevron-right ms-1"></i>
               <% end %>
             </div>
           </article>

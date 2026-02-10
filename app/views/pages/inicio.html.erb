@@ -95,7 +95,7 @@
             <% else %>
               <div class="image-placeholder">
                 <!--<i class="fas fa-image"></i>-->
-                <%= image_tag "Foto-Emblema-CDCH.jpg", class: "profile-card__img" %>
+                <%= image_tag "#{dept.acronym}.png", class: "profile-card__img" %>
               </div>
             <% end %>
             <div class="profile-card__badge"><%= dept.acronym %></div>
