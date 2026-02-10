@@ -67,6 +67,11 @@ class PagesController < ApplicationController
   
   def departamento
     @department = Department.find_by!(acronym: params[:acronym])
+    if params[:acronym] == "Subdir" 
+      redirect_to subdireccion_path
+    elsif params[:acronym] == "Dir"
+      redirect_to direccion_path
+    end
   end
   
   def contacto
