@@ -82,8 +82,12 @@ es:
       user:
         id: "ID"
         email: "Correo electrónico"
-        encrypted_password: "Contraseña"
+        password: "Contraseña"
+        password_confirmation: "Confirmación de contraseña"
         name: "Nombre"
+        photoUser: "Foto de Perfil"
+        job_title: "Cargo"
+        department: "Departamento"
         lastname: "Apellido"
         number_phone: "Número telefónico"
         identification_number: "Número de Cédula"
