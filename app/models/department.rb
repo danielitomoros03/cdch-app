@@ -27,7 +27,7 @@ class Department < ApplicationRecord
         User.find_by(department_id: self.id, job_title_id: JobTitle.find_by(name: "Subdirector").id)
     end
     def send_jefe
-        User.find_by(department_id: self.id, job_title_id: JobTitle.find_by(name: "Jefe").id)
+        User.find_by(department_id: self.id, job_title_id: JobTitle.find_by(name: "Jefe de Departamento").id)
     end
     def send_coordinador
         User.find_by(department_id: self.id, job_title_id: JobTitle.find_by(name: "Coordinador").id)
@@ -40,5 +40,10 @@ class Department < ApplicationRecord
     end
     def send_secretary
         User.find_by(department_id: self.id, job_title_id: JobTitle.find_by(name: "Secreatario(a)").id)
+    end
+
+    private
+    def cut_acronym
+        self.acronym = self.acronym.upcase
     end
 end

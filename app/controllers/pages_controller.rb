@@ -67,6 +67,19 @@ class PagesController < ApplicationController
   
   def departamento
     @department = Department.find_by!(acronym: params[:acronym])
+    # Buscamos el cargo primero de forma segura
+    jefe_role = JobTitle.find_by(name: "Jefe de Departamento")
+    if jefe_role
+      @jefe = User.find_by(department_id: @department.id, job_title_id: jefe_role.id)
+      @others = User.where(department_id: @department.id)
+                    .where.not(job_title_id: jefe_role.id)
+                    .order(job_title_id: :asc)
+    else
+      @jefe = nil
+      @others = User.where(department_id: @department.id)
+                    .order(job_title_id: :asc)
+    end
+  
     if params[:acronym] == "Subdir" 
       redirect_to subdireccion_path
     elsif params[:acronym] == "Dir"

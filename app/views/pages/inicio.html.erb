@@ -91,11 +91,11 @@
         <div class="profile-card profile-card--<%= dept.acronym.downcase %> reveal animate__zoomIn <%= "animate__delay-#{dept.organize}s" if dept.organize > 0 %>">
           <div class="profile-card__image-container">
             <% if dept.logoDepartment.attached? %>
-              <%= image_tag dept.logoDepartment, class: "profile-card__img" %>
+              <%= image_tag dept.logoDepartment, class: "profile-card__img", style: "transform: scale(1.3);" %>
             <% else %>
               <div class="image-placeholder">
                 <!--<i class="fas fa-image"></i>-->
-                <%= image_tag "#{dept.acronym}.png", class: "profile-card__img" %>
+                <%= image_tag "#{dept.acronym}.png", class: "profile-card__img", style: "transform: scale(1.3);" %>
               </div>
             <% end %>
             <div class="profile-card__badge"><%= dept.acronym %></div>

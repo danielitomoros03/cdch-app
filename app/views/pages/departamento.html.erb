@@ -16,7 +16,7 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
-        <h2 class="section-title mb-2">Descripción General del Departamento</h2>
+        <h2 class="section-title mb-2">Descripción General de <%= @department.acronym %></h2>
         <%= @department.description %>
       </div>
       <div class="col-lg-6 mt-3">
@@ -34,65 +34,41 @@
 <section class="updates-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Integrantes del Departamento</h2>
+      <h2 class="section-title">Integrantes de <%= @department.acronym %></h2>
     </div>
 
     <div class="row g-4">
       <!-- Member Card 1 -->
       <div class="col-md-6 col-lg-3">
         <article class="update-card">
-          <div class="update-image update-image-blue"></div>
+          <div class="update-image update-image-white">
+            <% if @department.logoDepartment.attached? %>
+              <%= image_tag @department.logoDepartment, class: "about-image-placeholder rounded", alt: "Logo de #{@department.acronym}" %>
+            <% else %>
+              <%= image_tag "#{@department.acronym}.png", class: "about-image-placeholder rounded", style: "transform: scale(1.2);", alt: "Logo por defecto CDCH" %>
+            <% end %>
+          </div>
           <div class="update-content">
             <div class="update-date">Jefe de Departamento</div>
-            <h3 class="update-title">Nombre del mismo</h3>
-            <p class="update-excerpt">
-              Breve descripción del rol y responsabilidades.
-            </p>
+            <h3 class="update-title"><%= @jefe&.full_name || "Sin jefe asignado" %></h3>
+            <!--<p class="update-excerpt"></p>-->
           </div>
         </article>
       </div>
 
-      <!-- Member Card 2 -->
-      <div class="col-md-6 col-lg-3">
-        <article class="update-card">
-          <div class="update-image update-image-green"></div>
-          <div class="update-content">
-            <div class="update-date">Coordinador</div>
-            <h3 class="update-title">Nombre del Coordinador</h3>
-            <p class="update-excerpt">
-              Breve descripción del rol y responsabilidades.
-            </p>
-          </div>
-        </article>
-      </div>
-
-      <!-- Member Card 3 -->
-      <div class="col-md-6 col-lg-3">
-        <article class="update-card">
-          <div class="update-image update-image-purple"></div>
-          <div class="update-content">
-            <div class="update-date">Especialista</div>
-            <h3 class="update-title">Nombre del Especialista</h3>
-            <p class="update-excerpt">
-              Breve descripción del rol y responsabilidades.
-            </p>
-          </div>
-        </article>
-      </div>
-
-      <!-- Member Card 4 -->
-      <div class="col-md-6 col-lg-3">
-        <article class="update-card">
-          <div class="update-image update-image-orange"></div>
-          <div class="update-content">
-            <div class="update-date">Asistente</div>
-            <h3 class="update-title">Nombre del Asistente</h3>
-            <p class="update-excerpt">
-              Breve descripción del rol y responsabilidades.
-            </p>
-          </div>
-        </article>
-      </div>
+      <!-- Members Cards -->
+      <% @others.each do |u| %>
+        <div class="col-md-6 col-lg-3">
+          <article class="update-card">
+            <div class="update-image update-image-blue"></div>
+            <div class="update-content">
+              <div class="update-date"><%= u.job_title.name  %></div>
+              <h3 class="update-title"><%= u.full_name %></h3>
+              <!-- <p class="update-excerpt"></p> -->
+            </div>
+          </article>
+        </div>
+      <% end %>
     </div>
   </div>
 </section>

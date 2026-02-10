@@ -3,6 +3,7 @@
     <tr>
       <% if can? :read, user %>
         <th scope="row"><%= user.id %></th>
+        <th scope="row"><%= user.department.acronym %></th>
         <td><%= user.email %></td>
         <td><%= user.name %></td>
         <td><%= user.lastname %></td>
