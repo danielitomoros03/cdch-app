@@ -73,7 +73,7 @@
                 >
               </div>
             -->
-            <h3 class="profile-card__name"><%= Institution.first.director_name %></h3>
+            <h3 class="profile-card__name"><%= Institution.first.director_name || "Dra. María Rodríguez" %> </h3>
             <p class="profile-card__title">Director(a) del CDCH</p>
             <div class="profile-card__socials">
               <div class="dropup">
@@ -174,7 +174,7 @@
                 >
               </div>
             -->
-            <h3 class="profile-card__name"><%= Institution.first.subdirector_name %> </h3>
+            <h3 class="profile-card__name"><%= Institution.first.subdirector_name || "MSc. Carlos A. Saavedra A." %> </h3>
             <p class="profile-card__title">Subdirector del CDCH</p>
             <div class="profile-card__socials">
               <div class="dropup">
