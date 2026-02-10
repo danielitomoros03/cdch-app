@@ -15,8 +15,8 @@
         <!-- Nav Item - Dashboard -->
         <li class="nav-item <%= 'active' if current_page?(dashboard_index_path) rescue false %>">
             <%= link_to dashboard_index_path, class: 'nav-link' do %>
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard Inicial</span>
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard Inicial</span>
             <% end %>
         </li>
 
@@ -24,38 +24,46 @@
 
         <div class="sidebar-heading">Contenidos</div>
 
-        <li class="nav-item">
-            <%= link_to calls_path, class: 'nav-link' do %>
-            <i class="fas fa-bell"></i>
-            <span>Convocatorias</span>
-            <% end %>
-        </li>
+        <% if can? :read, Call %>
+            <li class="nav-item">
+                <%= link_to calls_path, class: 'nav-link' do %>
+                    <i class="fas fa-bell"></i>
+                    <span>Convocatorias</span>
+                <% end %>
+            </li>
+        <% end %>
 
-        <li class="nav-item">
-            <%= link_to minutes_path, class: 'nav-link' do %>
-            <i class="fas fa-box-open"></i>
-            <span>Actas del Directorio</span>
-            <% end %>
-        </li>
+        <% if can? :read, Minute %>
+            <li class="nav-item">
+                <%= link_to minutes_path, class: 'nav-link' do %>
+                    <i class="fas fa-box-open"></i>
+                    <span>Actas del Directorio</span>
+                <% end %>
+            </li>
+        <% end %>
 
-        <li class="nav-item">
-            <%= link_to publications_path, class: 'nav-link' do %>
-            <i class="fas fa-book"></i>
-            <span>Publicaciones</span>
-            <% end %>
-        </li>
+        <% if can? :read, Publication %>
+            <li class="nav-item">
+                <%= link_to publications_path, class: 'nav-link' do %>
+                    <i class="fas fa-book"></i>
+                    <span>Publicaciones</span>
+                <% end %>
+            </li>
+        <% end %>
 
-        <li class="nav-item">
-            <%= link_to events_path, class: 'nav-link' do %>
-            <i class="fas fa-newspaper"></i>
-            <span>Eventos y Noticias</span>
-            <% end %>
-        </li>
+        <% if can? :read, Event %>
+            <li class="nav-item">
+                <%= link_to events_path, class: 'nav-link' do %>
+                    <i class="fas fa-newspaper"></i>
+                    <span>Eventos y Noticias</span>
+                <% end %>
+            </li>
+        <% end %>
 
         <hr class="sidebar-divider">
 
         <div class="sidebar-heading">General</div>
-
+    
         <li class="nav-item">
             <%= link_to solicitudes_path, class: 'nav-link' do %>
             <i class="fas fa-envelope"></i>

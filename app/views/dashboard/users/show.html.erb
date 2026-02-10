@@ -35,9 +35,15 @@
       </table>
 
       <div class="container-fluid">
-        <%= link_to "Edit this user", edit_user_path(@user), class: "btn btn-primary m-2" %>
-        <%= link_to "Volver", users_path, class: "btn btn-dark m-2" %>
-        <%= button_to "Eliminar usuario", @user, method: :delete, class: "btn btn-danger m-2", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar este usuario?' } } %>
+        <% if can? :edit, @user %>
+          <%= link_to "Editar usuario", edit_user_path(@user), class: "btn btn-primary m-2" %> 
+        <% end %>
+        <% if can? :read, User %>
+          <%= link_to "Ver usuarios", users_path, class: "btn btn-dark m-2" %>
+        <% end %>
+        <% if can? :destroy, @user %>
+          <%= button_to "Eliminar usuario", @user, method: :delete, class: "btn btn-danger m-2", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar este usuario?' } } %>
+        <% end %>
       </div>
     </div>
   </div>
