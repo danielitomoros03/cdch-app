@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get "convocatorias/:id", to: "pages#convocatorias", as: :convocatoria
   get "departamentos", to: "pages#departamentos"
   get "departamento/:acronym", to: "pages#departamento", as: :departamento
+  get "direccion", to: "pages#direccion"
+  get "subdireccion", to: "pages#subdireccion"
   get "actas", to: "pages#directorio"
   get "actas/:id", to: "pages#directorio", as: :acta
   get "eventos/:id", to: "pages#eventos", as: :evento
