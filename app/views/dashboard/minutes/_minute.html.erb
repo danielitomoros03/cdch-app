@@ -3,7 +3,7 @@
     <tr>
       <th scope="row"> <%= minute.id %> </th>
       <td> <%= minute.title %> </td>
-      <td> <%= minute.day %> </td>
+      <td> <%= minute.day.strftime("%d/%m/%Y") %> </td>
       <td> <%= minute.content %> </td>
       <td> <%= minute.attachment_minute.attached? ? link_to("Ver archivo", minute.attachment_minute) : "Sin archivo adjunto" %> </td>
       <td> 

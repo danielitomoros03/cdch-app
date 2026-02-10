@@ -156,6 +156,8 @@ es:
         title: "Título del Evento"
         day: "Día"
         location: "Lugar"
+        show_in: "Mostrar en"
+        active: "Evento Activo"
         description: "Descripción"
         kind: "Tipo de Evento"
         start_time: "Hora de Inicio"
@@ -247,13 +249,18 @@ es:
   # Configuración de Fechas y Horas
   date:
     formats:
+      date: "%d/%m/%Y"
       default: "%d/%m/%Y"
       short: "%d %b"
       long: "%d de %B de %Y"
   time:
     formats:
-      default: "%d/%m/%Y %H:%M"
+      default: "%H:%M"
       short: "%H:%M"
+  boolean:
+    formats:
+      true: "Sí"
+      false: "No"
 
   devise:
     failure:

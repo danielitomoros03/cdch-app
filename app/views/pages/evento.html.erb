@@ -6,7 +6,7 @@
   <div class="container">
     <h1 class="page-title"><%= @event.title %></h1>
     <p class="page-subtitle">
-      Evento - <%= @event.day %>
+      Evento - <%= @event.day.strftime("%d/%m/%Y") %>
     </p>
   </div>
 </div>
@@ -17,9 +17,9 @@
     <div class="acta-detail-card">
       <div class="acta-meta mb-4">
         <span class="badge bg-primary"><%= @event.kind %></span>
-        <span class="ms-3"><i class="far fa-calendar"></i> Fecha: <%= @event.day %></span>
-        <span class="ms-3"><i class="fas fa-clock"></i> Inicio: <%= @event.start_time %></span>
-        <span class="ms-3"><i class="fas fa-clock"></i> Cierre: <%= @event.end_time %></span>
+        <span class="ms-3"><i class="far fa-calendar"></i> Fecha: <%= @event.day.strftime("%d/%m/%Y") %></span>
+        <span class="ms-3"><i class="fas fa-clock"></i> Inicio: <%= @event.start_time.strftime("%H:%M") %></span>
+        <span class="ms-3"><i class="fas fa-clock"></i> Cierre: <%= @event.end_time.strftime("%H:%M") %></span>
       </div>
 
       <% if @event.location.present? %>
