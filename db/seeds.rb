@@ -41,7 +41,7 @@ job_titles_data = [
   { name: "Coordinador", role: :Coordinador },
   { name: "Investigador", role: :Regular },
   { name: "Personal Administrativo", role: :Regular },
-  { name: "Secreatario(a)", role: :Regular }
+  { name: "Secretario(a)", role: :Regular }
 ]
 
 job_titles_data.each do |job_title|
