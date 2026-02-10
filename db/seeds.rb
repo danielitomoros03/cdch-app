@@ -55,7 +55,7 @@ puts "#{JobTitle.count} cargos estándares creados."
 User.create!(email: "danielito.moros03@gmail.com", password: "123123", department_id: 10, job_title_id: JobTitle.find_by(name: "Desarrollador").id, name: "Daniel", lastname: "Moros", number_phone: "04122539992", identification_number: "30035269")
 puts "Usuario #{User.last.full_name} creado."
 
-User.create!(email: "director@ucv.ve", password: "123123", department_id: 10, job_title_id: JobTitle.find_by(name: "Director").id, name: "Juana", lastname: "García", number_phone: "0416123120", identification_number: "12312311")
+User.create!(email: "director@ucv.ve", password: "123123", department_id: 10, job_title_id: JobTitle.find_by(name: "Director").id, name: "María", lastname: "Rodríguez", number_phone: "0416123120", identification_number: "12312311")
 puts "Usuario #{User.last.role} creado."
 
 User.create!(email: "subdirector@ucv.ve", password: "123123", department_id: 9, job_title_id: JobTitle.find_by(name: "Subdirector").id, name: "Carlos A.", lastname: "Saavedra A.", number_phone: "04143661978", identification_number: "12312312")
