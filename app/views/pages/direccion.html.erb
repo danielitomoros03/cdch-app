@@ -38,7 +38,11 @@
       <div class="col-md-6 col-lg-3">
         <article class="update-card">
           <div class="update-image update-image-blue">
-            <%= image_tag @direction.send_director.photoUser|| "Logo-CDCH-Vitral.png" %>
+            <% if @direction.send_director.photoUser.attached? %>
+              <%= image_tag @direction.send_director.photoUser %>
+            <% else %>
+              <%= image_tag "Logo-CDCH-Vitral.png" %>
+            <% end %>
           </div>
           <div class="update-content">
             <div class="update-date">Director(a)</div>
