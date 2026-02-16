@@ -1,6 +1,7 @@
 module Dashboard
   class InstitutionsController < ApplicationController
     before_action :set_institution, only: %i[ show edit update ]
+    load_and_authorize_resource ## Authorization for Cancancan
 
     # GET /institutions or /institutions.json
     def index

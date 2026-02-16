@@ -1,6 +1,7 @@
 module Dashboard
   class MinutesController < ApplicationController
     before_action :set_minute, only: %i[ show edit update destroy ]
+    load_and_authorize_resource ## Authorization for Cancancan
 
     # GET /minutes or /minutes.json
     def index

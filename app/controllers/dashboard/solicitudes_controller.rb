@@ -1,6 +1,7 @@
 module Dashboard
   class SolicitudesController < ApplicationController
     before_action :set_solicitude, only: %i[ show ]
+    load_and_authorize_resource ## Authorization for Cancancan
 
     # GET /solicitudes or /solicitudes.json
     def index

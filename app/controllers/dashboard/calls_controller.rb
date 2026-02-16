@@ -1,6 +1,7 @@
 module Dashboard
   class CallsController < ApplicationController
     before_action :set_call, only: %i[ show edit update destroy ]
+    load_and_authorize_resource ## Authorization for Cancancan
 
     # GET /calls or /calls.json
     def index

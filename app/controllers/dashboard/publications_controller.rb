@@ -1,6 +1,7 @@
 module Dashboard
   class PublicationsController < ApplicationController
     before_action :set_publication, only: %i[ show edit update destroy ]
+    load_and_authorize_resource ## Authorization for Cancancan
 
     # GET /publications or /publications.json
     def index

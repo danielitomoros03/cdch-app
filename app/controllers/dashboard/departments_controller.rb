@@ -1,6 +1,7 @@
 module Dashboard
   class DepartmentsController < ApplicationController
   before_action :set_department, only: %i[ show edit update destroy ]
+  load_and_authorize_resource ## Authorization for Cancancan
 
   # GET /dashboard/departments or /dashboard/departments.json
   def index
