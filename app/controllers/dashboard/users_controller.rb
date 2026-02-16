@@ -1,8 +1,8 @@
 module Dashboard
   class UsersController < ApplicationController
-    load_and_authorize_resource
     before_action :set_user, only: %i[show edit update destroy]
     before_action :set_collections, only: %i[new create edit update]
+    load_and_authorize_resource ## Authorization for Cancancan
 
     def index
       @users = User.order(:lastname, :name)
