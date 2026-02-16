@@ -5,8 +5,7 @@
         <th scope="row"><%= user.id %></th>
         <th scope="row"><%= user.department.acronym %></th>
         <td><%= user.email %></td>
-        <td><%= user.name %></td>
-        <td><%= user.lastname %></td>
+        <td><%= user.full_name %></td>
         <td><%= user.number_phone %></td>
         <td>
           <% if can? :read, user %>
