@@ -339,7 +339,7 @@ announcements_data = [
   }
 ]
 
-announcements.each do |announcement_data|
+announcements_data.each do |announcement_data|
   Announcement.find_or_create_by!(content: announcement_data[:content]) do |announcement|
     announcement.is_active = announcement_data[:is_active]
   end
