@@ -1,22 +1,32 @@
 <div id="<%= dom_id department %>">
   <tbody>
     <tr>
-      <th scope="row"> <%= department.id %> </th>
-      <td> <%= department.name %> </td>
-      <td> <%= department.acronym %> </td>
-      <td> <%= department.organize %> </td>
-      <td> <%= department.description %> </td>
-      <td> 
-      <% if department.logoDepartment.attached? %>
-        <%= image_tag department.logoDepartment, class: "department-logo-small" %>
-      <% else %>
-        <span class="text-muted">Sin logo</span>
+      <% if can? :read, department.id %>
+        <th scope="row"> <%= department.id %> </th>
+        <td> <%= department.name %> </td>
+        <td> <%= department.acronym %> </td>
+        <td> <%= department.organize %> </td>
+        <td> <%= department.description %> </td>
+        <td> 
+        <% if department.logoDepartment.attached? %>
+          <%= image_tag department.logoDepartment, class: "department-logo-small" %>
+        <% else %>
+          <span class="text-muted">Sin logo</span>
+        <% end %>
+        </td>
+        <td> 
+          <% if can? :read, department.id %>
+            <%= link_to department_path(department), class: 'btn btn-info', title: 'Mostrar', data: { bs_toggle: 'tooltip' } do %>
+              <i class="fa-solid fa-circle-info"></i>
+            <% end %>
+          <% end %>
+          <% if can? :update, department.id %>
+            <%= link_to edit_department_path(department), class: 'btn btn-warning', title: 'Editar', data: { bs_toggle: 'tooltip' } do %>
+              <i class="fa-solid fa-pen"></i>
+            <% end %>
+          <% end %>
+        </td>
       <% end %>
-      </td>
-      <td> 
-        <a class="btn btn-info" href="/departments/<%= department.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Monstar el detalle"><i class="fa-solid fa-circle-info"></i></a>
-        <a class="btn btn-warning" href="/departments/<%= department.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar"><i class="fa-solid fa-pen"></i></a>
-      </td>
     </tr>
   </tbody>
 </div>
