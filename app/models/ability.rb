@@ -14,18 +14,13 @@ class Ability
     elsif user.role == "Administrador" || user.role == 2
       # Puedes excluir configuraciones críticas si quieres diferenciarlo del Director
       can :read, :all
-      can :edit, [User, Department, Call, Minute, Publication, Event]
-      can :update, [User, Department, Call, Minute, Publication, Event]
-      
+      can :edit, [User, Department, Call, Minute, Publication, Event], id: user.id
+      can :update, [User, Department, Call, Minute, Publication, Event], id: user.id
     # 3. Department's Coordinator
     elsif user.role == "Coordinador" || user.role == 1
       # Solo puede crear/editar usuarios de SU mismo departamento
-      can :read, Department, department_id: user.department_id
-      can :read, Call, department_id: user.department_id
-      can :read, Minute, department_id: user.department_id
-      can :read, Publication, department_id: user.department_id
-      can :read, Event, department_id: user.department_id
-      can :manage, User, department_id: user.department_id
+      can :read, [Call, Minute, Publication, Event], department_id: user.department_id
+      can :manage, [Department, User], department_id: user.department_id
       
     # 4. Regular User
     else
