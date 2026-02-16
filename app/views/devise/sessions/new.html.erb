@@ -12,6 +12,26 @@
       
       <div class="d-flex flex-grow-1 align-items-center justify-content-center">
         <div class="w-100" style="max-width: 320px;">
+          <!-- Flash messages -->
+          <% if notice %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <i class="fas fa-check-circle me-2"></i><%= notice %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          <% end %>
+          <% if alert %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <i class="fas fa-exclamation-circle me-2"></i><%= alert %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          <% end %>
+          <% if resource&.errors&.any? %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <i class="fas fa-exclamation-circle me-2"></i>
+              <%= resource.errors.full_messages.to_sentence %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          <% end %>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="text-center mb-2">
               <h1 class="fs-4 fw-bold">Iniciar Sesión</h1>
