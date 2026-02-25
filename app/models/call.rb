@@ -15,7 +15,7 @@
 class Call < ApplicationRecord
     ## Enum for kind
     # This enum defines the kind of call
-    enum kind: [ :Call, :Holidays, :News ]
+    enum kind: [ :Convocatoria, :Festividad, :Noticia ]
 
     has_rich_text :large_description
 

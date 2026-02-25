@@ -6,9 +6,9 @@
       <td> <%= call.short_description %> </td>
       <td> <%= call.large_description %> </td>
       <td> <%= call.kind %> </td>
-      <td> <%= call.active %> </td>
-      <td> <%= call.start_date %> </td>
-      <td> <%= call.end_date %> </td>
+      <td> <%= call.active ? "Sí" : "No" %> </td>
+      <td> <%= l(call.start_date.to_date, format: :long) %> </td>
+      <td> <%= l(call.end_date.to_date, format: :long) %> </td>
       <td> 
         <a class="btn btn-info" href="/calls/<%= call.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Monstar el detalle de la Convocatoria"><i class="fa-solid fa-circle-info"></i></a>
         <a class="btn btn-warning" href="/calls/<%= call.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar Convocatoria"><i class="fa-solid fa-pen"></i></a>

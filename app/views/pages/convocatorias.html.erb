@@ -36,8 +36,8 @@
                     <%= call.short_description %>
                   </p>
                   <div class="call-meta">
-                    <span><i class="fas fa-calendar"></i> Apertura: <%= call.start_date.strftime('%d de %B, %Y') %></span>
-                    <span><i class="fas fa-clock"></i> Cierre: <%= call.end_date.strftime('%d de %B, %Y') %></span>
+                    <span><i class="fas fa-calendar"></i> Apertura: <%= l(call.start_date.to_date, format: :long) %></span>
+                    <span><i class="fas fa-clock"></i> Cierre: <%= l(call.end_date.to_date, format: :long) %></span>
                     <span><i class="fas fa-users"></i> Investigadores UCV</span>
                   </div>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="countdown-label">Tiempo restante</div>
                     <div class="countdown-value"><%= call.timeLeft %> días</div>
                   </div>
-                  <%= link_to convocatoria_path(call), class: "btn btn-primary-custom d-block d-lg-inline-block" do %>
+                  <%= link_to convocatoria_path(call), class: "btn btn-outline-primary d-block d-lg-inline-block" do %>
                     Ver detalles
                   <% end %>
                 </div>
@@ -141,7 +141,7 @@
                 <%= call.short_description %>
               </p>
               <div class="call-meta">
-                <span><i class="fas fa-calendar"></i> Cerró: <%= call.end_date.strftime('%d de %B, %Y') %></span>
+                <span><i class="fas fa-calendar"></i> Cerró: <%= l(call.end_date.to_date, format: :long) %></span>
               </div>
             </div>
           </div>
