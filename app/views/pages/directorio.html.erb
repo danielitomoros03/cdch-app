@@ -37,15 +37,17 @@
           <article class="publication-card">
             <div class="publication-cover publication-cover-blue">
               <% if minute.attachment_minute.attached? && minute.attachment_minute.content_type == "application/pdf" %>
-                <object
-                  class="publication-preview"
-                  data="<%= rails_blob_path(minute.attachment_minute, disposition: "inline") %>"
-                  type="application/pdf"
-                  aria-label="Previsualizacion del acta">
-                  <span class="publication-preview-fallback">
-                    Previsualizacion no disponible
-                  </span>
-                </object>
+                <div class="publication-preview-frame" aria-hidden="true">
+                  <object
+                    class="publication-preview"
+                    data="<%= rails_blob_path(minute.attachment_minute, disposition: "inline") %>"
+                    type="application/pdf"
+                    aria-label="Previsualizacion del acta">
+                    <span class="publication-preview-fallback">
+                      Previsualizacion no disponible
+                    </span>
+                  </object>
+                </div>
               <% end %>
               <div class="publication-type">Acta</div>
             </div>
