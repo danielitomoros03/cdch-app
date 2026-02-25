@@ -37,6 +37,9 @@ module Dashboard
       if up_params[:password].blank?
         up_params = up_params.except(:password, :password_confirmation)
       end
+      if up_params[:photoUser].blank?
+        up_params = up_params.except(:photoUser)
+      end
 
       respond_to do |format|
         if @user.update(up_params)
@@ -52,7 +55,7 @@ module Dashboard
     def destroy
       @user.destroy
       respond_to do |format|
-        format.html { redirect_to users_path, status: :see_other, notice: 'Usuario eliminado.' }
+        format.html { redirect_to users_path, status: :see_other, notice: 'Usuario eliminado correctamente.' }
         format.json { head :no_content }
       end
     end
@@ -68,6 +71,11 @@ module Dashboard
         current_role_value = JobTitle.roles[current_user.role]
         @job_titles = JobTitle.where("role <= ?", current_role_value)
       end
+
+      return unless defined?(@user) && @user.present?
+
+      @departments = @departments.or(Department.where(id: @user.department_id))
+      @job_titles = @job_titles.or(JobTitle.where(id: @user.job_title_id))
     end
 
     private
