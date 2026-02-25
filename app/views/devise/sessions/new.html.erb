@@ -48,7 +48,12 @@
                 <%= f.label :password, "Contraseña", class: "form-label mb-0" %>
                 <!--<a href="#" class="ms-auto small text-decoration-none">¿Olvidaste tu contraseña?</a>-->
               </div>
-              <%= f.password_field :password, class: "form-control", required: true %>
+              <div class="input-group">
+                <%= f.password_field :password, class: "form-control", placeholder: "Ingrese su contraseña", required: true, id: "session_password" %>
+                <button type="button" class="btn btn-outline-secondary" id="toggle_password" aria-label="Mostrar contrasena">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
             </div>
             
             <%= f.submit "Iniciar Sesión", class: "btn btn-primary w-100" %>
@@ -67,3 +72,21 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var toggleButton = document.getElementById("toggle_password");
+    var passwordInput = document.getElementById("session_password");
+
+    if (!toggleButton || !passwordInput) {
+      return;
+    }
+
+    toggleButton.addEventListener("click", function () {
+      var isPassword = passwordInput.type === "password";
+      passwordInput.type = isPassword ? "text" : "password";
+      toggleButton.setAttribute("aria-label", isPassword ? "Ocultar contrasena" : "Mostrar contrasena");
+      toggleButton.innerHTML = isPassword ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
+    });
+  });
+</script>
