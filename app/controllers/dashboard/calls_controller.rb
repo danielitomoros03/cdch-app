@@ -27,7 +27,7 @@ module Dashboard
 
       respond_to do |format|
         if @call.save
-          format.html { redirect_to @call, notice: "Call was successfully created." }
+          format.html { redirect_to @call, notice: "Convocatoria exitosamente creada." }
           format.json { render :show, status: :created, location: @call }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ module Dashboard
     def update
       respond_to do |format|
         if @call.update(call_params)
-          format.html { redirect_to @call, notice: "Call was successfully updated." }
+          format.html { redirect_to @call, notice: "Convocatoria exitosamente editada." }
           format.json { render :show, status: :ok, location: @call }
         else
           format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ module Dashboard
       @call.destroy!
 
       respond_to do |format|
-        format.html { redirect_to calls_path, status: :see_other, notice: "Call was successfully destroyed." }
+        format.html { redirect_to calls_path, status: :see_other, notice: "Convocatoria exitosamente eliminada." }
         format.json { head :no_content }
       end
     end
