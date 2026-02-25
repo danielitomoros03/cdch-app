@@ -90,6 +90,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   
     &.publication-cover-green {
       background: linear-gradient(135deg, #059669 0%, #047857 100%);
@@ -103,6 +104,35 @@
       background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
     }
   }
+
+  .publication-preview {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    z-index: 1;
+    opacity: 0.9;
+    pointer-events: none;
+    transform: scale(1.22) translateY(-6%);
+    transform-origin: center top;
+    background: #ffffff;
+    clip-path: inset(3% 2% 2% 2%);
+    display: block;
+  }
+
+  .publication-preview-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 1rem;
+  }
   
   .publication-type {
     position: absolute;
@@ -114,6 +144,7 @@
     font-size: 0.75rem;
     font-weight: 600;
     color: $text-dark;
+    z-index: 2;
   }
   
   .publication-content {
