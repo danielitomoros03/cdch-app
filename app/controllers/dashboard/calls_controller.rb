@@ -5,7 +5,7 @@ module Dashboard
 
     # GET /calls or /calls.json
     def index
-      @calls = Call.all
+      @calls = Call.all.order(created_at: :desc)
     end
 
     # GET /calls/1 or /calls/1.json
