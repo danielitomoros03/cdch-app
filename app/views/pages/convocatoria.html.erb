@@ -33,22 +33,6 @@
               <%= @call.large_description %>
             </div>
           <% end %>
-
-          <div class="call-meta mt-4">
-            <div class="row">
-              <div class="col-md-6">
-                <span><i class="fas fa-calendar"></i> Apertura: <%= @call.start_date.strftime('%d de %B, %Y') %></span>
-              </div>
-              <div class="col-md-6">
-                <span><i class="fas fa-clock"></i> Cierre: <%= @call.end_date.strftime('%d de %B, %Y') %></span>
-              </div>
-            </div>
-            <% if @call.active? && @call.timeLeft > 0 %>
-              <div class="mt-3">
-                <span><i class="fas fa-hourglass-half"></i> Tiempo restante: <%= @call.timeLeft %> días</span>
-              </div>
-            <% end %>
-          </div>
         </div>
 
         <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
@@ -56,18 +40,33 @@
             <div class="call-countdown mb-3">
               <div class="countdown-label">Tiempo restante</div>
               <div class="countdown-value"><%= @call.timeLeft %> días</div>
-            </div>
-            <div class="mb-3">
-                <%= link_to contacto_path, class: "btn btn-primary d-block d-lg-inline-block" do %>
-                Postularse
+              <div class="call-meta mt-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <span><i class="fas fa-calendar"></i> Apertura: <%= l(@call.start_date.to_date, format: :long) %></span>
+                </div>
+                <div class="col-md-6">
+                  <span><i class="fas fa-clock"></i> Cierre: <%= l(@call.end_date.to_date, format: :long) %></span>
+                </div>
+                </div>
+                <% if @call.active? && @call.timeLeft > 0 %>
+                  <div class="mt-3">
+                    <span><i class="fas fa-hourglass-half"></i> Tiempo restante: <%= @call.timeLeft %> días</span>
+                  </div>
                 <% end %>
+              </div>
+              <div class="my-3">
+                  <%= link_to contacto_path, class: "btn btn-primary d-block d-lg-inline-block" do %>
+                  Postularse
+                  <% end %>
+              </div>
+              <div class="mb-3">
+                <%= link_to convocatorias_path, class: "btn btn-outline-primary d-block d-lg-inline-block mt-2" do %>
+                    <i class="fas fa-arrow-left"></i> Volver a Convocatorias
+                <% end %>
+              </div>
             </div>
           <% end %>
-          <div class="mb-3">
-            <%= link_to convocatorias_path, class: "btn btn-outline-primary d-block d-lg-inline-block mt-2" do %>
-                <i class="fas fa-arrow-left"></i> Volver a Convocatorias
-            <% end %>
-            </div>
         </div>
       </div>
     </div>
