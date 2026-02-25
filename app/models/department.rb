@@ -35,9 +35,6 @@ class Department < ApplicationRecord
     def send_admin
         User.find_by(department_id: self.id, job_title_id: JobTitle.find_by(name: "Personal Administrativo").id)
     end
-    def send_coordinador
-        User.find_by(department_id: self.id, job_title_id: JobTitle.find_by(name: "Coordinador").id)
-    end
     def send_secretary
         User.find_by(department_id: self.id, job_title_id: JobTitle.find_by(name: "Secreatario(a)").id)
     end
