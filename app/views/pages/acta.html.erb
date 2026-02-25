@@ -6,7 +6,7 @@
   <div class="container">
     <h1 class="page-title"><%= @minute.title %></h1>
     <p class="page-subtitle">
-      Acta de Directorio - <%= @minute.day.strftime('%d de %B, %Y') %>
+      Acta de Directorio - <%= l(@minute.day.to_date, format: :long) %>
     </p>
   </div>
 </div>
@@ -17,7 +17,7 @@
     <div class="acta-detail-card">
       <div class="acta-meta mb-4">
         <span class="badge bg-primary">Acta de Directorio</span>
-        <span class="ms-3"><i class="fas fa-calendar"></i> Fecha: <%= @minute.day.strftime('%d de %B, %Y') %></span>
+        <span class="ms-3"><i class="fas fa-calendar"></i> Fecha: <%= l(@minute.day.to_date, format: :long) %></span>
       </div>
 
       <% if @minute.content.present? %>

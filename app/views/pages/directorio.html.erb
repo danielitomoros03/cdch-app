@@ -41,7 +41,7 @@
             <div class="publication-content">
               <h3 class="publication-title"><%= minute.title %></h3>
               <p class="publication-author">CDCH - UCV</p>
-              <p class="publication-year"><%= minute.day.strftime('%d de %B, %Y') %></p>
+              <p class="publication-year"><%= l(minute.day.to_date, format: :long) %></p>
               <p class="publication-excerpt">
                 <%= minute.content.to_plain_text.truncate(100) if minute.content.present? %>
               </p>

@@ -61,7 +61,7 @@ class PagesController < ApplicationController
       @minute = Minute.find(params[:id])
       render :acta
     else
-      @minutes = Minute.paginate(page: params[:page], per_page: 8).order(day: :desc)
+      @minutes = Minute.paginate(page: params[:page], per_page: 8).order(day: :asc)
     end
   end
   
