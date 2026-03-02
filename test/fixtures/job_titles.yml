@@ -28,6 +28,15 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+#
+# Table name: job_titles
+#
+#  id         :bigint           not null, primary key
+#  name       :string
+#  role       :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 one:
   name: MyString
   role: 1
