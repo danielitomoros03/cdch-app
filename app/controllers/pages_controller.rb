@@ -66,7 +66,8 @@ class PagesController < ApplicationController
   end
   
   def departamento
-    @department = Department.find_by!(acronym: params[:acronym])
+    @department = Department.find_by(acronym: params[:acronym])
+    return redirect_to(root_path, alert: "Departamento no encontrado.") if @department.nil?
 
     jefe_role = JobTitle.find_by(name: "Jefe de Departamento")
 

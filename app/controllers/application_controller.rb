@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
   before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: :route_not_found
 
   def after_sign_in_path_for(resource)
     dashboard_index_path
@@ -11,17 +12,16 @@ class ApplicationController < ActionController::Base
     new_user_session_path
   end
 
-  # Redirect to Index/Dashboard if Views are not found
-  rescue_from ActionView::MissingTemplate do |exception|
-    if current_user.present?
-      redirect_to dashboard_index_path, alert: "La vista solicitada no se encontró."
-    else
-      redirect_to root_path, alert: "La vista solicitada no se encontró."
-    end
-  end
-
   # Authorization with CanCanCan
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to dashboard_index_path, alert: "No tienes permiso para acceder a esa sección."
+  end
+
+  def route_not_found
+    if current_user.present?
+      redirect_to dashboard_index_path, alert: "La vista solicitada no existe."
+    else
+      redirect_to root_path, alert: "La vista solicitada no existe."
+    end
   end
 end
