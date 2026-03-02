@@ -69,14 +69,16 @@ class PagesController < ApplicationController
     @department = Department.find_by!(acronym: params[:acronym])
     # Buscamos el cargo primero de forma segura
     jefe_role = JobTitle.find_by(name: "Jefe de Departamento")
+    superadmin = User.find_by(role: "Superadmin", job_title_id: jefe_role&.id, department_id: @department.id) if jefe_role
     if jefe_role
       @jefe = User.find_by(department_id: @department.id, job_title_id: jefe_role.id)
       @others = User.where(department_id: @department.id)
-                    .where.not(job_title_id: jefe_role.id)
+                    .where.not(job_title_id: [jefe_role.id, superadmin&.job_title_id])
                     .order(job_title_id: :asc)
     else
       @jefe = nil
       @others = User.where(department_id: @department.id)
+                    .where.not(job_title_id: superadmin&.job_title_id)
                     .order(job_title_id: :asc)
     end
   
