@@ -11,6 +11,15 @@ class ApplicationController < ActionController::Base
     new_user_session_path
   end
 
+  # Redirect to Index/Dashboard if Views are not found
+  rescue_from ActionView::MissingTemplate do |exception|
+    if current_user.present?
+      redirect_to dashboard_index_path, alert: "La vista solicitada no se encontró."
+    else
+      redirect_to root_path, alert: "La vista solicitada no se encontró."
+    end
+  end
+
   # Authorization with CanCanCan
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to dashboard_index_path, alert: "No tienes permiso para acceder a esa sección."
