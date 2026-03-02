@@ -23,9 +23,13 @@ class Ability
       can :manage, [Call, Minute, Publication, Event], department_id: department_id
       can :manage, [User, Department], department_id: department_id
     when "JefeDepartamento"
-      can :read, :all, department_id: department_id
-      can :manage, [Call, Minute, Publication, Event], department_id: department_id
-      can :manage, [User], department_id: department_id
+      if user.department&.name == "DTIC"
+        can :manage, :all
+      else
+        can :read, :all, department_id: department_id
+        can :manage, [Call, Minute, Publication, Event], department_id: department_id
+        can :manage, [User], department_id: department_id
+      end
     when "Coordinador"
       can :read, :all, department_id: department_id
       can [:create, :update], [Call, Minute, Publication, Event], department_id: department_id
