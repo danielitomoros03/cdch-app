@@ -49,5 +49,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "pages#inicio"
 
-  match "*unmatched", to: "application#route_not_found", via: :all
+  # match "*unmatched", to: "application#route_not_found", via: :all
 end
