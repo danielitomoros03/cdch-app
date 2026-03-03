@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
         if current_user.present?
           redirect_to dashboard_index_path, alert: "La vista solicitada no existe."
         else
-          render file: Rails.public_path.join("404.html"), status: :not_found, layout: false
+          redirect_to root_path, alert: "La vista solicitada no existe."
         end
       end
       format.any { head :not_found }
