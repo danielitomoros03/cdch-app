@@ -17,11 +17,16 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_index_path, alert: "No tienes permiso para acceder a esa sección."
   end
 
-  # def route_not_found
-  #  if current_user.present?
-  #    redirect_to dashboard_index_path, alert: "La vista solicitada no existe."
-  #  else
-  #    redirect_to root_path, alert: "La vista solicitada no existe."
-  #  end
-  #end
+  def route_not_found
+    respond_to do |format|
+      format.html do
+        if current_user.present?
+          redirect_to dashboard_index_path, alert: "La vista solicitada no existe."
+        else
+          render file: Rails.public_path.join("404.html"), status: :not_found, layout: false
+        end
+      end
+      format.any { head :not_found }
+    end
+  end
 end

@@ -49,5 +49,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "pages#inicio"
 
-  # match "*unmatched", to: "application#route_not_found", via: :all
+  match "*unmatched", to: "application#route_not_found", via: :all,
+        constraints: lambda { |request|
+          request.format.html? &&
+            !request.path.start_with?("/assets", "/rails/active_storage", "/favicon.ico", "/robots.txt")
+        }
 end
