@@ -17,5 +17,11 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_index_path, alert: "No tienes permiso para acceder a esa sección."
   end
 
-  
+  # def route_not_found
+  #  if current_user.present?
+  #    redirect_to dashboard_index_path, alert: "La vista solicitada no existe."
+  #  else
+  #    redirect_to root_path, alert: "La vista solicitada no existe."
+  #  end
+  #end
 end
