@@ -101,6 +101,8 @@ Rails.application.configure do
     /.*\.silenia\.ucv.ve/ # Allow requests from subdomains like `www.example.com`
   ]
   Rails.application.routes.default_url_options = { host: 'silenia.ucv.ve', protocol: 'https' }
+
+  config.active_storage.resolve_model_to_route = :rails_disk_service
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
