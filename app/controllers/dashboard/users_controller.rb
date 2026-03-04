@@ -5,7 +5,7 @@ module Dashboard
     load_and_authorize_resource ## Authorization for Cancancan
 
     def index
-      @users = User.order(:lastname, :name)
+      @users = User.all.order(created_at: :desc)
     end
 
     def show
