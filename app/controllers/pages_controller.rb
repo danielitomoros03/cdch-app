@@ -25,7 +25,23 @@ class PagesController < ApplicationController
 
   def direccion
     @direction = Department.last
-    @other_users = User.where(department_id: @direction.id).where.not(job_title_id: JobTitle.find_by(name: "Director").id)
+
+    director_role = JobTitle.find_by(name: "Director")
+    direction_users = User.includes(:job_title).where(department_id: @direction.id)
+    direction_users = direction_users.where.not(job_title_id: director_role.id) if director_role.present?
+
+    # Personal de apoyo adscrito a la Direccion (vigilancia y limpieza).
+    @support_staff = direction_users
+                     .joins(:job_title)
+                     .where(
+                       "LOWER(job_titles.name) LIKE :vigilance OR LOWER(job_titles.name) LIKE :cleaning OR LOWER(job_titles.name) LIKE :maintenance",
+                       vigilance: "%vigil%",
+                       cleaning: "%limpiez%",
+                       maintenance: "%aseo%"
+                     )
+                     .order("job_titles.name ASC, users.lastname ASC, users.name ASC")
+
+    @other_users = direction_users.where.not(id: @support_staff.select(:id))
   end
   
   def subdireccion
