@@ -61,15 +61,14 @@
             </span>
             <i class="fas fa-chevron-right" aria-hidden="true"></i>
           </a>
-          <!--
-            <a href="#" class="about-quick-link" data-bs-toggle="modal" data-bs-target="#directorsGalleryModal">
+
+          <%= link_to galeria_autoridades_path, class: "about-quick-link" do %>
               <span class="about-quick-link__label">
                 <i class="fas fa-images" aria-hidden="true"></i>
-                Galería de Directores
+                Galería de Autoridades
               </span>
               <i class="fas fa-chevron-right" aria-hidden="true"></i>
-            </a>
-          -->
+          <% end %>
         </div>
       </div>
       <div class="col-lg-6">
@@ -414,20 +413,3 @@
   </div>
 </div>
 
-<!-- Directors Gallery Modal -->
-<div class="modal fade" id="directorsGalleryModal" tabindex="-1" aria-labelledby="directorsGalleryModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="directorsGalleryModalLabel">Galería de Directores</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p class="text-gray mb-0">Espacio reservado para la futura galería de Directores del CDCH.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>

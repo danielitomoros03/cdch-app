@@ -54,6 +54,10 @@ class PagesController < ApplicationController
     @secretariesDir = User.where(department_id: Department.last).where(job_title_id: JobTitle.find_by(name: "Secretario(a)").id)
     @secretariesSubdir = User.where(department_id: Department.find_by!(acronym: "Subdir")).where(job_title_id: JobTitle.find_by(name: "Secretario(a)").id)
   end
+
+  def galeria_autoridades
+    @institution = Institution.first
+  end
   
   def investigacion
   end

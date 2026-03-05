@@ -1,0 +1,58 @@
+<!-- LEADERSHIP GALLERY - LANDING PAGE -->
+<%= render "layouts/header" %>
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title">Galería de Autoridades</h1>
+    <p class="page-subtitle">
+      Recorrido histórico de Directores y Subdirectores del CDCH
+    </p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4 p-md-5 text-center">
+            <h2 class="section-title mb-3">Sección en Construcción</h2>
+            <p class="text-gray mb-4">
+              Esta vista ya quedó habilitada como página independiente. En el siguiente paso
+              conectaremos aquí el historial de autoridades (Directores y Subdirectores)
+              con sus datos y fotografías.
+            </p>
+
+            <% if @institution.present? %>
+              <div class="row g-3 text-start">
+                <div class="col-md-6">
+                  <div class="border rounded p-3 h-100 bg-light">
+                    <h5 class="mb-2">Director(a) Actual</h5>
+                    <p class="mb-1"><strong>Nombre:</strong> <%= @institution.director_name.presence || "No registrado" %></p>
+                    <p class="mb-0"><strong>Email:</strong> <%= @institution.director_primary_email.presence || "No registrado" %></p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="border rounded p-3 h-100 bg-light">
+                    <h5 class="mb-2">Subdirector(a) Actual</h5>
+                    <p class="mb-1"><strong>Nombre:</strong> <%= @institution.subdirector_name.presence || "No registrado" %></p>
+                    <p class="mb-0"><strong>Email:</strong> <%= @institution.subdirector_primary_email.presence || "No registrado" %></p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+
+            <div class="mt-4">
+              <%= link_to nosotros_path, class: "btn btn-outline-primary" do %>
+                <i class="fas fa-arrow-left me-2"></i>Volver a Nosotros
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= render "layouts/CTA_section" %>
+<%= render "layouts/footer" %>

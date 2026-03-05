@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get "inicio", to: "pages#inicio"
   get "investigacion", to: "pages#investigacion"
   get "nosotros", to: "pages#nosotros"
+  get "galeria-autoridades", to: "pages#galeria_autoridades", as: :galeria_autoridades
   get "publicaciones", to: "pages#publicaciones"
   resources :solicitudes, only: [:create] # Public Route for submitting solicitudes
 
