@@ -230,7 +230,7 @@
     </div>
   </div>
 
-  <!-- Historia (Rich Text) -->
+  <!-- (Rich Text) -->
   <div class="row">
     <div class="col-lg-12">
       <div class="card shadow mb-4">
@@ -241,6 +241,23 @@
           <div class="form-group">
             <%= form.label :history, "Historia CDCH" %>
             <%= form.rich_text_area :history, class: "form-control trix-auto-height", placeholder: "Describa exhaustivamente la historia de la institución..." %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- (Rich Text) Additional Information -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Información Adicional de la Institución</h6>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <%= form.label :information, "Información Adicional CDCH" %>
+            <%= form.rich_text_area :information, class: "form-control trix-auto-height", placeholder: "Describa información adicional para mostrar en la sección pública..." %>
           </div>
         </div>
       </div>

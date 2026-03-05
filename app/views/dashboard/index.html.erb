@@ -34,10 +34,10 @@
                 <div>
                   <p class="text-muted mb-1 small">Convocatorias</p>
                   <h3 class="mb-0 fw-bold">
-                    <%= Call.count %>
+                    <%= @calls_stats[:total] %>
                   </h3>
-                  <small class="text-success">
-                    <i class="fas fa-arrow-up"></i> +3 este mes
+                  <small class="<%= @calls_stats[:delta_class] %>">
+                    <i class="fas <%= @calls_stats[:delta_icon] %>"></i> <%= @calls_stats[:delta_text] %>
                   </small>
                 </div>
                 <div class="stats-icon stats-icon-primary">
@@ -46,8 +46,12 @@
               </div>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0">
-              <%= link_to calls_path, class: "text-decoration-none small" do %>
-                Ver todas <i class="fas fa-arrow-right ms-1"></i>
+              <% if can? :read, Call %>
+                <%= link_to calls_path, class: "text-decoration-none small" do %>
+                  Ver todas <i class="fas fa-arrow-right ms-1"></i>
+                <% end %>
+              <% else %>
+                <span class="text-muted small">Sin acceso</span>
               <% end %>
             </div>
           </div>
@@ -60,10 +64,10 @@
                 <div>
                   <p class="text-muted mb-1 small">Publicaciones</p>
                   <h3 class="mb-0 fw-bold">
-                    <%= Publication.count %>
+                    <%= @publications_stats[:total] %>
                   </h3>
-                  <small class="text-success">
-                    <i class="fas fa-arrow-up"></i> +8 este mes
+                  <small class="<%= @publications_stats[:delta_class] %>">
+                    <i class="fas <%= @publications_stats[:delta_icon] %>"></i> <%= @publications_stats[:delta_text] %>
                   </small>
                 </div>
                 <div class="stats-icon stats-icon-success">
@@ -72,8 +76,12 @@
               </div>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0">
-              <%= link_to publications_path, class: "text-decoration-none small" do %>
-                Ver todas <i class="fas fa-arrow-right ms-1"></i>
+              <% if can? :read, Publication %>
+                <%= link_to publications_path, class: "text-decoration-none small" do %>
+                  Ver todas <i class="fas fa-arrow-right ms-1"></i>
+                <% end %>
+              <% else %>
+                <span class="text-muted small">Sin acceso</span>
               <% end %>
             </div>
           </div>
@@ -84,12 +92,12 @@
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-center">
                 <div>
-                  <p class="text-muted mb-1 small">Directorio</p>
+                  <p class="text-muted mb-1 small">Actas del Directorio</p>
                   <h3 class="mb-0 fw-bold">
-                    <%= Minute.count %>
+                    <%= @minutes_stats[:total] %>
                   </h3>
-                  <small class="text-info">
-                    <i class="fas fa-minus"></i> Sin cambios
+                  <small class="<%= @minutes_stats[:delta_class] %>">
+                    <i class="fas <%= @minutes_stats[:delta_icon] %>"></i> <%= @minutes_stats[:delta_text] %>
                   </small>
                 </div>
                 <div class="stats-icon stats-icon-info">
@@ -98,8 +106,12 @@
               </div>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0">
-              <%= link_to minutes_path, class: "text-decoration-none small" do %>
-                Ver todos <i class="fas fa-arrow-right ms-1"></i>
+              <% if can? :read, Minute %>
+                <%= link_to minutes_path, class: "text-decoration-none small" do %>
+                  Ver todos <i class="fas fa-arrow-right ms-1"></i>
+                <% end %>
+              <% else %>
+                <span class="text-muted small">Sin acceso</span>
               <% end %>
             </div>
           </div>
@@ -112,10 +124,10 @@
                 <div>
                   <p class="text-muted mb-1 small">Usuarios</p>
                   <h3 class="mb-0 fw-bold">
-                    <%= User.count %>
+                    <%= @users_stats[:total] %>
                   </h3>
-                  <small class="text-success">
-                    <i class="fas fa-arrow-up"></i> +2 este mes
+                  <small class="<%= @users_stats[:delta_class] %>">
+                    <i class="fas <%= @users_stats[:delta_icon] %>"></i> <%= @users_stats[:delta_text] %>
                   </small>
                 </div>
                 <div class="stats-icon stats-icon-warning">
@@ -124,8 +136,12 @@
               </div>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0">
-              <%= link_to "#", class: "text-decoration-none small" do %>
-                Ver todos <i class="fas fa-arrow-right ms-1"></i>
+              <% if can? :read, User %>
+                <%= link_to users_path, class: "text-decoration-none small" do %>
+                  Ver todos <i class="fas fa-arrow-right ms-1"></i>
+                <% end %>
+              <% else %>
+                <span class="text-muted small">Sin acceso</span>
               <% end %>
             </div>
           </div>
@@ -296,23 +312,25 @@
                 </div>
               <% end %>
               
-              <%= link_to "#", class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
-                <div class="d-flex align-items-center">
-                  <div class="quick-link-icon bg-warning-subtle text-warning me-3">
-                    <i class="fas fa-chart-bar"></i>
+              <!--
+                <%= link_to "#", class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
+                  <div class="d-flex align-items-center">
+                    <div class="quick-link-icon bg-warning-subtle text-warning me-3">
+                      <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <span>Reportes y estadísticas</span>
                   </div>
-                  <span>Reportes y estadísticas</span>
-                </div>
-              <% end %>
-              
-              <%= link_to "#", class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
-                <div class="d-flex align-items-center">
-                  <div class="quick-link-icon bg-secondary-subtle text-secondary me-3">
-                    <i class="fas fa-cog"></i>
+                <% end %>
+                
+                <%= link_to "#", class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
+                  <div class="d-flex align-items-center">
+                    <div class="quick-link-icon bg-secondary-subtle text-secondary me-3">
+                      <i class="fas fa-cog"></i>
+                    </div>
+                    <span>Configuración del sistema</span>
                   </div>
-                  <span>Configuración del sistema</span>
-                </div>
-              <% end %>
+                <% end %>
+              -->
             </div>
           </div>
         </div>

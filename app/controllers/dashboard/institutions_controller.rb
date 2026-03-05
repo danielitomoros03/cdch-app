@@ -42,7 +42,7 @@ module Dashboard
         :mission, :vission, :twitter_url, :facebook_url, :instagram_url, :threads_url, :acronym, :description, :linkedin_url, 
         :director_name, :director_primary_email, :director_secondary_email, 
         :subdirector_name, :subdirector_primary_email, :subdirector_secondary_email, 
-        :founded_year, :logoInstitution, :logoDirection, :remove_logoInstitution, :remove_logoDirection, :history)
+        :founded_year, :logoInstitution, :logoDirection, :remove_logoInstitution, :remove_logoDirection, :history, :information)
       end
   end
 end

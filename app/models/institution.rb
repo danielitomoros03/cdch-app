@@ -41,8 +41,9 @@ class Institution < ApplicationRecord
     after_save :purge_logo, if: -> { remove_logoInstitution == '1' }
     after_save :purge_logo, if: -> { remove_logoDirection == '1' }
 
-    # CDCH's History with Rich Text
+    # CDCH's Information with Rich Text
     has_rich_text :history
+    has_rich_text :information
 
     # Validations
     validates :name, presence: true

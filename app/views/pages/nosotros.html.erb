@@ -61,8 +61,15 @@
             </span>
             <i class="fas fa-chevron-right" aria-hidden="true"></i>
           </a>
-
-          
+          <!--
+            <a href="#" class="about-quick-link" data-bs-toggle="modal" data-bs-target="#directorsGalleryModal">
+              <span class="about-quick-link__label">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                Galería de Directores
+              </span>
+              <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </a>
+          -->
         </div>
       </div>
       <div class="col-lg-6">
@@ -390,11 +397,15 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="otherInformationModalLabel">Otra Información del CDCH</h5>
+        <h5 class="modal-title" id="otherInformationModalLabel">Información adicional del CDCH</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p class="text-gray mb-0">Próximamente agregaremos aquí el contenido de esta sección.</p>
+        <% if Institution.first.information.present? %>
+          <div class="text-gray"><%= Institution.first.information %></div>
+        <% else %>
+          <p class="text-gray mb-0">Próximamente agregaremos aquí el contenido de esta sección.</p>
+        <% end %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>

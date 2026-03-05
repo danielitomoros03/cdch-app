@@ -214,6 +214,20 @@
             <% end %>
           </div>
         </div>
+
+        <!-- Información Adicional (Rich Text) -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="mb-0">Información Adicional</h5>
+          </div>
+          <div class="card-body">
+            <% if @institution.rich_text_information&.body&.to_plain_text.present? %>
+              <%= @institution.information %>
+            <% else %>
+              <p class="text-muted mb-0">Sin información adicional registrada.</p>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
