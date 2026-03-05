@@ -6,9 +6,11 @@ class Ability
   def initialize(user)
     return unless user
 
-    role = user.role
+    # Normalize role and acronym to avoid mismatches by type/case/whitespace.
+    role = user.role.is_a?(Integer) ? JobTitle.roles.key(user.role) : user.role.to_s
     job_title_name = user.job_title&.name
     department_id = user.department_id
+    department_acronym = user.department&.acronym.to_s.strip.upcase
 
     case role
     when "Superadmin"
@@ -20,7 +22,7 @@ class Ability
     when "Administrador"
       can :manage, Department, id: department_id
     when "JefeDepartamento"
-      if user.department&.acronym == "DTIC"
+      if department_acronym == "DTIC"
         can :manage, :all
       else
         can :read, Department, id: department_id
@@ -32,7 +34,9 @@ class Ability
       can :read, Department, id: department_id
     end
 
-    unless role == "Superadmin"
+    full_user_management = role == "Superadmin" || (role == "JefeDepartamento" && department_acronym == "DTIC")
+
+    unless full_user_management
       cannot :manage, User
       can :read, User, department_id: department_id
     end

@@ -136,7 +136,10 @@ module Dashboard
     end
 
     def superadmin_role?
-      current_user.role == "Superadmin" || current_user.role == 3
+      role_name = current_user.role.is_a?(Integer) ? JobTitle.roles.key(current_user.role) : current_user.role.to_s
+      department_acronym = current_user.department&.acronym.to_s.strip.upcase
+
+      role_name == "Superadmin" || (role_name == "JefeDepartamento" && department_acronym == "DTIC")
     end
   end
 end
