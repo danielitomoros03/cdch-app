@@ -109,10 +109,10 @@
         <% if @support_staff.any? %>
           <p class="text-muted mb-3">Integrantes adscritos a la subdivisión de la Dirección del CDCH.</p>
           <div class="updates-section p-0" style="background: none; color: inherit;">
-            <div class="row g-3">
+            <div class="row g-3 support-staff-grid">
               <% @support_staff.each do |staff| %>
-                <div class="col-md-6">
-                  <article class="update-card h-100">
+                <div class="col-6 col-md-4 col-lg-3">
+                  <article class="update-card update-card-photo-bg support-staff-mini-card">
                     <div class="update-image update-image-blue">
                       <% if staff.photoUser.attached? %>
                         <%= image_tag staff.photoUser, alt: staff.full_name, style: "width: 100%; height: 100%; object-fit: cover;" %>

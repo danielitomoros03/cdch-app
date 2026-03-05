@@ -720,6 +720,28 @@
       gap: 0.5rem;
     }
   }
+
+  .support-staff-grid {
+    justify-content: center;
+  }
+
+  .support-staff-mini-card {
+    aspect-ratio: 3 / 4;
+    min-height: 0;
+
+    .update-content {
+      padding: 0.85rem 0.8rem 0.9rem;
+    }
+
+    .update-title {
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .update-date {
+      font-size: 0.75rem;
+    }
+  }
 }
 
 // Stats Section
