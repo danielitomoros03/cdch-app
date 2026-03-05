@@ -67,6 +67,62 @@
       margin: 0;
     }
   }
+
+  .about-quick-links {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 420px;
+  }
+
+  .about-quick-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(37, 99, 235, 0.18);
+    background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+    color: $text-dark;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+    &:hover,
+    &:focus {
+      color: $text-dark;
+      transform: translateY(-2px);
+      border-color: rgba(37, 99, 235, 0.35);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.14);
+      text-decoration: none;
+    }
+
+    .fa-chevron-right {
+      color: $primary-color;
+      font-size: 0.85rem;
+    }
+  }
+
+  .about-quick-link__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    line-height: 1.35;
+
+    i {
+      color: $primary-color;
+      font-size: 1rem;
+      width: 1rem;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .about-quick-links {
+      max-width: 100%;
+    }
+  }
   
   // Publications Page
   .publication-card {

@@ -36,12 +36,34 @@
           <% else %>
             <%= Institution.first.history %>
           <% end %>
-          <p class="text-gray mt-3">
-            <a href="#" data-bs-toggle="modal" data-bs-target="#misionVisionModal" class="pb-2">Misión y Visión</a>
-            <br>
-            <a href="#" data-bs-toggle="modal" data-bs-target="#basicInformationModal">Información Básica</a>
-          </p>
         </p>
+        <div class="about-quick-links mt-4" aria-label="Accesos rápidos de información del CDCH">
+          <a href="#" class="about-quick-link" data-bs-toggle="modal" data-bs-target="#misionVisionModal">
+            <span class="about-quick-link__label">
+              <i class="fas fa-bullseye" aria-hidden="true"></i>
+              Misión y Visión
+            </span>
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+          </a>
+
+          <a href="#" class="about-quick-link" data-bs-toggle="modal" data-bs-target="#basicInformationModal">
+            <span class="about-quick-link__label">
+              <i class="fas fa-info-circle" aria-hidden="true"></i>
+              Información Básica
+            </span>
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+          </a>
+
+          <a href="#" class="about-quick-link" data-bs-toggle="modal" data-bs-target="#otherInformationModal">
+            <span class="about-quick-link__label">
+              <i class="fas fa-layer-group" aria-hidden="true"></i>
+              Información Adicional
+            </span>
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+          </a>
+
+          
+        </div>
       </div>
       <div class="col-lg-6">
         <% if Institution.first.logoInstitution.present? %>
@@ -355,6 +377,42 @@
             <%= Institution.first.phone_numbers %>
           </p>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Other Information Modal -->
+<div class="modal fade" id="otherInformationModal" tabindex="-1" aria-labelledby="otherInformationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="otherInformationModalLabel">Otra Información del CDCH</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-gray mb-0">Próximamente agregaremos aquí el contenido de esta sección.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Directors Gallery Modal -->
+<div class="modal fade" id="directorsGalleryModal" tabindex="-1" aria-labelledby="directorsGalleryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="directorsGalleryModalLabel">Galería de Directores</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-gray mb-0">Espacio reservado para la futura galería de Directores del CDCH.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
