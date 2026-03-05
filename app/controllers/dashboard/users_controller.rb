@@ -5,7 +5,7 @@ module Dashboard
     load_and_authorize_resource ## Authorization for Cancancan
 
     def index
-      @users = User.all.order(created_at: :desc)
+      @users = User.accessible_by(current_ability).order(created_at: :desc)
     end
 
     def show
@@ -19,10 +19,15 @@ module Dashboard
     end
 
     def create
-      @user = User.new(user_params)
+      create_params = user_params
+      raw_resource_permissions = create_params.delete(:resource_permissions)
+      resource_permissions = extract_resource_permissions(raw_resource_permissions) if superadmin_role?
+      @selected_resource_permissions = resource_permissions if superadmin_role?
+      @user = User.new(create_params)
 
       respond_to do |format|
         if @user.save
+          sync_user_permissions(@user, resource_permissions) if superadmin_role?
           format.html { redirect_to users_path, notice: 'Usuario creado correctamente.' }
           format.json { render :show, status: :created, location: @user }
         else
@@ -34,6 +39,10 @@ module Dashboard
 
     def update
       up_params = user_params
+      raw_resource_permissions = up_params.delete(:resource_permissions)
+      resource_permissions = extract_resource_permissions(raw_resource_permissions) if superadmin_role?
+      @selected_resource_permissions = resource_permissions if superadmin_role?
+
       if up_params[:password].blank?
         up_params = up_params.except(:password, :password_confirmation)
       end
@@ -43,6 +52,7 @@ module Dashboard
 
       respond_to do |format|
         if @user.update(up_params)
+          sync_user_permissions(@user, resource_permissions) if superadmin_role?
           format.html { redirect_to users_path, notice: 'Usuario actualizado correctamente.' }
           format.json { render :show, status: :ok, location: @user }
         else
@@ -62,7 +72,10 @@ module Dashboard
 
     # Edit o create their department and job title lists
     def set_collections
-      if current_user.role == "Superadmin" || current_user.role == 3
+      @available_resources = UserPermission::RESOURCE_MAP.keys
+      @available_permission_actions = UserPermission::ACTION_MAP.keys
+
+      if superadmin_role?
         @departments = Department.all
         @job_titles = JobTitle.all
       else
@@ -95,9 +108,36 @@ module Dashboard
         :number_phone,
         :photoUser,
         :password,
-        :password_confirmation
+        :password_confirmation,
+        resource_permissions: []
       )
+
+    end
+
+    def extract_resource_permissions(permissions)
+      Array(permissions)
+        .reject(&:blank?)
+        .select { |permission| UserPermission.valid_token?(permission) }
+        .uniq
+    end
+
+    def sync_user_permissions(user, resources)
+      if resources.empty?
+        user.user_permissions.destroy_all
+        return
+      end
+
+      user.user_permissions.where.not(resource: resources).destroy_all
+      existing_resources = user.user_permissions.pluck(:resource)
+
+      (resources - existing_resources).each do |resource|
+        user.user_permissions.create(resource: resource)
       end
     end
+
+    def superadmin_role?
+      current_user.role == "Superadmin" || current_user.role == 3
+    end
   end
+end
 

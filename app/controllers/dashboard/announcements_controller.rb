@@ -1,10 +1,11 @@
 module Dashboard
   class AnnouncementsController < ApplicationController
     before_action :set_announcement, only: %i[ show edit update destroy ]
+    load_and_authorize_resource ## Authorization for Cancancan
 
     # GET /announcements or /announcements.json
     def index
-      @announcements = Announcement.all
+      @announcements = Announcement.accessible_by(current_ability)
     end
 
     # GET /announcements/1 or /announcements/1.json

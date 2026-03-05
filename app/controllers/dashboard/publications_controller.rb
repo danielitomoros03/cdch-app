@@ -5,7 +5,7 @@ module Dashboard
 
     # GET /publications or /publications.json
     def index
-      @publications = Publication.all.order(created_at: :desc)
+      @publications = Publication.accessible_by(current_ability).order(created_at: :desc)
     end
 
     # GET /publications/1 or /publications/1.json

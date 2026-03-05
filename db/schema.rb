@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_09_172516) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_16_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -156,6 +156,15 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_09_172516) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_permissions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "resource", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "resource"], name: "index_user_permissions_on_user_id_and_resource", unique: true
+    t.index ["user_id"], name: "index_user_permissions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -179,4 +188,5 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_09_172516) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "user_permissions", "users"
 end

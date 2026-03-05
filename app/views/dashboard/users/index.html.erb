@@ -11,7 +11,7 @@
       </div>
 
       <% content_for :title, "Usuarios" %>
-      <% if can? :manage, User %>
+      <% if can? :create, User %>
         <p>
           <h1>Usuarios <%= link_to "Crear Usuario", new_user_path, class: "btn btn-primary" %></h1>
         </p>

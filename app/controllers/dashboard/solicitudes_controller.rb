@@ -5,7 +5,7 @@ module Dashboard
 
     # GET /solicitudes or /solicitudes.json
     def index
-      @solicitudes = Solicitude.all.order(created_at: :desc)
+      @solicitudes = Solicitude.accessible_by(current_ability).order(created_at: :desc)
     end
 
     # GET /solicitudes/1 or /solicitudes/1.json

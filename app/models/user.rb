@@ -33,6 +33,7 @@ class User < ApplicationRecord
   ## Associations
   belongs_to :job_title
   belongs_to :department
+  has_many :user_permissions, dependent: :destroy
 
   has_one_attached :photoUser # Active Storage association for user avatar
 

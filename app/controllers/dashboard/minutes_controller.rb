@@ -5,7 +5,7 @@ module Dashboard
 
     # GET /minutes or /minutes.json
     def index
-      @minutes = Minute.all.order(created_at: :desc)
+      @minutes = Minute.accessible_by(current_ability).order(created_at: :desc)
     end
 
     # GET /minutes/1 or /minutes/1.json

@@ -5,7 +5,7 @@ module Dashboard
 
   # GET /dashboard/departments or /dashboard/departments.json
   def index
-    @departments = Department.all.order(created_at: :asc).limit(8)
+    @departments = Department.accessible_by(current_ability).order(created_at: :asc).limit(8)
   end
 
   # GET /dashboard/departments/1 or /dashboard/departments/1.json

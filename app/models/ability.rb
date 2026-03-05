@@ -18,36 +18,36 @@ class Ability
         can :manage, :all
       end
     when "Administrador"
-      can :read, :all
-      # Admin can manage resources within their own department
-      can :manage, [Call, Minute, Publication, Event], department_id: department_id
-      can :manage, [User, Department], department_id: department_id
+      can :manage, Department, id: department_id
     when "JefeDepartamento"
       if user.department&.acronym == "DTIC"
         can :manage, :all
       else
-        can :read, [Call, Minute, Publication, Event, User], department_id: department_id
         can :read, Department, id: department_id
-        can :manage, [Call, Minute, Publication, Event], department_id: department_id
-        can :manage, [User], department_id: department_id
       end
     when "Coordinador"
-      can :read, [Call, Minute, Publication, Event, User], department_id: department_id
       can :read, Department, id: department_id
-      can [:create, :update], [Call, Minute, Publication, Event], department_id: department_id
-      can [:create, :update], [User], department_id: department_id
     else
-      can :read, [Call, Minute, Publication, Event], department_id: department_id
+      can :read, User, department_id: department_id
       can :read, Department, id: department_id
-      can :update, User, id: user.id
+    end
+
+    unless role == "Superadmin"
+      cannot :manage, User
+      can :read, User, department_id: department_id
     end
 
 
-    #user.user_permissions.each do |permission|
-    #  resource_class = permission.resource_class
-    #  next unless resource_class
+    user.user_permissions.each do |permission|
+      resource_class = permission.resource_class
+      permission_action = permission.permission_action
+      next unless resource_class && permission_action
 
-    #  can :manage, resource_class
-    #end
+      if resource_class.column_names.include?("department_id")
+        can permission_action, resource_class, department_id: department_id
+      else
+        can permission_action, resource_class
+      end
+    end
   end
 end

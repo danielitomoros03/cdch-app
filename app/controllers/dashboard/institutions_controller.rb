@@ -5,7 +5,7 @@ module Dashboard
 
     # GET /institutions or /institutions.json
     def index
-      @institutions = Institution.all
+      @institutions = Institution.accessible_by(current_ability)
     end
 
     # GET /institutions/1 or /institutions/1.json
