@@ -37,17 +37,17 @@
     <div class="row g-4">
       <!-- Member Card 1 - Only Director -->
       <div class="col-md-6 col-lg-3">
-        <article class="update-card">
+        <article class="update-card update-card-photo-bg">
           <div class="update-image update-image-blue">
-            <% if @subdirection.send_subdirector.photoUser.attached? %>
-              <%= image_tag @subdirection.send_subdirector.photoUser %>
+            <% if @subdirection.send_subdirector&.photoUser&.attached? %>
+              <%= image_tag @subdirection.send_subdirector.photoUser, alt: @subdirection.send_subdirector.full_name %>
             <% else %>
-              <%= image_tag "Logo-CDCH-Vitral.png" %>
+              <%= image_tag "Logo-CDCH-Vitral.png", alt: "Imagen por defecto" %>
             <% end %>
           </div>
           <div class="update-content">
             <div class="update-date">Subdirector(a)</div>
-            <h3 class="update-title"><%= @subdirection.send_subdirector.full_name %></h3>
+            <h3 class="update-title"><%= @subdirection.send_subdirector&.full_name || "Sin subdirector(a) asignado" %></h3>
             <!-- <p class="update-excerpt"></p> -->
           </div>
         </article>
@@ -56,8 +56,14 @@
       <!-- Members Cards -->
       <% @other_users.each do |u| %>
         <div class="col-md-6 col-lg-3">
-          <article class="update-card">
-            <div class="update-image update-image-blue"></div>
+          <article class="update-card update-card-photo-bg">
+            <div class="update-image update-image-blue">
+              <% if u.photoUser.attached? %>
+                <%= image_tag u.photoUser, alt: u.full_name %>
+              <% else %>
+                <%= image_tag "Logo-CDCH-Vitral.png", alt: "Imagen por defecto" %>
+              <% end %>
+            </div>
             <div class="update-content">
               <div class="update-date"><%= u.job_title.name  %></div>
               <h3 class="update-title"><%= u.full_name %></h3>

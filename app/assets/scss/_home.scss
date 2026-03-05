@@ -606,6 +606,63 @@
     }
   }
 
+  .update-card.update-card-photo-bg {
+    position: relative;
+    background: #0f172a;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 22rem;
+    isolation: isolate;
+
+    .update-image {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      z-index: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(2, 6, 23, 0.08) 20%, rgba(2, 6, 23, 0.62) 100%);
+        z-index: 1;
+      }
+    }
+
+    .update-content {
+      position: relative;
+      z-index: 2;
+      margin-top: auto;
+      padding: 1.1rem 1rem 1.2rem;
+      background: transparent;
+    }
+
+    .update-date,
+    .update-title {
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+      mix-blend-mode: difference;
+    }
+
+    .update-title {
+      margin-bottom: 0;
+      font-size: 1.15rem;
+    }
+
+    .update-date {
+      margin-bottom: 0.35rem;
+      opacity: 0.95;
+    }
+  }
+
   .update-image {
     height: 12rem;
 

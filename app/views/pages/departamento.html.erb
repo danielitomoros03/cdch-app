@@ -40,12 +40,14 @@
     <div class="row g-4">
       <!-- Member Card 1 -->
       <div class="col-md-6 col-lg-3">
-        <article class="update-card">
-          <div class="update-image update-image-white">
-            <% if @department.logoDepartment.attached? %>
-              <%= image_tag @department.logoDepartment, class: "about-image-placeholder rounded", alt: "Logo de #{@department.acronym}" %>
+        <article class="update-card update-card-photo-bg">
+          <div class="update-image update-image-blue">
+            <% if @jefe&.photoUser&.attached? %>
+              <%= image_tag @jefe.photoUser, alt: @jefe.full_name %>
+            <% elsif @department.logoDepartment.attached? %>
+              <%= image_tag @department.logoDepartment, alt: "Logo de #{@department.acronym}" %>
             <% else %>
-              <%= image_tag "#{@department.acronym}.png", class: "about-image-placeholder rounded", style: "transform: scale(1.2);", alt: "Logo por defecto CDCH" %>
+              <%= image_tag "#{@department.acronym}.png", alt: "Logo por defecto CDCH" %>
             <% end %>
           </div>
           <div class="update-content">
@@ -59,8 +61,14 @@
       <!-- Members Cards -->
       <% @others.each do |u| %>
         <div class="col-md-6 col-lg-3">
-          <article class="update-card">
-            <div class="update-image update-image-blue"></div>
+          <article class="update-card update-card-photo-bg">
+            <div class="update-image update-image-blue">
+              <% if u.photoUser.attached? %>
+                <%= image_tag u.photoUser, alt: u.full_name %>
+              <% else %>
+                <%= image_tag "Logo-CDCH-Vitral.png", alt: "Imagen por defecto" %>
+              <% end %>
+            </div>
             <div class="update-content">
               <div class="update-date"><%= u.job_title.name  %></div>
               <h3 class="update-title"><%= u.full_name %></h3>
