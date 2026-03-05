@@ -20,8 +20,7 @@ module Dashboard
 
     def create
       create_params = user_params
-      raw_resource_permissions = create_params.delete(:resource_permissions)
-      resource_permissions = extract_resource_permissions(raw_resource_permissions) if superadmin_role?
+      resource_permissions = extract_resource_permissions(resource_permissions_params) if superadmin_role?
       @selected_resource_permissions = resource_permissions if superadmin_role?
       @user = User.new(create_params)
 
@@ -39,8 +38,7 @@ module Dashboard
 
     def update
       up_params = user_params
-      raw_resource_permissions = up_params.delete(:resource_permissions)
-      resource_permissions = extract_resource_permissions(raw_resource_permissions) if superadmin_role?
+      resource_permissions = extract_resource_permissions(resource_permissions_params) if superadmin_role?
       @selected_resource_permissions = resource_permissions if superadmin_role?
 
       if up_params[:password].blank?
@@ -98,7 +96,7 @@ module Dashboard
     end
 
     def user_params
-      params.require(:user).permit(
+      permitted_params = params.require(:user).permit(
         :email,
         :name,
         :lastname,
@@ -111,6 +109,13 @@ module Dashboard
         :password_confirmation,
         resource_permissions: []
       )
+
+      permitted_params.except(:resource_permissions)
+
+    end
+
+    def resource_permissions_params
+      params.fetch(:user, {}).permit(resource_permissions: [])[:resource_permissions]
 
     end
 
