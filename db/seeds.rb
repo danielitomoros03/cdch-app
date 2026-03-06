@@ -225,7 +225,7 @@ calls_data = [
     start_date: Date.new(2026, 1, 1),
     end_date: Date.new(2026, 4, 30),
     active: true,
-    kind: :Call
+    kind: :Convocatoria
   },
   {
     title: "Convocatoria 2026 - Proyectos Grupales",
@@ -234,7 +234,7 @@ calls_data = [
     start_date: Date.new(2026, 1, 15),
     end_date: Date.new(2026, 5, 15),
     active: true,
-    kind: :Call
+    kind: :Convocatoria
   },
   {
     title: "Convocatoria 2025 - Proyectos Emergentes",
@@ -243,7 +243,7 @@ calls_data = [
     start_date: Date.new(2025, 6, 1),
     end_date: Date.new(2025, 12, 31),
     active: false,
-    kind: :Call
+    kind: :Convocatoria
   }
 ]
 
