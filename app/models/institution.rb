@@ -30,6 +30,8 @@
 #  updated_at                  :datetime         not null
 #
 class Institution < ApplicationRecord
+    has_many :institution_leaderships, dependent: :destroy
+
     # Attachment for Institution's Logo
     has_one_attached :logoInstitution
     has_one_attached :logoDirection

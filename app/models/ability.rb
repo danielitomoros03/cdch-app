@@ -47,6 +47,13 @@ class Ability
       permission_action = permission.permission_action
       next unless resource_class && permission_action
 
+      # Directors/Subdirectors are read-only by default; explicit UserPermission
+      # for InstitutionLeadership must enable actions like create/update.
+      if resource_class == InstitutionLeadership
+        can permission_action, InstitutionLeadership
+        next
+      end
+
       if resource_class.column_names.include?("department_id")
         can permission_action, resource_class, department_id: department_id
       else

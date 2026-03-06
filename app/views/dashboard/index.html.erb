@@ -311,6 +311,17 @@
                   <span>Directorio completo</span>
                 </div>
               <% end %>
+
+              <% if can? :read, InstitutionLeadership %>
+                <%= link_to institution_leaderships_path, class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
+                  <div class="d-flex align-items-center">
+                    <div class="quick-link-icon bg-secondary-subtle text-secondary me-3">
+                      <i class="fas fa-user-tie"></i>
+                    </div>
+                    <span>Gestión de autoridades CDCH</span>
+                  </div>
+                <% end %>
+              <% end %>
               
               <!--
                 <%= link_to "#", class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>

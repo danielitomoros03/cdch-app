@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :calls, module: 'dashboard'
   resources :departments, module: 'dashboard'
   resources :institutions, module: 'dashboard', only: [:index, :show, :edit, :update]
+  resources :institution_leaderships, module: 'dashboard'
   resources :job_titles, module: 'dashboard'
   resources :minutes, module: 'dashboard'
   resources :events, module: 'dashboard'

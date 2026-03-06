@@ -1,0 +1,62 @@
+<%= form_with(model: institution_leadership) do |form| %>
+  <% if institution_leadership.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(institution_leadership.errors.count, "error") %> impidieron guardar este registro:</h2>
+      <ul>
+        <% institution_leadership.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mt-3">
+    <%= form.label :institution_id, "Institución", style: "display: block" %>
+    <%= form.collection_select :institution_id, @institutions, :id, :name, { include_blank: "Seleccione una institución..." }, { class: "form-select" } %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :role, "Cargo", style: "display: block" %>
+    <%= form.select :role,
+      InstitutionLeadership.roles.keys.map { |role| [InstitutionLeadership.new(role: role).role_label, role] },
+      { include_blank: "Seleccione un cargo..." },
+      { class: "form-select" } %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :full_name, "Nombre completo", style: "display: block" %>
+    <%= form.text_field :full_name, class: "form-control", placeholder: "Nombre y apellido" %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :start_date, "Fecha de inicio", style: "display: block" %>
+    <%= form.date_field :start_date, class: "form-control" %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :end_date, "Fecha de fin", style: "display: block" %>
+    <%= form.date_field :end_date, class: "form-control" %>
+    <small class="text-muted">Déjelo vacío si la gestión sigue activa.</small>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :photo, "Fotografía", style: "display: block" %>
+    <%= form.file_field :photo, class: "form-control", accept: "image/*" %>
+
+    <% if institution_leadership.persisted? && institution_leadership.photo.attached? %>
+      <div class="mt-2">
+        <p class="mb-2">Imagen actual:</p>
+        <%= image_tag institution_leadership.photo, class: "img-thumbnail", style: "max-width: 180px;" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :bio, "Reseña", style: "display: block" %>
+    <%= form.rich_text_area :bio, class: "form-control", placeholder: "Reseña breve de la gestión..." %>
+  </div>
+
+  <div class="pt-3">
+    <%= form.submit "Guardar autoridad", class: "btn btn-primary" %>
+  </div>
+<% end %>

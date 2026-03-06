@@ -123,6 +123,69 @@
       max-width: 100%;
     }
   }
+
+  .leadership-gallery-header {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    padding-bottom: 1rem;
+  }
+
+  .leadership-gallery-block__title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: 1rem;
+  }
+
+  .leadership-card {
+    background: #ffffff;
+    border-radius: 0.85rem;
+    overflow: hidden;
+    box-shadow: $shadow-sm;
+    transition: $transition-base;
+    height: 100%;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: $shadow-lg;
+    }
+  }
+
+  .leadership-card__image {
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .leadership-card__body {
+    padding: 0.9rem;
+  }
+
+  .leadership-card__period {
+    font-size: 0.78rem;
+    color: $text-light;
+    margin-bottom: 0.35rem;
+  }
+
+  .leadership-card__name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: 0.45rem;
+    line-height: 1.3;
+  }
+
+  .leadership-card__bio {
+    font-size: 0.85rem;
+    color: $text-gray;
+    margin-bottom: 0;
+    line-height: 1.45;
+  }
   
   // Publications Page
   .publication-card {

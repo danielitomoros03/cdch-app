@@ -97,6 +97,15 @@
             <% end %>
         </li>
 
+        <% if can? :read, InstitutionLeadership %>
+            <li class="nav-item">
+                <%= link_to institution_leaderships_path, class: 'nav-link' do %>
+                <i class="fas fa-user-tie"></i>
+                <span>Autoridades CDCH</span>
+                <% end %>
+            </li>
+        <% end %>
+
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>

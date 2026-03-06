@@ -57,6 +57,21 @@ class PagesController < ApplicationController
 
   def galeria_autoridades
     @institution = Institution.first
+
+    if @institution.present?
+      @directors = @institution.institution_leaderships
+                              .director
+                              .includes(photo_attachment: :blob)
+                              .ordered_for_gallery
+
+      @subdirectors = @institution.institution_leaderships
+                                 .subdirector
+                                 .includes(photo_attachment: :blob)
+                                 .ordered_for_gallery
+    else
+      @directors = InstitutionLeadership.none
+      @subdirectors = InstitutionLeadership.none
+    end
   end
   
   def investigacion

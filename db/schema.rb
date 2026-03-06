@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_16_000000) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_05_123000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -90,6 +90,21 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_16_000000) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "institution_leaderships", force: :cascade do |t|
+    t.bigint "institution_id", null: false
+    t.string "full_name", null: false
+    t.integer "role", default: 0, null: false
+    t.date "start_date", null: false
+    t.date "end_date"
+    t.boolean "active", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["institution_id", "role"], name: "idx_inst_leadership_institution_role"
+    t.index ["institution_id"], name: "index_institution_leaderships_on_institution_id"
+    t.index ["role"], name: "index_institution_leaderships_on_role"
+    t.index ["start_date"], name: "index_institution_leaderships_on_start_date"
   end
 
   create_table "institutions", force: :cascade do |t|
@@ -188,5 +203,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_16_000000) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "institution_leaderships", "institutions"
   add_foreign_key "user_permissions", "users"
 end

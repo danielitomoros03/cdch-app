@@ -1,0 +1,37 @@
+<div id="<%= dom_id institution_leadership %>">
+  <tbody>
+    <tr>
+      <% if can? :read, institution_leadership %>
+        <th scope="row"><%= institution_leadership.id %></th>
+        <td><%= institution_leadership.role_label %></td>
+        <td><%= institution_leadership.full_name %></td>
+        <td><%= institution_leadership.institution&.name %></td>
+        <td><%= institution_leadership.period_label %></td>
+        <td>
+          <% if institution_leadership.active? %>
+            <span class="badge bg-success">Vigente</span>
+          <% else %>
+            <span class="badge bg-secondary">Histórico</span>
+          <% end %>
+        </td>
+        <td>
+          <% if can? :read, institution_leadership %>
+            <%= link_to institution_leadership_path(institution_leadership), class: 'btn btn-info', title: 'Mostrar', data: { bs_toggle: 'tooltip' } do %>
+              <i class="fa-solid fa-circle-info"></i>
+            <% end %>
+          <% end %>
+          <% if can? :edit, institution_leadership %>
+            <%= link_to edit_institution_leadership_path(institution_leadership), class: 'btn btn-warning', title: 'Editar', data: { bs_toggle: 'tooltip' } do %>
+              <i class="fa-solid fa-pen"></i>
+            <% end %>
+          <% end %>
+          <% if can? :destroy, institution_leadership %>
+            <%= button_to institution_leadership_path(institution_leadership), method: :delete, class: 'btn btn-danger', title: 'Eliminar', data: { bs_toggle: 'tooltip' }, form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar este registro?' } } do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  </tbody>
+</div>

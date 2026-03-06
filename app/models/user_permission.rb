@@ -25,7 +25,8 @@ class UserPermission < ApplicationRecord
     "Event" => Event,
     "Publication" => Publication,
     "Minute" => Minute,
-    "Solicitude" => Solicitude
+    "Solicitude" => Solicitude,
+    "InstitutionLeadership" => InstitutionLeadership
   }.freeze
 
   RESOURCE_LABELS = {
@@ -33,7 +34,8 @@ class UserPermission < ApplicationRecord
     "Event" => "Eventos",
     "Publication" => "Publicaciones",
     "Minute" => "Actas",
-    "Solicitude" => "Solicitudes"
+    "Solicitude" => "Solicitudes",
+    "InstitutionLeadership" => "Autoridades"
   }.freeze
 
   ACTION_MAP = {

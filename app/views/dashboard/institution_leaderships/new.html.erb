@@ -1,0 +1,9 @@
+<% content_for :title, "Nueva Autoridad" %>
+
+<%= render layout: "dashboard/dashboard_form" do %>
+  <h1>Nueva Autoridad</h1>
+  <%= render "form", institution_leadership: @institution_leadership %>
+  <div class="mt-3">
+    <%= link_to "Volver", institution_leaderships_path %>
+  </div>
+<% end %>
