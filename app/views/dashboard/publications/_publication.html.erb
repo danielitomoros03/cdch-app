@@ -2,13 +2,27 @@
   <tbody>
     <tr>
       <th scope="row"> <%= publication.id %> </th>
+      <td>
+        <% if publication.portrait.attached? %>
+          <%= image_tag publication.portrait, alt: "Portada de #{publication.title}", style: "width: 56px; height: 76px; object-fit: cover; border-radius: 6px;" %>
+        <% else %>
+          <span class="badge bg-secondary">Sin portada</span>
+        <% end %>
+      </td>
       <td> <%= publication.title %> </td>
       <td> <%= publication.author_name %> </td>
-      <td> <%= publication.description %> </td>
       <td> <%= publication.kind %> </td>
       <td> <%= publication.date_publication %> </td>
+      <td> <%= truncate(publication.description, length: 120) %> </td>
+      <td>
+        <% if publication.external_url.present? %>
+          <%= link_to "Abrir enlace", publication.external_url, class: "btn btn-outline-info btn-sm", target: "_blank", rel: "noopener noreferrer" %>
+        <% else %>
+          <span class="badge bg-light text-dark">Sin enlace</span>
+        <% end %>
+      </td>
       <td> 
-        <% if publication.publication_field.present? %>
+        <% if publication.publication_field.attached? %>
           <%= link_to url_for(publication.publication_field), class: "btn btn-primary", download: true do %>
             <i class="fas fa-download"></i> Descargar
           <% end %>
@@ -19,8 +33,12 @@
         <% end %>
       </td>
       <td> 
-        <a class="btn btn-info p-1" href="/publications/<%= publication.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Monstar el detalle de la Publicación"><i class="fa-solid fa-circle-info"></i></a>
-        <a class="btn btn-warning p-1" href="/publications/<%= publication.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar Publicación"><i class="fa-solid fa-pen"></i></a>
+        <%= link_to publication_path(publication), class: "btn btn-info p-1", data: { bs_toggle: "tooltip", bs_placement: "top", bs_title: "Mostrar detalle de la publicación" } do %>
+          <i class="fa-solid fa-circle-info"></i>
+        <% end %>
+        <%= link_to edit_publication_path(publication), class: "btn btn-warning p-1", data: { bs_toggle: "tooltip", bs_placement: "top", bs_title: "Editar publicación" } do %>
+          <i class="fa-solid fa-pen"></i>
+        <% end %>
       </td>
     </tr>
   </tbody>

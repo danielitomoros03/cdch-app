@@ -14,6 +14,10 @@ class PagesController < ApplicationController
     @fourDepartments = Department.all.order(organize: :asc).limit(4)
     @events = Event.where(active: true).order(day: :desc).limit(4) # Filter for last edited active events
     @eventsHero = @events.where(show_in: true).order(day: :desc).limit(3) # Filter for events to show in hero section
+    @featured_publications = Publication.with_attached_portrait
+                                        .with_attached_publication_field
+                                        .order(created_at: :desc)
+                                        .limit(4)
     if params[:id]
       @event = Event.find(params[:id])
       render :evento
@@ -88,7 +92,19 @@ class PagesController < ApplicationController
   end
 
   def publicaciones
-    @publications = Publication.all.order(created_at: :desc).limit(8)
+    if params[:id]
+      @publication = Publication.with_attached_portrait
+                                .with_attached_publication_field
+                                .find(params[:id])
+      render :publicacion
+    else
+      @publications = Publication.with_attached_portrait
+                                 .with_attached_publication_field
+                                 .order(created_at: :desc)
+                                 .limit(8)
+    end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to publicaciones_path, alert: "Publicacion no encontrada."
   end
   
   def directorio

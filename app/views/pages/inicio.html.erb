@@ -89,7 +89,7 @@
   </div>
 </section>
 
-<!-- Featured Links Section -->
+<!-- Departments Links Section -->
 <section class="featured-links-section py-5">
   <div class="container">
     <div class="section-header text-center mb-5">
@@ -239,7 +239,34 @@
   </div>
 </section>
 
-<%#= render "layouts/counter" %>
+<!-- Featured Publications Section -->
+<section class="home-publications-section">
+  <div class="container">
+    <div class="home-publications-header">
+      <h2 class="home-publications-title reveal animate__slideInLeft">Publicaciones Recientes</h2>
+      <%= link_to publicaciones_path, class: "home-publications-link" do %>
+        Ver catálogo completo <i class="fas fa-chevron-right ms-1"></i>
+      <% end %>
+    </div>
+
+    <% if @featured_publications.present? %>
+      <div class="row g-4">
+        <% @featured_publications.each_with_index do |publication, index| %>
+          <div class="col-md-6 col-lg-3">
+            <div class="reveal animate__zoomIn <%= "animate__delay-#{index}s" if index > 0 %>">
+              <%= render "publication_card", publication: publication %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="alert alert-info mb-0" role="alert">
+        No hay publicaciones disponibles en este momento.
+      </div>
+    <% end %>
+  </div>
+</section>
+
 <%= render "layouts/CTA_section" %>
 <%= render "layouts/footer" %>
 

@@ -6,7 +6,7 @@
   <div class="container">
     <h1 class="page-title">Publicaciones</h1>
     <p class="page-subtitle">
-      Explora nuestro catálogo de libros, revistas y publicaciones científicas
+      Explora nuestro catalogo de libros, revistas y publicaciones cientificas
     </p>
   </div>
 </div>
@@ -40,32 +40,19 @@
 <!-- Publications Grid -->
 <section class="section">
   <div class="container">
-    <div class="row g-4">
-      <% @publications.each do |publication| %>
-        <div class="col-md-6 col-lg-3">
-          <article class="publication-card">
-            <div class="publication-cover publication-cover-blue">
-              <div class="publication-type"><%= publication.kind.capitalize %></div>
-            </div>
-            <div class="publication-content">
-              <h3 class="publication-title"><%= publication.title %></h3>
-              <p class="publication-author"><%= publication.author_name %></p>
-              <p class="publication-date"><%= publication.date_publication %></p>
-              <p><%= publication.description %></p>
-              <% if publication.publication_field.present? %>
-                <%= link_to url_for(publication.publication_field), class: "btn btn-primary", download: true do %>
-                  <i class="fas fa-download"></i> Descargar publicación
-                <% end %>
-              <% else %>
-                <%= link_to "#", class: "btn btn-outline-primary" do %>
-                  <i class="fas fa-x"></i> Sin archivo adjunto
-                <% end %>
-              <% end %>
-            </div>
-          </article>
-        </div>
-      <% end %>
-    </div>
+    <% if @publications.present? %>
+      <div class="row g-4">
+        <% @publications.each do |publication| %>
+          <div class="col-md-6 col-lg-3">
+            <%= render "publication_card", publication: publication %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="alert alert-info mb-0" role="alert">
+        No hay publicaciones registradas por ahora.
+      </div>
+    <% end %>
 
     <!-- Pagination
     <nav class="mt-5">

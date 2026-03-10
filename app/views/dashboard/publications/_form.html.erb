@@ -41,6 +41,19 @@
     <%= form.file_field :publication_field, class: "form-control" %>
   </div>
 
+  <div class="field mt-3">
+    <%= form.label :portrait, "Imagen de portada" %>
+    <%= form.file_field :portrait, class: "form-control", accept: "image/png,image/jpeg,image/webp" %>
+    <% if publication.portrait.attached? %>
+      <small class="text-muted d-block mt-2">Portada actual: <%= publication.portrait.filename %></small>
+    <% end %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :external_url, "Enlace externo del libro/publicación" %>
+    <%= form.url_field :external_url, class: "form-control", placeholder: "https://..." %>
+  </div>
+
   <div class="pt-3">
     <%= form.submit "Guardar publicación", class: "btn btn-primary" %>
   </div>

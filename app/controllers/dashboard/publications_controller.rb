@@ -67,7 +67,7 @@ module Dashboard
 
       # Only allow a list of trusted parameters through.
       def publication_params
-        params.require(:publication).permit(:title, :author_name, :publication_field, :date_publication, :kind, :description)
+        params.require(:publication).permit(:title, :author_name, :publication_field, :portrait, :date_publication, :kind, :description, :external_url)
       end
   end
 end

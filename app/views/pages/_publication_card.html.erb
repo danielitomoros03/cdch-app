@@ -1,0 +1,31 @@
+<article class="publication-card publication-card--public h-100">
+  <div class="publication-cover publication-cover-blue">
+    <% if publication.portrait.attached? %>
+      <%= image_tag publication.portrait, alt: "Portada de #{publication.title}", class: "publication-cover-image" %>
+    <% else %>
+      <div class="publication-cover-fallback">
+        <i class="fas fa-book-open fa-2x" aria-hidden="true"></i>
+      </div>
+    <% end %>
+    <div class="publication-type"><%= publication.kind %></div>
+  </div>
+
+  <div class="publication-content d-flex flex-column">
+    <h3 class="publication-title"><%= publication.title %></h3>
+    <p class="publication-author"><%= publication.author_name %></p>
+    <p class="publication-year"><%= publication.date_publication&.strftime("%d/%m/%Y") %></p>
+    <p class="publication-excerpt"><%= truncate(publication.description.to_s, length: 140) %></p>
+
+    <div class="d-flex flex-column gap-2 mt-auto">
+      <% if publication.external_url.present? %>
+        <%= link_to publication.external_url, class: "btn btn-primary btn-sm", target: "_blank", rel: "noopener noreferrer" do %>
+          <i class="fas fa-external-link-alt"></i> Ver libro completo
+        <% end %>
+      <% end %>
+
+      <%= link_to publicacion_path(publication), class: "btn btn-outline-primary btn-sm" do %>
+        <i class="fas fa-book-open"></i> Ver publicacion
+      <% end %>
+    </div>
+  </div>
+</article>

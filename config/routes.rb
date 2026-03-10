@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get "nosotros", to: "pages#nosotros"
   get "galeria-autoridades", to: "pages#galeria_autoridades", as: :galeria_autoridades
   get "publicaciones", to: "pages#publicaciones"
+  get "publicaciones/:id", to: "pages#publicaciones", as: :publicacion
   resources :solicitudes, only: [:create] # Public Route for submitting solicitudes
 
   # Scaffold's Routes from Dashboard
