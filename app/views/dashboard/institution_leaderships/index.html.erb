@@ -12,12 +12,10 @@
 
       <% content_for :title, "Autoridades del CDCH" %>
       <% if can? :create, InstitutionLeadership %>
-        <p>
-          <h1>
-            Autoridades
-            <%= link_to "Crear Autoridad", new_institution_leadership_path, class: "btn btn-primary" %>
-          </h1>
-        </p>
+        <h1>
+          Autoridades
+          <%= link_to "Crear Autoridad", new_institution_leadership_path, class: "btn btn-primary" %>
+        </h1>
       <% else %>
         <h1>Autoridades</h1>
       <% end %>

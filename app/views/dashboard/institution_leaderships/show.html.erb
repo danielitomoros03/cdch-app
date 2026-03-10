@@ -11,9 +11,7 @@
       </div>
 
       <% content_for :title, "Autoridad #{@institution_leadership.id}" %>
-      <p>
-        <h1>Autoridad <%= @institution_leadership.id %></h1>
-      </p>
+      <h1>Autoridad <%= @institution_leadership.id %></h1>
 
       <div class="container">
         <table class="table table-striped table-hover table-bordered">
@@ -28,11 +26,7 @@
               <th scope="col">Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            <div id="institution_leaderships">
-              <%= render @institution_leadership %>
-            </div>
-          </tbody>
+          <%= render @institution_leadership %>
         </table>
 
         <div class="row justify-content-center mt-4">
@@ -42,7 +36,7 @@
             </div>
           <% end %>
 
-          <% if @institution_leadership.rich_text_bio&.body&.to_plain_text.present? %>
+          <% if @institution_leadership.bio.body.present? %>
             <div class="col-md-8 text-start">
               <div class="card">
                 <div class="card-header">

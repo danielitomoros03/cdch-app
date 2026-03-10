@@ -1,6 +1,5 @@
-<div id="<%= dom_id institution_leadership %>">
-  <tbody>
-    <tr>
+<tbody id="<%= dom_id institution_leadership %>">
+  <tr>
       <% if can? :read, institution_leadership %>
         <th scope="row"><%= institution_leadership.id %></th>
         <td><%= institution_leadership.role_label %></td>
@@ -33,5 +32,4 @@
         </td>
       <% end %>
     </tr>
-  </tbody>
-</div>
+</tbody>
