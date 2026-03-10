@@ -75,4 +75,21 @@
       color: $primary-color;
     }
   }
+
+  @media (min-width: 992px) {
+    .navbar-collapse {
+      justify-content: flex-end;
+    }
+
+    .navbar-nav {
+      flex-wrap: nowrap;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+      white-space: nowrap;
+      word-break: keep-all;
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+    }
+  }
 }
