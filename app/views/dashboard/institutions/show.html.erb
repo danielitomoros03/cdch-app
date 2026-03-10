@@ -147,6 +147,13 @@
                       </a>
                     </div>
                   <% end %>
+                  <% if @institution.youtube_url %>
+                    <div class="col-md-4 mb-2">
+                      <a href="<%= @institution.youtube_url %>" target="_blank" class="btn btn-outline-danger w-100">
+                        <i class="fab fa-youtube me-2"></i>YouTube
+                      </a>
+                    </div>
+                  <% end %>
                 </div>
               </div>
             </div>

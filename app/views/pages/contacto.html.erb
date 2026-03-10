@@ -82,6 +82,11 @@
               <%= link_to "#{Institution.first.linkedin_url}", class: "social-icon" do %>
                 <i class="fab fa-linkedin-in"></i>
               <% end %>
+              <% if Institution.first.youtube_url.present? %>
+                <%= link_to Institution.first.youtube_url, class: "social-icon", target: "_blank", rel: "noopener" do %>
+                  <i class="fab fa-youtube"></i>
+                <% end %>
+              <% end %>
             </div>
           </div>
         </div>

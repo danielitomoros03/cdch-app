@@ -26,6 +26,7 @@
 #  threads_url                 :string
 #  twitter_url                 :string
 #  vission                     :text
+#  youtube_url                 :string
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #
@@ -63,7 +64,7 @@ class Institution < ApplicationRecord
     validates :founded_year, numericality: { only_integer: true, greater_than: 1800, less_than_or_equal_to: Time.current.year }, allow_nil: true
 
     # Validate URLs
-    validates :twitter_url, :facebook_url, :instagram_url, :linkedin_url, :threads_url,
+    validates :twitter_url, :facebook_url, :instagram_url, :linkedin_url, :threads_url, :youtube_url,
               format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: "debe ser una URL válida" },
               allow_blank: true
     
