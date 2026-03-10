@@ -3,8 +3,4 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
-import "bootstrap"
-import "trix"
-import "@rails/actiontext"
-import "@hotwired/turbo-rails"
-import "./sidebar"
+//= require sidebar
