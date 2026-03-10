@@ -21,5 +21,5 @@ class Event < ApplicationRecord
     has_one_attached :image
 
     ## ENUM KIND
-    enum kind: [ :Noticia, :Ahora, :Fondo_Editorial, :Jornada, :Otro ]
+    enum kind: [ :Noticia, :Efemeride, :Fondo_Editorial, :Jornada, :Otro ]
 end
