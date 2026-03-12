@@ -1,9 +1,9 @@
 module EventsHelper
-	def event_date_label(day, fallback: "-")
-		day.present? ? l(day, format: "%d/%m/%Y") : fallback
+	def event_date_label(day)
+		day.present? ? l(day, format: "%d/%m/%Y") : "-"
 	end
 
-	def event_time_label(time, fallback: "-")
-		time.present? ? time.strftime("%H:%M") : fallback
+	def event_time_label(time)
+		time.present? ? time.strftime("%H:%M") : "-"
 	end
 end
