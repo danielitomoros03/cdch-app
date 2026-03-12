@@ -5,8 +5,8 @@ class PagesController < ApplicationController
       @event = Event.find(params[:id])
       render :evento
     else
-      @eventsActive = Event.where(active: true).order(day: :asc)
-      @eventsInactive = Event.where(active: false).order(day: :asc)
+      @eventsActive = Event.where(active: true).order(day: :desc)
+      @eventsInactive = Event.where(active: false).order(day: :desc)
     end
   end
 
@@ -22,8 +22,8 @@ class PagesController < ApplicationController
       @event = Event.find(params[:id])
       render :evento
     else
-      @eventsActive = Event.where(active: true).order(day: :asc)
-      @eventsInactive = Event.where(active: false).order(day: :asc)
+      @eventsActive = Event.where(active: true).order(day: :desc)
+      @eventsInactive = Event.where(active: false).order(day: :desc)
     end
   end
 
