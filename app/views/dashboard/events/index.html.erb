@@ -36,9 +36,12 @@
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
-            <% @events.each do |event| %>
-              <%= render event %>
-            <% end %>
+            <tbody>
+              <% @events.each do |event| %>
+                <%= render event %>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

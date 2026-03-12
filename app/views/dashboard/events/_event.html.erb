@@ -1,22 +1,18 @@
-<div id="<%= dom_id event %>">
-  <tbody>
-    <tr>
-      <th scope="row"> <%= event.id %> </th>
-      <td> <%= event.title %> </td>
-      <td> <%= event.description %> </td>
-      <td> <%= event.content %> </td>
-      <td> <%= event.kind %> </td>
-      <td> <%= event.active %> </td>
-      <td> <%= event.show_in %> </td>
-      <td> <%= event.day&.strftime("%d/%m/%Y") || "-" %> </td>
-      <td> <%= event.start_time&.strftime("%H:%M") || "-" %> </td>
-      <td> <%= event.end_time&.strftime("%H:%M") || "-" %> </td>
-      <td> <%= event.location %> </td>
-      <td> <%= image_tag event.image, class: "img-fluid", style: "max-height: 200px;" if event.image.attached? %></td>
-      <td> 
-        <a class="btn btn-info" href="/events/<%= event.id %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Monstar el detalle del Evento"><i class="fa-solid fa-circle-info"></i></a>
-        <a class="btn btn-warning" href="/events/<%= event.id %>/edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar Evento"><i class="fa-solid fa-pen"></i></a>
-      </td>
-    </tr>
-  </tbody>
-</div>
+<tr id="<%= dom_id event %>">
+  <th scope="row"> <%= event.id %> </th>
+  <td> <%= event.title %> </td>
+  <td> <%= event.description %> </td>
+  <td> <%= event.content %> </td>
+  <td> <%= event.kind %> </td>
+  <td> <%= event.active %> </td>
+  <td> <%= event.show_in %> </td>
+  <td> <%= event_time_label(event.start_time) %> </td>
+  <td> <%= event_time_label(event.end_time) %> </td>
+  <td> <%= event_date_label(event.day) %> </td>
+  <td> <%= event.location %> </td>
+  <td> <%= image_tag event.image, class: "img-fluid", style: "max-height: 200px;" if event.image.attached? %></td>
+  <td>
+    <a class="btn btn-info" href="<%= event_path(event) %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Mostrar el detalle del evento"><i class="fa-solid fa-circle-info"></i></a>
+    <a class="btn btn-warning" href="<%= edit_event_path(event) %>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar evento"><i class="fa-solid fa-pen"></i></a>
+  </td>
+</tr>
