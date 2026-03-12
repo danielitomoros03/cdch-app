@@ -154,7 +154,7 @@
                 </div>
               <% end %>
               <div class="update-content">
-                <div class="update-date"><%= event.day.strftime("%d/%m/%Y") %></div>
+                <div class="update-date"><%= event_date_label(event.day, fallback: "No definida") %></div>
                 <h3 class="update-title"><%= event.title %></h3>
                 <p class="update-excerpt">
                   <%= truncate(event.description, length: 100) %>
