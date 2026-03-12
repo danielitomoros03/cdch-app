@@ -8,9 +8,9 @@
       <td> <%= event.kind %> </td>
       <td> <%= event.active %> </td>
       <td> <%= event.show_in %> </td>
-      <td> <%= event.day.strftime("%d/%m/%Y") %> </td>
-      <td> <%= event.start_time.strftime("%H:%M") %> </td>
-      <td> <%= event.end_time.strftime("%H:%M") %> </td>
+      <td> <%= event.day&.strftime("%d/%m/%Y") || "-" %> </td>
+      <td> <%= event.start_time&.strftime("%H:%M") || "-" %> </td>
+      <td> <%= event.end_time&.strftime("%H:%M") || "-" %> </td>
       <td> <%= event.location %> </td>
       <td> <%= image_tag event.image, class: "img-fluid", style: "max-height: 200px;" if event.image.attached? %></td>
       <td> 
