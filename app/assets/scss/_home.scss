@@ -768,11 +768,17 @@
 
   .support-staff-grid {
     justify-content: center;
+    align-items: stretch;
+
+    > [class*="col-"] {
+      display: flex;
+    }
   }
 
   .support-staff-mini-card {
-    aspect-ratio: 3 / 4;
-    min-height: 0;
+    width: 100%;
+    min-height: 18.5rem;
+    aspect-ratio: auto;
 
     .update-content {
       padding: 0.85rem 0.8rem 0.9rem;
@@ -781,11 +787,26 @@
     .update-title {
       font-size: 1rem;
       line-height: 1.25;
+      overflow-wrap: anywhere;
     }
 
     .update-date {
       font-size: 0.75rem;
     }
+  }
+}
+
+#supportStaffModal {
+  .modal-content {
+    max-height: calc(100vh - 2rem);
+  }
+
+  .modal-body {
+    overflow-x: hidden;
+  }
+
+  .support-staff-mini-card:hover {
+    transform: none;
   }
 }
 
