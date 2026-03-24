@@ -1,6 +1,8 @@
 <!-- Sidebar -->
 <div class="col-lg-2 d-none d-lg-block bg-light sidebar-container shadow-sm">
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <% current_section = controller_name %>
+    <% active_link_style = "border-radius: 0.75rem; margin: 0 0.5rem; width: calc(100% - 1rem); box-sizing: border-box; transition: background-color 0.2s ease, color 0.2s ease; background-color: rgba(1, 37, 255, 0.35); color: #ffffff; font-weight: 700; border-left: 3px solid #e30101; padding-left: 1.15rem;" %>
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
@@ -13,8 +15,8 @@
         <hr class="sidebar-divider my-1">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item <%= 'active' if current_page?(dashboard_index_path) rescue false %>">
-            <%= link_to dashboard_index_path, class: 'nav-link' do %>
+        <li class="nav-item <%= 'active' if current_section == 'dashboard' %>">
+            <%= link_to dashboard_index_path, class: 'nav-link', style: (active_link_style if current_section == 'dashboard'), aria: { current: ('page' if current_section == 'dashboard') } do %>
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard Inicial</span>
             <% end %>
@@ -25,8 +27,8 @@
         <div class="sidebar-heading">Contenidos</div>
 
         <% if can? :read, Call %>
-            <li class="nav-item">
-                <%= link_to calls_path, class: 'nav-link' do %>
+            <li class="nav-item <%= 'active' if current_section == 'calls' %>">
+                <%= link_to calls_path, class: 'nav-link', style: (active_link_style if current_section == 'calls'), aria: { current: ('page' if current_section == 'calls') } do %>
                     <i class="fas fa-bell"></i>
                     <span>Convocatorias</span>
                 <% end %>
@@ -34,8 +36,8 @@
         <% end %>
 
         <% if can? :read, Minute %>
-            <li class="nav-item">
-                <%= link_to minutes_path, class: 'nav-link' do %>
+            <li class="nav-item <%= 'active' if current_section == 'minutes' %>">
+                <%= link_to minutes_path, class: 'nav-link', style: (active_link_style if current_section == 'minutes'), aria: { current: ('page' if current_section == 'minutes') } do %>
                     <i class="fas fa-box-open"></i>
                     <span>Actas del Directorio</span>
                 <% end %>
@@ -43,8 +45,8 @@
         <% end %>
 
         <% if can? :read, Publication %>
-            <li class="nav-item">
-                <%= link_to publications_path, class: 'nav-link' do %>
+            <li class="nav-item <%= 'active' if current_section == 'publications' %>">
+                <%= link_to publications_path, class: 'nav-link', style: (active_link_style if current_section == 'publications'), aria: { current: ('page' if current_section == 'publications') } do %>
                     <i class="fas fa-book"></i>
                     <span>Publicaciones</span>
                 <% end %>
@@ -52,8 +54,8 @@
         <% end %>
 
         <% if can? :read, Event %>
-            <li class="nav-item">
-                <%= link_to events_path, class: 'nav-link' do %>
+            <li class="nav-item <%= 'active' if current_section == 'events' %>">
+                <%= link_to events_path, class: 'nav-link', style: (active_link_style if current_section == 'events'), aria: { current: ('page' if current_section == 'events') } do %>
                     <i class="fas fa-newspaper"></i>
                     <span>Eventos y Noticias</span>
                 <% end %>
@@ -64,8 +66,8 @@
 
         <div class="sidebar-heading">General</div>
     
-        <li class="nav-item">
-            <%= link_to solicitudes_path, class: 'nav-link' do %>
+        <li class="nav-item <%= 'active' if current_section == 'solicitudes' %>">
+            <%= link_to solicitudes_path, class: 'nav-link', style: (active_link_style if current_section == 'solicitudes'), aria: { current: ('page' if current_section == 'solicitudes') } do %>
             <i class="fas fa-envelope"></i>
             <span>Solicitudes</span>
             <% end %>
@@ -78,28 +80,28 @@
                 <% end %>
             </li>
         -->
-        <li class="nav-item">
-            <%= link_to users_path, class: 'nav-link' do %>
+        <li class="nav-item <%= 'active' if current_section == 'users' %>">
+            <%= link_to users_path, class: 'nav-link', style: (active_link_style if current_section == 'users'), aria: { current: ('page' if current_section == 'users') } do %>
             <i class="fas fa-user"></i>
             <span>Usuarios</span>
             <% end %>
         </li>
-        <li class="nav-item">
-            <%= link_to departments_path, class: 'nav-link' do %>
+        <li class="nav-item <%= 'active' if current_section == 'departments' %>">
+            <%= link_to departments_path, class: 'nav-link', style: (active_link_style if current_section == 'departments'), aria: { current: ('page' if current_section == 'departments') } do %>
             <i class="fas fa-building"></i>
             <span>Departamentos</span>
             <% end %>
         </li>
-        <li class="nav-item">
-            <%= link_to institutions_path, class: 'nav-link' do %>
+        <li class="nav-item <%= 'active' if current_section == 'institutions' %>">
+            <%= link_to institutions_path, class: 'nav-link', style: (active_link_style if current_section == 'institutions'), aria: { current: ('page' if current_section == 'institutions') } do %>
             <i class="fas fa-address-book"></i>
             <span>General CDCH</span>
             <% end %>
         </li>
 
         <% if can? :read, InstitutionLeadership %>
-            <li class="nav-item">
-                <%= link_to institution_leaderships_path, class: 'nav-link' do %>
+            <li class="nav-item <%= 'active' if current_section == 'institution_leaderships' %>">
+                <%= link_to institution_leaderships_path, class: 'nav-link', style: (active_link_style if current_section == 'institution_leaderships'), aria: { current: ('page' if current_section == 'institution_leaderships') } do %>
                 <i class="fas fa-user-tie"></i>
                 <span>Autoridades CDCH</span>
                 <% end %>
