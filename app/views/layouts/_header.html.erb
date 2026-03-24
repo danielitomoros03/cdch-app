@@ -22,57 +22,57 @@
                 <% if !signed_in? %>
                     <ul class="navbar-nav ms-auto align-items-lg-center">
                         <li class="nav-item d-none d-lg-none d-xl-none d-xxl-none d-sm-block">
-                            <%= link_to "Inicio", root_path, class: "nav-link" %>
+                            <%= link_to "Inicio", root_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(root_path)}", aria: { current: ("page" if current_page?(root_path)) } %>
                         </li>
                         <li class="nav-item">
-                            <%= link_to "Convocatorias", convocatorias_path, class: "nav-link" %>
+                            <%= link_to "Convocatorias", convocatorias_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(convocatorias_path)}", aria: { current: ("page" if current_page?(convocatorias_path)) } %>
                         </li>
                         <li class="nav-item">
-                            <%= link_to "Actas del Directorio", actas_path, class: "nav-link" %>
+                            <%= link_to "Actas del Directorio", actas_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(actas_path)}", aria: { current: ("page" if current_page?(actas_path)) } %>
                         </li>
                         <li class="nav-item">
-                            <%= link_to "Saber UCV", "https://saber.ucv.ve/", class: "nav-link" %>
+                            <%= link_to "Saber UCV", "https://saber.ucv.ve/", class: "nav-link header-nav-link" %>
                         </li>
                         <li class="nav-item">
-                            <%= link_to "Nosotros", nosotros_path, class: "nav-link" %>
+                            <%= link_to "Nosotros", nosotros_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(nosotros_path)}", aria: { current: ("page" if current_page?(nosotros_path)) } %>
                         </li>
                         <li class="nav-item">
-                            <%= link_to "Autoridades", galeria_autoridades_path, class: "nav-link" %>
+                            <%= link_to "Autoridades", galeria_autoridades_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(galeria_autoridades_path)}", aria: { current: ("page" if current_page?(galeria_autoridades_path)) } %>
                         </li>
                         <li class="nav-item">
-                            <%= link_to "Contacto", contacto_path, class: "nav-link" %>
+                            <%= link_to "Contacto", contacto_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(contacto_path)}", aria: { current: ("page" if current_page?(contacto_path)) } %>
                         </li>
                     </ul>
                 <% else %>
                     <ul class="navbar-nav ms-auto align-items-lg-center">
                         <li class="nav-item d-lg-none d-md-block d-lg-none">
-                            <%= link_to "Inicio", dashboard_index_path, class: "nav-link" %>
+                            <%= link_to "Inicio", dashboard_index_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(dashboard_index_path)}", aria: { current: ("page" if current_page?(dashboard_index_path)) } %>
                         </li>
                         <li class="nav-item d-lg-none d-md-block d-lg-none">
-                            <%= link_to "Actas del Directorio", minutes_path, class: "nav-link" %>
+                            <%= link_to "Actas del Directorio", minutes_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(minutes_path)}", aria: { current: ("page" if current_page?(minutes_path)) } %>
                         </li>
                         <li class="nav-item d-lg-none d-md-block d-lg-none">
-                            <%= link_to "Convocatorias", calls_path, class: "nav-link" %>
+                            <%= link_to "Convocatorias", calls_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(calls_path)}", aria: { current: ("page" if current_page?(calls_path)) } %>
                         </li>
                         <li class="nav-item d-lg-none d-md-block d-lg-none">
-                            <%= link_to "Departamentos", departments_path, class: "nav-link" %>
+                            <%= link_to "Departamentos", departments_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(departments_path)}", aria: { current: ("page" if current_page?(departments_path)) } %>
                         </li>
                         <li class="nav-item d-lg-none d-md-block d-lg-none">
-                            <%= link_to "Noticias y Eventos", events_path, class: "nav-link" %>
+                            <%= link_to "Noticias y Eventos", events_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(events_path)}", aria: { current: ("page" if current_page?(events_path)) } %>
                         </li>
                         <li class="nav-item d-lg-none d-md-block d-lg-none">
-                            <%= link_to "Publicaciones", publications_path, class: "nav-link" %>
+                            <%= link_to "Publicaciones", publications_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(publications_path)}", aria: { current: ("page" if current_page?(publications_path)) } %>
                         </li>
                         <% if can? :read, InstitutionLeadership %>
                             <li class="nav-item d-lg-none d-md-block d-lg-none">
-                                <%= link_to "Autoridades", institution_leaderships_path, class: "nav-link" %>
+                                <%= link_to "Autoridades", institution_leaderships_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(institution_leaderships_path)}", aria: { current: ("page" if current_page?(institution_leaderships_path)) } %>
                             </li>
                         <% end %>
                         <li class="nav-item d-lg-none d-md-block d-lg-none">
-                            <%= link_to "Solicitudes", solicitudes_path, class: "nav-link" %>
+                            <%= link_to "Solicitudes", solicitudes_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(solicitudes_path)}", aria: { current: ("page" if current_page?(solicitudes_path)) } %>
                         </li>
                         <li class="nav-item d-lg-none d-md-block d-lg-none">
-                            <%= link_to "Usuarios", users_path, class: "nav-link" %>
+                            <%= link_to "Usuarios", users_path, class: "nav-link header-nav-link #{'header-nav-link-active' if current_page?(users_path)}", aria: { current: ("page" if current_page?(users_path)) } %>
                         </li>
                         <li class="nav-item">
                             <!-- Usuario -->
@@ -171,6 +171,21 @@
     background-color: #f3f4f6;
   }
 
+    .header-nav-link {
+        border-radius: 0.5rem;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .header-nav-link:hover {
+        background-color: #f3f4f6;
+    }
+
+    .header-nav-link-active {
+        background-color: rgba(1, 37, 255, 0.12);
+        color: #0125ff !important;
+        font-weight: 600;
+    }
+
   /* Espaciado del menú móvil */
   @media (max-width: 991.98px) {
     #navbarNav {
@@ -191,9 +206,13 @@
       transition: background-color 0.2s;
     }
 
-    #navbarNav .nav-link:hover {
+        #navbarNav .nav-link:hover {
       background-color: #f3f4f6;
     }
+
+        #navbarNav .header-nav-link-active {
+            background-color: rgba(1, 37, 255, 0.12);
+        }
   }
 
   /* Animación del badge de notificaciones */
