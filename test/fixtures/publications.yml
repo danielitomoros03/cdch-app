@@ -8,6 +8,7 @@
 #  author_name      :string
 #  date_publication :date
 #  description      :text
+#  external_url     :string
 #  kind             :integer          default("Otro")
 #  title            :string
 #  created_at       :datetime         not null
