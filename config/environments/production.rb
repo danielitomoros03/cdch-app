@@ -97,10 +97,10 @@ Rails.application.configure do
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts = [
-    "silenia.ucv.ve",     # Allow requests from example.com
-    /.*\.silenia\.ucv.ve/ # Allow requests from subdomains like `www.example.com`
+    "cdch.ucv.ve",     # Allow requests from example.com
+    /.*\.cdch\.ucv.ve/ # Allow requests from subdomains like `www.example.com`
   ]
-  Rails.application.routes.default_url_options = { host: 'silenia.ucv.ve', protocol: 'https' }
+  Rails.application.routes.default_url_options = { host: 'cdch.ucv.ve', protocol: 'https' }
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
