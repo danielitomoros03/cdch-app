@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pg_restore --version)",
+      "Bash(psql --version)",
+      "Bash(psql -lqt)",
+      "Bash(pg_restore -l ../db_backups/backup_compatible.sql)",
+      "Bash(tar -tzf ../db_backups/test_final_fotos.tar.gz)",
+      "Bash(dropdb app_development)",
+      "Bash(createdb app_development)",
+      "Bash(pg_restore -d app_development --no-owner --no-privileges ../db_backups/backup_compatible.sql)",
+      "Bash(echo \"---exit:$?\")",
+      "Bash(psql -d app_development -c \"SELECT version\\(\\);\")",
+      "Bash(psql -d app_development -c \"\\\\dt\")",
+      "Bash(psql *)",
+      "Bash(tar -xzf ../db_backups/test_final_fotos.tar.gz -C storage/)",
+      "Bash(bin/rails db:migrate)",
+      "Bash(mkdir -p storage/jb/gs storage/3z/d6)",
+      "Bash(cp app/assets/images/Logo-CDCH-Vitral.png storage/jb/gs/jbgsqx3l733amoi2barauoncb244)",
+      "Bash(cp app/assets/images/Logo-CDCH-Vitral.png storage/3z/d6/3zd6nrooslnfxs9m88hkuecncxms)"
+    ]
+  }
+}
