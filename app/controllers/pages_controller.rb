@@ -77,6 +77,28 @@ class PagesController < ApplicationController
       @subdirectors = InstitutionLeadership.none
     end
   end
+
+  def galeria_autoridades_v2
+    @institution = Institution.first
+
+    if @institution.present?
+      directors = @institution.institution_leaderships
+                              .director
+                              .includes(photo_attachment: :blob)
+                              .ordered_for_gallery
+                              .to_a
+
+      subdirectors = @institution.institution_leaderships
+                                 .subdirector
+                                 .includes(photo_attachment: :blob)
+                                 .ordered_for_gallery
+                                 .to_a
+
+      @groups = build_authority_timeline_groups(directors, subdirectors)
+    else
+      @groups = []
+    end
+  end
   
   def investigacion
   end
@@ -143,5 +165,29 @@ class PagesController < ApplicationController
   end
   
   def contacto
+  end
+
+  private
+
+  def build_authority_timeline_groups(directors, subdirectors)
+    groups = []
+    remaining = subdirectors.dup
+    infinity = Date.new(9999, 12, 31)
+
+    directors.each do |director|
+      dir_end = director.end_date || infinity
+
+      matching = remaining.select do |sub|
+        sub_end = sub.end_date || infinity
+        director.start_date <= sub_end && sub.start_date <= dir_end
+      end
+
+      remaining -= matching
+      groups << { director: director, subdirectors: matching }
+    end
+
+    remaining.each { |sub| groups << { director: nil, subdirectors: [sub] } }
+
+    groups
   end
 end

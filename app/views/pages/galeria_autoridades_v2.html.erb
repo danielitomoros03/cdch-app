@@ -1,0 +1,516 @@
+<% content_for :head do %>
+  <style>
+    /* ── Column header labels ───────────────────────────────── */
+    .col-headers {
+      display: none;
+    }
+    @media (min-width: 992px) {
+      .col-headers {
+        display: grid;
+        grid-template-columns: minmax(0,1fr) 56px minmax(0,1fr);
+        margin-bottom: 0.5rem;
+      }
+    }
+    .col-label {
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 3px solid;
+    }
+    .col-label--director    { color: #1d4ed8; border-color: #1d4ed8; }
+    .col-label--subdirector { color: #0d9488; border-color: #0d9488; }
+    .col-label--director   .label-dot { background: #1d4ed8; }
+    .col-label--subdirector .label-dot { background: #0d9488; }
+    .label-dot {
+      width: 0.6rem; height: 0.6rem;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .col-label--right { justify-content: flex-end; text-align: right; }
+
+    /* ── Dual timeline container ─────────────────────────────── */
+    .dual-timeline {
+      position: relative;
+    }
+    @media (max-width: 991px) {
+      .mob-section-title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        padding: 0.4rem 0 0.4rem 1rem;
+        border-left: 4px solid;
+        margin-bottom: 1rem;
+      }
+      .mob-section-title--dir { color: #1d4ed8; border-color: #1d4ed8; }
+      .mob-section-title--sub { color: #0d9488; border-color: #0d9488; }
+    }
+    @media (min-width: 992px) {
+      .dual-timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 0.4rem;
+        bottom: 0.6rem;
+        width: 2px;
+        background: linear-gradient(
+          180deg,
+          #1d4ed8 0%,
+          #1d4ed8 40%,
+          #0d9488 70%,
+          rgba(13,148,136,0.18) 100%
+        );
+        z-index: 0;
+      }
+    }
+
+    /* ── Group row ───────────────────────────────────────────── */
+    .dt-group {
+      margin-bottom: 1.25rem;
+    }
+    @media (max-width: 991px) {
+      .dt-group { display: none; }
+      .mob-list  { display: block; }
+    }
+    @media (min-width: 992px) {
+      .dt-group {
+        display: grid;
+        grid-template-columns: minmax(0,1fr) 56px minmax(0,1fr);
+        align-items: start;
+        gap: 0;
+      }
+      .mob-list { display: none; }
+    }
+
+    .dt-left  { padding-right: 1.1rem; display: flex; flex-direction: column; gap: 0.65rem; }
+    .dt-right { padding-left:  1.1rem; display: flex; flex-direction: column; gap: 0.65rem; }
+
+    .dt-spine {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 1.15rem;
+      position: relative;
+      z-index: 1;
+    }
+    .dt-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2.5px solid;
+      box-shadow: 0 0 0 4px #f1f5f9;
+      flex-shrink: 0;
+    }
+    .dt-dot--director    { border-color: #1d4ed8; }
+    .dt-dot--subdirector { border-color: #0d9488; }
+    .dt-dot--both {
+      border-color: #1d4ed8;
+      background: linear-gradient(135deg, #dbeafe 0%, #ccfbf1 100%);
+    }
+
+    .dt-spine::before,
+    .dt-spine::after {
+      content: '';
+      position: absolute;
+      top: calc(1.15rem + 6px);
+      height: 1.5px;
+      width: calc(50% - 7px);
+    }
+    .dt-spine::before { right: calc(50% + 7px); background: rgba(29,78,216,0.25); }
+    .dt-spine::after  { left:  calc(50% + 7px); background: rgba(13,148,136,0.25); }
+    .dt-group--no-left  .dt-spine::before { display: none; }
+    .dt-group--no-right .dt-spine::after  { display: none; }
+
+    .dt-empty { min-height: 3rem; }
+
+    /* ── Authority card ──────────────────────────────────────── */
+    .auth-card {
+      background: #fff;
+      border: 1px solid rgba(15,23,42,0.08);
+      border-radius: 0.85rem;
+      padding: 0.8rem 1rem;
+      box-shadow: 0 4px 14px rgba(15,23,42,0.07);
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .auth-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(15,23,42,0.13);
+    }
+    .auth-card--director    { border-left: 3px solid rgba(29,78,216,0.5); }
+    .auth-card--director:hover { border-left-color: #1d4ed8; }
+    .auth-card--subdirector { border-right: 3px solid rgba(13,148,136,0.5); }
+    .auth-card--subdirector:hover { border-right-color: #0d9488; }
+
+    .auth-card__period {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+    .auth-card__body {
+      display: grid;
+      grid-template-columns: 54px minmax(0,1fr);
+      gap: 0.7rem;
+      align-items: center;
+    }
+    .auth-card__photo {
+      width: 54px; height: 68px;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .auth-card__photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .auth-card__photo--director    { background: linear-gradient(135deg,#dbeafe,#bfdbfe); color: #93c5fd; }
+    .auth-card__photo--subdirector { background: linear-gradient(135deg,#ccfbf1,#99f6e4); color: #2dd4bf; }
+    .auth-card__name {
+      font-size: 0.9rem; font-weight: 700;
+      color: #111827; line-height: 1.3;
+      margin-bottom: 0.1rem;
+    }
+    .auth-card__role  { font-size: 0.75rem; color: #64748b; margin-bottom: 0.22rem; }
+    .auth-card__cta   { font-size: 0.73rem; font-weight: 700; }
+    .cta--director    { color: #1d4ed8; }
+    .cta--subdirector { color: #0d9488; }
+
+    /* ── Mobile timeline ─────────────────────────────────────── */
+    .mob-timeline {
+      position: relative;
+      padding-left: 1.4rem;
+    }
+    .mob-timeline--dir::before {
+      content: '';
+      position: absolute;
+      left: 0.45rem; top: 0.35rem; bottom: 0.5rem;
+      width: 2px;
+      background: linear-gradient(180deg, #1d4ed8 0%, rgba(29,78,216,0.18) 100%);
+    }
+    .mob-timeline--sub::before {
+      content: '';
+      position: absolute;
+      left: 0.45rem; top: 0.35rem; bottom: 0.5rem;
+      width: 2px;
+      background: linear-gradient(180deg, #0d9488 0%, rgba(13,148,136,0.18) 100%);
+    }
+    .mob-item {
+      position: relative;
+      padding-bottom: 0.85rem;
+    }
+    .mob-item::before {
+      content: '';
+      position: absolute;
+      left: -1rem; top: 1.05rem;
+      width: 0.65rem; height: 0.65rem;
+      border-radius: 50%;
+      border: 2px solid;
+      background: #fff;
+    }
+    .mob-timeline--dir .mob-item::before { border-color: #1d4ed8; }
+    .mob-timeline--sub .mob-item::before { border-color: #0d9488; }
+
+    /* ── Offcanvas hero ──────────────────────────────────────── */
+    .leadership-offcanvas__hero {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .leadership-offcanvas__photo {
+      width: 80px; height: 100px;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .leadership-offcanvas__photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .leadership-offcanvas__photo--default {
+      background: #e2e8f0;
+      display: flex; align-items: center; justify-content: center;
+      color: #94a3b8; font-size: 2rem;
+    }
+    .leadership-offcanvas__period { font-size: 0.8rem; font-weight: 700; color: #64748b; margin-bottom: 0.2rem; }
+    .leadership-offcanvas__role   { font-size: 0.9rem; color: #374151; }
+    .leadership-offcanvas__section-title { font-size: 0.85rem; font-weight: 700; color: #374151; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.4rem; margin-bottom: 0.75rem; }
+  </style>
+<% end %>
+
+<%= render "layouts/header" %>
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-title">Galería de Autoridades</h1>
+    <p class="page-subtitle">Recorrido histórico de Directores y Subdirectores del CDCH</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between mb-4 pb-3"
+         style="border-bottom:1px solid rgba(15,23,42,0.08)">
+      <h2 style="font-size:1.35rem;font-weight:800;margin:0;">Histórico de Autoridades</h2>
+      <%= link_to nosotros_path, class: "btn btn-outline-primary btn-sm" do %>
+        <i class="fas fa-arrow-left me-2"></i>Volver a Nosotros
+      <% end %>
+    </div>
+
+    <% if @groups.empty? %>
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 text-center">
+          <p class="text-muted mb-0">No hay autoridades registradas.</p>
+        </div>
+      </div>
+    <% else %>
+
+      <%# ── Column headers (desktop only) ── %>
+      <div class="col-headers">
+        <div class="col-label col-label--director">
+          <span class="label-dot"></span>
+          <i class="fas fa-user-tie"></i> Directores
+        </div>
+        <div></div>
+        <div class="col-label col-label--subdirector col-label--right">
+          Subdirectores <i class="fas fa-user-tie"></i>
+          <span class="label-dot"></span>
+        </div>
+      </div>
+
+      <%# ══════ DESKTOP: dual butterfly timeline ══════ %>
+      <div class="dual-timeline mt-3">
+        <% @groups.each do |group| %>
+          <% director = group[:director] %>
+          <% subs     = group[:subdirectors] %>
+          <% group_css = if director && subs.any?
+                           "dt-group--both"
+                         elsif director
+                           "dt-group--no-right"
+                         else
+                           "dt-group--no-left"
+                         end %>
+          <% dot_css = if director && subs.any?
+                         "dt-dot--both"
+                       elsif director
+                         "dt-dot--director"
+                       else
+                         "dt-dot--subdirector"
+                       end %>
+
+          <div class="dt-group <%= group_css %>">
+
+            <%# Left column — director %>
+            <div class="dt-left">
+              <% if director %>
+                <button type="button"
+                        class="auth-card auth-card--director"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#authorityDetail<%= director.id %>"
+                        aria-controls="authorityDetail<%= director.id %>">
+                  <div class="auth-card__period">
+                    <i class="far fa-calendar-alt me-1"></i><%= director.period_label %>
+                  </div>
+                  <div class="auth-card__body">
+                    <div class="auth-card__photo auth-card__photo--director">
+                      <% if director.photo.attached? %>
+                        <%= image_tag director.photo, alt: director.full_name %>
+                      <% else %>
+                        <i class="fas fa-user"></i>
+                      <% end %>
+                    </div>
+                    <div>
+                      <div class="auth-card__name"><%= director.full_name %></div>
+                      <div class="auth-card__role"><%= director.role_label %> del CDCH-UCV</div>
+                      <span class="auth-card__cta cta--director">Ver reseña completa</span>
+                    </div>
+                  </div>
+                </button>
+              <% else %>
+                <div class="dt-empty"></div>
+              <% end %>
+            </div>
+
+            <%# Spine column %>
+            <div class="dt-spine">
+              <div class="dt-dot <%= dot_css %>"></div>
+            </div>
+
+            <%# Right column — subdirector(s) %>
+            <div class="dt-right">
+              <% if subs.any? %>
+                <% subs.each do |sub| %>
+                  <button type="button"
+                          class="auth-card auth-card--subdirector"
+                          data-bs-toggle="offcanvas"
+                          data-bs-target="#authorityDetail<%= sub.id %>"
+                          aria-controls="authorityDetail<%= sub.id %>">
+                    <div class="auth-card__period">
+                      <i class="far fa-calendar-alt me-1"></i><%= sub.period_label %>
+                    </div>
+                    <div class="auth-card__body">
+                      <div class="auth-card__photo auth-card__photo--subdirector">
+                        <% if sub.photo.attached? %>
+                          <%= image_tag sub.photo, alt: sub.full_name %>
+                        <% else %>
+                          <i class="fas fa-user"></i>
+                        <% end %>
+                      </div>
+                      <div>
+                        <div class="auth-card__name"><%= sub.full_name %></div>
+                        <div class="auth-card__role"><%= sub.role_label %> del CDCH-UCV</div>
+                        <span class="auth-card__cta cta--subdirector">Ver reseña completa</span>
+                      </div>
+                    </div>
+                  </button>
+                <% end %>
+              <% else %>
+                <div class="dt-empty"></div>
+              <% end %>
+            </div>
+
+          </div><%# /dt-group %>
+        <% end %>
+      </div><%# /dual-timeline %>
+
+      <%# ══════ MOBILE: two stacked lists ══════ %>
+      <div class="mob-list mt-2">
+        <div class="mob-section-title mob-section-title--dir">
+          <i class="fas fa-user-tie me-2"></i>Directores
+        </div>
+        <div class="mob-timeline mob-timeline--dir mb-4">
+          <% @groups.each do |group| %>
+            <% next unless group[:director] %>
+            <% director = group[:director] %>
+            <div class="mob-item">
+              <button type="button"
+                      class="auth-card auth-card--director"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#authorityDetail<%= director.id %>"
+                      aria-controls="authorityDetail<%= director.id %>">
+                <div class="auth-card__period">
+                  <i class="far fa-calendar-alt me-1"></i><%= director.period_label %>
+                </div>
+                <div class="auth-card__body">
+                  <div class="auth-card__photo auth-card__photo--director">
+                    <% if director.photo.attached? %>
+                      <%= image_tag director.photo, alt: director.full_name %>
+                    <% else %>
+                      <i class="fas fa-user"></i>
+                    <% end %>
+                  </div>
+                  <div>
+                    <div class="auth-card__name"><%= director.full_name %></div>
+                    <div class="auth-card__role"><%= director.role_label %></div>
+                    <span class="auth-card__cta cta--director">Ver reseña</span>
+                  </div>
+                </div>
+              </button>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mob-section-title mob-section-title--sub">
+          <i class="fas fa-user-tie me-2"></i>Subdirectores
+        </div>
+        <div class="mob-timeline mob-timeline--sub">
+          <% @groups.each do |group| %>
+            <% group[:subdirectors].each do |sub| %>
+              <div class="mob-item">
+                <button type="button"
+                        class="auth-card auth-card--subdirector"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#authorityDetail<%= sub.id %>"
+                        aria-controls="authorityDetail<%= sub.id %>">
+                  <div class="auth-card__period">
+                    <i class="far fa-calendar-alt me-1"></i><%= sub.period_label %>
+                  </div>
+                  <div class="auth-card__body">
+                    <div class="auth-card__photo auth-card__photo--subdirector">
+                      <% if sub.photo.attached? %>
+                        <%= image_tag sub.photo, alt: sub.full_name %>
+                      <% else %>
+                        <i class="fas fa-user"></i>
+                      <% end %>
+                    </div>
+                    <div>
+                      <div class="auth-card__name"><%= sub.full_name %></div>
+                      <div class="auth-card__role"><%= sub.role_label %></div>
+                      <span class="auth-card__cta cta--subdirector">Ver reseña</span>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div><%# /mob-list %>
+
+      <%# ══════ Offcanvas detail panels (shared by desktop + mobile) ══════ %>
+      <% @groups.each do |group| %>
+        <% ([group[:director]] + group[:subdirectors]).compact.each do |authority| %>
+          <% panel_id    = "authorityDetail#{authority.id}" %>
+          <% panel_label = "#{panel_id}Label" %>
+
+          <div class="offcanvas offcanvas-end leadership-offcanvas"
+               tabindex="-1"
+               id="<%= panel_id %>"
+               aria-labelledby="<%= panel_label %>">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="<%= panel_label %>"><%= authority.full_name %></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+            </div>
+            <div class="offcanvas-body">
+              <div class="leadership-offcanvas__hero">
+                <div class="leadership-offcanvas__photo<%= ' leadership-offcanvas__photo--default' unless authority.photo.attached? %>">
+                  <% if authority.photo.attached? %>
+                    <%= image_tag authority.photo, alt: authority.full_name %>
+                  <% else %>
+                    <i class="fas fa-user"></i>
+                  <% end %>
+                </div>
+                <div class="leadership-offcanvas__meta">
+                  <div class="leadership-offcanvas__period"><%= authority.period_label %></div>
+                  <p class="leadership-offcanvas__role mb-2"><%= authority.role_label %> del CDCH-UCV</p>
+                  <% if authority.active? %>
+                    <span class="badge text-bg-success">Autoridad actual</span>
+                  <% else %>
+                    <span class="badge text-bg-secondary">Período histórico</span>
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="leadership-offcanvas__bio mt-4">
+                <h6 class="leadership-offcanvas__section-title">
+                  <i class="fas fa-book-reader me-2"></i>Reseña
+                </h6>
+                <% if authority.bio.body.present? %>
+                  <div class="leadership-offcanvas__bio-content">
+                    <%= authority.bio %>
+                  </div>
+                <% else %>
+                  <p class="text-muted mb-0">No hay reseña registrada para esta autoridad.</p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
+    <% end %><%# /if @groups.empty? %>
+  </div><%# /container %>
+</section>
+
+<%= render "layouts/CTA_section" %>
+<%= render "layouts/footer" %>
