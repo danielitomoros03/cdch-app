@@ -17,7 +17,8 @@
       "Bash(bin/rails db:migrate)",
       "Bash(mkdir -p storage/jb/gs storage/3z/d6)",
       "Bash(cp app/assets/images/Logo-CDCH-Vitral.png storage/jb/gs/jbgsqx3l733amoi2barauoncb244)",
-      "Bash(cp app/assets/images/Logo-CDCH-Vitral.png storage/3z/d6/3zd6nrooslnfxs9m88hkuecncxms)"
+      "Bash(cp app/assets/images/Logo-CDCH-Vitral.png storage/3z/d6/3zd6nrooslnfxs9m88hkuecncxms)",
+      "Bash(bin/rails runner *)"
     ]
   }
 }
