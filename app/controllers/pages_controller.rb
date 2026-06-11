@@ -85,12 +85,14 @@ class PagesController < ApplicationController
       directors = @institution.institution_leaderships
                               .director
                               .includes(photo_attachment: :blob)
+                              .with_rich_text_bio
                               .ordered_for_gallery
                               .to_a
 
       subdirectors = @institution.institution_leaderships
                                  .subdirector
                                  .includes(photo_attachment: :blob)
+                                 .with_rich_text_bio
                                  .ordered_for_gallery
                                  .to_a
 
@@ -170,23 +172,23 @@ class PagesController < ApplicationController
   private
 
   def build_authority_timeline_groups(directors, subdirectors)
-    groups = []
-    remaining = subdirectors.dup
     infinity = Date.new(9999, 12, 31)
 
-    directors.each do |director|
+    groups = directors.map do |director|
       dir_end = director.end_date || infinity
 
-      matching = remaining.select do |sub|
+      matching = subdirectors.select do |sub|
         sub_end = sub.end_date || infinity
         director.start_date <= sub_end && sub.start_date <= dir_end
       end
 
-      remaining -= matching
-      groups << { director: director, subdirectors: matching }
+      { director: director, subdirectors: matching }
     end
 
-    remaining.each { |sub| groups << { director: nil, subdirectors: [sub] } }
+    matched_ids = groups.flat_map { |g| g[:subdirectors].map(&:id) }.to_set
+    subdirectors.reject { |s| matched_ids.include?(s.id) }.each do |sub|
+      groups << { director: nil, subdirectors: [sub] }
+    end
 
     groups
   end
