@@ -3,6 +3,17 @@
 class Ability
   include CanCan::Ability
 
+  # Investigadores y su historia en el CDCH: datos personales de uso interno. Por
+  # ahora solo los ven Dirección, Subdirección y Superadmin (desarrollo), y nadie
+  # los edita: se cargan con `rails cdch:import`. Los permisos por departamento
+  # (DADI, DADA...) vendrán después.
+  RESEARCH_RECORDS = [
+    Person, PersonContact, UcvAppointment, PpiLevel,
+    ResearchProject, ProjectStage, StageCoInvestigator, StagePublication, StageExtension,
+    InstitutionalAid, Scholarship
+  ].freeze
+  RESEARCH_READERS = %w[Director Subdirector Superadmin].freeze
+
   def initialize(user)
     return unless user
 
@@ -60,5 +71,9 @@ class Ability
         can permission_action, resource_class
       end
     end
+
+    # Va al final para pisar los `:manage, :all` de Superadmin y de la jefatura de DTIC.
+    cannot :manage, RESEARCH_RECORDS
+    can :read, RESEARCH_RECORDS if role == "Superadmin" && RESEARCH_READERS.include?(job_title_name)
   end
 end

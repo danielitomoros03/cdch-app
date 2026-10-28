@@ -1,0 +1,13 @@
+active_engineer:
+  person: active_engineer
+  dependency_code: "08"
+  dependency: FACULTAD DE INGENIERIA
+  category: Asociado
+  hired_on: 2005-01-01
+
+retired_doctor:
+  person: retired_doctor
+  dependency_code: "09"
+  dependency: FACULTAD DE MEDICINA
+  hired_on: 1980-01-01
+  retired_on: 2010-01-01

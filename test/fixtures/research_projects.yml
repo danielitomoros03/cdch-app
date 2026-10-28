@@ -1,0 +1,7 @@
+engineering_project:
+  department: dadi
+  project_type_code: PI
+  code: PI-08-0001
+  title: Proyecto de prueba
+  lead_person: active_engineer
+  faculty_code: "08"

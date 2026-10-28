@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   resources :publications, module: 'dashboard'
   resources :solicitudes, module: 'dashboard', only: [:index, :show, :destroy]
   resources :users, module: 'dashboard'
+  resources :people, module: 'dashboard', only: [:index, :show], path: 'docentes'
+  resources :research_projects, module: 'dashboard', only: [:show], path: 'proyectos'
   get "dashboard/index" # INDEX DASHBOARD
 
 

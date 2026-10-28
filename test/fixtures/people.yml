@@ -1,0 +1,27 @@
+# Datos ficticios.
+active_engineer:
+  id_number: "90000001"
+  nationality: V
+  full_name: GARCÍA PÉREZ ANA
+  in_payroll: true
+  payroll_status: active
+  project_lead: true
+
+retired_doctor:
+  id_number: "90000002"
+  nationality: V
+  full_name: NÚÑEZ ROJAS LUIS
+  in_payroll: true
+  payroll_status: retired
+  co_investigator: true
+
+former_researcher:
+  id_number: "90000003"
+  full_name: SOTO MARÍA
+  legacy_faculty_code: "09"
+
+no_history:
+  id_number: "90000004"
+  full_name: LÓPEZ JUAN
+  in_payroll: true
+  payroll_status: active

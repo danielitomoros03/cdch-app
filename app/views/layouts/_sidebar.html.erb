@@ -62,6 +62,19 @@
             </li>
         <% end %>
 
+        <% if can? :read, Person %>
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">Investigación</div>
+
+            <li class="nav-item <%= 'active' if %w[people research_projects].include?(current_section) %>">
+                <%= link_to people_path, class: 'nav-link', style: (active_link_style if %w[people research_projects].include?(current_section)), aria: { current: ('page' if current_section == 'people') } do %>
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Docentes e investigadores</span>
+                <% end %>
+            </li>
+        <% end %>
+
         <hr class="sidebar-divider">
 
         <div class="sidebar-heading">General</div>

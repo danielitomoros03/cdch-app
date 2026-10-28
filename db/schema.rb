@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_10_27_190100) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_28_180000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -98,6 +98,22 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_27_190100) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "faculties", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_faculties_on_code", unique: true
+  end
+
+  create_table "funding_sources", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_funding_sources_on_code", unique: true
+  end
+
   create_table "institution_leaderships", force: :cascade do |t|
     t.bigint "institution_id", null: false
     t.string "full_name", null: false
@@ -111,6 +127,48 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_27_190100) do
     t.index ["institution_id"], name: "index_institution_leaderships_on_institution_id"
     t.index ["role"], name: "index_institution_leaderships_on_role"
     t.index ["start_date"], name: "index_institution_leaderships_on_start_date"
+  end
+
+  create_table "institutional_aids", force: :cascade do |t|
+    t.bigint "department_id", null: false
+    t.integer "legacy_id", null: false
+    t.string "aid_type_code"
+    t.string "code"
+    t.string "legacy_code"
+    t.string "serial"
+    t.bigint "applicant_person_id"
+    t.string "faculty_code"
+    t.string "dependency"
+    t.text "description"
+    t.bigint "legacy_status_id"
+    t.date "requested_on"
+    t.decimal "amount_requested", precision: 20, scale: 2
+    t.date "approved_on"
+    t.decimal "amount_approved", precision: 20, scale: 2
+    t.decimal "amount_equipment", precision: 20, scale: 2
+    t.decimal "amount_supplies", precision: 20, scale: 2
+    t.decimal "amount_travel", precision: 20, scale: 2
+    t.decimal "amount_services", precision: 20, scale: 2
+    t.decimal "amount_other", precision: 20, scale: 2
+    t.string "currency"
+    t.boolean "amount_flagged", default: false, null: false
+    t.date "report_approved_on"
+    t.boolean "report_ok"
+    t.date "extension_on"
+    t.integer "extension_code"
+    t.integer "duration_months"
+    t.text "notes"
+    t.string "merge_note"
+    t.string "funding_source_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["aid_type_code"], name: "index_institutional_aids_on_aid_type_code"
+    t.index ["applicant_person_id"], name: "index_institutional_aids_on_applicant_person_id"
+    t.index ["department_id"], name: "index_institutional_aids_on_department_id"
+    t.index ["legacy_id"], name: "index_institutional_aids_on_legacy_id", unique: true
+    t.index ["legacy_status_id"], name: "index_institutional_aids_on_legacy_status_id"
+    t.index ["requested_on"], name: "index_institutional_aids_on_requested_on"
+    t.check_constraint "currency IS NULL OR (currency::text = ANY (ARRAY['VEB'::character varying, 'VEF'::character varying, 'VES'::character varying, 'VED'::character varying]::text[]))", name: "institutional_aids_currency"
   end
 
   create_table "institutions", force: :cascade do |t|
@@ -149,12 +207,137 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_27_190100) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "legacy_statuses", force: :cascade do |t|
+    t.integer "legacy_id", null: false
+    t.string "name", null: false
+    t.string "applies_to"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["legacy_id"], name: "index_legacy_statuses_on_legacy_id", unique: true
+  end
+
   create_table "minutes", force: :cascade do |t|
     t.date "day"
     t.string "title"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.string "id_number", null: false
+    t.string "nationality"
+    t.string "first_names"
+    t.string "last_names"
+    t.string "full_name", null: false
+    t.string "payroll_name"
+    t.boolean "in_payroll", default: false, null: false
+    t.string "payroll_status"
+    t.string "legacy_condition"
+    t.string "legacy_faculty_code"
+    t.string "legacy_category"
+    t.string "legacy_dedication"
+    t.string "legacy_position"
+    t.boolean "project_lead", default: false, null: false
+    t.boolean "co_investigator", default: false, null: false
+    t.boolean "reviewer", default: false, null: false
+    t.boolean "aid_applicant", default: false, null: false
+    t.boolean "scholar", default: false, null: false
+    t.string "sources"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["full_name"], name: "index_people_on_full_name"
+    t.index ["id_number"], name: "index_people_on_id_number", unique: true
+    t.index ["payroll_status"], name: "index_people_on_payroll_status"
+    t.check_constraint "payroll_status IS NULL OR (payroll_status::text = ANY (ARRAY['active'::character varying, 'management'::character varying, 'retired'::character varying]::text[]))", name: "people_payroll_status"
+  end
+
+  create_table "person_contacts", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.string "kind", null: false
+    t.string "value", null: false
+    t.string "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id", "kind", "value"], name: "index_person_contacts_on_person_id_and_kind_and_value", unique: true
+    t.index ["person_id"], name: "index_person_contacts_on_person_id"
+    t.check_constraint "kind::text = ANY (ARRAY['email'::character varying, 'phone'::character varying, 'address'::character varying]::text[])", name: "person_contacts_kind"
+  end
+
+  create_table "ppi_levels", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.string "level"
+    t.string "committee"
+    t.string "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_ppi_levels_on_person_id"
+  end
+
+  create_table "project_stages", force: :cascade do |t|
+    t.bigint "research_project_id", null: false
+    t.integer "legacy_id", null: false
+    t.integer "number"
+    t.integer "total_stages"
+    t.string "serial"
+    t.bigint "lead_person_id"
+    t.string "faculty_code"
+    t.bigint "legacy_status_id"
+    t.bigint "research_area_id"
+    t.string "area_text"
+    t.string "specialty"
+    t.text "title"
+    t.boolean "cofinanced"
+    t.date "requested_on"
+    t.decimal "amount_requested", precision: 20, scale: 2
+    t.date "approved_on"
+    t.string "contract"
+    t.date "signed_on"
+    t.decimal "amount_approved", precision: 20, scale: 2
+    t.decimal "stage_variation", precision: 20, scale: 2
+    t.decimal "amount_equipment", precision: 20, scale: 2
+    t.decimal "amount_supplies", precision: 20, scale: 2
+    t.decimal "amount_travel", precision: 20, scale: 2
+    t.decimal "amount_services", precision: 20, scale: 2
+    t.decimal "amount_personnel", precision: 20, scale: 2
+    t.decimal "amount_other", precision: 20, scale: 2
+    t.string "currency"
+    t.boolean "amount_flagged", default: false, null: false
+    t.date "partial_report_approved_on"
+    t.boolean "partial_report_ok"
+    t.date "final_report_approved_on"
+    t.boolean "final_report_ok"
+    t.text "notes"
+    t.string "merge_note"
+    t.date "extension_on"
+    t.integer "extension_code"
+    t.integer "duration_months"
+    t.date "work_approved_on"
+    t.text "work_title"
+    t.text "work_journal"
+    t.string "funding_source_code"
+    t.string "code"
+    t.string "legacy_code"
+    t.string "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lead_person_id"], name: "index_project_stages_on_lead_person_id"
+    t.index ["legacy_id"], name: "index_project_stages_on_legacy_id", unique: true
+    t.index ["legacy_status_id"], name: "index_project_stages_on_legacy_status_id"
+    t.index ["requested_on"], name: "index_project_stages_on_requested_on"
+    t.index ["research_area_id"], name: "index_project_stages_on_research_area_id"
+    t.index ["research_project_id"], name: "index_project_stages_on_research_project_id"
+    t.check_constraint "currency IS NULL OR (currency::text = ANY (ARRAY['VEB'::character varying, 'VEF'::character varying, 'VES'::character varying, 'VED'::character varying]::text[]))", name: "project_stages_currency"
+  end
+
+  create_table "project_types", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "name"
+    t.string "program"
+    t.boolean "current", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_project_types_on_code", unique: true
   end
 
   create_table "publications", force: :cascade do |t|
@@ -168,6 +351,69 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_27_190100) do
     t.string "external_url"
   end
 
+  create_table "research_areas", force: :cascade do |t|
+    t.integer "legacy_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["legacy_id"], name: "index_research_areas_on_legacy_id", unique: true
+  end
+
+  create_table "research_projects", force: :cascade do |t|
+    t.bigint "department_id", null: false
+    t.string "project_type_code", null: false
+    t.string "code", null: false
+    t.string "legacy_code"
+    t.text "title"
+    t.bigint "lead_person_id"
+    t.string "faculty_code"
+    t.bigint "research_area_id"
+    t.string "specialty"
+    t.integer "total_stages"
+    t.date "first_requested_on"
+    t.date "last_requested_on"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_research_projects_on_department_id"
+    t.index ["faculty_code"], name: "index_research_projects_on_faculty_code"
+    t.index ["lead_person_id"], name: "index_research_projects_on_lead_person_id"
+    t.index ["legacy_code"], name: "index_research_projects_on_legacy_code"
+    t.index ["project_type_code", "code"], name: "index_research_projects_on_project_type_code_and_code", unique: true
+    t.index ["project_type_code"], name: "index_research_projects_on_project_type_code"
+    t.index ["research_area_id"], name: "index_research_projects_on_research_area_id"
+  end
+
+  create_table "scholarships", force: :cascade do |t|
+    t.bigint "department_id", null: false
+    t.integer "legacy_id", null: false
+    t.bigint "person_id", null: false
+    t.string "program"
+    t.string "scholarship_type"
+    t.string "level"
+    t.string "specialty"
+    t.string "institution"
+    t.string "country"
+    t.string "faculty"
+    t.string "dependency"
+    t.string "rank"
+    t.string "dedication"
+    t.date "approved_on"
+    t.date "starts_on"
+    t.date "ends_on"
+    t.date "last_extension_on"
+    t.date "degree_filed_on"
+    t.string "status"
+    t.string "file_number"
+    t.text "notes"
+    t.text "follow_up"
+    t.string "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_scholarships_on_department_id"
+    t.index ["legacy_id"], name: "index_scholarships_on_legacy_id", unique: true
+    t.index ["person_id"], name: "index_scholarships_on_person_id"
+  end
+
   create_table "solicitudes", force: :cascade do |t|
     t.string "full_name"
     t.string "email"
@@ -177,6 +423,70 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_27_190100) do
     t.boolean "policies", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "stage_co_investigators", force: :cascade do |t|
+    t.bigint "project_stage_id"
+    t.bigint "person_id", null: false
+    t.string "project_code"
+    t.integer "stage_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_stage_co_investigators_on_person_id"
+    t.index ["project_stage_id"], name: "index_stage_co_investigators_on_project_stage_id"
+  end
+
+  create_table "stage_extensions", force: :cascade do |t|
+    t.bigint "project_stage_id", null: false
+    t.integer "stage_number"
+    t.date "granted_on"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_stage_id"], name: "index_stage_extensions_on_project_stage_id"
+  end
+
+  create_table "stage_publications", force: :cascade do |t|
+    t.bigint "project_stage_id"
+    t.string "legacy_code"
+    t.integer "stage_number"
+    t.text "title"
+    t.text "venue"
+    t.date "evaluated_on"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_stage_id"], name: "index_stage_publications_on_project_stage_id"
+  end
+
+  create_table "ucv_appointments", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.string "payroll_type_code"
+    t.string "payroll_type"
+    t.string "dependency_code"
+    t.string "dependency"
+    t.string "ucv_unit_code"
+    t.string "ucv_unit_name"
+    t.date "hired_on"
+    t.date "retired_on"
+    t.integer "years_at_ucv"
+    t.string "dedication_code"
+    t.string "dedication"
+    t.string "category_code"
+    t.string "category"
+    t.string "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_ucv_appointments_on_person_id"
+    t.index ["ucv_unit_code"], name: "index_ucv_appointments_on_ucv_unit_code"
+  end
+
+  create_table "ucv_units", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "short_code"
+    t.string "name"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_ucv_units_on_code", unique: true
   end
 
   create_table "user_permissions", force: :cascade do |t|
@@ -213,5 +523,24 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_27_190100) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "departments", "departments", column: "parent_id"
   add_foreign_key "institution_leaderships", "institutions"
+  add_foreign_key "institutional_aids", "departments"
+  add_foreign_key "institutional_aids", "legacy_statuses"
+  add_foreign_key "institutional_aids", "people", column: "applicant_person_id"
+  add_foreign_key "person_contacts", "people", on_delete: :cascade
+  add_foreign_key "ppi_levels", "people", on_delete: :cascade
+  add_foreign_key "project_stages", "legacy_statuses"
+  add_foreign_key "project_stages", "people", column: "lead_person_id"
+  add_foreign_key "project_stages", "research_areas"
+  add_foreign_key "project_stages", "research_projects"
+  add_foreign_key "research_projects", "departments"
+  add_foreign_key "research_projects", "people", column: "lead_person_id"
+  add_foreign_key "research_projects", "research_areas"
+  add_foreign_key "scholarships", "departments"
+  add_foreign_key "scholarships", "people"
+  add_foreign_key "stage_co_investigators", "people"
+  add_foreign_key "stage_co_investigators", "project_stages"
+  add_foreign_key "stage_extensions", "project_stages"
+  add_foreign_key "stage_publications", "project_stages"
+  add_foreign_key "ucv_appointments", "people", on_delete: :cascade
   add_foreign_key "user_permissions", "users"
 end

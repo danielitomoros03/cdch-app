@@ -1,0 +1,23 @@
+first_stage:
+  research_project: engineering_project
+  legacy_id: 1
+  number: 1
+  total_stages: 2
+  lead_person: active_engineer
+  title: Proyecto de prueba
+  requested_on: 2008-03-01
+  amount_approved: 1500.50
+  currency: VEB
+
+second_stage:
+  research_project: engineering_project
+  legacy_id: 2
+  number: 2
+  total_stages: 2
+  lead_person: active_engineer
+  title: Proyecto de prueba
+  requested_on: 2012-03-01
+  amount_requested: 100
+  amount_approved: 100000
+  amount_flagged: true
+  currency: VEF

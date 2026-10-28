@@ -58,6 +58,8 @@ group :development, :test do
 end
 
 group :development do
+  # Lee la base unificada (SQLite) del ETL en `rails cdch:import`
+  gem "sqlite3", require: false
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 

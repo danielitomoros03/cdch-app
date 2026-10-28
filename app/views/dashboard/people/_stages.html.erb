@@ -1,0 +1,19 @@
+<% if stages.any? %>
+  <table class="table table-sm table-bordered">
+    <thead><tr><th>Código</th><th>Etapa</th><th>Título</th><th>Estado</th><th>Solicitud</th><th class="text-end">Aprobado</th></tr></thead>
+    <tbody>
+      <% stages.each do |stage| %>
+        <tr>
+          <td><%= link_to stage.research_project.code, research_project_path(stage.research_project) %></td>
+          <td><%= [ stage.number, stage.total_stages ].compact.join(" de ") %></td>
+          <td><%= stage.title %></td>
+          <td><%= stage.legacy_status&.name %></td>
+          <td><%= legacy_date(stage.requested_on) %></td>
+          <td class="text-end"><%= legacy_amount(stage.amount_approved, stage.currency) %> <%= flagged_amount_badge(stage) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="text-muted"><%= empty %></p>
+<% end %>
