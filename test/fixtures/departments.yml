@@ -1,50 +1,33 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+dir:
+  acronym: Dir
+  name: Dirección
+  code: "2700000000"
+  organize: 9
 
-# == Schema Information
-#
-# Table name: departments
-#
-#  id         :bigint           not null, primary key
-#  acronym    :string
-#  name       :string
-#  organize   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-#
-# Table name: departments
-#
-#  id         :bigint           not null, primary key
-#  acronym    :string
-#  name       :string
-#  organize   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-#
-# Table name: departments
-#
-#  id         :bigint           not null, primary key
-#  acronym    :string
-#  name       :string
-#  organize   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-#
-# Table name: departments
-#
-#  id         :bigint           not null, primary key
-#  acronym    :string
-#  name       :string
-#  organize   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-one:
-  name: MyString
-  acronym: MyString
+subdir:
+  acronym: Subdir
+  name: Subdirección
+  code: "2701000000"
+  parent: dir
+  organize: 8
 
-two:
-  name: MyString
-  acronym: MyString
+dtic:
+  acronym: DTIC
+  name: Departamento de Tecnología, Información y Comunicaciones
+  code: "2700040000"
+  parent: dir
+  organize: 4
+
+dada:
+  acronym: DADA
+  name: Departamento de Apoyo al Desarrollo Académico
+  code: "2700050000"
+  parent: dir
+  organize: 0
+
+dadi:
+  acronym: DADI
+  name: Departamento de Apoyo al Desarrollo de la Investigación
+  code: "2700060000"
+  parent: dir
+  organize: 1

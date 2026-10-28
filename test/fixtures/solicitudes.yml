@@ -15,16 +15,14 @@
 #  updated_at   :datetime         not null
 #
 one:
-  name: MyString
-  lastname: MyString
+  full_name: MyString
   phone_number: MyString
   matter: 1
   message: MyText
   policies: false
 
 two:
-  name: MyString
-  lastname: MyString
+  full_name: MyString
   phone_number: MyString
   matter: 1
   message: MyText

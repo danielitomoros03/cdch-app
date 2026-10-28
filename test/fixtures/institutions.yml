@@ -201,7 +201,7 @@ one:
   description: MyText
   linkedin_url: MyString
   director_name: MyString
-  director_email: MyString
+  director_primary_email: MyString
   founded_year: 1
 
 two:
@@ -222,5 +222,5 @@ two:
   description: MyText
   linkedin_url: MyString
   director_name: MyString
-  director_email: MyString
+  director_primary_email: MyString
   founded_year: 1

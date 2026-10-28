@@ -1,46 +1,16 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# Roles posicionales de JobTitle: 3 = JefeDepartamento, 4 = Superadmin.
+director:
+  name: Director
+  role: 4
 
-# == Schema Information
-#
-# Table name: job_titles
-#
-#  id         :bigint           not null, primary key
-#  name       :string
-#  role       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-#
-# Table name: job_titles
-#
-#  id         :bigint           not null, primary key
-#  name       :string
-#  role       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-#
-# Table name: job_titles
-#
-#  id         :bigint           not null, primary key
-#  name       :string
-#  role       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-#
-# Table name: job_titles
-#
-#  id         :bigint           not null, primary key
-#  name       :string
-#  role       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-one:
-  name: MyString
-  role: 1
+subdirector:
+  name: Subdirector
+  role: 4
 
-two:
-  name: MyString
-  role: 1
+superadmin:
+  name: Superadmin
+  role: 4
+
+department_head:
+  name: Jefe de Departamento
+  role: 3

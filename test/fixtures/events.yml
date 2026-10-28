@@ -22,7 +22,7 @@ one:
   show_in: false
   active: false
   description: MyText
-  type: 1
+  kind: 1
   day: 2026-01-23
   start_time: 2026-01-23 12:40:50
   end_time: 2026-01-23 12:40:50
@@ -33,7 +33,7 @@ two:
   show_in: false
   active: false
   description: MyText
-  type: 1
+  kind: 1
   day: 2026-01-23
   start_time: 2026-01-23 12:40:50
   end_time: 2026-01-23 12:40:50
