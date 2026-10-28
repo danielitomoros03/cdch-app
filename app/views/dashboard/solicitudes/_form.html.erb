@@ -28,7 +28,7 @@
 
   <div class="mb-3">
     <%= form.label :matter, "Asunto de la solicitud" %>
-    <%= form.select :matter, Department.all.map { |d| [d.name, d.id] }, { prompt: "Seleccione un departamento" }, { class: "form-control", required: true } %>
+    <%= form.select :matter, Department.publicly_visible.order(:id).map { |d| [d.name, d.id] }, { prompt: "Seleccione un departamento" }, { class: "form-control", required: true } %>
   </div>
 
   <div class="mb-3">

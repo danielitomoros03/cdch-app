@@ -11,7 +11,7 @@ class PagesController < ApplicationController
   end
 
   def inicio
-    @fourDepartments = Department.all.order(organize: :asc).limit(4)
+    @fourDepartments = Department.publicly_visible.order(organize: :asc).limit(4)
     @events = Event.where(active: true).order(day: :desc).limit(4) # Filter for last edited active events
     @eventsHero = @events.where(show_in: true).order(day: :desc).limit(3) # Filter for events to show in hero section
     @featured_publications = Publication.with_attached_portrait
@@ -28,7 +28,7 @@ class PagesController < ApplicationController
   end
 
   def direccion
-    @direction = Department.last
+    @direction = Department.direction
 
     director_role = JobTitle.find_by(name: "Director")
     direction_users = User.includes(:job_title).where(department_id: @direction.id)
@@ -54,8 +54,8 @@ class PagesController < ApplicationController
   end
   
   def nosotros
-    @departments = Department.all.order(organize: :asc).limit(8)
-    @secretariesDir = User.where(department_id: Department.last).where(job_title_id: JobTitle.find_by(name: "Secretario(a)").id)
+    @departments = Department.publicly_visible.order(organize: :asc).limit(8)
+    @secretariesDir = User.where(department_id: Department.direction).where(job_title_id: JobTitle.find_by(name: "Secretario(a)").id)
     @secretariesSubdir = User.where(department_id: Department.find_by!(acronym: "Subdir")).where(job_title_id: JobTitle.find_by(name: "Secretario(a)").id)
   end
 
@@ -141,7 +141,7 @@ class PagesController < ApplicationController
   end
   
   def departamento
-    @department = Department.find_by(acronym: params[:acronym])
+    @department = Department.publicly_visible.find_by(acronym: params[:acronym])
     return redirect_to(root_path, alert: "Departamento no encontrado.") if @department.nil?
 
     jefe_role = JobTitle.find_by(name: "Jefe de Departamento")

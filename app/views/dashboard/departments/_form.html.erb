@@ -22,9 +22,30 @@
   </div>
   
   <div class="mt-3">
+    <%= form.label :official_name, "Nombre oficial (clasificador estructural)" %>
+    <%= form.text_field :official_name, class: "form-control" %>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :code, "Código de unidad ejecutora" %>
+    <%= form.text_field :code, class: "form-control", inputmode: "numeric", maxlength: 10, placeholder: "2700000000" %>
+    <small class="form-text text-muted">10 dígitos. Vacío si la unidad no está en el clasificador.</small>
+  </div>
+
+  <div class="mt-3">
+    <%= form.label :parent_id, "Unidad superior" %>
+    <%= form.collection_select :parent_id, Department.where.not(id: department.id).order(:organize), :id, :name, { include_blank: "Ninguna" }, class: "form-control" %>
+  </div>
+
+  <div class="mt-3 form-check">
+    <%= form.check_box :public_visible, class: "form-check-input" %>
+    <%= form.label :public_visible, "Visible en el sitio público", class: "form-check-label" %>
+  </div>
+
+  <div class="mt-3">
     <%= form.label :organize, "Número de Orden del Departamento" %>
-    <%= form.number_field :organize, min: 0, max: 10, class: "form-control" %>
-    <small class="form-text text-muted">Números permitidos: desde el 0 hasta el 10</small>
+    <%= form.number_field :organize, min: 0, class: "form-control" %>
+    <small class="form-text text-muted">Define el orden en el sitio público y en el panel</small>
   </div>
 
   <div class="mt-3">

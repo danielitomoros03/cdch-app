@@ -106,7 +106,7 @@
             <% else %>
               <div class="image-placeholder">
                 <!--<i class="fas fa-image"></i>-->
-                <%= image_tag "#{dept.acronym}.png", class: "profile-card__img", style: "transform: scale(1.3);" %>
+                <%= image_tag department_logo_asset(dept), class: "profile-card__img", style: "transform: scale(1.3);" %>
               </div>
             <% end %>
             <div class="profile-card__badge"><%= dept.acronym %></div>

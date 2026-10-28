@@ -5,7 +5,7 @@ module Dashboard
 
   # GET /dashboard/departments or /dashboard/departments.json
   def index
-    @departments = Department.accessible_by(current_ability).order(created_at: :asc).limit(8)
+    @departments = Department.accessible_by(current_ability).includes(:parent).order(organize: :asc)
   end
 
   # GET /dashboard/departments/1 or /dashboard/departments/1.json
@@ -67,7 +67,7 @@ module Dashboard
 
     # Only allow a list of trusted parameters through.
     def department_params
-      params.require(:department).permit(:name, :acronym, :organize, :description, :logoDepartment)
+      params.require(:department).permit(:name, :acronym, :organize, :description, :logoDepartment, :code, :official_name, :parent_id, :public_visible)
     end
   end
 end

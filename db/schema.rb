@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_10_171000) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_27_190100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,6 +76,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_10_171000) do
     t.integer "organize"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code"
+    t.string "official_name"
+    t.boolean "public_visible", default: true, null: false
+    t.bigint "parent_id"
+    t.index ["code"], name: "index_departments_on_code", unique: true
+    t.index ["parent_id"], name: "index_departments_on_parent_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -205,6 +211,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_10_171000) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "departments", "departments", column: "parent_id"
   add_foreign_key "institution_leaderships", "institutions"
   add_foreign_key "user_permissions", "users"
 end

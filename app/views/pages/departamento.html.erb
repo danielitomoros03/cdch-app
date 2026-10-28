@@ -23,7 +23,7 @@
         <% if @department.logoDepartment.attached? %>
           <%= image_tag @department.logoDepartment, class: "about-image-placeholder rounded", alt: "Logo de #{@department.acronym}" %>
         <% else %>
-          <%= image_tag "#{@department.acronym}.png", class: "about-image-placeholder rounded", alt: "Logo por defecto CDCH" %>
+          <%= image_tag department_logo_asset(@department), class: "about-image-placeholder rounded", alt: "Logo por defecto CDCH" %>
         <% end %>
       </div>
     </div>
@@ -47,7 +47,7 @@
             <% elsif @department.logoDepartment.attached? %>
               <%= image_tag @department.logoDepartment, alt: "Logo de #{@department.acronym}" %>
             <% else %>
-              <%= image_tag "#{@department.acronym}.png", alt: "Logo por defecto CDCH" %>
+              <%= image_tag department_logo_asset(@department), alt: "Logo por defecto CDCH" %>
             <% end %>
           </div>
           <div class="update-content">

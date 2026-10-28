@@ -5,6 +5,9 @@
         <th scope="row"> <%= department.id %> </th>
         <td> <%= department.name %> </td>
         <td> <%= department.acronym %> </td>
+        <td> <%= department.code.presence || "—" %> </td>
+        <td> <%= department.parent&.acronym || "—" %> </td>
+        <td> <%= department.public_visible? ? "Sí" : "No" %> </td>
         <td> <%= department.organize %> </td>
         <td> <%= department.description %> </td>
         <td> 

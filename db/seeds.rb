@@ -32,6 +32,42 @@ end
 
 puts "#{Department.count} departamentos estándar creados."
 
+# Clasificador estructural del CDCH (unidades ejecutoras).
+# La Subdirección ocupa el código 2701000000 (antes Secretaría Ejecutiva).
+# DCTI queda oculto del sitio público hasta tener descripción y logo.
+[
+  { organize: 10, acronym: "DCTI", name: "Departamento de Ciencia, Tecnología e Innovación" }
+].each do |dept|
+  Department.find_or_create_by!(acronym: dept[:acronym]) do |d|
+    d.name = dept[:name]
+    d.organize = dept[:organize]
+    d.public_visible = false
+    d.description = "Descripción pendiente."
+  end
+end
+
+structural_classifier = {
+  "Dir"                       => ["2700000000", nil,          "Dirección del Consejo de Desarrollo Científico y Humanístico (CDCH)"],
+  "Subdir"                    => ["2701000000", "2700000000", "Subdirección"],
+  "Administración"            => ["2700010000", "2700000000", "Departamento de Apoyo Administrativo"],
+  "Compras"                   => ["2700010100", "2700010000", "Sección de Compras"],
+  "Archivo y Correspondencia" => ["2700020000", "2700000000", "Departamento de Archivo y Correspondencia"],
+  "DTIC"                      => ["2700040000", "2700000000", "Departamento de Tecnología de Información y Comunicación (DTIC)"],
+  "DADA"                      => ["2700050000", "2700000000", "Departamento de Apoyo al Desarrollo Académico (DADA)"],
+  "DADI"                      => ["2700060000", "2700000000", "Departamento de Apoyo al Desarrollo de la Investigación (DADI)"],
+  "Publicaciones"             => ["2700070000", "2700000000", "Departamento de Relaciones y Publicaciones"],
+  "DCTI"                      => ["2700080000", "2700000000", "Departamento de Ciencia, Tecnología e Innovación (DCTI)"]
+}
+structural_classifier.each do |acronym, (code, _parent_code, official_name)|
+  Department.find_by(acronym: acronym)&.update!(code: code, official_name: official_name)
+end
+structural_classifier.each do |acronym, (_code, parent_code, _official_name)|
+  next unless parent_code
+  Department.find_by(acronym: acronym)&.update!(parent: Department.find_by(code: parent_code))
+end
+
+puts "Clasificador estructural aplicado a #{Department.where.not(code: nil).count} unidades."
+
 # Create JobTitles
 job_titles_data = [
   { name: "Desarrollador", role: :Superadmin },

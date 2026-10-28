@@ -295,7 +295,7 @@
               <% if department.logoDepartment.attached? %>
                 <%= image_tag department.logoDepartment, alt: "Logo #{department.name}", class: "department-logo" %>
               <% else %>
-                <%= image_tag "#{department.acronym}.png" || "Logo-CDCH.png", alt: "Default Department Image", class: "department-logo", style: "transform: scale(1.2);" %>
+                <%= image_tag department_logo_asset(department), alt: "Default Department Image", class: "department-logo", style: "transform: scale(1.2);" %>
               <% end %>
             </div>
             <div class="update-content">
