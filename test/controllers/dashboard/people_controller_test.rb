@@ -77,6 +77,32 @@ class Dashboard::PeopleControllerTest < ActionDispatch::IntegrationTest
     assert_no_match "NO PUEDE ARBITRAR", response.body
   end
 
+  test "exports the filtered list to a styled spreadsheet" do
+    sign_in users(:director)
+
+    get people_url(format: :xlsx, faculty: "09")
+    assert_response :success
+    assert_equal Mime[:xlsx].to_s, response.media_type
+    assert_match(/docentes-cdch-\d{4}-\d{2}-\d{2}\.xlsx/, response.headers["Content-Disposition"])
+
+    sheet = spreadsheet_xml(response.body)
+    names = sheet.xpath("//x:row[position() > 3]/x:c[1]//x:t", x: SHEET_NS).map(&:text)
+    assert_equal [ "Núñez Rojas Luis", "Soto María" ], names.sort
+    assert_equal "Arbitrajes", sheet.xpath("//x:row[3]/x:c[last()]//x:t", x: SHEET_NS).text
+    assert_match "facultad:", sheet.xpath("//x:row[2]//x:t", x: SHEET_NS).text
+    assert_equal [ "4", "5" ], sheet.xpath("//x:row[position() > 3]/x:c[1]/@s", x: SHEET_NS).map(&:value), "zebra rows"
+    assert_equal "A3:L5", sheet.at_xpath("//x:autoFilter", x: SHEET_NS)["ref"]
+  end
+
+  test "spreadsheet leaves out peer reviews for superadmin" do
+    sign_in users(:superadmin)
+
+    get people_url(format: :xlsx)
+    assert_response :success
+    headers = spreadsheet_xml(response.body).xpath("//x:row[3]//x:t", x: SHEET_NS).map(&:text)
+    assert_not_includes headers, "Arbitrajes"
+  end
+
   test "dtic head is turned away" do
     sign_in users(:dtic_head)
 
@@ -93,5 +119,16 @@ class Dashboard::PeopleControllerTest < ActionDispatch::IntegrationTest
   test "anonymous visitors must sign in" do
     get people_url
     assert_redirected_to new_user_session_path
+  end
+
+  private
+
+  SHEET_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main".freeze
+
+  def spreadsheet_xml(body)
+    require "zip"
+    entries = Zip::File.open_buffer(StringIO.new(body)).entries.to_h { |entry| [ entry.name, entry.get_input_stream.read ] }
+    assert_equal %w[[Content_Types].xml _rels/.rels xl/_rels/workbook.xml.rels xl/styles.xml xl/workbook.xml xl/worksheets/sheet1.xml], entries.keys.sort
+    Nokogiri::XML(entries.fetch("xl/worksheets/sheet1.xml"))
   end
 end

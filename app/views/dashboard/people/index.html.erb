@@ -48,7 +48,13 @@
 <% end %>
 
 <%= turbo_frame_tag "people_results", class: "results-frame", data: { turbo_action: "advance", controller: "frame-history" } do %>
-  <p class="results-count"><%= number_with_delimiter(@total, delimiter: ".") %> personas</p>
+  <div class="results-toolbar">
+    <p class="results-count"><%= number_with_delimiter(@total, delimiter: ".") %> personas</p>
+    <%= link_to people_path(@filters.compact_blank.merge(format: :xlsx)), class: "btn btn-outline-success btn-sm", data: { turbo: false },
+          title: "Descarga el listado con los filtros aplicados" do %>
+      <i class="fas fa-file-excel me-1" aria-hidden="true"></i> Exportar a Excel
+    <% end %>
+  </div>
 
   <div class="table-responsive data-table">
     <table class="table table-hover table-sm align-middle mb-0">
