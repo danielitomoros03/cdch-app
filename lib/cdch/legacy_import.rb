@@ -21,7 +21,7 @@ module Cdch
     # Tablas que se vacían y se vuelven a llenar, de hijas a madres.
     REPLACED = [
       PeerReview, StageCoInvestigator, StagePublication, StageExtension, ProjectStage,
-      InstitutionalAid, Scholarship, PersonContact, UcvAppointment, PpiLevel
+      InstitutionalAid, Scholarship, UcvAppointment, PpiLevel
     ].freeze
 
     attr_reader :report
@@ -136,14 +136,18 @@ module Cdch
       @person_ids = rows("SELECT id, cedula FROM persona").to_h { |r| [ r["id"], ids_by_number.fetch(r["cedula"]) ] }
     end
 
+    # Los contactos que escribió el propio docente en "Mi espacio" se conservan.
     def import_contacts
+      PersonContact.where.not(source: PersonContact::TEACHER_SOURCE).delete_all
       contacts = rows("SELECT persona_id, tipo, valor, fuente FROM persona_contacto").filter_map do |r|
         kind = CONTACT_KIND[r["tipo"]]
         next count(:contactos_omitidos) unless kind && r["valor"].present?
 
         { person_id: person(r["persona_id"]), kind: kind, value: r["valor"].strip, source: r["fuente"] }
       end
-      insert PersonContact, contacts.uniq { |c| c.values_at(:person_id, :kind, :value) }
+      contacts.uniq! { |c| c.values_at(:person_id, :kind, :value) }
+      contacts.each_slice(BATCH) { |batch| PersonContact.insert_all(stamp(batch, created: true), record_timestamps: false) }
+      report[PersonContact.table_name] = PersonContact.count
     end
 
     def import_appointments

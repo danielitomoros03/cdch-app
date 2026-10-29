@@ -22,7 +22,7 @@
     <%= f.label :q, "Nombre o cédula", class: "form-label" %>
     <div class="input-group input-group-sm">
       <span class="input-group-text"><i class="fas fa-search" aria-hidden="true"></i></span>
-      <%= f.search_field :q, value: @filters[:q], class: "form-control", autocomplete: "off", placeholder: "Ej.: Pérez o 12345678",
+      <%= f.search_field :q, value: @filters[:q], class: "form-control", autocomplete: "off", placeholder: "Ej.: Pérez",
             data: { action: "input->auto-submit#debounced" } %>
     </div>
   </div>
@@ -44,17 +44,16 @@
   <div class="filter-bar__actions">
     <noscript><%= f.submit "Filtrar", name: nil, class: "btn btn-primary btn-sm" %></noscript>
     <%= link_to "Limpiar", people_path, class: "btn btn-outline-secondary btn-sm" %>
+    <%# Envía el mismo formulario a la versión .xlsx: siempre exporta los filtros que se ven. %>
+    <%= f.button type: "submit", name: nil, formaction: people_path(format: :xlsx), class: "btn btn-outline-success btn-sm",
+          data: { turbo: false }, title: "Descarga el listado con los filtros aplicados" do %>
+      <i class="fas fa-file-excel me-1" aria-hidden="true"></i> Exportar a Excel
+    <% end %>
   </div>
 <% end %>
 
 <%= turbo_frame_tag "people_results", class: "results-frame", data: { turbo_action: "advance", controller: "frame-history" } do %>
-  <div class="results-toolbar">
-    <p class="results-count"><%= number_with_delimiter(@total, delimiter: ".") %> personas</p>
-    <%= link_to people_path(@filters.compact_blank.merge(format: :xlsx)), class: "btn btn-outline-success btn-sm", data: { turbo: false },
-          title: "Descarga el listado con los filtros aplicados" do %>
-      <i class="fas fa-file-excel me-1" aria-hidden="true"></i> Exportar a Excel
-    <% end %>
-  </div>
+  <p class="results-count"><%= number_with_delimiter(@total, delimiter: ".") %> personas</p>
 
   <div class="table-responsive data-table">
     <table class="table table-hover table-sm align-middle mb-0">

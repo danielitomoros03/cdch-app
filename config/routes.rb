@@ -40,6 +40,18 @@ Rails.application.routes.draw do
   resources :people, module: 'dashboard', only: [:index, :show], path: 'docentes'
   resources :research_projects, module: 'dashboard', only: [:show], path: 'proyectos'
   get "dashboard/index" # INDEX DASHBOARD
+  resource :general_setup, module: "dashboard", only: [ :show, :update ], path: "configuracion" do
+    post :test_email
+  end
+
+  # "Mi espacio" del docente: entra con cédula + fecha de ingreso, sin cuenta de usuario.
+  scope "mi-espacio", module: "teacher_space" do
+    get "/", to: "profiles#show", as: :teacher_space
+    patch "/", to: "profiles#update"
+    get "entrar", to: "sessions#new", as: :new_teacher_session
+    post "entrar", to: "sessions#create", as: :teacher_session
+    delete "salir", to: "sessions#destroy", as: :destroy_teacher_session
+  end
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

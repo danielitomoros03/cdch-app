@@ -1,0 +1,35 @@
+<% content_for :title, "CDCH - Mi espacio" %>
+
+<div class="teacher-entry">
+  <section class="panel teacher-entry__form">
+    <h1 class="dashboard-page-header__title mb-1">Entra a tu espacio en el CDCH</h1>
+    <p class="text-muted">Si eres docente de la UCV, ya tienes un registro con nosotros. Confirma que eres tú para consultarlo y mantener tus datos al día.</p>
+
+    <%= form_with url: teacher_session_path, method: :post, data: { turbo: false } do |f| %>
+      <div class="mb-3">
+        <%= f.label :id_number, "Cédula de identidad", class: "form-label fw-semibold" %>
+        <%= f.text_field :id_number, value: params[:id_number], class: "form-control", inputmode: "numeric", autocomplete: "off",
+              required: true, placeholder: "Ej.: 12345678", aria: { describedby: "id-number-help" } %>
+        <div id="id-number-help" class="form-text">Solo los números, sin la V ni puntos.</div>
+      </div>
+      <div class="mb-4">
+        <%= f.label :hired_on, "Fecha de ingreso a la UCV", class: "form-label fw-semibold" %>
+        <%= f.date_field :hired_on, value: params[:hired_on], class: "form-control", required: true, max: Date.current,
+              aria: { describedby: "hired-on-help" } %>
+        <div id="hired-on-help" class="form-text">La usamos para confirmar que eres tú. Figura en tu constancia de trabajo.</div>
+      </div>
+      <%= f.submit "Entrar", class: "btn btn-primary w-100" %>
+    <% end %>
+  </section>
+
+  <aside class="teacher-entry__info">
+    <h2 class="panel__title">¿Qué vas a encontrar?</h2>
+    <ul class="small">
+      <li>Tus datos de contacto, para editarlos.</li>
+      <li>Tu ficha UCV: facultad, categoría y dedicación.</li>
+      <li>Tu historia en el CDCH: proyectos, ayudas y becas.</li>
+    </ul>
+    <h2 class="panel__title mt-4">¿No te encontramos?</h2>
+    <p class="small mb-0">Entras con los datos de la nómina docente de junio de 2026. Si no apareces en ella o tu fecha de ingreso no coincide, comunícate con el Departamento de Apoyo al Desarrollo de la Investigación (DADI) del CDCH.</p>
+  </aside>
+</div>

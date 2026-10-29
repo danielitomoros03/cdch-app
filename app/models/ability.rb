@@ -74,6 +74,11 @@ class Ability
       end
     end
 
+    # La Configuración general la maneja la DTIC; la Dirección solo la consulta (su `:read, :all`).
+    cannot :manage, GeneralSetup
+    can :manage, GeneralSetup if department_acronym == "DTIC" && %w[Superadmin JefeDepartamento].include?(role)
+    can :read, GeneralSetup if role == "Superadmin" && PEER_REVIEW_READERS.include?(job_title_name)
+
     # Va al final para pisar los `:manage, :all` de Superadmin y de la jefatura de DTIC.
     cannot :manage, [ *RESEARCH_RECORDS, PeerReview ]
     can :read, RESEARCH_RECORDS if role == "Superadmin" && RESEARCH_READERS.include?(job_title_name)

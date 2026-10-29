@@ -27,6 +27,7 @@
     <%= sidebar_link "Departamentos", departments_path, icon: "fa-building", sections: "departments" %>
     <%= sidebar_link "General CDCH", institutions_path, icon: "fa-address-book", sections: "institutions" %>
     <%= sidebar_link "Autoridades CDCH", institution_leaderships_path, icon: "fa-user-tie", sections: "institution_leaderships" if can? :read, InstitutionLeadership %>
+    <%= sidebar_link "Configuración general", general_setup_path, icon: "fa-sliders-h", sections: "general_setups" if can? :read, GeneralSetup %>
   </ul>
 </nav>
 

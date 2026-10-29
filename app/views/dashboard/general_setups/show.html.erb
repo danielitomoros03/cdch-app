@@ -1,0 +1,61 @@
+<% content_for :title, "CDCH - Configuración general" %>
+<% editable = can?(:update, @general_setup) %>
+
+<%= render "layouts/flash" %>
+
+<div class="dashboard-page-header">
+  <div>
+    <h1 class="dashboard-page-header__title">Configuración general</h1>
+    <p class="dashboard-page-header__subtitle">Funciones del sistema que la DTIC enciende o apaga sin desplegar de nuevo.</p>
+  </div>
+</div>
+
+<%= form_with model: @general_setup, url: general_setup_path, method: :patch do |f| %>
+  <section class="panel">
+    <div class="setup-row">
+      <div>
+        <h2 class="panel__title mb-1">Mi espacio del docente</h2>
+        <p class="small text-muted mb-0">Los docentes entran en <code>/mi-espacio</code> con su cédula y su fecha de ingreso a la UCV para consultar su historia y actualizar sus datos. No se enlaza desde la portada.</p>
+      </div>
+      <div class="form-check form-switch">
+        <%= f.check_box :teacher_space_enabled, class: "form-check-input", role: "switch", disabled: !editable %>
+        <%= f.label :teacher_space_enabled, @general_setup.teacher_space_enabled? ? "Activo" : "Apagado", class: "form-check-label" %>
+      </div>
+    </div>
+
+    <div class="setup-row">
+      <div>
+        <h2 class="panel__title mb-1">Envío de correos</h2>
+        <p class="small text-muted mb-1">Recuperación de contraseñas y avisos del sistema. Mientras esté apagado, ningún correo sale.</p>
+        <p class="small mb-0">
+          Servidor de correo:
+          <% if GeneralSetup.smtp_address %>
+            <span class="badge text-bg-success">configurado</span> <code><%= GeneralSetup.smtp_address %></code>
+          <% else %>
+            <span class="badge text-bg-secondary">sin configurar</span>
+            La DTIC debe definir <code>SMTP_ADDRESS</code>, <code>SMTP_USERNAME</code> y <code>SMTP_PASSWORD</code> en el servidor.
+          <% end %>
+        </p>
+      </div>
+      <div class="form-check form-switch">
+        <%= f.check_box :email_delivery_enabled, class: "form-check-input", role: "switch", disabled: !editable %>
+        <%= f.label :email_delivery_enabled, @general_setup.email_delivery_enabled? ? "Activo" : "Apagado", class: "form-check-label" %>
+      </div>
+    </div>
+
+    <% if editable %>
+      <div class="d-flex flex-wrap gap-2 align-items-center mt-3">
+        <%= f.submit "Guardar", class: "btn btn-primary btn-sm" %>
+      </div>
+    <% end %>
+  </section>
+<% end %>
+
+<% if editable %>
+  <%= button_to "Enviar un correo de prueba a #{current_user.email}", test_email_general_setup_path, method: :post,
+        class: "btn btn-outline-secondary btn-sm", form: { class: "mt-3" } %>
+<% end %>
+
+<% if @general_setup.updated_by %>
+  <p class="small text-muted mt-3">Último cambio: <%= @general_setup.updated_by.full_name %>, <%= l(@general_setup.updated_at, format: :short) %>.</p>
+<% end %>

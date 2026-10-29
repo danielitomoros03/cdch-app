@@ -67,6 +67,10 @@ The integer ordering is used in queries: `JobTitle.where("role <= ?", current_ro
 
 **Research records** (`Ability::RESEARCH_RECORDS`: people, legacy projects, aids, scholarships) are read-only, loaded with `rails cdch:import`, and readable only by the Director, Subdirector and Superadmin job titles. **Peer reviews (`PeerReview`) are confidential**: only Director and Subdirector, never DTIC (Superadmin job title) or teachers. Views check `can?(:read, PeerReview)` before querying them. Person names are stored in uppercase (`Person` normalizes); show them with `Person#display_name`.
 
+**Teacher space ("Mi espacio", `/mi-espacio`, `app/controllers/teacher_space/`)** is outside Devise and CanCanCan: a teacher enters with their cédula + UCV hire date from the 2026 payroll (`Person.find_by_identity`), gets a session with a 30-minute idle timeout, sees only their own record (never amounts, internal notes or peer reviews) and edits their contacts, ORCID and research lines (`TeacherProfile`). Failed attempts lock a cédula for an hour (`TeacherAccessAttempt`). It is switched on in the general setup and is not linked from the public site. Contacts written by the teacher have `source: "docente"` and survive `rails cdch:import`.
+
+**General setup (`GeneralSetup`, `/configuracion`)**: one row of feature switches managed by DTIC (the Director and Subdirector only read it): `teacher_space_enabled` and `email_delivery_enabled`. Secrets never go there. Email goes out by SMTP when the server has `SMTP_ADDRESS`, `SMTP_USERNAME`, `SMTP_PASSWORD` (optional `SMTP_PORT`, `MAIL_FROM`, `APP_HOST`); `MailDeliveryGate` drops every message while email delivery is off, except the test message sent from the setup page.
+
 ### Key Models
 
 - **`User`** — belongs to `Department` and `JobTitle`; role delegated from `JobTitle#role`; `active` boolean controls account activation (default `false`); `photoUser` via Active Storage

@@ -12,7 +12,8 @@
       </aside>
 
       <main class="dashboard__main" id="contenido">
-        <%= yield %>
+        <div class="dashboard__content"><%= yield %></div>
+        <%= render "layouts/app_footer" %>
       </main>
     </div>
   </div>

@@ -1,0 +1,11 @@
+<% flash.each do |type, message| %>
+  <% success = type.to_s == "notice" %>
+  <div class="alert <%= success ? "alert-success" : "alert-danger" %> alert-dismissible fade show" role="<%= success ? "status" : "alert" %>">
+    <i class="fas <%= success ? "fa-check-circle" : "fa-exclamation-circle" %> alert__icon" aria-hidden="true"></i>
+    <div>
+      <strong class="alert__title"><%= success ? "Listo" : "Revisa los datos" %></strong>
+      <%= message %>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+  </div>
+<% end %>

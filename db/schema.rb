@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_10_29_000000) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_29_150000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -112,6 +112,17 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_29_000000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_funding_sources_on_code", unique: true
+  end
+
+  create_table "general_setups", force: :cascade do |t|
+    t.integer "singleton", default: 1, null: false
+    t.boolean "teacher_space_enabled", default: false, null: false
+    t.boolean "email_delivery_enabled", default: false, null: false
+    t.bigint "updated_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["singleton"], name: "index_general_setups_on_singleton", unique: true
+    t.index ["updated_by_id"], name: "index_general_setups_on_updated_by_id"
   end
 
   create_table "institution_leaderships", force: :cascade do |t|
@@ -272,6 +283,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_29_000000) do
     t.string "sources"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "orcid"
+    t.text "research_lines"
+    t.datetime "space_activated_at"
     t.index ["full_name"], name: "index_people_on_full_name"
     t.index ["id_number"], name: "index_people_on_id_number", unique: true
     t.index ["payroll_status"], name: "index_people_on_payroll_status"
@@ -483,6 +497,15 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_29_000000) do
     t.index ["project_stage_id"], name: "index_stage_publications_on_project_stage_id"
   end
 
+  create_table "teacher_access_attempts", force: :cascade do |t|
+    t.string "id_number", null: false
+    t.integer "failures", default: 0, null: false
+    t.datetime "locked_until"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id_number"], name: "index_teacher_access_attempts_on_id_number", unique: true
+  end
+
   create_table "ucv_appointments", force: :cascade do |t|
     t.bigint "person_id", null: false
     t.string "payroll_type_code"
@@ -548,6 +571,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_29_000000) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "departments", "departments", column: "parent_id"
+  add_foreign_key "general_setups", "users", column: "updated_by_id"
   add_foreign_key "institution_leaderships", "institutions"
   add_foreign_key "institutional_aids", "departments"
   add_foreign_key "institutional_aids", "legacy_statuses"

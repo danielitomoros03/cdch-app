@@ -1,0 +1,28 @@
+<% content_for :body do %>
+  <div class="teacher-space">
+    <header class="dashboard-header">
+      <%= link_to teacher_space_path, class: "dashboard-header__brand" do %>
+        <%= image_tag "Logo-CDCH.png", alt: "", class: "dashboard-header__logo" %>
+        <span class="dashboard-header__names">
+          <span class="dashboard-header__title">Mi espacio en el CDCH</span>
+          <span class="dashboard-header__subtitle d-none d-md-block">Consejo de Desarrollo Científico y Humanístico · UCV</span>
+        </span>
+      <% end %>
+
+      <% if current_teacher %>
+        <div class="ms-auto d-flex align-items-center gap-3">
+          <span class="d-none d-sm-inline small fw-semibold"><%= current_teacher.display_name %></span>
+          <%= button_to "Cerrar sesión", destroy_teacher_session_path, method: :delete, class: "btn btn-outline-secondary btn-sm" %>
+        </div>
+      <% end %>
+    </header>
+
+    <main class="teacher-space__main" id="contenido">
+      <%= render "layouts/flash" %>
+      <%= yield %>
+    </main>
+
+    <%= render "layouts/app_footer" %>
+  </div>
+<% end %>
+<%= render template: "layouts/application" %>

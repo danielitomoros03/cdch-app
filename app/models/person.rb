@@ -18,12 +18,15 @@
 #  legacy_faculty_code :string
 #  legacy_position     :string
 #  nationality         :string
+#  orcid               :string
 #  payroll_name        :string
 #  payroll_status      :string
 #  project_lead        :boolean          default(FALSE), not null
+#  research_lines      :text
 #  reviewer            :boolean          default(FALSE), not null
 #  scholar             :boolean          default(FALSE), not null
 #  sources             :string
+#  space_activated_at  :datetime
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
@@ -52,8 +55,11 @@ class Person < ApplicationRecord
   normalizes(*NAME_FIELDS, with: ->(name) { name.squish.upcase })
   NAME_PARTICLES = %w[de del la las los da di van von].to_set.freeze
 
+  normalizes :orcid, with: ->(orcid) { orcid.strip.delete_prefix("https://orcid.org/").upcase }
+
   validates :id_number, presence: true, uniqueness: true
   validates :full_name, presence: true
+  validates :orcid, format: { with: /\A\d{4}-\d{4}-\d{4}-\d{3}[\dX]\z/, message: "debe tener la forma 0000-0000-0000-0000" }, allow_blank: true
 
   scope :with_cdch_history, -> { where(project_lead: true).or(where(co_investigator: true)).or(where(reviewer: true)).or(where(aid_applicant: true)).or(where(scholar: true)) }
   scope :outside_payroll, -> { where(in_payroll: false) }
@@ -94,6 +100,22 @@ class Person < ApplicationRecord
       word_index += 1
       word_index.positive? && NAME_PARTICLES.include?(word) ? word : word.capitalize
     end
+  end
+
+  # "V-012.345.678" → "12345678", como se guardan las cédulas.
+  def self.normalize_id_number(raw)
+    raw.to_s.gsub(/\D/, "").sub(/\A0+/, "")
+  end
+
+  # Entrada a "Mi espacio": la cédula y la fecha de ingreso de alguno de sus cargos en la nómina.
+  def self.find_by_identity(id_number, hired_on)
+    return if id_number.blank? || hired_on.blank?
+
+    joins(:ucv_appointments).where(ucv_appointments: { hired_on: hired_on }).find_by(id_number: id_number)
+  end
+
+  def teacher_contact(kind)
+    contacts.find { |contact| contact.kind == kind && contact.source == PersonContact::TEACHER_SOURCE }&.value
   end
 
   def situation

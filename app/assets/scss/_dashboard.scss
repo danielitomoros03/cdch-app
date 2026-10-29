@@ -1,6 +1,15 @@
 // Panel interno (layouts/dashboard): encabezado compacto, menú lateral que se
 // contrae a íconos y área de contenido que ocupa el resto.
-.dashboard {
+// Esquinas casi rectas en todo el interior: más formal. El sitio público no cambia.
+$dashboard-radius: 0.125rem;
+
+.dashboard,
+.teacher-space {
+  --bs-border-radius: #{$dashboard-radius};
+  --bs-border-radius-sm: #{$dashboard-radius};
+  --bs-border-radius-lg: #{$dashboard-radius};
+  --bs-border-radius-xl: #{$dashboard-radius};
+  --bs-border-radius-xxl: #{$dashboard-radius};
   --dashboard-header-height: 3.5rem;
   --dashboard-sidebar-width: 15rem;
   --dashboard-sidebar-collapsed-width: 4.25rem;
@@ -148,7 +157,7 @@
     align-items: center;
     gap: 0.75rem;
     padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem;
+    border-radius: $dashboard-radius;
     color: #374151;
     font-size: 0.9rem;
     white-space: nowrap;
@@ -186,7 +195,7 @@
     margin: 0.5rem 0.625rem 0.75rem;
     padding: 0.5rem 0.75rem;
     border: 0;
-    border-radius: 0.5rem;
+    border-radius: $dashboard-radius;
     background: transparent;
     color: var(--dashboard-muted);
     font-size: 0.85rem;
@@ -279,7 +288,7 @@
   margin-bottom: 1.25rem;
   background-color: $bg-white;
   border: 1px solid var(--dashboard-border);
-  border-radius: 0.75rem;
+  border-radius: $dashboard-radius;
 
   .form-label {
     margin-bottom: 0.25rem;
@@ -289,16 +298,17 @@
     white-space: nowrap;
   }
 
+  // Bases pequeñas para que filtros y botones quepan en una sola fila en una laptop.
   &__field {
-    flex: 1 1 10rem;
+    flex: 1 1 8rem;
     min-width: 0;
 
     &--wide {
-      flex: 2 1 14rem;
+      flex: 2 1 11rem;
     }
 
     &--narrow {
-      flex: 0 1 7rem;
+      flex: 0 1 5.5rem;
     }
 
     &--switch {
@@ -317,7 +327,7 @@
     font-size: 0.875rem;
     background-color: $bg-white;
     border: 1px solid $gray-400;
-    border-radius: var(--bs-border-radius-sm);
+    border-radius: $dashboard-radius;
     white-space: nowrap;
 
     .form-check-input {
@@ -347,18 +357,6 @@
   }
 }
 
-.results-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
-
-  .results-count {
-    margin-bottom: 0;
-  }
-}
-
 .results-count {
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
@@ -369,13 +367,13 @@
 .data-table {
   background-color: $bg-white;
   border: 1px solid var(--dashboard-border);
-  border-radius: 0.75rem;
+  border-radius: $dashboard-radius;
 
   .table {
     font-size: 0.875rem;
 
     > :not(caption) > * > * {
-      padding: 0.55rem 0.75rem;
+      padding: 0.45rem 0.75rem;
     }
   }
 
@@ -398,7 +396,8 @@
   }
 }
 
-.dashboard__main {
+.dashboard__main,
+.teacher-space__main {
   h1, h2, h3, h4, h5, h6 {
     color: $text-dark;
   }
@@ -415,7 +414,7 @@
   padding: 0.875rem 1rem;
   background-color: $bg-white;
   border: 1px solid var(--dashboard-border);
-  border-radius: 0.75rem;
+  border-radius: $dashboard-radius;
 
   &__label {
     font-size: 0.75rem;
@@ -436,7 +435,7 @@
   margin-bottom: 1.25rem;
   background-color: $bg-white;
   border: 1px solid var(--dashboard-border);
-  border-radius: 0.75rem;
+  border-radius: $dashboard-radius;
 
   &__title {
     font-size: 1rem;
@@ -471,7 +470,7 @@
   }
 
   .data-table {
-    border-radius: 0.5rem;
+    border-radius: $dashboard-radius;
   }
 }
 
@@ -494,12 +493,114 @@
 
 .dashboard-card {
   border-color: var(--dashboard-border);
-  border-radius: 0.75rem;
+  border-radius: $dashboard-radius;
   overflow: hidden;
 
   > .card-header {
     background-color: $bg-light;
     border-bottom-color: var(--dashboard-border);
     font-size: 0.875rem;
+  }
+}
+
+// "Mi espacio" del docente: mismo encabezado y paneles del panel interno, sin menú lateral.
+.teacher-space {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: $bg-light;
+
+  &__main {
+    flex: 1;
+    width: 100%;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 2rem;
+  }
+
+}
+
+.teacher-entry {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 56rem;
+  margin: 1rem auto 0;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: 3fr 2fr;
+    align-items: start;
+  }
+
+  &__info {
+    padding: 1rem 0.25rem;
+  }
+}
+
+// Avisos sobrios: franja de color a la izquierda, sin esquinas redondeadas.
+.dashboard,
+.teacher-space {
+  .alert {
+    --bs-alert-border-radius: 0;
+    --bs-alert-padding-y: 0.75rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    border-width: 0 0 0 4px;
+    border-left-color: var(--bs-alert-color);
+    font-size: 0.875rem;
+
+    &.alert-dismissible {
+      padding-right: 3rem;
+    }
+
+    .alert__icon {
+      margin-top: 0.15rem;
+    }
+
+    .alert__title {
+      display: block;
+      font-weight: 700;
+    }
+  }
+}
+
+.app-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--dashboard-border);
+  text-align: center;
+  font-size: 0.75rem;
+  color: $gray-600;
+}
+
+// El pie queda al fondo aunque la página tenga poco contenido.
+.dashboard__main {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard__content {
+  flex: 1 0 auto;
+}
+
+.dashboard__main > .app-footer {
+  margin-top: 2rem;
+  padding-bottom: 0;
+}
+
+.setup-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--dashboard-border);
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  .form-switch {
+    flex: 0 0 auto;
+    min-width: 6.5rem;
   }
 }

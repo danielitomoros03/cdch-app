@@ -54,15 +54,26 @@
     </p>
   <% end %>
 
-  <% if @contacts.any? || @ppi_levels.any? %>
+  <% if @contacts.any? || @ppi_levels.any? || @person.orcid.present? || @person.research_lines.present? %>
     <div class="row g-4 mt-1">
-      <% if @contacts.any? %>
+      <% if @contacts.any? || @person.orcid.present? || @person.research_lines.present? %>
         <div class="col-md-8">
-          <h3 class="panel__subtitle">Contacto <span class="fw-normal">· datos del sistema heredado, pueden estar desactualizados</span></h3>
+          <h3 class="panel__subtitle">Contacto <span class="fw-normal">· los del sistema heredado pueden estar desactualizados</span></h3>
           <dl class="detail-list">
             <% @contacts.each do |contact| %>
               <dt><%= { "email" => "Correo", "phone" => "Teléfono", "address" => "Dirección" }[contact.kind] %></dt>
-              <dd><%= contact.value %></dd>
+              <dd>
+                <%= contact.value %>
+                <% if contact.source == PersonContact::TEACHER_SOURCE %>
+                  <span class="badge text-bg-success ms-1" title="Lo escribió el docente en Mi espacio">del docente</span>
+                <% end %>
+              </dd>
+            <% end %>
+            <% if @person.orcid.present? %>
+              <dt>ORCID</dt><dd><%= link_to @person.orcid, "https://orcid.org/#{@person.orcid}", target: "_blank", rel: "noopener" %></dd>
+            <% end %>
+            <% if @person.research_lines.present? %>
+              <dt>Líneas de investigación</dt><dd><%= multiline(@person.research_lines) %></dd>
             <% end %>
           </dl>
         </div>

@@ -1,0 +1,94 @@
+<% content_for :title, "CDCH - Mi espacio" %>
+<% person = current_teacher %>
+
+<div class="dashboard-page-header">
+  <div>
+    <h1 class="dashboard-page-header__title">Hola, <%= person.display_name %></h1>
+    <p class="dashboard-page-header__subtitle">
+      <%= faculty_label(person.faculty_code, @faculty_names) %> · <%= situation_badge(person) %>
+    </p>
+  </div>
+</div>
+
+<div class="stat-tiles">
+  <% @history.counts.each do |label, value| %>
+    <div class="stat-tile">
+      <div class="stat-tile__label"><%= label %></div>
+      <div class="stat-tile__value"><%= value %></div>
+    </div>
+  <% end %>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-7">
+    <section class="panel h-100">
+      <h2 class="panel__title">Mis datos <span class="badge text-bg-light fw-normal">los editas tú</span></h2>
+      <%= form_with model: @profile, url: teacher_space_path, method: :patch, scope: :teacher_profile do |f| %>
+        <% if @profile.errors.any? %>
+          <div class="alert alert-warning" role="alert">
+            <ul class="mb-0"><% @profile.errors.full_messages.each do |message| %><li><%= message %></li><% end %></ul>
+          </div>
+        <% end %>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <%= f.label :email, "Correo", class: "form-label" %>
+            <%= f.email_field :email, class: "form-control", autocomplete: "email" %>
+          </div>
+          <div class="col-md-6">
+            <%= f.label :phone, "Teléfono", class: "form-label" %>
+            <%= f.telephone_field :phone, class: "form-control", autocomplete: "tel" %>
+          </div>
+          <div class="col-md-6">
+            <%= f.label :orcid, "ORCID (opcional)", class: "form-label" %>
+            <%= f.text_field :orcid, class: "form-control", placeholder: "0000-0000-0000-0000" %>
+          </div>
+          <div class="col-12">
+            <%= f.label :research_lines, "Líneas de investigación", class: "form-label" %>
+            <%= f.text_area :research_lines, rows: 3, class: "form-control" %>
+          </div>
+        </div>
+        <%= f.submit "Guardar cambios", class: "btn btn-primary mt-3" %>
+      <% end %>
+    </section>
+  </div>
+
+  <div class="col-lg-5">
+    <section class="panel h-100">
+      <h2 class="panel__title">Mi ficha UCV</h2>
+      <% if (appointment = person.current_appointment) %>
+        <dl class="detail-list">
+          <dt>Dependencia</dt><dd><%= appointment.dependency %></dd>
+          <dt>Unidad</dt><dd><%= appointment.ucv_unit_name || "—" %></dd>
+          <dt>Categoría</dt><dd><%= appointment.category %></dd>
+          <dt>Dedicación</dt><dd><%= appointment.dedication %></dd>
+          <dt>Ingreso a la UCV</dt><dd><%= legacy_date(appointment.hired_on) %></dd>
+        </dl>
+      <% end %>
+      <p class="small text-muted mb-0">Fuente: nómina docente UCV, junio de 2026. Si algo no está bien, comunícate con el DADI.</p>
+    </section>
+  </div>
+</div>
+
+<section class="panel mt-3">
+  <h2 class="panel__title">Mi historia en el CDCH <span class="badge text-bg-light fw-normal">solo consulta</span></h2>
+  <% if @history.entries.any? %>
+    <div class="table-responsive data-table">
+      <table class="table table-sm align-middle mb-0">
+        <thead><tr><th>Año</th><th>Tipo</th><th>Título</th><th>Rol</th><th>Estado</th></tr></thead>
+        <tbody>
+          <% @history.entries.each do |entry| %>
+            <tr>
+              <td><%= entry.date&.year || "—" %></td>
+              <td><%= entry.kind %></td>
+              <td><%= entry.title.presence || "—" %></td>
+              <td><%= entry.role %></td>
+              <td><%= entry.status.presence || "—" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p class="panel__empty">Todavía no hay proyectos, ayudas ni becas a tu nombre en el CDCH.</p>
+  <% end %>
+</section>

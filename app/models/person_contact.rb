@@ -21,6 +21,10 @@
 #
 class PersonContact < ApplicationRecord
   KINDS = %w[email phone address].freeze
+  # Los que escribe el propio docente en "Mi espacio"; la carga del sistema heredado no los toca.
+  TEACHER_SOURCE = "docente".freeze
+
+  scope :from_teacher, -> { where(source: TEACHER_SOURCE) }
 
   belongs_to :person
 

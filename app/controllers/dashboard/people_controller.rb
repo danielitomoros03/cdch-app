@@ -5,7 +5,8 @@ module Dashboard
 
     load_and_authorize_resource
 
-    PER_PAGE = 50
+    # Pocas filas para que la paginación se vea sin desplazarse.
+    PER_PAGE = 12
 
     def index
       @faculties = Faculty.order(:code)
@@ -28,7 +29,7 @@ module Dashboard
     def show
       @faculty_names = Faculty.pluck(:code, :name).to_h
       @appointments = @person.ucv_appointments.order(hired_on: :desc)
-      @contacts = @person.contacts.order(:kind, :value)
+      @contacts = @person.contacts.order(Arel.sql("source = 'docente' DESC"), :kind, :value)
       @led_stages = @person.led_stages.includes(:research_project, :legacy_status).order(requested_on: :desc)
       @co_stages = @person.co_investigations.includes(project_stage: [ :research_project, :lead_person ]).order(stage_number: :desc)
       @aids = @person.institutional_aids.includes(:legacy_status).order(requested_on: :desc)
