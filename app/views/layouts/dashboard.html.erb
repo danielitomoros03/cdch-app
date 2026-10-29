@@ -1,0 +1,20 @@
+<% content_for :body do %>
+  <div class="dashboard <%= "dashboard--collapsed" if sidebar_collapsed? %>" data-controller="sidebar" data-sidebar-collapsed-class="dashboard--collapsed">
+    <%= render "layouts/dashboard_header" %>
+
+    <div class="dashboard__body">
+      <aside class="dashboard__sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="dashboardSidebar" aria-labelledby="dashboardSidebarLabel">
+        <div class="offcanvas-header d-lg-none">
+          <h2 class="offcanvas-title h6 mb-0" id="dashboardSidebarLabel">CDCH · La casa que vence la sombra</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#dashboardSidebar" aria-label="Cerrar"></button>
+        </div>
+        <%= render "layouts/sidebar" %>
+      </aside>
+
+      <main class="dashboard__main" id="contenido">
+        <%= yield %>
+      </main>
+    </div>
+  </div>
+<% end %>
+<%= render template: "layouts/application" %>

@@ -1,88 +1,78 @@
-<div class="container-fluid">
-  <div class="row">
-    <%= render "/layouts/header" %> <!-- Header -->
-    <%= render "/layouts/sidebar" %> <!-- Sidebar para pantallas grandes -->
-
-    <!-- Contenido principal -->
-    <div class="col-md mt-3 ms-auto col-lg-10 px-md-3">
-      <% content_for :title, "CDCH - Proyecto #{@research_project.code}" %>
-      <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
-        <div>
-          <h1 class="h4 mb-1"><%= @research_project.title %></h1>
-          <div class="text-muted">
-            <%= @research_project.code %><%= " (antes #{@research_project.legacy_code})" if @research_project.legacy_code.present? %>
-            · <%= @research_project.project_type&.name || @research_project.project_type_code %>
-            · <%= faculty_label(@research_project.faculty_code, @faculty_names) %>
-            <% if @research_project.lead_person %>
-              · Responsable: <%= link_to @research_project.lead_person.full_name, person_path(@research_project.lead_person) %>
-            <% end %>
-          </div>
-        </div>
-        <%= link_to "Volver", :back, class: "btn btn-outline-secondary btn-sm" %>
+<div>
+  <% content_for :title, "CDCH - Proyecto #{@research_project.code}" %>
+  <div class="dashboard-page-header">
+    <div>
+      <h1 class="dashboard-page-header__title"><%= @research_project.title %></h1>
+      <div class="dashboard-page-header__subtitle">
+        <%= @research_project.code %><%= " (antes #{@research_project.legacy_code})" if @research_project.legacy_code.present? %>
+        · <%= @research_project.project_type&.name || @research_project.project_type_code %>
+        · <%= faculty_label(@research_project.faculty_code, @faculty_names) %>
+        <% if @research_project.lead_person %>
+          · Responsable: <%= link_to @research_project.lead_person.display_name, person_path(@research_project.lead_person) %>
+        <% end %>
       </div>
+    </div>
+    <%= link_to "Volver", :back, class: "btn btn-outline-secondary btn-sm" %>
+  </div>
 
-      <% @stages.each do |stage| %>
-        <div class="card shadow-sm mb-3">
-          <div class="card-header d-flex justify-content-between flex-wrap">
-            <strong>Etapa <%= [ stage.number, stage.total_stages ].compact.join(" de ") %></strong>
-            <span><%= stage.legacy_status&.name %> · solicitada <%= legacy_date(stage.requested_on) %></span>
+  <% @stages.each do |stage| %>
+    <div class="card dashboard-card mb-3">
+      <div class="card-header d-flex justify-content-between flex-wrap">
+        <strong>Etapa <%= [ stage.number, stage.total_stages ].compact.join(" de ") %></strong>
+        <span><%= stage.legacy_status&.name %> · solicitada <%= legacy_date(stage.requested_on) %></span>
+      </div>
+      <div class="card-body small">
+        <% if stage.title.present? && stage.title != @research_project.title %>
+          <p><strong>Título en esta etapa:</strong> <%= stage.title %></p>
+        <% end %>
+        <% if stage.lead_person && stage.lead_person_id != @research_project.lead_person_id %>
+          <p><strong>Responsable en esta etapa:</strong> <%= link_to stage.lead_person.display_name, person_path(stage.lead_person) %></p>
+        <% end %>
+        <div class="row">
+          <div class="col-md-6">
+            <dl class="row mb-0">
+              <dt class="col-6">Solicitado</dt><dd class="col-6"><%= legacy_amount(stage.amount_requested, stage.currency) %></dd>
+              <dt class="col-6">Aprobado</dt><dd class="col-6"><%= legacy_amount(stage.amount_approved, stage.currency) %> <%= flagged_amount_badge(stage) %></dd>
+              <dt class="col-6">Fecha de aprobación</dt><dd class="col-6"><%= legacy_date(stage.approved_on) %></dd>
+              <dt class="col-6">Fondo</dt><dd class="col-6"><%= stage.funding_source&.name || "—" %></dd>
+              <dt class="col-6">Duración</dt><dd class="col-6"><%= stage.duration_months ? "#{stage.duration_months} meses" : "—" %></dd>
+            </dl>
           </div>
-          <div class="card-body small">
-            <% if stage.title.present? && stage.title != @research_project.title %>
-              <p><strong>Título en esta etapa:</strong> <%= stage.title %></p>
-            <% end %>
-            <% if stage.lead_person && stage.lead_person_id != @research_project.lead_person_id %>
-              <p><strong>Responsable en esta etapa:</strong> <%= link_to stage.lead_person.full_name, person_path(stage.lead_person) %></p>
-            <% end %>
-            <div class="row">
-              <div class="col-md-6">
-                <dl class="row mb-0">
-                  <dt class="col-6">Solicitado</dt><dd class="col-6"><%= legacy_amount(stage.amount_requested, stage.currency) %></dd>
-                  <dt class="col-6">Aprobado</dt><dd class="col-6"><%= legacy_amount(stage.amount_approved, stage.currency) %> <%= flagged_amount_badge(stage) %></dd>
-                  <dt class="col-6">Fecha de aprobación</dt><dd class="col-6"><%= legacy_date(stage.approved_on) %></dd>
-                  <dt class="col-6">Fondo</dt><dd class="col-6"><%= stage.funding_source&.name || "—" %></dd>
-                  <dt class="col-6">Duración</dt><dd class="col-6"><%= stage.duration_months ? "#{stage.duration_months} meses" : "—" %></dd>
-                </dl>
-              </div>
-              <div class="col-md-6">
-                <dl class="row mb-0">
-                  <dt class="col-6">Equipos</dt><dd class="col-6"><%= legacy_amount(stage.amount_equipment, stage.currency) %></dd>
-                  <dt class="col-6">Materiales</dt><dd class="col-6"><%= legacy_amount(stage.amount_supplies, stage.currency) %></dd>
-                  <dt class="col-6">Viajes</dt><dd class="col-6"><%= legacy_amount(stage.amount_travel, stage.currency) %></dd>
-                  <dt class="col-6">Servicios</dt><dd class="col-6"><%= legacy_amount(stage.amount_services, stage.currency) %></dd>
-                  <dt class="col-6">Personal</dt><dd class="col-6"><%= legacy_amount(stage.amount_personnel, stage.currency) %></dd>
-                  <dt class="col-6">Otros</dt><dd class="col-6"><%= legacy_amount(stage.amount_other, stage.currency) %></dd>
-                </dl>
-              </div>
-            </div>
-            <p class="mt-2 mb-1">
-              <strong>Informe parcial:</strong> <%= legacy_date(stage.partial_report_approved_on) %><%= " (conforme)" if stage.partial_report_ok %> ·
-              <strong>Informe final:</strong> <%= legacy_date(stage.final_report_approved_on) %><%= " (conforme)" if stage.final_report_ok %>
-            </p>
-            <% if stage.co_investigators.any? %>
-              <p class="mb-1"><strong>Coinvestigadores:</strong>
-                <%= safe_join(stage.co_investigators.map { |co| link_to(co.person.full_name, person_path(co.person)) }, ", ") %>
-              </p>
-            <% end %>
-            <% if stage.publications.any? %>
-              <p class="mb-1"><strong>Publicaciones:</strong>
-                <%= safe_join(stage.publications.map { |pub| [ pub.title, pub.venue ].compact_blank.join(" — ") }, "; ") %>
-              </p>
-            <% end %>
-            <% if stage.extensions.any? %>
-              <p class="mb-1"><strong>Prórrogas:</strong> <%= safe_join(stage.extensions.map { |ext| legacy_date(ext.granted_on) }, ", ") %></p>
-            <% end %>
-            <% if stage.work_title.present? %>
-              <p class="mb-1"><strong>Trabajo:</strong> <%= stage.work_title %><%= " — #{stage.work_journal}" if stage.work_journal.present? %></p>
-            <% end %>
-            <% if stage.notes.present? %>
-              <p class="mb-0 text-muted"><strong>Observaciones:</strong> <%= stage.notes %></p>
-            <% end %>
+          <div class="col-md-6">
+            <dl class="row mb-0">
+              <dt class="col-6">Equipos</dt><dd class="col-6"><%= legacy_amount(stage.amount_equipment, stage.currency) %></dd>
+              <dt class="col-6">Materiales</dt><dd class="col-6"><%= legacy_amount(stage.amount_supplies, stage.currency) %></dd>
+              <dt class="col-6">Viajes</dt><dd class="col-6"><%= legacy_amount(stage.amount_travel, stage.currency) %></dd>
+              <dt class="col-6">Servicios</dt><dd class="col-6"><%= legacy_amount(stage.amount_services, stage.currency) %></dd>
+              <dt class="col-6">Personal</dt><dd class="col-6"><%= legacy_amount(stage.amount_personnel, stage.currency) %></dd>
+              <dt class="col-6">Otros</dt><dd class="col-6"><%= legacy_amount(stage.amount_other, stage.currency) %></dd>
+            </dl>
           </div>
         </div>
-      <% end %>
+        <p class="mt-2 mb-1">
+          <strong>Informe parcial:</strong> <%= legacy_date(stage.partial_report_approved_on) %><%= " (conforme)" if stage.partial_report_ok %> ·
+          <strong>Informe final:</strong> <%= legacy_date(stage.final_report_approved_on) %><%= " (conforme)" if stage.final_report_ok %>
+        </p>
+        <% if stage.co_investigators.any? %>
+          <p class="mb-1"><strong>Coinvestigadores:</strong>
+            <%= safe_join(stage.co_investigators.map { |co| link_to(co.person.display_name, person_path(co.person)) }, ", ") %>
+          </p>
+        <% end %>
+        <% if stage.publications.any? %>
+          <p class="mb-1"><strong>Publicaciones:</strong>
+            <%= safe_join(stage.publications.map { |pub| [ pub.title, pub.venue ].compact_blank.join(" — ") }, "; ") %>
+          </p>
+        <% end %>
+        <% if stage.extensions.any? %>
+          <p class="mb-1"><strong>Prórrogas:</strong> <%= safe_join(stage.extensions.map { |ext| legacy_date(ext.granted_on) }, ", ") %></p>
+        <% end %>
+        <% if stage.work_title.present? %>
+          <p class="mb-1"><strong>Trabajo:</strong> <%= stage.work_title %><%= " — #{stage.work_journal}" if stage.work_journal.present? %></p>
+        <% end %>
+        <% if stage.notes.present? %>
+          <p class="mb-0 text-muted"><strong>Observaciones:</strong> <%= stage.notes %></p>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
-
-<%= render "dashboard/people/offcanvas" %>

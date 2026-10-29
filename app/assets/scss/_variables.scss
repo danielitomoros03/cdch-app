@@ -160,7 +160,7 @@ $pagination-padding-x-sm:           .5rem;
 $pagination-padding-y-lg:           .75rem;
 $pagination-padding-x-lg:           1.5rem;
 
-$pagination-font-size:              font-size-base;
+$pagination-font-size:              var(--#{$prefix}body-font-size);
 
 $pagination-color:                  var(--#{$prefix}link-color);
 $pagination-bg:                     var(--#{$prefix}body-bg);
@@ -171,16 +171,16 @@ $pagination-border-color:           var(--#{$prefix}border-color);
 
 $pagination-focus-color:            var(--#{$prefix}link-hover-color);
 $pagination-focus-bg:               var(--#{$prefix}secondary-bg);
-$pagination-focus-box-shadow:       focus-ring-box-shadow;
+$pagination-focus-box-shadow:       0 0 0 .25rem rgba(var(--#{$prefix}primary-rgb), .25);
 $pagination-focus-outline:          0;
 
 $pagination-hover-color:            var(--#{$prefix}link-hover-color);
 $pagination-hover-bg:               var(--#{$prefix}tertiary-bg);
 $pagination-hover-border-color:     var(--#{$prefix}border-color); // Todo in v6: remove this?
 
-$pagination-active-color:           component-active-color;
-$pagination-active-bg:              component-active-bg;
-$pagination-active-border-color:    component-active-bg;
+$pagination-active-color:           var(--#{$prefix}white);
+$pagination-active-bg:              var(--#{$prefix}primary);
+$pagination-active-border-color:    var(--#{$prefix}primary);
 
 $pagination-disabled-color:         var(--#{$prefix}secondary-color);
 $pagination-disabled-bg:            var(--#{$prefix}secondary-bg);
@@ -190,3 +190,14 @@ $pagination-transition:              color .15s ease-in-out, background-color .1
 
 $pagination-border-radius-sm:       var(--#{$prefix}border-radius-sm);
 $pagination-border-radius-lg:       var(--#{$prefix}border-radius-lg);
+
+// Bootstrap 5.3 cambió estos tonos respecto de 5.0; se fijan los de 5.0 para que
+// el sitio público se vea igual que antes de la actualización.
+$navbar-light-color: rgba($black, .55);
+$navbar-light-hover-color: rgba($black, .7);
+$navbar-light-active-color: rgba($black, .9);
+$input-placeholder-color: $gray-600;
+$input-border-color: $gray-400;
+$navbar-light-icon-color: rgba($black, .55);
+$body-secondary-color: $gray-600;
+$text-muted: $gray-600;

@@ -1,77 +1,60 @@
-<div class="container-fluid">
-  <div class="row">
-    <%= render "/layouts/header" %>
-    <%= render "/layouts/sidebar" %>
+<div class="text-center">
+  <div>
+    <% if notice %>
+      <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+    <% end %>
+  </div>
 
-    <div class="col-md mt-3 ms-auto col-lg-10 px-md-0 text-center">
-      <div>
-        <% if notice %>
-          <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
-        <% end %>
-      </div>
+  <% content_for :title, "Autoridad #{@institution_leadership.id}" %>
+  <h1>Autoridad <%= @institution_leadership.id %></h1>
 
-      <% content_for :title, "Autoridad #{@institution_leadership.id}" %>
-      <h1>Autoridad <%= @institution_leadership.id %></h1>
+  <div class="container">
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Cargo</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Institución</th>
+          <th scope="col">Período</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <%= render @institution_leadership %>
+    </table>
 
-      <div class="container">
-        <table class="table table-striped table-hover table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Cargo</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Institución</th>
-              <th scope="col">Período</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Acciones</th>
-            </tr>
-          </thead>
-          <%= render @institution_leadership %>
-        </table>
-
-        <div class="row justify-content-center mt-4">
-          <% if @institution_leadership.photo.attached? %>
-            <div class="col-md-4 mb-3">
-              <%= image_tag @institution_leadership.photo, class: "img-fluid rounded shadow-sm", alt: @institution_leadership.full_name %>
-            </div>
-          <% end %>
-
-          <% if @institution_leadership.bio.body.present? %>
-            <div class="col-md-8 text-start">
-              <div class="card">
-                <div class="card-header">
-                  <h5 class="mb-0">Reseña</h5>
-                </div>
-                <div class="card-body">
-                  <%= @institution_leadership.bio %>
-                </div>
-              </div>
-            </div>
-          <% end %>
+    <div class="row justify-content-center mt-4">
+      <% if @institution_leadership.photo.attached? %>
+        <div class="col-md-4 mb-3">
+          <%= image_tag @institution_leadership.photo, class: "img-fluid rounded shadow-sm", alt: @institution_leadership.full_name %>
         </div>
+      <% end %>
 
-        <div class="container-fluid mt-4">
-          <% if can? :edit, @institution_leadership %>
-            <%= link_to "Editar", edit_institution_leadership_path(@institution_leadership), class: "btn btn-primary m-2" %>
-          <% end %>
-          <% if can? :read, InstitutionLeadership %>
-            <%= link_to "Ver Autoridades", institution_leaderships_path, class: "btn btn-dark m-2" %>
-          <% end %>
-          <% if can? :destroy, @institution_leadership %>
-            <%= button_to "Eliminar", @institution_leadership, method: :delete, class: "btn btn-danger m-2", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar este registro?' } } %>
-          <% end %>
+      <% if @institution_leadership.bio.body.present? %>
+        <div class="col-md-8 text-start">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="mb-0">Reseña</h5>
+            </div>
+            <div class="card-body">
+              <%= @institution_leadership.bio %>
+            </div>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
-  </div>
-</div>
 
-<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
-  <div class="offcanvas-header bg-dark text-white">
-    <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><strong>UCV - La casa que vence la sombra</strong></h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <%= render "/layouts/sidebar" %>
+    <div class="container-fluid mt-4">
+      <% if can? :edit, @institution_leadership %>
+        <%= link_to "Editar", edit_institution_leadership_path(@institution_leadership), class: "btn btn-primary m-2" %>
+      <% end %>
+      <% if can? :read, InstitutionLeadership %>
+        <%= link_to "Ver Autoridades", institution_leaderships_path, class: "btn btn-dark m-2" %>
+      <% end %>
+      <% if can? :destroy, @institution_leadership %>
+        <%= button_to "Eliminar", @institution_leadership, method: :delete, class: "btn btn-danger m-2", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar este registro?' } } %>
+      <% end %>
+    </div>
   </div>
 </div>

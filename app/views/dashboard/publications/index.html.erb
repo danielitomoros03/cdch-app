@@ -1,47 +1,37 @@
-<div class="container-fluid">
-  <div class="row">
-    <%= render "/layouts/header" %> <!-- Header -->
-    <%= render "/layouts/sidebar" %> <!-- Sidebar para pantallas grandes -->
+<div class="text-center">
+  <!-- Flash messages -->
+  <div>
+    <% if notice %>
+      <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+    <% end %>
+  </div>
+  <% content_for :title, "CDCH - Publicaciones" %>
+  
+  
+  <p>
+    <h1>Publicaciones <%= link_to "Crear publicación", new_publication_path, class: "btn btn-primary" %></h1>
+  </p>
 
-    <!-- Contenido principal -->
-    <div class="col-md mt-3 ms-auto col-lg-10 px-md-0 text-center">
-      <!-- Flash messages -->
-      <div>
-        <% if notice %>
-          <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+  <div class="container">
+    <div id="publications">
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Portada</th>
+            <th scope="col">Título</th>
+            <th scope="col">Nombre del Autor(a)</th>
+            <th scope="col">Tipo de Publicación</th>
+            <th scope="col">Fecha de Publicación</th>
+            <th scope="col">Descripción breve</th>
+            <th scope="col">Enlace externo</th>
+            <th scope="col">Archivo adjunto</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <% @publications.each do |publication| %>
+          <%= render publication %>
         <% end %>
-      </div>
-      <% content_for :title, "CDCH - Publicaciones" %>
-      
-      
-      <p>
-        <h1>Publicaciones <%= link_to "Crear publicación", new_publication_path, class: "btn btn-primary" %></h1>
-      </p>
-
-      <div class="container">
-        <div id="publications">
-          <table class="table table-striped table-hover table-bordered">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Portada</th>
-                <th scope="col">Título</th>
-                <th scope="col">Nombre del Autor(a)</th>
-                <th scope="col">Tipo de Publicación</th>
-                <th scope="col">Fecha de Publicación</th>
-                <th scope="col">Descripción breve</th>
-                <th scope="col">Enlace externo</th>
-                <th scope="col">Archivo adjunto</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <% @publications.each do |publication| %>
-              <%= render publication %>
-            <% end %>
-        </div>
-      </div>
     </div>
   </div>
 </div>
-
-<!-- mobile offcanvas provided by navbar -->

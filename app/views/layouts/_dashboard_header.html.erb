@@ -1,0 +1,18 @@
+<header class="dashboard-header">
+  <button class="dashboard-header__menu btn btn-link d-lg-none" type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#dashboardSidebar" aria-controls="dashboardSidebar" aria-label="Abrir menú">
+    <i class="fas fa-bars" aria-hidden="true"></i>
+  </button>
+
+  <%= link_to dashboard_index_path, class: "dashboard-header__brand" do %>
+    <%= image_tag "Logo-CDCH.png", alt: "", class: "dashboard-header__logo" %>
+    <span class="dashboard-header__names">
+      <span class="dashboard-header__title"><%= Institution.first&.name %></span>
+      <span class="dashboard-header__subtitle d-none d-md-block">Vicerrectorado Académico · Universidad Central de Venezuela</span>
+    </span>
+  <% end %>
+
+  <div class="ms-auto">
+    <%= render "layouts/user_menu" %>
+  </div>
+</header>

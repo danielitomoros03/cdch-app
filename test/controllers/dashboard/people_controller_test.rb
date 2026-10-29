@@ -8,7 +8,7 @@ class Dashboard::PeopleControllerTest < ActionDispatch::IntegrationTest
 
     get people_url
     assert_response :success
-    assert_select "td", text: "GARCÍA PÉREZ ANA"
+    assert_select "td", text: "García Pérez Ana"
 
     get people_url, params: { faculty: "08", since: 2010, situation: "active" }
     assert_response :success
@@ -20,12 +20,34 @@ class Dashboard::PeopleControllerTest < ActionDispatch::IntegrationTest
 
     get person_url(people(:active_engineer))
     assert_response :success
-    assert_select "h1", "GARCÍA PÉREZ ANA"
+    assert_select "h1", "García Pérez Ana"
     assert_match "Monto dudoso", response.body
 
     get research_project_url(research_projects(:engineering_project))
     assert_response :success
-    assert_match "NÚÑEZ ROJAS LUIS", response.body
+    assert_match "Núñez Rojas Luis", response.body
+  end
+
+  test "filters answer a turbo frame request with only the results" do
+    sign_in users(:director)
+
+    get people_url, params: { q: "garcia" }, headers: { "Turbo-Frame" => "people_results" }
+    assert_response :success
+    assert_select "turbo-frame#people_results td", text: "García Pérez Ana"
+    assert_select "nav.dashboard-nav", false
+  end
+
+  test "dashboard layout marks the section and remembers a collapsed menu" do
+    sign_in users(:director)
+
+    get people_url
+    assert_select ".dashboard:not(.dashboard--collapsed)"
+    assert_select "a.dashboard-nav__link.is-active[href=?]", people_path
+
+    cookies[:sidebar] = "collapsed"
+    get person_url(people(:active_engineer))
+    assert_select ".dashboard.dashboard--collapsed"
+    assert_select "a.dashboard-nav__link.is-active[href=?]", people_path
   end
 
   test "dtic head is turned away" do

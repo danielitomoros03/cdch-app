@@ -93,3 +93,14 @@
     }
   }
 }
+
+// Con Bootstrap 5.0, `.navbar-light .navbar-nav .nav-link` le ganaba a la regla de
+// arriba y los enlaces se veían en gris; en 5.3 esa regla es más débil. Se conserva el tono.
+.main-header .navbar-nav .nav-link {
+  color: var(--bs-navbar-color);
+
+  &:hover,
+  &:focus {
+    color: var(--bs-navbar-hover-color);
+  }
+}

@@ -93,11 +93,12 @@ Layout partials for public pages live in `app/views/layouts/`: `_header.html.erb
 
 ### Frontend
 
-- **Bootstrap 5** + custom SCSS in `app/assets/scss/` based on SB Admin 2 theme
-- **Importmap** (no Node/webpack) with **Turbo**; `app/javascript/` contains only `application.js` and `sidebar.js` (no Stimulus controllers currently)
+- **Bootstrap 5.3** (gem `bootstrap` for SCSS, ESM build vendored in `vendor/javascript/`) + custom SCSS in `app/assets/scss/`. SB Admin 2 is no longer loaded. `_variables.scss` pins a few Bootstrap 5.0 tones so the public site looks the same as before the 5.3 upgrade.
+- **Dashboard layout** (`layouts/dashboard.html.erb`, chosen in `ApplicationController` for `dashboard/*` controllers): compact header, sidebar collapsible to icons (cookie `sidebar=collapsed`), offcanvas on mobile. Styles in `_dashboard.scss`. Dashboard views render only their own content.
+- **Importmap** (no Node/webpack) with **Turbo** and **Stimulus**; controllers in `app/javascript/controllers/`. No jQuery and no inline `<script>` in views: behavior goes in a Stimulus controller. `bin/importmap pin` fails locally (OpenSSL); download ESM builds with curl into `vendor/javascript/`.
 - **ActionText** (Trix editor) for rich text fields (`Department#description`, `InstitutionLeadership#bio`)
 - **Active Storage** for file uploads; images processed via `mini_magick` / `ruby-vips`
-- **will_paginate** for pagination (with Bootstrap styling via `will_paginate-bootstrap`)
+- **will_paginate** for pagination; in the dashboard use `dashboard_pagination(collection)` (`PaginationHelper`, Bootstrap 5 markup)
 - **Font Awesome** via `font-awesome-sass`
 
 ### Localization

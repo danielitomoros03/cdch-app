@@ -1,57 +1,38 @@
-<div class="container-fluid">
-  <div class="row">
-    <%= render "/layouts/header" %> <!-- Header -->
-    <%= render "/layouts/sidebar" %> <!-- Sidebar para pantallas grandes -->
+<div class="text-center">
+  <!-- Flash messages -->
+  <div>
+    <% if notice %>
+      <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+    <% end %>
+  </div>
 
-    <!-- Contenido principal -->
-    <div class="col-md mt-3 ms-auto col-lg-10 px-md-0 text-center">
-      <!-- Flash messages -->
-      <div>
-        <% if notice %>
-          <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
-        <% end %>
+  <% content_for :title, "Ver Acta" %>
+  <p>
+    <h1>Actas del Directorio <%= @minute.id %></h1>
+  </p>
+  <div class="container">
+
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Título</th>
+        <th scope="col">Día de reunión</th>
+        <th scope="col">Contenido</th>
+        <th scope="col">Archivo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <div id="minutes">
+        <%= render @minute %>
       </div>
+    </tbody>
+  </table>
 
-      <% content_for :title, "Ver Acta" %>
-      <p>
-        <h1>Actas del Directorio <%= @minute.id %></h1>
-      </p>
-      <div class="container">
-
-      <table class="table table-striped table-hover table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Título</th>
-            <th scope="col">Día de reunión</th>
-            <th scope="col">Contenido</th>
-            <th scope="col">Archivo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <div id="minutes">
-            <%= render @minute %>
-          </div>
-        </tbody>
-      </table>
-
-      <div class="container-fluid">
-        <%= link_to "Editar acta", edit_minute_path(@minute), class: "btn btn-primary m-2" %> 
-        <%= link_to "Volver", minutes_path, class: "btn btn-dark m-2" %> 
-        <%= button_to "Eliminar acta", @minute, method: :delete, class: "btn btn-danger m-2", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar esta acta del directorio?' } } %>
-      </div>
-    </div>
+  <div class="container-fluid">
+    <%= link_to "Editar acta", edit_minute_path(@minute), class: "btn btn-primary m-2" %> 
+    <%= link_to "Volver", minutes_path, class: "btn btn-dark m-2" %> 
+    <%= button_to "Eliminar acta", @minute, method: :delete, class: "btn btn-danger m-2", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar esta acta del directorio?' } } %>
   </div>
 </div>
-
-
-<!-- Offcanvas Sidebar para pantallas pequeñas -->
-<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
-  <div class="offcanvas-header bg-dark text-white">
-    <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><strong>UCV - La casa que vence la sombra</strong></h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <%= render "/layouts/sidebar" %>
-  </div>
 </div>

@@ -76,8 +76,6 @@ GEM
       public_suffix (>= 2.0.2, < 7.0)
     annotaterb (4.14.0)
     ast (2.4.3)
-    autoprefixer-rails (10.4.19.0)
-      execjs (~> 2)
     base64 (0.3.0)
     bcrypt (3.1.20)
     benchmark (0.4.1)
@@ -85,10 +83,8 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
-    bootstrap (5.0.2)
-      autoprefixer-rails (>= 9.1.0)
-      popper_js (>= 2.9.2, < 3)
-      sassc-rails (>= 2.0.0)
+    bootstrap (5.3.8)
+      popper_js (>= 2.11.8, < 3)
     brakeman (7.0.0)
       racc
     builder (3.3.0)
@@ -121,7 +117,6 @@ GEM
       cgi (>= 0.3.3)
     error_highlight (0.7.0)
     erubi (1.13.1)
-    execjs (2.10.0)
     ffi (1.17.2)
     font-awesome-sass (6.7.2)
       sassc (~> 2.0)
@@ -355,19 +350,18 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     will_paginate (4.0.1)
-    will_paginate-bootstrap (1.0.2)
-      will_paginate (>= 3.0.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.18)
 
 PLATFORMS
+  x86_64-darwin-21
   x86_64-linux
 
 DEPENDENCIES
   annotaterb
   bootsnap
-  bootstrap (~> 5.0.2)
+  bootstrap (~> 5.3.8)
   brakeman
   cancancan
   capybara
@@ -396,7 +390,6 @@ DEPENDENCIES
   tzinfo-data
   web-console
   will_paginate (~> 4.0)
-  will_paginate-bootstrap
 
 BUNDLED WITH
    2.4.4

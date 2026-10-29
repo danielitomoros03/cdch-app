@@ -1,61 +1,42 @@
-<div class="container-fluid">
-  <div class="row">
-    <%= render "/layouts/header" %> <!-- Header -->
-    <%= render "/layouts/sidebar" %> <!-- Sidebar para pantallas grandes -->
+<div class="text-center">
+  <!-- Flash messages -->
+  <div>
+    <% if notice %>
+      <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+    <% end %>
+  </div>
 
-    <!-- Contenido principal -->
-    <div class="col-md mt-3 ms-auto col-lg-10 px-md-0 text-center">
-      <!-- Flash messages -->
-      <div>
-        <% if notice %>
-          <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
-        <% end %>
+  <% content_for :title, "Convocatoria #{@call.id}" %>
+  <p>
+    <h1>Convocatoria <%= @call.id %></h1>
+  </p>
+  <div class="container">
+
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Título</th>
+        <th scope="col">Desc. Corta</th>
+        <th scope="col">Desc. Larga</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Activo</th>
+        <th scope="col">Fecha Inicio</th>
+        <th scope="col">Fecha Final</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <div id="calls">
+        <%= render @call %>
       </div>
+    </tbody>
+  </table>
 
-      <% content_for :title, "Convocatoria #{@call.id}" %>
-      <p>
-        <h1>Convocatoria <%= @call.id %></h1>
-      </p>
-      <div class="container">
-
-      <table class="table table-striped table-hover table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Título</th>
-            <th scope="col">Desc. Corta</th>
-            <th scope="col">Desc. Larga</th>
-            <th scope="col">Tipo</th>
-            <th scope="col">Activo</th>
-            <th scope="col">Fecha Inicio</th>
-            <th scope="col">Fecha Final</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <div id="calls">
-            <%= render @call %>
-          </div>
-        </tbody>
-      </table>
-
-      <div class="d-flex justify-content-center my-4">
-        <%= link_to "Editar", edit_call_path(@call), class: "btn btn-primary m-2" %>
-        <%= link_to "Regresar", calls_path, class: "btn btn-dark m-2" %>
-        <%= button_to "Eliminar convocatoria", @call, method: :delete, class: "btn btn-danger m-2", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar esta convocatoria?' } } %>
-      </div>
-    </div>
+  <div class="d-flex justify-content-center my-4">
+    <%= link_to "Editar", edit_call_path(@call), class: "btn btn-primary m-2" %>
+    <%= link_to "Regresar", calls_path, class: "btn btn-dark m-2" %>
+    <%= button_to "Eliminar convocatoria", @call, method: :delete, class: "btn btn-danger m-2", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar esta convocatoria?' } } %>
   </div>
 </div>
-
-
-<!-- Offcanvas Sidebar para pantallas pequeñas -->
-<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
-  <div class="offcanvas-header bg-dark text-white">
-    <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><strong>UCV - La casa que vence la sombra</strong></h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <%= render "/layouts/sidebar" %>
-  </div>
 </div>

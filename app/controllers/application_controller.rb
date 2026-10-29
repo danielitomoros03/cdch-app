@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
+  layout -> {
+    if turbo_frame_request? then "turbo_rails/frame"
+    elsif controller_path.start_with?("dashboard") then "dashboard"
+    end
+  }
   before_action :authenticate_user!
   skip_before_action :authenticate_user!, only: :route_not_found
 

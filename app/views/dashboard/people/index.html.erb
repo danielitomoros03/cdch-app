@@ -1,80 +1,87 @@
-<div class="container-fluid">
-  <div class="row">
-    <%= render "/layouts/header" %> <!-- Header -->
-    <%= render "/layouts/sidebar" %> <!-- Sidebar para pantallas grandes -->
+<% content_for :title, "CDCH - Docentes e investigadores" %>
+<% turbo_exempts_page_from_cache # al volver atrás, los filtros y la página de resultados se piden de nuevo %>
 
-    <!-- Contenido principal -->
-    <div class="col-md mt-3 ms-auto col-lg-10 px-md-3">
-      <% content_for :title, "CDCH - Docentes e investigadores" %>
-      <h1 class="text-center">Docentes e investigadores</h1>
-      <p class="text-center text-muted small">Uso interno: nómina docente UCV 2026 y sistema de proyectos del CDCH (1985–2019).</p>
-
-      <%= form_with url: people_path, method: :get, class: "row g-2 align-items-end mb-3", data: { turbo_frame: "_top" } do |f| %>
-        <div class="col-md-2">
-          <%= f.label :q, "Nombre o cédula", class: "form-label small mb-0" %>
-          <%= f.search_field :q, value: @filters[:q], class: "form-control form-control-sm" %>
-        </div>
-        <div class="col-md-2">
-          <%= f.label :situation, "Situación", class: "form-label small mb-0" %>
-          <%= f.select :situation, Person::SITUATIONS.invert, { include_blank: "Todas", selected: @filters[:situation] }, class: "form-select form-select-sm" %>
-        </div>
-        <div class="col-md-3">
-          <%= f.label :faculty, "Facultad o dependencia", class: "form-label small mb-0" %>
-          <%= f.select :faculty, @faculties.map { |faculty| [ faculty.name, faculty.code ] }, { include_blank: "Todas", selected: @filters[:faculty] }, class: "form-select form-select-sm" %>
-        </div>
-        <div class="col-md-1">
-          <%= f.label :since, "Proyecto desde", class: "form-label small mb-0" %>
-          <%= f.number_field :since, value: @filters[:since], min: 1985, max: Date.current.year, placeholder: "Año", class: "form-control form-control-sm" %>
-        </div>
-        <div class="col-md-2">
-          <div class="form-check">
-            <%= f.check_box :history, { checked: @filters[:history] == "1", class: "form-check-input" }, "1", nil %>
-            <%= f.label :history, "Con historia en el CDCH", class: "form-check-label small" %>
-          </div>
-        </div>
-        <div class="col-md-2 d-flex gap-1">
-          <%= f.submit "Filtrar", name: nil, class: "btn btn-primary btn-sm" %>
-          <%= link_to "Limpiar", people_path, class: "btn btn-outline-secondary btn-sm" %>
-        </div>
-      <% end %>
-
-      <p class="fw-bold"><%= number_with_delimiter(@total, delimiter: ".") %> personas</p>
-
-      <div class="table-responsive">
-        <table class="table table-striped table-hover table-bordered table-sm align-middle">
-          <thead>
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Cédula</th>
-              <th scope="col">Situación</th>
-              <th scope="col">Facultad o dependencia</th>
-              <th scope="col">Categoría</th>
-              <th scope="col" title="Etapas como responsable">Resp.</th>
-              <th scope="col" title="Etapas como coinvestigador">Coinv.</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @people.each do |person| %>
-              <% appointment = @appointments[person.id]&.max_by { |a| a.hired_on || Date.new(1900) } %>
-              <tr>
-                <td><%= link_to person.full_name, person_path(person) %></td>
-                <td><%= person.id_number %></td>
-                <td><%= situation_badge(person) %></td>
-                <td><%= faculty_label(appointment&.dependency_code || person.legacy_faculty_code, @faculty_names) %></td>
-                <td><%= appointment&.category || person.legacy_category || "—" %></td>
-                <td class="text-end"><%= @stage_counts[person.id] || 0 %></td>
-                <td class="text-end"><%= @co_counts[person.id] || 0 %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="d-flex justify-content-center">
-        <%= will_paginate @people, renderer: BootstrapPagination::Rails, previous_label: "Anterior", next_label: "Siguiente" %>
-      </div>
-    </div>
+<div class="dashboard-page-header">
+  <div>
+    <h1 class="dashboard-page-header__title">Docentes e investigadores</h1>
+    <p class="dashboard-page-header__subtitle">Uso interno: nómina docente UCV 2026 y sistema de proyectos del CDCH (1985–2019).</p>
   </div>
 </div>
 
-<%= render "offcanvas" %>
+<%= form_with url: people_path, method: :get, class: "filter-bar",
+      data: { controller: "auto-submit", turbo_frame: "people_results", turbo_action: "advance" } do |f| %>
+  <div class="filter-bar__field filter-bar__field--toggle">
+    <%= f.check_box :history, { checked: @filters[:history] == "1", class: "btn-check", autocomplete: "off", data: { action: "auto-submit#submit" } }, "1", nil %>
+    <%= f.label :history, class: "btn btn-sm filter-toggle" do %>
+      <i class="fas fa-history" aria-hidden="true"></i> Con historia en el CDCH
+    <% end %>
+  </div>
+  <div class="filter-bar__field filter-bar__field--wide">
+    <%= f.label :q, "Nombre o cédula", class: "form-label" %>
+    <div class="input-group input-group-sm">
+      <span class="input-group-text"><i class="fas fa-search" aria-hidden="true"></i></span>
+      <%= f.search_field :q, value: @filters[:q], class: "form-control", autocomplete: "off", placeholder: "Ej.: Pérez o 12345678",
+            data: { action: "input->auto-submit#debounced" } %>
+    </div>
+  </div>
+  <div class="filter-bar__field">
+    <%= f.label :situation, "Situación", class: "form-label" %>
+    <%= f.select :situation, Person::SITUATIONS.invert, { include_blank: "Todas", selected: @filters[:situation] },
+          class: "form-select form-select-sm", data: { action: "auto-submit#submit" } %>
+  </div>
+  <div class="filter-bar__field filter-bar__field--wide">
+    <%= f.label :faculty, "Facultad o dependencia", class: "form-label" %>
+    <%= f.select :faculty, @faculties.map { |faculty| [ faculty.name, faculty.code ] }, { include_blank: "Todas", selected: @filters[:faculty] },
+          class: "form-select form-select-sm", data: { action: "auto-submit#submit" } %>
+  </div>
+  <div class="filter-bar__field filter-bar__field--narrow">
+    <%= f.label :since, "Proyecto desde", class: "form-label" %>
+    <%= f.number_field :since, value: @filters[:since], min: 1985, max: Date.current.year, placeholder: "Año",
+          class: "form-control form-control-sm", data: { action: "input->auto-submit#debounced" } %>
+  </div>
+  <div class="filter-bar__actions">
+    <noscript><%= f.submit "Filtrar", name: nil, class: "btn btn-primary btn-sm" %></noscript>
+    <%= link_to "Limpiar", people_path, class: "btn btn-outline-secondary btn-sm" %>
+  </div>
+<% end %>
+
+<%= turbo_frame_tag "people_results", class: "results-frame", data: { turbo_action: "advance", controller: "frame-history" } do %>
+  <p class="results-count"><%= number_with_delimiter(@total, delimiter: ".") %> personas</p>
+
+  <div class="table-responsive data-table">
+    <table class="table table-hover table-sm align-middle mb-0">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Cédula</th>
+          <th scope="col">Situación</th>
+          <th scope="col">Facultad o dependencia</th>
+          <th scope="col">Categoría</th>
+          <th scope="col" class="text-end" title="Etapas como responsable">Resp.</th>
+          <th scope="col" class="text-end" title="Etapas como coinvestigador">Coinv.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @people.each do |person| %>
+          <% appointment = @appointments[person.id]&.max_by { |a| a.hired_on || Date.new(1900) } %>
+          <tr>
+            <td><%= link_to person.display_name, person_path(person), data: { turbo_frame: "_top" } %></td>
+            <td class="text-nowrap"><%= person.id_number %></td>
+            <td><%= situation_badge(person) %></td>
+            <td><%= faculty_label(appointment&.dependency_code || person.legacy_faculty_code, @faculty_names) %></td>
+            <td><%= appointment&.category || person.legacy_category || "—" %></td>
+            <td class="text-end"><%= @stage_counts[person.id] || 0 %></td>
+            <td class="text-end"><%= @co_counts[person.id] || 0 %></td>
+          </tr>
+        <% end %>
+        <% if @people.empty? %>
+          <tr><td colspan="7" class="text-center text-muted py-4">No hay personas con esos filtros.</td></tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-center mt-3">
+    <%= dashboard_pagination @people %>
+  </div>
+<% end %>

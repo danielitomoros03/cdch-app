@@ -1,353 +1,344 @@
-<div class="container-fluid">
-  <div class="row">
-    <%= render "layouts/header" %>
-    <%= render "layouts/sidebar" %>
-    
-    <div class="col-md mt-3 ms-auto col-lg-10 px-md-4">
-      <!-- Flash messages -->
-      <% if notice %>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          <i class="fas fa-check-circle me-2"></i><%= notice %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-      <% end %>
+<div>
+  <!-- Flash messages -->
+  <% if notice %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="fas fa-check-circle me-2"></i><%= notice %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  <% end %>
 
-      <% if alert %>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          <i class="fas fa-exclamation-triangle me-2"></i><%= alert %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-      <% end %>
+  <% if alert %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <i class="fas fa-exclamation-triangle me-2"></i><%= alert %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  <% end %>
 
-      <!-- Welcome Section -->
-      <div class="mb-4">
-        <h2 class="mb-1">Bienvenido(a), <%= current_user.full_name %></h2>
-        <p class="text-muted mb-0">¿Qué desea hacer hoy?</p>
-      </div>
+  <!-- Welcome Section -->
+  <div class="mb-4">
+    <h2 class="mb-1">Bienvenido(a), <%= current_user.full_name %></h2>
+    <p class="text-muted mb-0">¿Qué desea hacer hoy?</p>
+  </div>
 
-      <!-- Quick Stats -->
-      <div class="row g-3 mb-4">
-        <div class="col-md-3">
-          <div class="card border-0 shadow-sm h-100 stats-card">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="text-muted mb-1 small">Convocatorias</p>
-                  <h3 class="mb-0 fw-bold">
-                    <%= @calls_stats[:total] %>
-                  </h3>
-                  <small class="<%= @calls_stats[:delta_class] %>">
-                    <i class="fas <%= @calls_stats[:delta_icon] %>"></i> <%= @calls_stats[:delta_text] %>
-                  </small>
-                </div>
-                <div class="stats-icon stats-icon-primary">
-                  <i class="fas fa-bullhorn fa-2x"></i>
-                </div>
-              </div>
+  <!-- Quick Stats -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm h-100 stats-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="text-muted mb-1 small">Convocatorias</p>
+              <h3 class="mb-0 fw-bold">
+                <%= @calls_stats[:total] %>
+              </h3>
+              <small class="<%= @calls_stats[:delta_class] %>">
+                <i class="fas <%= @calls_stats[:delta_icon] %>"></i> <%= @calls_stats[:delta_text] %>
+              </small>
             </div>
-            <div class="card-footer bg-transparent border-0 pt-0">
-              <% if can? :read, Call %>
-                <%= link_to calls_path, class: "text-decoration-none small" do %>
-                  Ver todas <i class="fas fa-arrow-right ms-1"></i>
-                <% end %>
-              <% else %>
-                <span class="text-muted small">Sin acceso</span>
-              <% end %>
+            <div class="stats-icon stats-icon-primary">
+              <i class="fas fa-bullhorn fa-2x"></i>
             </div>
           </div>
         </div>
-
-        <div class="col-md-3">
-          <div class="card border-0 shadow-sm h-100 stats-card">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="text-muted mb-1 small">Publicaciones</p>
-                  <h3 class="mb-0 fw-bold">
-                    <%= @publications_stats[:total] %>
-                  </h3>
-                  <small class="<%= @publications_stats[:delta_class] %>">
-                    <i class="fas <%= @publications_stats[:delta_icon] %>"></i> <%= @publications_stats[:delta_text] %>
-                  </small>
-                </div>
-                <div class="stats-icon stats-icon-success">
-                  <i class="fas fa-book fa-2x"></i>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer bg-transparent border-0 pt-0">
-              <% if can? :read, Publication %>
-                <%= link_to publications_path, class: "text-decoration-none small" do %>
-                  Ver todas <i class="fas fa-arrow-right ms-1"></i>
-                <% end %>
-              <% else %>
-                <span class="text-muted small">Sin acceso</span>
-              <% end %>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card border-0 shadow-sm h-100 stats-card">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="text-muted mb-1 small">Actas del Directorio</p>
-                  <h3 class="mb-0 fw-bold">
-                    <%= @minutes_stats[:total] %>
-                  </h3>
-                  <small class="<%= @minutes_stats[:delta_class] %>">
-                    <i class="fas <%= @minutes_stats[:delta_icon] %>"></i> <%= @minutes_stats[:delta_text] %>
-                  </small>
-                </div>
-                <div class="stats-icon stats-icon-info">
-                  <i class="fas fa-users fa-2x"></i>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer bg-transparent border-0 pt-0">
-              <% if can? :read, Minute %>
-                <%= link_to minutes_path, class: "text-decoration-none small" do %>
-                  Ver todos <i class="fas fa-arrow-right ms-1"></i>
-                <% end %>
-              <% else %>
-                <span class="text-muted small">Sin acceso</span>
-              <% end %>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card border-0 shadow-sm h-100 stats-card">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <p class="text-muted mb-1 small">Usuarios</p>
-                  <h3 class="mb-0 fw-bold">
-                    <%= @users_stats[:total] %>
-                  </h3>
-                  <small class="<%= @users_stats[:delta_class] %>">
-                    <i class="fas <%= @users_stats[:delta_icon] %>"></i> <%= @users_stats[:delta_text] %>
-                  </small>
-                </div>
-                <div class="stats-icon stats-icon-warning">
-                  <i class="fas fa-user fa-2x"></i>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer bg-transparent border-0 pt-0">
-              <% if can? :read, User %>
-                <%= link_to users_path, class: "text-decoration-none small" do %>
-                  Ver todos <i class="fas fa-arrow-right ms-1"></i>
-                <% end %>
-              <% else %>
-                <span class="text-muted small">Sin acceso</span>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Actions -->
-      <div class="row g-3 mb-4">
-        <div class="col-12">
-          <h5 class="mb-3">
-            <i class="fas fa-bolt text-warning me-2"></i>Acciones Rápidas
-          </h5>
-        </div>
-        
-        <div class="col-md-4">
-          <%= link_to new_call_path, class: "text-decoration-none" do %>
-            <div class="card border-0 shadow-sm h-100 action-card">
-              <div class="card-body text-center p-4">
-                <div class="action-icon action-icon-primary mb-3">
-                  <i class="fas fa-bullhorn fa-3x"></i>
-                </div>
-                <h5 class="card-title mb-2 text-dark">Nueva Convocatoria</h5>
-                <p class="card-text text-muted small mb-3">
-                  Crear una nueva convocatoria de investigación o financiamiento
-                </p>
-                <button class="btn btn-primary btn-sm">
-                  <i class="fas fa-plus me-2"></i>Crear Ahora
-                </button>
-              </div>
-            </div>
-          <% end %>
-        </div>
-
-        <div class="col-md-4">
-          <%= link_to new_minute_path, class: "text-decoration-none" do %>
-            <div class="card border-0 shadow-sm h-100 action-card">
-              <div class="card-body text-center p-4">
-                <div class="action-icon action-icon-success mb-3">
-                  <i class="fas fa-users fa-3x"></i>
-                </div>
-                <h5 class="card-title mb-2 text-dark">Nueva Acta de Directorio</h5>
-                <p class="card-text text-muted small mb-3">
-                  Agregar un nuevo miembro al directorio institucional
-                </p>
-                <button class="btn btn-success btn-sm">
-                  <i class="fas fa-plus me-2"></i>Crear Ahora
-                </button>
-              </div>
-            </div>
-          <% end %>
-        </div>
-
-        <div class="col-md-4">
-          <%= link_to new_publication_path, class: "text-decoration-none" do %>
-            <div class="card border-0 shadow-sm h-100 action-card">
-              <div class="card-body text-center p-4">
-                <div class="action-icon action-icon-info mb-3">
-                  <i class="fas fa-book fa-3x"></i>
-                </div>
-                <h5 class="card-title mb-2 text-dark">Nueva Publicación</h5>
-                <p class="card-text text-muted small mb-3">
-                  Publicar un nuevo libro, artículo o investigación
-                </p>
-                <button class="btn btn-info btn-sm">
-                  <i class="fas fa-plus me-2"></i>Crear Ahora
-                </button>
-              </div>
-            </div>
-          <% end %>
-        </div>
-
-        <div class="col-md-4">
-          <%= link_to solicitudes_path, class: "text-decoration-none" do %>
-            <div class="card border-0 shadow-sm h-100 action-card">
-              <div class="card-body text-center p-4">
-                <div class="action-icon action-icon-info mb-3">
-                  <i class="fas fa-envelope fa-3x"></i>
-                </div>
-                <h5 class="card-title mb-2 text-dark">Ver Solicitudes</h5>
-                <p class="card-text text-muted small mb-3">
-                  Ver todas las solicitudes de usuarios
-                </p>
-                <button class="btn btn-primary btn-sm">
-                  <i class="fas fa-plus me-2"></i>Ver Ahora
-                </button>
-              </div>
-            </div>
-          <% end %>
-        </div>
-
-        <% if can? :create, User %>
-          <div class="col-md-4">
-            <%= link_to new_user_path, class: "text-decoration-none" do %>
-              <div class="card border-0 shadow-sm h-100 action-card">
-                <div class="card-body text-center p-4">
-                  <div class="action-icon action-icon-info mb-3">
-                    <i class="fas fa-user fa-3x"></i>
-                  </div>
-                  <h5 class="card-title mb-2 text-dark">Nuevo Usuario</h5>
-                  <p class="card-text text-muted small mb-3">
-                    Crear un nuevo usuario del sistema
-                  </p>
-                  <button class="btn btn-success btn-sm">
-                    <i class="fas fa-plus me-2"></i>Crear Ahora
-                  </button>
-                </div>
-              </div>
+        <div class="card-footer bg-transparent border-0 pt-0">
+          <% if can? :read, Call %>
+            <%= link_to calls_path, class: "text-decoration-none small" do %>
+              Ver todas <i class="fas fa-arrow-right ms-1"></i>
             <% end %>
+          <% else %>
+            <span class="text-muted small">Sin acceso</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm h-100 stats-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="text-muted mb-1 small">Publicaciones</p>
+              <h3 class="mb-0 fw-bold">
+                <%= @publications_stats[:total] %>
+              </h3>
+              <small class="<%= @publications_stats[:delta_class] %>">
+                <i class="fas <%= @publications_stats[:delta_icon] %>"></i> <%= @publications_stats[:delta_text] %>
+              </small>
+            </div>
+            <div class="stats-icon stats-icon-success">
+              <i class="fas fa-book fa-2x"></i>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-0 pt-0">
+          <% if can? :read, Publication %>
+            <%= link_to publications_path, class: "text-decoration-none small" do %>
+              Ver todas <i class="fas fa-arrow-right ms-1"></i>
+            <% end %>
+          <% else %>
+            <span class="text-muted small">Sin acceso</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm h-100 stats-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="text-muted mb-1 small">Actas del Directorio</p>
+              <h3 class="mb-0 fw-bold">
+                <%= @minutes_stats[:total] %>
+              </h3>
+              <small class="<%= @minutes_stats[:delta_class] %>">
+                <i class="fas <%= @minutes_stats[:delta_icon] %>"></i> <%= @minutes_stats[:delta_text] %>
+              </small>
+            </div>
+            <div class="stats-icon stats-icon-info">
+              <i class="fas fa-users fa-2x"></i>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-0 pt-0">
+          <% if can? :read, Minute %>
+            <%= link_to minutes_path, class: "text-decoration-none small" do %>
+              Ver todos <i class="fas fa-arrow-right ms-1"></i>
+            <% end %>
+          <% else %>
+            <span class="text-muted small">Sin acceso</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm h-100 stats-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="text-muted mb-1 small">Usuarios</p>
+              <h3 class="mb-0 fw-bold">
+                <%= @users_stats[:total] %>
+              </h3>
+              <small class="<%= @users_stats[:delta_class] %>">
+                <i class="fas <%= @users_stats[:delta_icon] %>"></i> <%= @users_stats[:delta_text] %>
+              </small>
+            </div>
+            <div class="stats-icon stats-icon-warning">
+              <i class="fas fa-user fa-2x"></i>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-0 pt-0">
+          <% if can? :read, User %>
+            <%= link_to users_path, class: "text-decoration-none small" do %>
+              Ver todos <i class="fas fa-arrow-right ms-1"></i>
+            <% end %>
+          <% else %>
+            <span class="text-muted small">Sin acceso</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="row g-3 mb-4">
+    <div class="col-12">
+      <h5 class="mb-3">
+        <i class="fas fa-bolt text-warning me-2"></i>Acciones Rápidas
+      </h5>
+    </div>
+    
+    <div class="col-md-4">
+      <%= link_to new_call_path, class: "text-decoration-none" do %>
+        <div class="card border-0 shadow-sm h-100 action-card">
+          <div class="card-body text-center p-4">
+            <div class="action-icon action-icon-primary mb-3">
+              <i class="fas fa-bullhorn fa-3x"></i>
+            </div>
+            <h5 class="card-title mb-2 text-dark">Nueva Convocatoria</h5>
+            <p class="card-text text-muted small mb-3">
+              Crear una nueva convocatoria de investigación o financiamiento
+            </p>
+            <button class="btn btn-primary btn-sm">
+              <i class="fas fa-plus me-2"></i>Crear Ahora
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-md-4">
+      <%= link_to new_minute_path, class: "text-decoration-none" do %>
+        <div class="card border-0 shadow-sm h-100 action-card">
+          <div class="card-body text-center p-4">
+            <div class="action-icon action-icon-success mb-3">
+              <i class="fas fa-users fa-3x"></i>
+            </div>
+            <h5 class="card-title mb-2 text-dark">Nueva Acta de Directorio</h5>
+            <p class="card-text text-muted small mb-3">
+              Agregar un nuevo miembro al directorio institucional
+            </p>
+            <button class="btn btn-success btn-sm">
+              <i class="fas fa-plus me-2"></i>Crear Ahora
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-md-4">
+      <%= link_to new_publication_path, class: "text-decoration-none" do %>
+        <div class="card border-0 shadow-sm h-100 action-card">
+          <div class="card-body text-center p-4">
+            <div class="action-icon action-icon-info mb-3">
+              <i class="fas fa-book fa-3x"></i>
+            </div>
+            <h5 class="card-title mb-2 text-dark">Nueva Publicación</h5>
+            <p class="card-text text-muted small mb-3">
+              Publicar un nuevo libro, artículo o investigación
+            </p>
+            <button class="btn btn-info btn-sm">
+              <i class="fas fa-plus me-2"></i>Crear Ahora
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-md-4">
+      <%= link_to solicitudes_path, class: "text-decoration-none" do %>
+        <div class="card border-0 shadow-sm h-100 action-card">
+          <div class="card-body text-center p-4">
+            <div class="action-icon action-icon-info mb-3">
+              <i class="fas fa-envelope fa-3x"></i>
+            </div>
+            <h5 class="card-title mb-2 text-dark">Ver Solicitudes</h5>
+            <p class="card-text text-muted small mb-3">
+              Ver todas las solicitudes de usuarios
+            </p>
+            <button class="btn btn-primary btn-sm">
+              <i class="fas fa-plus me-2"></i>Ver Ahora
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <% if can? :create, User %>
+      <div class="col-md-4">
+        <%= link_to new_user_path, class: "text-decoration-none" do %>
+          <div class="card border-0 shadow-sm h-100 action-card">
+            <div class="card-body text-center p-4">
+              <div class="action-icon action-icon-info mb-3">
+                <i class="fas fa-user fa-3x"></i>
+              </div>
+              <h5 class="card-title mb-2 text-dark">Nuevo Usuario</h5>
+              <p class="card-text text-muted small mb-3">
+                Crear un nuevo usuario del sistema
+              </p>
+              <button class="btn btn-success btn-sm">
+                <i class="fas fa-plus me-2"></i>Crear Ahora
+              </button>
+            </div>
           </div>
         <% end %>
+      </div>
+    <% end %>
 
-        <div class="col-md-4">
-          <%= link_to institutions_path, class: "text-decoration-none" do %>
-            <div class="card border-0 shadow-sm h-100 action-card">
-              <div class="card-body text-center p-4">
-                <div class="action-icon action-icon-info mb-3">
-                  <i class="fas fa-building fa-3x"></i>
-                </div>
-                <h5 class="card-title mb-2 text-dark">Información de la Institución</h5>
-                <p class="card-text text-muted small mb-3">
-                  Ver o editar la información institucional del CDCH
-                </p>
-                <button class="btn btn-info btn-sm">
-                  <i class="fas fa-plus me-2"></i>Ver Ahora
-                </button>
+    <div class="col-md-4">
+      <%= link_to institutions_path, class: "text-decoration-none" do %>
+        <div class="card border-0 shadow-sm h-100 action-card">
+          <div class="card-body text-center p-4">
+            <div class="action-icon action-icon-info mb-3">
+              <i class="fas fa-building fa-3x"></i>
+            </div>
+            <h5 class="card-title mb-2 text-dark">Información de la Institución</h5>
+            <p class="card-text text-muted small mb-3">
+              Ver o editar la información institucional del CDCH
+            </p>
+            <button class="btn btn-info btn-sm">
+              <i class="fas fa-plus me-2"></i>Ver Ahora
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+
+  <!-- Quick Links -->
+  <div class="row g-3">
+    <!-- Quick Links -->
+    <div class="card border-0 shadow-sm mb-3">
+      <div class="card-header bg-white border-0 py-3">
+        <h5 class="mb-0">
+          <i class="fas fa-link text-info me-2"></i>Enlaces Útiles
+        </h5>
+      </div>
+      <div class="card-body p-0">
+        <div class="list-group list-group-flush">
+          <%= link_to calls_path, class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
+            <div class="d-flex align-items-center">
+              <div class="quick-link-icon bg-primary-subtle text-primary me-3">
+                <i class="fas fa-file-alt"></i>
               </div>
+              <span>Ver todas las convocatorias</span>
             </div>
           <% end %>
-        </div>
-
-      </div>
-
-      <!-- Quick Links -->
-      <div class="row g-3">
-        <!-- Quick Links -->
-        <div class="card border-0 shadow-sm mb-3">
-          <div class="card-header bg-white border-0 py-3">
-            <h5 class="mb-0">
-              <i class="fas fa-link text-info me-2"></i>Enlaces Útiles
-            </h5>
-          </div>
-          <div class="card-body p-0">
-            <div class="list-group list-group-flush">
-              <%= link_to calls_path, class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
-                <div class="d-flex align-items-center">
-                  <div class="quick-link-icon bg-primary-subtle text-primary me-3">
-                    <i class="fas fa-file-alt"></i>
-                  </div>
-                  <span>Ver todas las convocatorias</span>
-                </div>
-              <% end %>
-              
-              <%= link_to publications_path, class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
-                <div class="d-flex align-items-center">
-                  <div class="quick-link-icon bg-success-subtle text-success me-3">
-                    <i class="fas fa-book"></i>
-                  </div>
-                  <span>Catálogo de publicaciones</span>
-                </div>
-              <% end %>
-              
-              <%= link_to minutes_path, class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
-                <div class="d-flex align-items-center">
-                  <div class="quick-link-icon bg-info-subtle text-info me-3">
-                    <i class="fas fa-address-book"></i>
-                  </div>
-                  <span>Directorio completo</span>
-                </div>
-              <% end %>
-
-              <% if can? :read, InstitutionLeadership %>
-                <%= link_to institution_leaderships_path, class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
-                  <div class="d-flex align-items-center">
-                    <div class="quick-link-icon bg-secondary-subtle text-secondary me-3">
-                      <i class="fas fa-user-tie"></i>
-                    </div>
-                    <span>Gestión de autoridades CDCH</span>
-                  </div>
-                <% end %>
-              <% end %>
-              
-              <!--
-                <%= link_to "#", class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
-                  <div class="d-flex align-items-center">
-                    <div class="quick-link-icon bg-warning-subtle text-warning me-3">
-                      <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <span>Reportes y estadísticas</span>
-                  </div>
-                <% end %>
-                
-                <%= link_to "#", class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
-                  <div class="d-flex align-items-center">
-                    <div class="quick-link-icon bg-secondary-subtle text-secondary me-3">
-                      <i class="fas fa-cog"></i>
-                    </div>
-                    <span>Configuración del sistema</span>
-                  </div>
-                <% end %>
-              -->
+          
+          <%= link_to publications_path, class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
+            <div class="d-flex align-items-center">
+              <div class="quick-link-icon bg-success-subtle text-success me-3">
+                <i class="fas fa-book"></i>
+              </div>
+              <span>Catálogo de publicaciones</span>
             </div>
-          </div>
+          <% end %>
+          
+          <%= link_to minutes_path, class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
+            <div class="d-flex align-items-center">
+              <div class="quick-link-icon bg-info-subtle text-info me-3">
+                <i class="fas fa-address-book"></i>
+              </div>
+              <span>Directorio completo</span>
+            </div>
+          <% end %>
+
+          <% if can? :read, InstitutionLeadership %>
+            <%= link_to institution_leaderships_path, class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
+              <div class="d-flex align-items-center">
+                <div class="quick-link-icon bg-secondary-subtle text-secondary me-3">
+                  <i class="fas fa-user-tie"></i>
+                </div>
+                <span>Gestión de autoridades CDCH</span>
+              </div>
+            <% end %>
+          <% end %>
+          
+          <!--
+            <%= link_to "#", class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
+              <div class="d-flex align-items-center">
+                <div class="quick-link-icon bg-warning-subtle text-warning me-3">
+                  <i class="fas fa-chart-bar"></i>
+                </div>
+                <span>Reportes y estadísticas</span>
+              </div>
+            <% end %>
+            
+            <%= link_to "#", class: "list-group-item list-group-item-action border-0 px-4 py-3 quick-link-item" do %>
+              <div class="d-flex align-items-center">
+                <div class="quick-link-icon bg-secondary-subtle text-secondary me-3">
+                  <i class="fas fa-cog"></i>
+                </div>
+                <span>Configuración del sistema</span>
+              </div>
+            <% end %>
+          -->
         </div>
       </div>
     </div>
   </div>
 </div>
-
-

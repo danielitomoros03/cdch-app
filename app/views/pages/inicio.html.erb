@@ -13,13 +13,13 @@
 <% end %>
 
 <!-- Hero Carousel Section -->
-<section class="hero-section" id="heroCarousel">
+<section class="hero-section" id="heroCarousel" data-controller="hero-carousel" data-action="mouseenter->hero-carousel#pause mouseleave->hero-carousel#play">
   <div class="hero-carousel">
     <!-- Slides Container -->
-    <div class="hero-carousel__slides" id="carouselSlides">
+    <div class="hero-carousel__slides" id="carouselSlides" data-hero-carousel-target="slides">
       <% if @eventsHero.present? %>
         <% @eventsHero.each do |event| %>
-          <div class="hero-carousel__slide">
+          <div class="hero-carousel__slide" data-hero-carousel-target="slide">
             <div class="container">
               <div class="row">
                 <div class="col-lg-10 col-xl-8">
@@ -38,7 +38,7 @@
           </div>
         <% end %>
       <% else %>
-        <div class="hero-carousel__slide">
+        <div class="hero-carousel__slide" data-hero-carousel-target="slide">
           <div class="container">
             <div class="row">
               <div class="col-lg-10 col-xl-8 mx-auto">
@@ -61,10 +61,10 @@
     <!-- Navigation Buttons -->
     <% if @eventsHero.present? && @eventsHero.length > 1 %>
       <!-- Prev/Next Buttons
-        <button class="hero-carousel__button hero-carousel__button--prev" id="prevBtn" aria-label="Slide anterior">
+        <button class="hero-carousel__button hero-carousel__button--prev" id="prevBtn" data-action="hero-carousel#previous" aria-label="Slide anterior">
           <i class="fas fa-chevron-left"></i>
         </button>
-        <button class="hero-carousel__button hero-carousel__button--next" id="nextBtn" aria-label="Siguiente slide">
+        <button class="hero-carousel__button hero-carousel__button--next" id="nextBtn" data-action="hero-carousel#next" aria-label="Siguiente slide">
           <i class="fas fa-chevron-right"></i>
         </button>
       -->
@@ -75,6 +75,8 @@
           <button 
             class="hero-carousel__dot <%= 'active' if index == 0 %>"
             data-slide="<%= index %>"
+            data-hero-carousel-target="dot"
+            data-action="hero-carousel#select"
             aria-label="Ir al slide <%= index + 1 %>"
           ></button>
         <% end %>
@@ -307,74 +309,3 @@
 </style>
 
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const carousel = document.getElementById('heroCarousel');
-    if (!carousel) return;
-
-    const slidesContainer = document.getElementById('carouselSlides');
-    const slides = document.querySelectorAll('.hero-carousel__slide');
-    const dots = document.querySelectorAll('.hero-carousel__dot');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-
-    // Si hay menos de 2 slides, no inicializar carrusel
-    if (slides.length < 2) return;
-
-    let currentIndex = 0;
-    let autoplayInterval;
-    const SLIDE_DURATION = 5000; // 5 segundos
-
-    // Función para actualizar slide
-    function goToSlide(index) {
-      currentIndex = (index + slides.length) % slides.length;
-      const offset = -currentIndex * 100;
-      slidesContainer.style.transform = `translateX(${offset}%)`;
-      
-      // Actualizar dots
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentIndex);
-      });
-      
-      // Reiniciar autoplay
-      clearInterval(autoplayInterval);
-      startAutoplay();
-    }
-
-    // Función para siguiente slide
-    function nextSlide() {
-      goToSlide(currentIndex + 1);
-    }
-
-    // Función para slide anterior
-    function prevSlide() {
-      goToSlide(currentIndex - 1);
-    }
-
-    // Autoplay
-    function startAutoplay() {
-      autoplayInterval = setInterval(nextSlide, SLIDE_DURATION);
-    }
-
-    // Event listeners
-    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => goToSlide(index));
-    });
-
-    // Pausar autoplay cuando interactúa el usuario
-    carousel.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
-    carousel.addEventListener('mouseleave', startAutoplay);
-
-    // Iniciar autoplay
-    startAutoplay();
-
-    // Soporte para teclado
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') prevSlide();
-      if (e.key === 'ArrowRight') nextSlide();
-    });
-  });
-</script>

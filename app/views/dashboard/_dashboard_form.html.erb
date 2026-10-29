@@ -1,32 +1,13 @@
-<div class="container-fluid">
-  <div class="row">
-    <%= render "/layouts/header" %> <!-- Header -->
-    <%= render "/layouts/sidebar" %> <!-- Sidebar para pantallas grandes -->
-
-    <!-- Contenido principal -->
-    <div class="col-12 col-lg-10 py-4">
-      <!-- Flash messages -->
-      <div class="w-100">
-        <% if notice %>
-          <h6 class="alert alert-success m-4 text-center"><%= notice %></h6>
-        <% end %>
-      </div>
-      <div class="w-100 d-flex justify-content-center">
-        <div class="w-100" style="max-width: 700px;">
-          <%= yield %>
-        </div>
-      </div>
+<div>
+  <!-- Flash messages -->
+  <div class="w-100">
+    <% if notice %>
+      <h6 class="alert alert-success m-4 text-center"><%= notice %></h6>
+    <% end %>
+  </div>
+  <div class="w-100 d-flex justify-content-center">
+    <div class="w-100" style="max-width: 700px;">
+      <%= yield %>
     </div>
-  </div>
-</div>
-
-<!-- Offcanvas Sidebar para pantallas pequeñas -->
-<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
-  <div class="offcanvas-header bg-dark text-white">
-    <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><strong>UCV - La casa que vence la sombra</strong></h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <%= render "/layouts/sidebar" %>
   </div>
 </div>

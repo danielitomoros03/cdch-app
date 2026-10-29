@@ -1,130 +1,37 @@
-<!-- Sidebar -->
-<div class="col-lg-2 d-none d-lg-block bg-light sidebar-container shadow-sm">
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-    <% current_section = controller_name %>
-    <% active_link_style = "border-radius: 0.75rem; margin: 0 0.5rem; width: calc(100% - 1rem); box-sizing: border-box; transition: background-color 0.2s ease, color 0.2s ease; background-color: rgba(1, 37, 255, 0.35); color: #ffffff; font-weight: 700; border-left: 3px solid #e30101; padding-left: 1.15rem;" %>
+<nav class="dashboard-nav" aria-label="Menú del panel">
+  <ul class="dashboard-nav__list">
+    <%= sidebar_link "Inicio", dashboard_index_path, icon: "fa-tachometer-alt", sections: "dashboard" %>
+  </ul>
 
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-university"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3"><strong>La casa que vence la sombra</strong></div>
-        </a>
-
-        <hr class="sidebar-divider my-1">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item <%= 'active' if current_section == 'dashboard' %>">
-            <%= link_to dashboard_index_path, class: 'nav-link', style: (active_link_style if current_section == 'dashboard'), aria: { current: ('page' if current_section == 'dashboard') } do %>
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard Inicial</span>
-            <% end %>
-        </li>
-
-        <hr class="sidebar-divider my-1">
-
-        <div class="sidebar-heading">Contenidos</div>
-
-        <% if can? :read, Call %>
-            <li class="nav-item <%= 'active' if current_section == 'calls' %>">
-                <%= link_to calls_path, class: 'nav-link', style: (active_link_style if current_section == 'calls'), aria: { current: ('page' if current_section == 'calls') } do %>
-                    <i class="fas fa-bell"></i>
-                    <span>Convocatorias</span>
-                <% end %>
-            </li>
-        <% end %>
-
-        <% if can? :read, Minute %>
-            <li class="nav-item <%= 'active' if current_section == 'minutes' %>">
-                <%= link_to minutes_path, class: 'nav-link', style: (active_link_style if current_section == 'minutes'), aria: { current: ('page' if current_section == 'minutes') } do %>
-                    <i class="fas fa-box-open"></i>
-                    <span>Actas del Directorio</span>
-                <% end %>
-            </li>
-        <% end %>
-
-        <% if can? :read, Publication %>
-            <li class="nav-item <%= 'active' if current_section == 'publications' %>">
-                <%= link_to publications_path, class: 'nav-link', style: (active_link_style if current_section == 'publications'), aria: { current: ('page' if current_section == 'publications') } do %>
-                    <i class="fas fa-book"></i>
-                    <span>Publicaciones</span>
-                <% end %>
-            </li>
-        <% end %>
-
-        <% if can? :read, Event %>
-            <li class="nav-item <%= 'active' if current_section == 'events' %>">
-                <%= link_to events_path, class: 'nav-link', style: (active_link_style if current_section == 'events'), aria: { current: ('page' if current_section == 'events') } do %>
-                    <i class="fas fa-newspaper"></i>
-                    <span>Eventos y Noticias</span>
-                <% end %>
-            </li>
-        <% end %>
-
-        <% if can? :read, Person %>
-            <hr class="sidebar-divider">
-
-            <div class="sidebar-heading">Investigación</div>
-
-            <li class="nav-item <%= 'active' if %w[people research_projects].include?(current_section) %>">
-                <%= link_to people_path, class: 'nav-link', style: (active_link_style if %w[people research_projects].include?(current_section)), aria: { current: ('page' if current_section == 'people') } do %>
-                    <i class="fas fa-user-graduate"></i>
-                    <span>Docentes e investigadores</span>
-                <% end %>
-            </li>
-        <% end %>
-
-        <hr class="sidebar-divider">
-
-        <div class="sidebar-heading">General</div>
-    
-        <li class="nav-item <%= 'active' if current_section == 'solicitudes' %>">
-            <%= link_to solicitudes_path, class: 'nav-link', style: (active_link_style if current_section == 'solicitudes'), aria: { current: ('page' if current_section == 'solicitudes') } do %>
-            <i class="fas fa-envelope"></i>
-            <span>Solicitudes</span>
-            <% end %>
-        </li>
-        <!--
-            <li class="nav-item">
-                <%= link_to announcements_path, class: 'nav-link' do %>
-                <i class="fas fa-book"></i>
-                <span>Anuncios</span>
-                <% end %>
-            </li>
-        -->
-        <li class="nav-item <%= 'active' if current_section == 'users' %>">
-            <%= link_to users_path, class: 'nav-link', style: (active_link_style if current_section == 'users'), aria: { current: ('page' if current_section == 'users') } do %>
-            <i class="fas fa-user"></i>
-            <span>Usuarios</span>
-            <% end %>
-        </li>
-        <li class="nav-item <%= 'active' if current_section == 'departments' %>">
-            <%= link_to departments_path, class: 'nav-link', style: (active_link_style if current_section == 'departments'), aria: { current: ('page' if current_section == 'departments') } do %>
-            <i class="fas fa-building"></i>
-            <span>Departamentos</span>
-            <% end %>
-        </li>
-        <li class="nav-item <%= 'active' if current_section == 'institutions' %>">
-            <%= link_to institutions_path, class: 'nav-link', style: (active_link_style if current_section == 'institutions'), aria: { current: ('page' if current_section == 'institutions') } do %>
-            <i class="fas fa-address-book"></i>
-            <span>General CDCH</span>
-            <% end %>
-        </li>
-
-        <% if can? :read, InstitutionLeadership %>
-            <li class="nav-item <%= 'active' if current_section == 'institution_leaderships' %>">
-                <%= link_to institution_leaderships_path, class: 'nav-link', style: (active_link_style if current_section == 'institution_leaderships'), aria: { current: ('page' if current_section == 'institution_leaderships') } do %>
-                <i class="fas fa-user-tie"></i>
-                <span>Autoridades CDCH</span>
-                <% end %>
-            </li>
-        <% end %>
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
+  <% if can?(:read, Call) || can?(:read, Minute) || can?(:read, Publication) || can?(:read, Event) %>
+    <div class="dashboard-nav__heading">Contenidos</div>
+    <ul class="dashboard-nav__list">
+      <%= sidebar_link "Convocatorias", calls_path, icon: "fa-bell", sections: "calls" if can? :read, Call %>
+      <%= sidebar_link "Actas del Directorio", minutes_path, icon: "fa-box-open", sections: "minutes" if can? :read, Minute %>
+      <%= sidebar_link "Publicaciones", publications_path, icon: "fa-book", sections: "publications" if can? :read, Publication %>
+      <%= sidebar_link "Eventos y Noticias", events_path, icon: "fa-newspaper", sections: "events" if can? :read, Event %>
     </ul>
-    <!-- End of Sidebar -->
-</div>
+  <% end %>
+
+  <% if can? :read, Person %>
+    <div class="dashboard-nav__heading">Investigación</div>
+    <ul class="dashboard-nav__list">
+      <%= sidebar_link "Docentes e investigadores", people_path, icon: "fa-user-graduate", sections: %w[people research_projects] %>
+    </ul>
+  <% end %>
+
+  <div class="dashboard-nav__heading">General</div>
+  <ul class="dashboard-nav__list">
+    <%= sidebar_link "Solicitudes", solicitudes_path, icon: "fa-envelope", sections: "solicitudes" %>
+    <%= sidebar_link "Usuarios", users_path, icon: "fa-user", sections: "users" %>
+    <%= sidebar_link "Departamentos", departments_path, icon: "fa-building", sections: "departments" %>
+    <%= sidebar_link "General CDCH", institutions_path, icon: "fa-address-book", sections: "institutions" %>
+    <%= sidebar_link "Autoridades CDCH", institution_leaderships_path, icon: "fa-user-tie", sections: "institution_leaderships" if can? :read, InstitutionLeadership %>
+  </ul>
+</nav>
+
+<button type="button" class="dashboard-nav__toggle d-none d-lg-flex" data-action="sidebar#toggle"
+        data-sidebar-target="toggle" aria-expanded="<%= !sidebar_collapsed? %>" aria-controls="dashboardSidebar">
+  <i class="fas fa-fw fa-angle-double-left" aria-hidden="true"></i>
+  <span class="dashboard-nav__label">Contraer menú</span>
+</button>

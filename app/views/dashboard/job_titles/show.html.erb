@@ -1,52 +1,35 @@
-<div class="container-fluid">
-  <div class="row">
-    <%= render "/layouts/header" %>
-    <%= render "/layouts/sidebar" %>
+<div class="text-center">
+  <div>
+    <% if notice %>
+      <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
+    <% end %>
+  </div>
 
-    <div class="col-md mt-3 ms-auto col-lg-10 px-md-0 text-center">
-      <div>
-        <% if notice %>
-          <h6 class="alert alert-success col-md m-5 px-md-0 text-center"><%= notice %></h6>
-        <% end %>
+  <% content_for :title, "Cargo #{@job_title.name}" %>
+  <p>
+    <h1>Cargo <%= @job_title.name %></h1>
+  </p>
+  <div class="container">
+
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Rol</th>
+      </tr>
+    </thead>
+    <tbody>
+      <div id="job_titles">
+        <%= render @job_title %>
       </div>
+    </tbody>
+  </table>
 
-      <% content_for :title, "Cargo #{@job_title.name}" %>
-      <p>
-        <h1>Cargo <%= @job_title.name %></h1>
-      </p>
-      <div class="container">
-
-      <table class="table table-striped table-hover table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Rol</th>
-          </tr>
-        </thead>
-        <tbody>
-          <div id="job_titles">
-            <%= render @job_title %>
-          </div>
-        </tbody>
-      </table>
-
-      <div class="container-fluid">
-        <%= link_to "Edit this job title", edit_job_title_path(@job_title), class: "btn btn-primary" %> |
-        <%= link_to "Back to job titles", job_titles_path, class: "btn btn-dark" %> |
-        <%= button_to "Eliminar cargo", @job_title, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar este cargo?' } } %>
-      </div>
-    </div>
+  <div class="container-fluid">
+    <%= link_to "Edit this job title", edit_job_title_path(@job_title), class: "btn btn-primary" %> |
+    <%= link_to "Back to job titles", job_titles_path, class: "btn btn-dark" %> |
+    <%= button_to "Eliminar cargo", @job_title, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: '¿Estás seguro que deseas eliminar este cargo?' } } %>
   </div>
 </div>
-
-<!-- Offcanvas Sidebar para pantallas pequeñas -->
-<div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
-  <div class="offcanvas-header bg-dark text-white">
-    <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><strong>UCV - La casa que vence la sombra</strong></h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <%= render "/layouts/sidebar" %>
-  </div>
 </div>

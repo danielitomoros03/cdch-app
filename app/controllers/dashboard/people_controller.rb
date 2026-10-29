@@ -17,7 +17,7 @@ module Dashboard
       people = people.with_projects_since(@filters[:since]) if @filters[:since].to_s.match?(/\A(19|20)\d\d\z/)
 
       @total = people.count
-      @people = people.order(:full_name).paginate(page: params[:page], per_page: PER_PAGE)
+      @people = people.alphabetical.paginate(page: params[:page], per_page: PER_PAGE)
       @appointments = UcvAppointment.where(person_id: @people.map(&:id)).group_by(&:person_id)
       @faculty_names = @faculties.to_h { |faculty| [ faculty.code, faculty.name ] }
       @stage_counts = ProjectStage.where(lead_person_id: @people.map(&:id)).group(:lead_person_id).count

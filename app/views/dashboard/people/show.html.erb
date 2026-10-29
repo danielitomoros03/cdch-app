@@ -1,155 +1,174 @@
-<div class="container-fluid">
-  <div class="row">
-    <%= render "/layouts/header" %> <!-- Header -->
-    <%= render "/layouts/sidebar" %> <!-- Sidebar para pantallas grandes -->
+<% content_for :title, "CDCH - #{@person.display_name}" %>
 
-    <!-- Contenido principal -->
-    <div class="col-md mt-3 ms-auto col-lg-10 px-md-3">
-      <% content_for :title, "CDCH - #{@person.full_name}" %>
-      <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
-        <div>
-          <h1 class="h3 mb-1"><%= @person.full_name %></h1>
-          <div class="text-muted">
-            C.I. <%= [ @person.nationality, @person.id_number ].compact.join("-") %> ·
-            <%= situation_badge(@person) %>
-            · <%= faculty_label(@person.faculty_code, @faculty_names) %>
-          </div>
-        </div>
-        <%= link_to "Volver al listado", people_path, class: "btn btn-outline-secondary btn-sm" %>
-      </div>
-
-      <div class="row g-3 mb-4">
-        <% [ [ "Etapas como responsable", @led_stages.size ], [ "Etapas como coinvestigador", @co_stages.size ], [ "Ayudas institucionales", @aids.size ], [ "Becas", @scholarships.size ] ].each do |label, value| %>
-          <div class="col-6 col-md-3">
-            <div class="card shadow-sm h-100"><div class="card-body py-2">
-              <div class="small text-muted"><%= label %></div>
-              <div class="fs-4 fw-bold"><%= value %></div>
-            </div></div>
-          </div>
-        <% end %>
-      </div>
-
-      <h2 class="h5">Cargos en la UCV</h2>
-      <% if @appointments.any? %>
-        <table class="table table-sm table-bordered">
-          <thead><tr><th>Nómina</th><th>Dependencia</th><th>Unidad ejecutora</th><th>Categoría</th><th>Dedicación</th><th>Ingreso</th><th>Jubilación</th></tr></thead>
-          <tbody>
-            <% @appointments.each do |appointment| %>
-              <tr>
-                <td><%= appointment.payroll_type %></td>
-                <td><%= appointment.dependency %></td>
-                <td><%= appointment.ucv_unit_name || appointment.ucv_unit_code || "—" %></td>
-                <td><%= appointment.category %></td>
-                <td><%= appointment.dedication %></td>
-                <td><%= legacy_date(appointment.hired_on) %></td>
-                <td><%= legacy_date(appointment.retired_on) %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <p class="text-muted">No aparece en la nómina docente 2026.
-          <% if @person.legacy_category || @person.legacy_condition %>
-            Sistema heredado: <%= [ @person.legacy_condition, @person.legacy_category, @person.legacy_dedication ].compact.join(" · ") %>.
-          <% end %>
-        </p>
-      <% end %>
-
-      <% if @contacts.any? || @ppi_levels.any? %>
-        <div class="row">
-          <% if @contacts.any? %>
-            <div class="col-md-8">
-              <h2 class="h5">Contacto <small class="text-muted fw-normal">(datos del sistema heredado; pueden estar desactualizados)</small></h2>
-              <ul class="list-unstyled small">
-                <% @contacts.each do |contact| %>
-                  <li><strong><%= { "email" => "Correo", "phone" => "Teléfono", "address" => "Dirección" }[contact.kind] %>:</strong> <%= contact.value %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-          <% if @ppi_levels.any? %>
-            <div class="col-md-4">
-              <h2 class="h5">PPI (2005)</h2>
-              <ul class="list-unstyled small">
-                <% @ppi_levels.each do |ppi| %>
-                  <li>Nivel <%= ppi.level %><%= " · #{ppi.committee}" if ppi.committee.present? %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-
-      <h2 class="h5 mt-3">Proyectos como responsable</h2>
-      <%= render "stages", stages: @led_stages, empty: "Sin etapas como responsable." %>
-
-      <h2 class="h5 mt-3">Proyectos como coinvestigador</h2>
-      <% if @co_stages.any? %>
-        <table class="table table-sm table-bordered">
-          <thead><tr><th>Código</th><th>Etapa</th><th>Título</th><th>Responsable</th><th>Solicitud</th></tr></thead>
-          <tbody>
-            <% @co_stages.each do |co| %>
-              <% stage = co.project_stage %>
-              <tr>
-                <td><%= stage ? link_to(stage.research_project.code, research_project_path(stage.research_project)) : co.project_code %></td>
-                <td><%= co.stage_number %></td>
-                <td><%= stage&.title || "(etapa no encontrada en el sistema heredado)" %></td>
-                <td><%= stage&.lead_person ? link_to(stage.lead_person.full_name, person_path(stage.lead_person)) : "—" %></td>
-                <td><%= legacy_date(stage&.requested_on) %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <p class="text-muted">Sin participaciones como coinvestigador.</p>
-      <% end %>
-
-      <h2 class="h5 mt-3">Ayudas institucionales</h2>
-      <% if @aids.any? %>
-        <table class="table table-sm table-bordered">
-          <thead><tr><th>Código</th><th>Tipo</th><th>Descripción</th><th>Estado</th><th>Solicitud</th><th class="text-end">Aprobado</th></tr></thead>
-          <tbody>
-            <% @aids.each do |aid| %>
-              <tr>
-                <td><%= aid.code %></td>
-                <td><%= aid.aid_type_code %></td>
-                <td><%= aid.description %></td>
-                <td><%= aid.legacy_status&.name %></td>
-                <td><%= legacy_date(aid.requested_on) %></td>
-                <td class="text-end"><%= legacy_amount(aid.amount_approved, aid.currency) %> <%= flagged_amount_badge(aid) %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <p class="text-muted">Sin ayudas institucionales.</p>
-      <% end %>
-
-      <h2 class="h5 mt-3">Becas</h2>
-      <% if @scholarships.any? %>
-        <table class="table table-sm table-bordered">
-          <thead><tr><th>Programa</th><th>Nivel</th><th>Especialidad</th><th>Institución</th><th>Inicio</th><th>Fin</th><th>Estado</th></tr></thead>
-          <tbody>
-            <% @scholarships.each do |scholarship| %>
-              <tr>
-                <td><%= scholarship.program %></td>
-                <td><%= scholarship.level %></td>
-                <td><%= scholarship.specialty %></td>
-                <td><%= [ scholarship.institution, scholarship.country ].compact_blank.join(", ") %></td>
-                <td><%= legacy_date(scholarship.starts_on) %></td>
-                <td><%= legacy_date(scholarship.ends_on) %></td>
-                <td><%= scholarship.status || "—" %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <p class="text-muted">Sin becas registradas.</p>
-      <% end %>
-
-      <p class="small text-muted mt-4">Fuentes: <%= @person.sources %></p>
-    </div>
+<div class="dashboard-page-header">
+  <div>
+    <h1 class="dashboard-page-header__title"><%= @person.display_name %></h1>
+    <p class="dashboard-page-header__subtitle">
+      C.I. <%= [ @person.nationality, @person.id_number ].compact.join("-") %> ·
+      <%= situation_badge(@person) %> ·
+      <%= faculty_label(@person.faculty_code, @faculty_names) %>
+    </p>
   </div>
+  <%= link_to people_path, class: "btn btn-outline-secondary btn-sm" do %>
+    <i class="fas fa-arrow-left me-1" aria-hidden="true"></i> Volver al listado
+  <% end %>
 </div>
 
-<%= render "offcanvas" %>
+<div class="stat-tiles">
+  <% [ [ "Etapas como responsable", @led_stages.size ], [ "Etapas como coinvestigador", @co_stages.size ], [ "Ayudas institucionales", @aids.size ], [ "Becas", @scholarships.size ] ].each do |label, value| %>
+    <div class="stat-tile">
+      <div class="stat-tile__label"><%= label %></div>
+      <div class="stat-tile__value"><%= value %></div>
+    </div>
+  <% end %>
+</div>
+
+<section class="panel">
+  <h2 class="panel__title">Cargos en la UCV</h2>
+  <% if @appointments.any? %>
+    <div class="table-responsive data-table">
+      <table class="table table-sm align-middle mb-0">
+        <thead><tr><th>Nómina</th><th>Dependencia</th><th>Unidad ejecutora</th><th>Categoría</th><th>Dedicación</th><th>Ingreso</th><th>Jubilación</th></tr></thead>
+        <tbody>
+          <% @appointments.each do |appointment| %>
+            <tr>
+              <td><%= appointment.payroll_type %></td>
+              <td><%= appointment.dependency %></td>
+              <td><%= appointment.ucv_unit_name || appointment.ucv_unit_code || "—" %></td>
+              <td><%= appointment.category %></td>
+              <td><%= appointment.dedication %></td>
+              <td class="text-nowrap"><%= legacy_date(appointment.hired_on) %></td>
+              <td class="text-nowrap"><%= legacy_date(appointment.retired_on) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p class="panel__empty">No aparece en la nómina docente 2026.
+      <% if @person.legacy_category || @person.legacy_condition %>
+        Sistema heredado: <%= [ @person.legacy_condition, @person.legacy_category, @person.legacy_dedication ].compact.join(" · ") %>.
+      <% end %>
+    </p>
+  <% end %>
+
+  <% if @contacts.any? || @ppi_levels.any? %>
+    <div class="row g-4 mt-1">
+      <% if @contacts.any? %>
+        <div class="col-md-8">
+          <h3 class="panel__subtitle">Contacto <span class="fw-normal">· datos del sistema heredado, pueden estar desactualizados</span></h3>
+          <dl class="detail-list">
+            <% @contacts.each do |contact| %>
+              <dt><%= { "email" => "Correo", "phone" => "Teléfono", "address" => "Dirección" }[contact.kind] %></dt>
+              <dd><%= contact.value %></dd>
+            <% end %>
+          </dl>
+        </div>
+      <% end %>
+      <% if @ppi_levels.any? %>
+        <div class="col-md-4">
+          <h3 class="panel__subtitle">PPI (2005)</h3>
+          <ul class="list-unstyled small mb-0">
+            <% @ppi_levels.each do |ppi| %>
+              <li><%= ppi.level %><%= " · #{ppi.committee}" if ppi.committee.present? %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</section>
+
+<section class="panel">
+  <ul class="nav nav-underline panel__tabs" role="tablist">
+    <% [ [ "led", "Proyectos como responsable", @led_stages.size ], [ "co", "Como coinvestigador", @co_stages.size ], [ "aids", "Ayudas institucionales", @aids.size ], [ "scholarships", "Becas", @scholarships.size ] ].each_with_index do |(key, label, count), index| %>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link <%= "active" if index.zero? %>" id="tab-<%= key %>" data-bs-toggle="tab" data-bs-target="#pane-<%= key %>"
+                type="button" role="tab" aria-controls="pane-<%= key %>" aria-selected="<%= index.zero? %>">
+          <%= label %> <span class="badge rounded-pill text-bg-light"><%= count %></span>
+        </button>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="pane-led" role="tabpanel" aria-labelledby="tab-led" tabindex="0">
+      <%= render "stages", stages: @led_stages, empty: "Sin etapas como responsable." %>
+    </div>
+
+    <div class="tab-pane fade" id="pane-co" role="tabpanel" aria-labelledby="tab-co" tabindex="0">
+      <% if @co_stages.any? %>
+        <div class="table-responsive data-table">
+          <table class="table table-sm align-middle mb-0">
+            <thead><tr><th>Código</th><th>Etapa</th><th>Título</th><th>Responsable</th><th>Solicitud</th></tr></thead>
+            <tbody>
+              <% @co_stages.each do |co| %>
+                <% stage = co.project_stage %>
+                <tr>
+                  <td class="text-nowrap"><%= stage ? link_to(stage.research_project.code, research_project_path(stage.research_project)) : co.project_code %></td>
+                  <td><%= co.stage_number %></td>
+                  <td><%= stage&.title || "(etapa no encontrada en el sistema heredado)" %></td>
+                  <td><%= stage&.lead_person ? link_to(stage.lead_person.display_name, person_path(stage.lead_person)) : "—" %></td>
+                  <td class="text-nowrap"><%= legacy_date(stage&.requested_on) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p class="panel__empty">Sin participaciones como coinvestigador.</p>
+      <% end %>
+    </div>
+
+    <div class="tab-pane fade" id="pane-aids" role="tabpanel" aria-labelledby="tab-aids" tabindex="0">
+      <% if @aids.any? %>
+        <div class="table-responsive data-table">
+          <table class="table table-sm align-middle mb-0">
+            <thead><tr><th>Código</th><th>Tipo</th><th>Descripción</th><th>Estado</th><th>Solicitud</th><th class="text-end">Aprobado</th></tr></thead>
+            <tbody>
+              <% @aids.each do |aid| %>
+                <tr>
+                  <td class="text-nowrap"><%= aid.code %></td>
+                  <td><%= aid.aid_type_code %></td>
+                  <td><%= aid.description %></td>
+                  <td><%= aid.legacy_status&.name %></td>
+                  <td class="text-nowrap"><%= legacy_date(aid.requested_on) %></td>
+                  <td class="text-end"><%= legacy_amount(aid.amount_approved, aid.currency) %> <%= flagged_amount_badge(aid) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p class="panel__empty">Sin ayudas institucionales.</p>
+      <% end %>
+    </div>
+
+    <div class="tab-pane fade" id="pane-scholarships" role="tabpanel" aria-labelledby="tab-scholarships" tabindex="0">
+      <% if @scholarships.any? %>
+        <div class="table-responsive data-table">
+          <table class="table table-sm align-middle mb-0">
+            <thead><tr><th>Programa</th><th>Nivel</th><th>Especialidad</th><th>Institución</th><th>Inicio</th><th>Fin</th><th>Estado</th></tr></thead>
+            <tbody>
+              <% @scholarships.each do |scholarship| %>
+                <tr>
+                  <td><%= scholarship.program %></td>
+                  <td><%= scholarship.level %></td>
+                  <td><%= scholarship.specialty %></td>
+                  <td><%= [ scholarship.institution, scholarship.country ].compact_blank.join(", ") %></td>
+                  <td class="text-nowrap"><%= legacy_date(scholarship.starts_on) %></td>
+                  <td class="text-nowrap"><%= legacy_date(scholarship.ends_on) %></td>
+                  <td><%= scholarship.status || "—" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p class="panel__empty">Sin becas registradas.</p>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<p class="small text-muted">Fuentes: <%= @person.sources.to_s.split(",").map(&:strip).join(", ") %></p>

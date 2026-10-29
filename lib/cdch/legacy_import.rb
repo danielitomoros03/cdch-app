@@ -128,6 +128,8 @@ module Cdch
           sources: r["fuentes"]
         }
       end
+      # upsert_all no pasa por `normalizes`: se aplica a mano para guardar los nombres en mayúsculas.
+      people.each { |person| Person::NAME_FIELDS.each { |field| person[field] = Person.normalize_value_for(field, person[field]) } }
       upsert Person, people, unique_by: :id_number
 
       # id de persona en la base unificada → id en Postgres
@@ -303,8 +305,11 @@ module Cdch
 
     # --- Utilidades ----------------------------------------------------------
 
+    # El FoxPro guardaba la Ñ como el byte 0xA5 de cp850; leído como cp1252 sale "¥".
     def rows(sql)
-      @db.execute(sql)
+      @db.execute(sql).each do |row|
+        row.transform_values! { |value| value.is_a?(String) ? value.tr("¥", "Ñ") : value }
+      end
     end
 
     def upsert(model, records, unique_by:)

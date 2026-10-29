@@ -46,16 +46,26 @@ class Person < ApplicationRecord
   has_many :institutional_aids, foreign_key: :applicant_person_id, inverse_of: :applicant_person, dependent: :restrict_with_error
   has_many :scholarships, dependent: :restrict_with_error
 
+  # Los nombres se guardan en mayúsculas (como la nómina); display_name los presenta en tipo título.
+  NAME_FIELDS = %i[full_name first_names last_names payroll_name].freeze
+  normalizes(*NAME_FIELDS, with: ->(name) { name.squish.upcase })
+  NAME_PARTICLES = %w[de del la las los da di van von].to_set.freeze
+
   validates :id_number, presence: true, uniqueness: true
   validates :full_name, presence: true
 
   scope :with_cdch_history, -> { where(project_lead: true).or(where(co_investigator: true)).or(where(reviewer: true)).or(where(aid_applicant: true)).or(where(scholar: true)) }
   scope :outside_payroll, -> { where(in_payroll: false) }
   # Sin importar acentos: "garcia" encuentra "GARCÍA".
+  # Sin la extensión unaccent: los nombres se comparan sin tildes con translate().
+  UNACCENTED_NAME = "translate(people.full_name, 'ÁÉÍÓÚÜÑáéíóúüñ', 'AEIOUUNaeiouun')".freeze
+
   scope :search, ->(term) {
     pattern = "%#{sanitize_sql_like(I18n.transliterate(term.to_s.strip))}%"
-    where("translate(people.full_name, 'ÁÉÍÓÚÜÑáéíóúüñ', 'AEIOUUNaeiouun') ILIKE :pattern OR people.id_number LIKE :pattern", pattern: pattern)
+    where("#{UNACCENTED_NAME} ILIKE :pattern OR people.id_number LIKE :pattern", pattern: pattern)
   }
+  # Alfabético sin importar tildes ni mayúsculas; los registros sin nombre (solo cédula) van al final.
+  scope :alphabetical, -> { order(Arel.sql("people.full_name ~ '^[0-9]', lower(#{UNACCENTED_NAME})")) }
 
   SITUATIONS = {
     "active" => "Activo",
@@ -75,6 +85,15 @@ class Person < ApplicationRecord
     where(id: stages.select(:lead_person_id))
       .or(where(id: StageCoInvestigator.where(project_stage_id: stages.select(:id)).select(:person_id)))
   }
+
+  # "PORRAS DE PÉREZ MARÍA" → "Porras de Pérez María"; "D'ANGELO" → "D'Angelo".
+  def display_name
+    word_index = -1
+    full_name.downcase.gsub(/[[:alpha:]]+/) do |word|
+      word_index += 1
+      word_index.positive? && NAME_PARTICLES.include?(word) ? word : word.capitalize
+    end
+  end
 
   def situation
     SITUATIONS[payroll_status || "outside"]
