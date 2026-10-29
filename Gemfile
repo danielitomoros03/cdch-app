@@ -6,6 +6,10 @@ gem "rails", "~> 7.2.2", ">= 7.2.2.1"
 gem "sprockets-rails"
 # Use sqlite3 as the database for Active Record
 # gem "sqlite3", ">= 1.4"
+
+# Lee la base unificada (SQLite) del ETL en `rails cdch:import`; también en
+# producción, donde se corre la carga inicial. La app no la carga al arrancar.
+gem "sqlite3", require: false
 # Use postgresql as the database for Active Record
   gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -60,8 +64,6 @@ group :development, :test do
 end
 
 group :development do
-  # Lee la base unificada (SQLite) del ETL en `rails cdch:import`
-  gem "sqlite3", require: false
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
