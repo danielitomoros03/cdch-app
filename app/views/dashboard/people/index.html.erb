@@ -10,11 +10,13 @@
 
 <%= form_with url: people_path, method: :get, class: "filter-bar",
       data: { controller: "auto-submit", turbo_frame: "people_results", turbo_action: "advance" } do |f| %>
-  <div class="filter-bar__field filter-bar__field--toggle">
-    <%= f.check_box :history, { checked: @filters[:history] == "1", class: "btn-check", autocomplete: "off", data: { action: "auto-submit#submit" } }, "1", nil %>
-    <%= f.label :history, class: "btn btn-sm filter-toggle" do %>
-      <i class="fas fa-history" aria-hidden="true"></i> Con historia en el CDCH
-    <% end %>
+  <div class="filter-bar__field filter-bar__field--switch">
+    <span class="form-label d-block" id="history-label">Historia en el CDCH</span>
+    <div class="form-check form-switch filter-switch">
+      <%= f.check_box :history, { checked: @filters[:history] == "1", class: "form-check-input", role: "switch",
+            aria: { describedby: "history-label" }, data: { action: "auto-submit#submit" } }, "1", nil %>
+      <%= f.label :history, "Solo con historia", class: "form-check-label" %>
+    </div>
   </div>
   <div class="filter-bar__field filter-bar__field--wide">
     <%= f.label :q, "Nombre o cédula", class: "form-label" %>

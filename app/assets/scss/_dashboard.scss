@@ -301,25 +301,33 @@
       flex: 0 1 7rem;
     }
 
-    &--toggle {
+    &--switch {
       flex: 0 0 auto;
-      align-self: center;
     }
   }
 
-  .filter-toggle {
-    --bs-btn-color: #{$primary};
-    --bs-btn-border-color: #{rgba($primary, .35)};
-    --bs-btn-bg: #{rgba($primary, .06)};
-    --bs-btn-hover-color: #{$primary};
-    --bs-btn-hover-bg: #{rgba($primary, .12)};
-    --bs-btn-hover-border-color: #{rgba($primary, .5)};
-    --bs-btn-active-color: #{$white};
-    --bs-btn-active-bg: #{$primary};
-    --bs-btn-active-border-color: #{$primary};
-    border-radius: 2rem;
-    font-weight: 600;
+  // Interruptor con la misma caja y altura que los demás controles del filtro.
+  .filter-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: calc(1.5em + 0.5rem + 2px);
+    margin: 0;
+    padding: 0.25rem 0.75rem 0.25rem 2.75rem;
+    font-size: 0.875rem;
+    background-color: $bg-white;
+    border: 1px solid $gray-400;
+    border-radius: var(--bs-border-radius-sm);
     white-space: nowrap;
+
+    .form-check-input {
+      margin-top: 0;
+      cursor: pointer;
+    }
+
+    .form-check-label {
+      cursor: pointer;
+    }
   }
 
   &__actions {
