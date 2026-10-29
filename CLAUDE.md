@@ -111,6 +111,10 @@ Layout partials for public pages live in `app/views/layouts/`: `_header.html.erb
 
 All UI strings are in Spanish. `config/locales/es.yml` contains ActiveRecord model/attribute translations, flash messages, enum labels, and date/time formats. Use `t()` helpers in views for user-facing strings. Note: some older controllers still use hardcoded Spanish strings instead of i18n keys.
 
+### Secrets
+
+Production (Dokku app `cdch-app` on silenia) takes every secret from Dokku config vars: `SECRET_KEY_BASE`, `DATABASE_URL` and the `SMTP_*` vars. Rails credentials are not used and there is no `config/master.key`; do not add `credentials.yml.enc` back. Never print the values (`dokku config:show` does): check them with `dokku config:get cdch-app SECRET_KEY_BASE | wc -c`.
+
 ### Database
 
 PostgreSQL. The app uses PostgreSQL-specific features:
