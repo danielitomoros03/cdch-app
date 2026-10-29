@@ -1,0 +1,26 @@
+# Datos ficticios.
+answered_review:
+  department: dadi
+  legacy_id: 1
+  project_stage: first_stage
+  legacy_code: PI-08-0001
+  stage_number: 1
+  reviewer_person: retired_doctor
+  reviewer_name: NÚÑEZ ROJAS LUIS
+  sent_on: 2008-03-10
+  answered_on: 2008-04-02
+  opinion_given: true
+  ratified: false
+  notes: "correo-ficticio@example.com"
+
+declined_review:
+  department: dadi
+  legacy_id: 2
+  project_stage: first_stage
+  legacy_code: PI-08-0001
+  stage_number: 1
+  reviewer_name: ÁRBITRO EXTERNO FICTICIO
+  sent_on: 2008-03-10
+  answered_on: 2008-03-20
+  opinion_given: false
+  notes: NO PUEDE ARBITRAR

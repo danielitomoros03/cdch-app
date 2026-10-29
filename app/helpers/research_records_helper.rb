@@ -21,6 +21,29 @@ module ResearchRecordsHelper
     tag.span(person.situation, class: "badge #{css}")
   end
 
+  def peer_review_outcome_badge(review)
+    css = if review.opinion_given then "bg-success"
+    elsif review.answered_on then "bg-secondary"
+    else "bg-light text-dark border"
+    end
+    tag.span(review.outcome, class: "badge #{css}")
+  end
+
+  def yes_no(value)
+    { true => "Sí", false => "No" }.fetch(value, "—")
+  end
+
+  # Notas del FoxPro con varias líneas (p. ej. correos y teléfonos del árbitro).
+  def multiline(text)
+    safe_join(text.to_s.lines.map(&:strip).compact_blank, tag.br)
+  end
+
+  def confidential_badge
+    tag.span(class: "badge text-bg-warning", title: "Visible solo para la Dirección y la Subdirección") do
+      tag.i(class: "fas fa-lock me-1", aria: { hidden: true }) + "Confidencial"
+    end
+  end
+
   def flagged_amount_badge(record)
     return unless record.amount_flagged
 

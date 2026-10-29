@@ -39,4 +39,18 @@ class AbilityResearchRecordsTest < ActiveSupport::TestCase
     assert ability.cannot?(:read, ResearchProject)
     assert_empty Person.accessible_by(ability)
   end
+
+  test "only direction and subdirection read peer reviews" do
+    %i[director subdirector].each do |key|
+      ability = Ability.new(users(key))
+      assert ability.can?(:read, PeerReview), "#{key} should read peer reviews"
+      assert ability.cannot?(:update, PeerReview)
+    end
+
+    %i[superadmin dtic_head dadi_head].each do |key|
+      ability = Ability.new(users(key))
+      assert ability.cannot?(:read, PeerReview), "#{key} should not read peer reviews"
+      assert_empty PeerReview.accessible_by(ability)
+    end
+  end
 end

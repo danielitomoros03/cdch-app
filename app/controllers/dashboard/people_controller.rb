@@ -33,6 +33,7 @@ module Dashboard
       @aids = @person.institutional_aids.includes(:legacy_status).order(requested_on: :desc)
       @scholarships = @person.scholarships.order(starts_on: :desc)
       @ppi_levels = @person.ppi_levels
+      @reviews = @person.peer_reviews_given.accessible_by(current_ability).includes(project_stage: :research_project).order(sent_on: :desc) if can?(:read, PeerReview)
     end
   end
 end

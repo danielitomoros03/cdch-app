@@ -5,8 +5,6 @@ module Cdch
   # de investigadores. Se puede repetir: personas y proyectos se actualizan por su
   # clave natural (cédula; tipo + código), así sus ids y enlaces se mantienen; el
   # resto se reemplaza completo. Todo corre en una transacción.
-  #
-  # Los arbitrajes no se cargan todavía: esperan su regla de confidencialidad.
   class LegacyImport
     BATCH = 1_000
     VALID_YEARS = 1950..2030
@@ -22,7 +20,7 @@ module Cdch
 
     # Tablas que se vacían y se vuelven a llenar, de hijas a madres.
     REPLACED = [
-      StageCoInvestigator, StagePublication, StageExtension, ProjectStage,
+      PeerReview, StageCoInvestigator, StagePublication, StageExtension, ProjectStage,
       InstitutionalAid, Scholarship, PersonContact, UcvAppointment, PpiLevel
     ].freeze
 
@@ -55,6 +53,7 @@ module Cdch
         import_extensions
         import_aids
         import_scholarships
+        import_peer_reviews
         remove_stale_projects
       end
 
@@ -292,6 +291,24 @@ module Cdch
           last_extension_on: date(r["fecha_ultima_prorroga"]), degree_filed_on: date(r["fecha_consignacion_titulo"]),
           status: r["estado"].presence, file_number: r["expediente"],
           notes: r["observaciones"].presence, follow_up: r["seguimiento"].presence, source: r["fuente"]
+        }
+      }
+    end
+
+    # Confidenciales: ver Ability. Las observaciones suelen ser datos de contacto del árbitro.
+    def import_peer_reviews
+      aid_ids = InstitutionalAid.pluck(:legacy_id, :id).to_h
+      insert PeerReview, rows("SELECT * FROM arbitraje").map { |r|
+        count(:arbitrajes_sin_etapa_ni_ayuda) unless r["proyecto_etapa_id"] || r["ayuda_id"]
+        {
+          department_id: dadi.id, legacy_id: r["id"],
+          project_stage_id: stage(r["proyecto_etapa_id"]), institutional_aid_id: r["ayuda_id"] && aid_ids.fetch(r["ayuda_id"]),
+          legacy_code: r["codigo"], stage_number: r["etapa"],
+          reviewer_person_id: person(r["arbitro_persona_id"]),
+          reviewer_name: r["arbitro_nombre"].presence && PeerReview.normalize_value_for(:reviewer_name, r["arbitro_nombre"]),
+          letter_number: r["oficio"].presence, sent_on: date(r["fecha_oficio"]), answered_on: date(r["fecha_respuesta"]),
+          opinion_given: bool(r["opino"]), ratified: bool(r["ratificado"]),
+          receipt: r["recibo"].presence, notes: r["observaciones"].presence
         }
       }
     end

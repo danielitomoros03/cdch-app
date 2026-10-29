@@ -15,7 +15,9 @@
 </div>
 
 <div class="stat-tiles">
-  <% [ [ "Etapas como responsable", @led_stages.size ], [ "Etapas como coinvestigador", @co_stages.size ], [ "Ayudas institucionales", @aids.size ], [ "Becas", @scholarships.size ] ].each do |label, value| %>
+  <% tiles = [ [ "Etapas como responsable", @led_stages.size ], [ "Etapas como coinvestigador", @co_stages.size ], [ "Ayudas institucionales", @aids.size ], [ "Becas", @scholarships.size ] ] %>
+  <% tiles << [ "Arbitrajes", @reviews.size ] if @reviews %>
+  <% tiles.each do |label, value| %>
     <div class="stat-tile">
       <div class="stat-tile__label"><%= label %></div>
       <div class="stat-tile__value"><%= value %></div>
@@ -81,7 +83,9 @@
 
 <section class="panel">
   <ul class="nav nav-underline panel__tabs" role="tablist">
-    <% [ [ "led", "Proyectos como responsable", @led_stages.size ], [ "co", "Como coinvestigador", @co_stages.size ], [ "aids", "Ayudas institucionales", @aids.size ], [ "scholarships", "Becas", @scholarships.size ] ].each_with_index do |(key, label, count), index| %>
+    <% tabs = [ [ "led", "Proyectos como responsable", @led_stages.size ], [ "co", "Como coinvestigador", @co_stages.size ], [ "aids", "Ayudas institucionales", @aids.size ], [ "scholarships", "Becas", @scholarships.size ] ] %>
+    <% tabs << [ "reviews", "Arbitrajes", @reviews.size ] if @reviews %>
+    <% tabs.each_with_index do |(key, label, count), index| %>
       <li class="nav-item" role="presentation">
         <button class="nav-link <%= "active" if index.zero? %>" id="tab-<%= key %>" data-bs-toggle="tab" data-bs-target="#pane-<%= key %>"
                 type="button" role="tab" aria-controls="pane-<%= key %>" aria-selected="<%= index.zero? %>">
@@ -168,6 +172,36 @@
         <p class="panel__empty">Sin becas registradas.</p>
       <% end %>
     </div>
+
+    <% if @reviews %>
+      <div class="tab-pane fade" id="pane-reviews" role="tabpanel" aria-labelledby="tab-reviews" tabindex="0">
+        <p class="small text-muted mb-2"><%= confidential_badge %> Proyectos que se le enviaron a arbitrar (sistema heredado, 1989–2012).</p>
+        <% if @reviews.any? %>
+          <div class="table-responsive data-table">
+            <table class="table table-sm align-middle mb-0">
+              <thead><tr><th>Código</th><th>Etapa</th><th>Título</th><th>Oficio</th><th>Respuesta</th><th>Resultado</th><th>Ratificado</th><th>Observaciones</th></tr></thead>
+              <tbody>
+                <% @reviews.each do |review| %>
+                  <% stage = review.project_stage %>
+                  <tr>
+                    <td class="text-nowrap"><%= stage ? link_to(stage.research_project.code, research_project_path(stage.research_project)) : review.legacy_code %></td>
+                    <td><%= review.stage_number %></td>
+                    <td><%= stage&.title || "—" %></td>
+                    <td class="text-nowrap"><%= legacy_date(review.sent_on) %></td>
+                    <td class="text-nowrap"><%= legacy_date(review.answered_on) %></td>
+                    <td><%= peer_review_outcome_badge(review) %></td>
+                    <td><%= yes_no(review.ratified) %></td>
+                    <td class="small text-muted"><%= multiline(review.notes) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          <p class="panel__empty">Sin arbitrajes registrados.</p>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </section>
 

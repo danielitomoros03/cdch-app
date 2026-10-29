@@ -45,6 +45,7 @@ class Person < ApplicationRecord
   has_many :co_investigated_stages, through: :co_investigations, source: :project_stage
   has_many :institutional_aids, foreign_key: :applicant_person_id, inverse_of: :applicant_person, dependent: :restrict_with_error
   has_many :scholarships, dependent: :restrict_with_error
+  has_many :peer_reviews_given, class_name: "PeerReview", foreign_key: :reviewer_person_id, inverse_of: :reviewer_person, dependent: :restrict_with_error
 
   # Los nombres se guardan en mayúsculas (como la nómina); display_name los presenta en tipo título.
   NAME_FIELDS = %i[full_name first_names last_names payroll_name].freeze

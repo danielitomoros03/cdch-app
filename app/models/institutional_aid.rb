@@ -59,4 +59,6 @@ class InstitutionalAid < ApplicationRecord
   belongs_to :applicant_person, class_name: "Person", optional: true
   belongs_to :legacy_status, optional: true
   belongs_to :project_type, foreign_key: :aid_type_code, primary_key: :code, optional: true
+
+  has_many :peer_reviews, dependent: :restrict_with_error
 end

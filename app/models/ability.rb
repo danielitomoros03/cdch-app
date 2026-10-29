@@ -13,6 +13,8 @@ class Ability
     InstitutionalAid, Scholarship
   ].freeze
   RESEARCH_READERS = %w[Director Subdirector Superadmin].freeze
+  # Los arbitrajes son confidenciales: ni DTIC (Superadmin) ni docentes, solo la Dirección.
+  PEER_REVIEW_READERS = %w[Director Subdirector].freeze
 
   def initialize(user)
     return unless user
@@ -73,7 +75,8 @@ class Ability
     end
 
     # Va al final para pisar los `:manage, :all` de Superadmin y de la jefatura de DTIC.
-    cannot :manage, RESEARCH_RECORDS
+    cannot :manage, [ *RESEARCH_RECORDS, PeerReview ]
     can :read, RESEARCH_RECORDS if role == "Superadmin" && RESEARCH_READERS.include?(job_title_name)
+    can :read, PeerReview if role == "Superadmin" && PEER_REVIEW_READERS.include?(job_title_name)
   end
 end

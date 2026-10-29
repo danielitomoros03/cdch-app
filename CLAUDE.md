@@ -65,6 +65,8 @@ The integer ordering is used in queries: `JobTitle.where("role <= ?", current_ro
 
 **Fine-grained permissions** are stored in `user_permissions` table as tokens like `"Call:read"` or `"Publication:create"`. Resources scoped by `department_id` where available; `InstitutionLeadership` is an exception (not scoped by department). Valid resources: `Call`, `Event`, `Publication`, `Minute`, `Solicitude`, `InstitutionLeadership`. Valid actions: `read`, `create`, `update`.
 
+**Research records** (`Ability::RESEARCH_RECORDS`: people, legacy projects, aids, scholarships) are read-only, loaded with `rails cdch:import`, and readable only by the Director, Subdirector and Superadmin job titles. **Peer reviews (`PeerReview`) are confidential**: only Director and Subdirector, never DTIC (Superadmin job title) or teachers. Views check `can?(:read, PeerReview)` before querying them. Person names are stored in uppercase (`Person` normalizes); show them with `Person#display_name`.
+
 ### Key Models
 
 - **`User`** — belongs to `Department` and `JobTitle`; role delegated from `JobTitle#role`; `active` boolean controls account activation (default `false`); `photoUser` via Active Storage

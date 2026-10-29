@@ -81,4 +81,5 @@ class ProjectStage < ApplicationRecord
   has_many :co_investigator_people, through: :co_investigators, source: :person
   has_many :publications, class_name: "StagePublication", dependent: :restrict_with_error
   has_many :extensions, class_name: "StageExtension", dependent: :restrict_with_error
+  has_many :peer_reviews, dependent: :restrict_with_error
 end

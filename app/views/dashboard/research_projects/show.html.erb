@@ -72,6 +72,26 @@
         <% if stage.notes.present? %>
           <p class="mb-0 text-muted"><strong>Observaciones:</strong> <%= stage.notes %></p>
         <% end %>
+        <% if (reviews = @reviews_by_stage&.fetch(stage.id, nil)) %>
+          <h3 class="panel__subtitle mt-3">Arbitrajes <%= confidential_badge %></h3>
+          <div class="table-responsive data-table">
+            <table class="table table-sm align-middle mb-0">
+              <thead><tr><th>Árbitro</th><th>Oficio</th><th>Respuesta</th><th>Resultado</th><th>Ratificado</th><th>Observaciones</th></tr></thead>
+              <tbody>
+                <% reviews.each do |review| %>
+                  <tr>
+                    <td><%= review.reviewer_person ? link_to(review.reviewer_display_name, person_path(review.reviewer_person)) : review.reviewer_display_name %></td>
+                    <td class="text-nowrap"><%= legacy_date(review.sent_on) %></td>
+                    <td class="text-nowrap"><%= legacy_date(review.answered_on) %></td>
+                    <td><%= peer_review_outcome_badge(review) %></td>
+                    <td><%= yes_no(review.ratified) %></td>
+                    <td class="small text-muted"><%= multiline(review.notes) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>

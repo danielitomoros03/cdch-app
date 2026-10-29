@@ -50,6 +50,33 @@ class Dashboard::PeopleControllerTest < ActionDispatch::IntegrationTest
     assert_select "a.dashboard-nav__link.is-active[href=?]", people_path
   end
 
+  test "peer reviews show to the direction on the reviewer card and the project" do
+    sign_in users(:director)
+
+    get person_url(people(:retired_doctor))
+    assert_select "#pane-reviews td", text: "PI-08-0001"
+    assert_select "#pane-reviews .badge", text: "Emitió opinión"
+
+    get research_project_url(research_projects(:engineering_project))
+    assert_select "td", text: "Árbitro Externo Ficticio"
+    assert_select ".badge", text: "Respondió sin opinión"
+    assert_match "NO PUEDE ARBITRAR", response.body
+  end
+
+  test "superadmin from DTIC sees the person and the project but not the peer reviews" do
+    sign_in users(:superadmin)
+
+    get person_url(people(:retired_doctor))
+    assert_response :success
+    assert_select "#pane-reviews", false
+    assert_select ".stat-tile__label", text: "Arbitrajes", count: 0
+
+    get research_project_url(research_projects(:engineering_project))
+    assert_response :success
+    assert_no_match "Árbitro Externo Ficticio", response.body
+    assert_no_match "NO PUEDE ARBITRAR", response.body
+  end
+
   test "dtic head is turned away" do
     sign_in users(:dtic_head)
 

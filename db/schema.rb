@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_10_28_180000) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_29_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -222,6 +222,32 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_28_180000) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "peer_reviews", force: :cascade do |t|
+    t.bigint "department_id", null: false
+    t.integer "legacy_id", null: false
+    t.bigint "project_stage_id"
+    t.bigint "institutional_aid_id"
+    t.string "legacy_code"
+    t.integer "stage_number"
+    t.bigint "reviewer_person_id"
+    t.string "reviewer_name"
+    t.string "letter_number"
+    t.date "sent_on"
+    t.date "answered_on"
+    t.boolean "opinion_given"
+    t.boolean "ratified"
+    t.string "receipt"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_peer_reviews_on_department_id"
+    t.index ["institutional_aid_id"], name: "index_peer_reviews_on_institutional_aid_id"
+    t.index ["legacy_id"], name: "index_peer_reviews_on_legacy_id", unique: true
+    t.index ["project_stage_id"], name: "index_peer_reviews_on_project_stage_id"
+    t.index ["reviewer_person_id"], name: "index_peer_reviews_on_reviewer_person_id"
+    t.index ["sent_on"], name: "index_peer_reviews_on_sent_on"
   end
 
   create_table "people", force: :cascade do |t|
@@ -526,6 +552,10 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_28_180000) do
   add_foreign_key "institutional_aids", "departments"
   add_foreign_key "institutional_aids", "legacy_statuses"
   add_foreign_key "institutional_aids", "people", column: "applicant_person_id"
+  add_foreign_key "peer_reviews", "departments"
+  add_foreign_key "peer_reviews", "institutional_aids"
+  add_foreign_key "peer_reviews", "people", column: "reviewer_person_id"
+  add_foreign_key "peer_reviews", "project_stages"
   add_foreign_key "person_contacts", "people", on_delete: :cascade
   add_foreign_key "ppi_levels", "people", on_delete: :cascade
   add_foreign_key "project_stages", "legacy_statuses"
