@@ -9,10 +9,10 @@ es:
       already_authenticated: "Ya iniciaste sesión."
       inactive: "Tu cuenta aún no ha sido activada."
       invalid: "Cédula y/o contraseña inválido."
-      locked: "Tu cuenta está bloqueada."
-      last_attempt: "Tiene un intento más antes que su cuenta sea bloqueada."
+      locked: "Tu cuenta está bloqueada por varios intentos fallidos. Vuelve a intentarlo en una hora o pide a la DTIC que la desbloquee."
+      last_attempt: "Te queda un intento antes de que tu cuenta se bloquee por una hora."
       not_found_in_database: "%{authentication_keys} o contraseña inválidos."
-      timeout: "Tu sesión ha expirado. Inicia sesión nuevamente."
+      timeout: "Tu sesión se cerró tras una hora sin actividad. Inicia sesión nuevamente."
       unauthenticated: "Tiene que registrarse o iniciar sesión antes de continuar."
       unconfirmed: "Tiene que confirmar su cuenta antes de continuar."
     mailer:

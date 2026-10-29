@@ -1,8 +1,8 @@
 module Dashboard
   class UsersController < ApplicationController
-    before_action :set_user, only: %i[show edit update destroy]
+    before_action :set_user, only: %i[show edit update destroy unlock]
     before_action :set_collections, only: %i[new create edit update]
-    load_and_authorize_resource ## Authorization for Cancancan
+    load_and_authorize_resource except: :unlock ## Authorization for Cancancan
 
     def index
       @users = User.accessible_by(current_ability).order(created_at: :desc)
@@ -58,6 +58,13 @@ module Dashboard
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
       end
+    end
+
+    # Desbloquea una cuenta trabada por intentos fallidos sin esperar la hora.
+    def unlock
+      authorize! :update, @user
+      @user.unlock_access!
+      redirect_back_or_to users_path, notice: "Cuenta de #{@user.full_name} desbloqueada."
     end
 
     def destroy

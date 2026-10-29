@@ -36,7 +36,9 @@ Rails.application.routes.draw do
   resources :events, module: 'dashboard'
   resources :publications, module: 'dashboard'
   resources :solicitudes, module: 'dashboard', only: [:index, :show, :destroy]
-  resources :users, module: 'dashboard'
+  resources :users, module: 'dashboard' do
+    patch :unlock, on: :member
+  end
   resources :people, module: 'dashboard', only: [:index, :show], path: 'docentes'
   resources :research_projects, module: 'dashboard', only: [:show], path: 'proyectos'
   get "dashboard/index" # INDEX DASHBOARD

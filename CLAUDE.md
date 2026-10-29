@@ -50,7 +50,7 @@ This is a **Rails 7.2 app** for CDCH (Centro de Desarrollo Científico y Humaní
 
 ### Authentication & Authorization
 
-- **Devise** handles authentication. All controllers require login by default (`before_action :authenticate_user!` in `ApplicationController`). `PagesController` skips this.
+- **Devise** handles authentication. All controllers require login by default (`before_action :authenticate_user!` in `ApplicationController`). `PagesController` skips this. Staff accounts are `lockable` (5 failed sign-ins lock them for an hour; `unlock_strategy :time` until email is on, and DTIC can unlock from the users list via `PATCH /users/:id/unlock`) and `timeoutable` (1 hour idle).
 - **CanCanCan** handles authorization via `app/models/ability.rb`. The `Ability` class derives permissions from `user.role` (delegated from `JobTitle`) and `UserPermission` records.
 
 **Role hierarchy** (defined as integer-ordered enum on `JobTitle`, values 0–5):

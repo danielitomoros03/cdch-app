@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_10_29_150000) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_29_170000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -179,7 +179,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_29_150000) do
     t.index ["legacy_id"], name: "index_institutional_aids_on_legacy_id", unique: true
     t.index ["legacy_status_id"], name: "index_institutional_aids_on_legacy_status_id"
     t.index ["requested_on"], name: "index_institutional_aids_on_requested_on"
-    t.check_constraint "currency IS NULL OR (currency::text = ANY (ARRAY['VEB'::character varying, 'VEF'::character varying, 'VES'::character varying, 'VED'::character varying]::text[]))", name: "institutional_aids_currency"
+    t.check_constraint "currency IS NULL OR (currency::text = ANY (ARRAY['VEB'::character varying::text, 'VEF'::character varying::text, 'VES'::character varying::text, 'VED'::character varying::text]))", name: "institutional_aids_currency"
   end
 
   create_table "institutions", force: :cascade do |t|
@@ -289,7 +289,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_29_150000) do
     t.index ["full_name"], name: "index_people_on_full_name"
     t.index ["id_number"], name: "index_people_on_id_number", unique: true
     t.index ["payroll_status"], name: "index_people_on_payroll_status"
-    t.check_constraint "payroll_status IS NULL OR (payroll_status::text = ANY (ARRAY['active'::character varying, 'management'::character varying, 'retired'::character varying]::text[]))", name: "people_payroll_status"
+    t.check_constraint "payroll_status IS NULL OR (payroll_status::text = ANY (ARRAY['active'::character varying::text, 'management'::character varying::text, 'retired'::character varying::text]))", name: "people_payroll_status"
   end
 
   create_table "person_contacts", force: :cascade do |t|
@@ -301,7 +301,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_29_150000) do
     t.datetime "updated_at", null: false
     t.index ["person_id", "kind", "value"], name: "index_person_contacts_on_person_id_and_kind_and_value", unique: true
     t.index ["person_id"], name: "index_person_contacts_on_person_id"
-    t.check_constraint "kind::text = ANY (ARRAY['email'::character varying, 'phone'::character varying, 'address'::character varying]::text[])", name: "person_contacts_kind"
+    t.check_constraint "kind::text = ANY (ARRAY['email'::character varying::text, 'phone'::character varying::text, 'address'::character varying::text])", name: "person_contacts_kind"
   end
 
   create_table "ppi_levels", force: :cascade do |t|
@@ -367,7 +367,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_29_150000) do
     t.index ["requested_on"], name: "index_project_stages_on_requested_on"
     t.index ["research_area_id"], name: "index_project_stages_on_research_area_id"
     t.index ["research_project_id"], name: "index_project_stages_on_research_project_id"
-    t.check_constraint "currency IS NULL OR (currency::text = ANY (ARRAY['VEB'::character varying, 'VEF'::character varying, 'VES'::character varying, 'VED'::character varying]::text[]))", name: "project_stages_currency"
+    t.check_constraint "currency IS NULL OR (currency::text = ANY (ARRAY['VEB'::character varying::text, 'VEF'::character varying::text, 'VES'::character varying::text, 'VED'::character varying::text]))", name: "project_stages_currency"
   end
 
   create_table "project_types", force: :cascade do |t|
@@ -562,10 +562,14 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_29_150000) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
     t.index ["department_id"], name: "index_users_on_department_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["job_title_id"], name: "index_users_on_job_title_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

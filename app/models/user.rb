@@ -6,13 +6,16 @@
 #  active                 :boolean          default(FALSE)
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
+#  failed_attempts        :integer          default(0), not null
 #  identification_number  :string
 #  lastname               :string
+#  locked_at              :datetime
 #  name                   :string
 #  number_phone           :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  unlock_token           :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  department_id          :bigint           default(0), not null
@@ -24,11 +27,12 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_job_title_id          (job_title_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :recoverable, :rememberable, :validatable
+  # Lockable: 5 failed sign-ins lock the account for an hour (or until DTIC unlocks it).
+  # Timeoutable: the session ends after an hour without activity.
+  devise :database_authenticatable, :recoverable, :rememberable, :validatable, :lockable, :timeoutable
   
   ## Associations
   belongs_to :job_title

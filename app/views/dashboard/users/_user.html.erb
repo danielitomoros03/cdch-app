@@ -5,7 +5,12 @@
         <th scope="row"><%= user.id %></th>
         <th scope="row"><%= user.department.acronym %></th>
         <td><%= user.email %></td>
-        <td><%= user.full_name %></td>
+        <td>
+          <%= user.full_name %>
+          <% if user.access_locked? %>
+            <span class="badge text-bg-danger ms-1" title="Bloqueada hasta las <%= l(user.locked_at + Devise.unlock_in, format: '%H:%M') %>">Bloqueada</span>
+          <% end %>
+        </td>
         <td><%= user.number_phone %></td>
         <td>
           <% if can? :read, user %>
@@ -16,6 +21,11 @@
           <% if can? :edit, user %>
             <%= link_to edit_user_path(user), class: 'btn btn-warning', title: 'Editar', data: { bs_toggle: 'tooltip' } do %>
               <i class="fa-solid fa-pen"></i>
+            <% end %>
+          <% end %>
+          <% if user.access_locked? && can?(:update, user) %>
+            <%= button_to unlock_user_path(user), method: :patch, class: 'btn btn-success', title: 'Desbloquear', data: { bs_toggle: 'tooltip' } do %>
+              <i class="fa-solid fa-lock-open"></i>
             <% end %>
           <% end %>
           <% if can? :destroy, user %>
