@@ -1,0 +1,94 @@
+<% content_for :title, "CDCH - Bitácora" %>
+<% turbo_exempts_page_from_cache %>
+
+<div class="dashboard-page-header">
+  <div>
+    <h1 class="dashboard-page-header__title">Bitácora</h1>
+    <p class="dashboard-page-header__subtitle">Quién hizo qué, cuándo y desde dónde. Nadie puede editarla ni borrarla.</p>
+  </div>
+</div>
+
+<%= form_with url: audit_logs_path, method: :get, class: "filter-bar",
+      data: { controller: "auto-submit", turbo_frame: "audit_results", turbo_action: "advance" } do |f| %>
+  <div class="filter-bar__field filter-bar__field--switch">
+    <span class="form-label d-block" id="sensitive-label">Cambios sensibles</span>
+    <div class="form-check form-switch filter-switch">
+      <%= f.check_box :sensitive, { checked: @filters[:sensitive] == "1", class: "form-check-input", role: "switch",
+            aria: { describedby: "sensitive-label" }, data: { action: "auto-submit#submit" } }, "1", nil %>
+      <%= f.label :sensitive, "Solo sensibles", class: "form-check-label" %>
+    </div>
+  </div>
+  <div class="filter-bar__field filter-bar__field--wide">
+    <%= f.label :actor, "Quién", class: "form-label" %>
+    <%= f.select :actor, @actors, { include_blank: "Todos", selected: @filters[:actor] },
+          class: "form-select form-select-sm", data: { action: "auto-submit#submit" } %>
+  </div>
+  <div class="filter-bar__field filter-bar__field--wide">
+    <%= f.label :category, "Qué", class: "form-label" %>
+    <%= f.select :category, AuditEntry::CATEGORIES.map { |key, rule| [ rule[:label], key ] }, { include_blank: "Todo", selected: @filters[:category] },
+          class: "form-select form-select-sm", data: { action: "auto-submit#submit" } %>
+  </div>
+  <div class="filter-bar__field">
+    <%= f.label :from, "Desde", class: "form-label" %>
+    <%= f.date_field :from, value: @filters[:from], class: "form-control form-control-sm", data: { action: "auto-submit#submit" } %>
+  </div>
+  <div class="filter-bar__field">
+    <%= f.label :to, "Hasta", class: "form-label" %>
+    <%= f.date_field :to, value: @filters[:to], class: "form-control form-control-sm", data: { action: "auto-submit#submit" } %>
+  </div>
+  <div class="filter-bar__actions">
+    <noscript><%= f.submit "Filtrar", name: nil, class: "btn btn-primary btn-sm" %></noscript>
+    <%= link_to "Limpiar", audit_logs_path, class: "btn btn-outline-secondary btn-sm" %>
+  </div>
+<% end %>
+
+<%= turbo_frame_tag "audit_results", class: "results-frame", data: { turbo_action: "advance", controller: "frame-history" } do %>
+  <p class="results-count"><%= number_with_delimiter(@entries.total_entries, delimiter: ".") %> registros</p>
+
+  <% if @entries.empty? %>
+    <p class="audit-empty">No hay registros con esos filtros.</p>
+  <% end %>
+
+  <% @entries.group_by { |version| version.created_at.to_date }.each do |day, versions| %>
+    <section class="audit-day">
+      <h2 class="audit-day__title"><%= audit_day_label(day) %></h2>
+      <ol class="audit-list">
+        <% versions.each do |version| %>
+          <% entry = AuditEntry.new(version) %>
+          <li class="audit-item<%= " audit-item--sensitive" if entry.sensitive? %>">
+            <time class="audit-item__time" datetime="<%= entry.created_at.iso8601 %>"><%= l(entry.created_at, format: "%H:%M") %></time>
+            <i class="fas <%= entry.icon %> audit-item__icon" aria-hidden="true"></i>
+            <div class="audit-item__body">
+              <p class="audit-item__sentence">
+                <strong><%= entry.actor %></strong> <%= entry.sentence %>
+                <% if entry.sensitive? %><span class="badge audit-badge">Sensible</span><% end %>
+              </p>
+              <% if entry.lines.any? %>
+                <ul class="audit-changes">
+                  <% entry.lines.each do |line| %>
+                    <li>
+                      <span class="audit-changes__label"><%= line.label %>:</span>
+                      <% if line.after.nil? %>
+                        <%= line.before %>
+                      <% else %>
+                        <del><%= line.before %></del> <i class="fas fa-arrow-right" aria-label="pasó a"></i> <ins><%= line.after %></ins>
+                      <% end %>
+                    </li>
+                  <% end %>
+                </ul>
+              <% end %>
+              <% if entry.context.any? %>
+                <p class="audit-item__context"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <%= entry.context.join(" · ") %></p>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+    </section>
+  <% end %>
+
+  <div class="d-flex justify-content-center mt-3">
+    <%= dashboard_pagination @entries %>
+  </div>
+  <p class="audit-credit">Ubicación aproximada según la IP, con la base libre de <a href="https://db-ip.com" target="_blank" rel="noopener">DB-IP</a> (CC BY 4.0).</p>
+<% end %>

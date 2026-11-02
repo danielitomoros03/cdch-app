@@ -26,6 +26,11 @@ module TeacherSpace
       end
     end
 
+    # En la bitácora, quien actúa en "Mi espacio" es el docente.
+    def paper_trail_actor
+      current_teacher
+    end
+
     def require_teacher
       redirect_to new_teacher_session_path, alert: "Tu sesión terminó. Vuelve a entrar con tu cédula y tu fecha de ingreso." unless current_teacher
     end

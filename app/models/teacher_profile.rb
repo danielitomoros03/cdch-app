@@ -34,6 +34,7 @@ class TeacherProfile
   end
 
   def save
+    before = self.class.for(person).attributes
     person.assign_attributes(orcid: orcid, research_lines: research_lines.presence)
     valid?
     person.errors.each { |error| errors.add(error.attribute, error.message) } unless person.valid?
@@ -43,6 +44,7 @@ class TeacherProfile
       person.save!
       replace_contact("email", email)
       replace_contact("phone", phone)
+      audit_changes(before)
     end
     true
   end
@@ -56,5 +58,13 @@ class TeacherProfile
     # Si el valor ya estaba en el sistema heredado, pasa a ser del docente.
     contact = person.contacts.find_or_initialize_by(kind: kind, value: value)
     contact.update!(source: PersonContact::TEACHER_SOURCE)
+  end
+
+  # Una sola línea en la bitácora con lo que cambió, en lugar de un cambio por contacto.
+  def audit_changes(before)
+    person.contacts.reset
+    after = self.class.for(person).attributes
+    changes = after.filter_map { |field, value| [ field, [ before[field], value ] ] if before[field].presence != value.presence }.to_h
+    Audit.record(:teacher_profile_updated, item: person, details: { changes: changes }, sensitive: false) if changes.any?
   end
 end

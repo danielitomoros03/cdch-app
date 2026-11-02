@@ -604,3 +604,122 @@ $dashboard-radius: 0.125rem;
     min-width: 6.5rem;
   }
 }
+
+// ---------------------------------------------------------------------------
+// Bitácora
+// ---------------------------------------------------------------------------
+.audit-day {
+  margin-bottom: 1.25rem;
+}
+
+.audit-day__title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--dashboard-muted);
+  border-bottom: 1px solid var(--bs-border-color);
+  padding-bottom: 0.35rem;
+  margin-bottom: 0;
+}
+
+.audit-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.audit-item {
+  display: grid;
+  grid-template-columns: 3rem 1.5rem 1fr;
+  gap: 0.5rem;
+  align-items: start;
+  padding: 0.6rem 0.25rem;
+  border-bottom: 1px solid var(--bs-border-color-translucent);
+  border-left: 3px solid transparent;
+}
+
+.audit-item--sensitive {
+  border-left-color: var(--bs-danger);
+  background: rgba(var(--bs-danger-rgb), 0.03);
+}
+
+.audit-item__time {
+  font-variant-numeric: tabular-nums;
+  color: var(--dashboard-muted);
+  font-size: 0.85rem;
+  padding-top: 0.1rem;
+}
+
+.audit-item__icon {
+  color: var(--bs-primary);
+  text-align: center;
+  padding-top: 0.25rem;
+}
+
+.audit-item__sentence {
+  margin: 0;
+  color: $text-dark;
+}
+
+.audit-badge {
+  margin-left: 0.35rem;
+  font-weight: 600;
+  color: var(--bs-danger);
+  border: 1px solid var(--bs-danger);
+  background: transparent;
+  vertical-align: 0.1em;
+}
+
+.audit-changes {
+  list-style: none;
+  margin: 0.3rem 0 0;
+  padding: 0;
+  font-size: 0.875rem;
+
+  del {
+    color: var(--dashboard-muted);
+  }
+
+  ins {
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .fa-arrow-right {
+    font-size: 0.7rem;
+    color: var(--dashboard-muted);
+    margin: 0 0.2rem;
+  }
+}
+
+.audit-changes__label {
+  color: var(--dashboard-muted);
+}
+
+.audit-item__context {
+  margin: 0.3rem 0 0;
+  font-size: 0.8rem;
+  color: var(--dashboard-muted);
+}
+
+.audit-empty,
+.audit-credit {
+  color: var(--dashboard-muted);
+  font-size: 0.8rem;
+}
+
+.audit-credit {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 575.98px) {
+  .audit-item {
+    grid-template-columns: 2.75rem 1fr;
+  }
+
+  .audit-item__icon {
+    display: none;
+  }
+}

@@ -23,6 +23,8 @@
 #  fk_rails_...  (parent_id => departments.id)
 #
 class Department < ApplicationRecord
+  audited
+
     DIRECTION_ACRONYM = "Dir".freeze
 
     has_rich_text :description # Rich text association

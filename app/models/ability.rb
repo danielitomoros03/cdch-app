@@ -79,6 +79,13 @@ class Ability
     can :manage, GeneralSetup if department_acronym == "DTIC" && %w[Superadmin JefeDepartamento].include?(role)
     can :read, GeneralSetup if role == "Superadmin" && PEER_REVIEW_READERS.include?(job_title_name)
 
+    # La bitácora la consultan la Dirección, la Subdirección y la DTIC. Nadie la edita.
+    cannot :manage, AuditVersion
+    if (role == "Superadmin" && PEER_REVIEW_READERS.include?(job_title_name)) ||
+       (department_acronym == "DTIC" && %w[Superadmin JefeDepartamento].include?(role))
+      can :read, AuditVersion
+    end
+
     # Va al final para pisar los `:manage, :all` de Superadmin y de la jefatura de DTIC.
     cannot :manage, [ *RESEARCH_RECORDS, PeerReview ]
     can :read, RESEARCH_RECORDS if role == "Superadmin" && RESEARCH_READERS.include?(job_title_name)

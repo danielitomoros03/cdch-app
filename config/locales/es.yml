@@ -175,6 +175,22 @@ es:
         publication_field: "Archivo de publicación"
         created_at: "Creado en"
         updated_at: "Editado en"
+      general_setup:
+        teacher_space_enabled: "Mi espacio del docente"
+        email_delivery_enabled: "Envío de correos"
+      job_title:
+        name: "Nombre del cargo"
+        role: "Rol"
+      minute:
+        title: "Título"
+        day: "Fecha"
+        description: "Descripción"
+      institution_leadership:
+        full_name: "Nombre"
+        role: "Cargo"
+        start_date: "Desde"
+        end_date: "Hasta"
+        active: "En funciones"
       solicitude:
         id: "ID"
         email: "Correo"
@@ -308,3 +324,65 @@ es:
       default: "%d/%m/%Y %H:%M"
       short: "%d %b %H:%M"
       long: "%d de %B de %Y %H:%M"
+
+  # Bitácora (AuditEntry): cada línea se lee "<quién> <frase>".
+  audit:
+    anonymous: "Alguien"
+    system: "El sistema"
+    visitor: "Un visitante del sitio"
+    empty: "(vacío)"
+    long_text: "se modificó el texto"
+    ip: "IP %{ip}"
+    changes:
+      create: "creó %{subject}"
+      update: "modificó %{subject}"
+      destroy: "eliminó %{subject}"
+    subjects:
+      default: "el registro «%{label}» (%{model})"
+      user: "la cuenta de «%{label}»"
+      job_title: "el cargo «%{label}»"
+      department: "el departamento «%{label}»"
+      institution: "los datos generales del CDCH"
+      general_setup: "la configuración general"
+      call: "la convocatoria «%{label}»"
+      event: "el evento «%{label}»"
+      publication: "la publicación «%{label}»"
+      minute: "el acta «%{label}»"
+      announcement: "el anuncio «%{label}»"
+      solicitude: "la solicitud de «%{label}»"
+      institution_leadership: "la autoridad «%{label}»"
+    events:
+      sign_in: "entró al panel"
+      sign_in_remembered: "entró al panel con la sesión recordada"
+      sign_in_failed: "intentó entrar a la cuenta de «%{item}» con una contraseña incorrecta"
+      sign_in_failed_unknown: "intentó entrar con un correo que no está registrado: %{email}"
+      sign_in_failed_locked: "intentó entrar a la cuenta de «%{item}», que está bloqueada"
+      sign_in_failed_inactive: "intentó entrar a la cuenta de «%{item}», que no está activada"
+      account_locked: "bloqueó por una hora la cuenta de «%{item}» tras %{attempts} contraseñas incorrectas seguidas"
+      account_unlocked: "desbloqueó la cuenta de «%{item}»"
+      password_changed: "cambió la contraseña de «%{item}»"
+      password_changed_own: "cambió su contraseña"
+      permissions_changed: "cambió los permisos de «%{item}»"
+      export: "exportó a Excel el listado de %{list} (%{rows} filas)"
+      test_email_sent: "envió un correo de prueba a %{to}"
+      teacher_sign_in: "entró a «Mi espacio»"
+      teacher_sign_in_failed: "intentó entrar a «Mi espacio» con la cédula de «%{item}» y una fecha de ingreso que no coincide"
+      teacher_sign_in_failed_unknown: "intentó entrar a «Mi espacio» con una cédula que no está en la nómina: %{id_number}"
+      teacher_locked: "bloqueó por una hora la cédula %{id_number} tras %{attempts} intentos fallidos en «Mi espacio»"
+      teacher_profile_updated: "actualizó sus datos en «Mi espacio»"
+    permissions:
+      added: "Dio"
+      removed: "Quitó"
+    teacher_fields:
+      email: "Correo"
+      phone: "Teléfono"
+      orcid: "ORCID"
+      research_lines: "Líneas de investigación"
+    export:
+      filters: "Filtros"
+      peer_reviews: "Arbitrajes"
+      included: "incluidos en el archivo"
+    booleans:
+      general_setup:
+        "true": "encendido"
+        "false": "apagado"

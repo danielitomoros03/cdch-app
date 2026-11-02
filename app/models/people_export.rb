@@ -20,6 +20,17 @@ class PeopleExport
     end
   end
 
+  # Los filtros aplicados en palabras, para el subtítulo del archivo y la bitácora.
+  def filters_description
+    applied = []
+    applied << "con historia en el CDCH" if @filters[:history] == "1"
+    applied << "nombre o cédula: #{@filters[:q]}" if @filters[:q].present?
+    applied << "situación: #{Person::SITUATIONS[@filters[:situation]]}" if Person::SITUATIONS.key?(@filters[:situation])
+    applied << "facultad: #{@faculty_names.fetch(@filters[:faculty], @filters[:faculty])}" if @filters[:faculty].present?
+    applied << "proyectos desde #{@filters[:since]}" if @filters[:since].present?
+    applied.any? ? "Filtros: #{applied.join('; ')}" : "Sin filtros"
+  end
+
   private
 
   def columns
@@ -34,15 +45,9 @@ class PeopleExport
     list
   end
 
+
   def subtitle
-    applied = []
-    applied << "con historia en el CDCH" if @filters[:history] == "1"
-    applied << "nombre o cédula: #{@filters[:q]}" if @filters[:q].present?
-    applied << "situación: #{Person::SITUATIONS[@filters[:situation]]}" if Person::SITUATIONS.key?(@filters[:situation])
-    applied << "facultad: #{@faculty_names.fetch(@filters[:faculty], @filters[:faculty])}" if @filters[:faculty].present?
-    applied << "proyectos desde #{@filters[:since]}" if @filters[:since].present?
-    filters = applied.any? ? "Filtros: #{applied.join('; ')}" : "Sin filtros"
-    "#{filters} · Generado el #{I18n.l(Time.current, format: '%d/%m/%Y %H:%M')} · Uso interno y confidencial"
+    "#{filters_description} · Generado el #{I18n.l(Time.current, format: '%d/%m/%Y %H:%M')} · Uso interno y confidencial"
   end
 
   def write_batch(sheet, ids)

@@ -13,6 +13,8 @@
 #  updated_at        :datetime         not null
 #
 class Call < ApplicationRecord
+  audited
+
     ## Enum for kind
     # This enum defines the kind of call
     enum kind: [ :Convocatoria, :Festividad, :Noticia ]

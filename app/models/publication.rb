@@ -13,6 +13,8 @@
 #  updated_at       :datetime         not null
 #
 class Publication < ApplicationRecord
+  audited
+
     has_one_attached :publication_field
     has_one_attached :portrait
 

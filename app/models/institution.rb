@@ -31,6 +31,8 @@
 #  updated_at                  :datetime         not null
 #
 class Institution < ApplicationRecord
+  audited
+
     has_many :institution_leaderships, dependent: :destroy
 
     # Attachment for Institution's Logo

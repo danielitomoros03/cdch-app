@@ -23,14 +23,17 @@ class TeacherAccessAttempt < ApplicationRecord
     where(id_number: id_number).where("locked_until > ?", Time.current).exists?
   end
 
+  # Devuelve true si este fallo bloquea la cédula.
   def self.record_failure(id_number)
     attempt = find_or_create_by!(id_number: id_number)
     attempt.with_lock do
       failures = attempt.failures + 1
       if failures >= MAX_FAILURES
         attempt.update!(failures: 0, locked_until: LOCK_PERIOD.from_now)
+        true
       else
         attempt.update!(failures: failures)
+        false
       end
     end
   rescue ActiveRecord::RecordNotUnique

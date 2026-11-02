@@ -16,6 +16,8 @@
 #  updated_at  :datetime         not null
 #
 class Event < ApplicationRecord
+  audited
+
     ## Aditional Data
     has_rich_text :content
     has_one_attached :image

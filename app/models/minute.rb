@@ -10,6 +10,8 @@
 #  updated_at  :datetime         not null
 #
 class Minute < ApplicationRecord
+  audited
+
     ## Rich text
     has_rich_text :content
     has_one_attached :attachment_minute

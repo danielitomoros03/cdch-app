@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   resources :people, module: 'dashboard', only: [:index, :show], path: 'docentes'
   resources :research_projects, module: 'dashboard', only: [:show], path: 'proyectos'
   get "dashboard/index" # INDEX DASHBOARD
+  resources :audit_logs, module: "dashboard", only: :index, path: "bitacora"
   resource :general_setup, module: "dashboard", only: [ :show, :update ], path: "configuracion" do
     post :test_email
   end

@@ -24,6 +24,8 @@
 #  fk_rails_...  (institution_id => institutions.id)
 #
 class InstitutionLeadership < ApplicationRecord
+  audited
+
   belongs_to :institution
 
   has_one_attached :photo

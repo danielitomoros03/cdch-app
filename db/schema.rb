@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_10_29_170000) do
+ActiveRecord::Schema[7.2].define(version: 2026_11_02_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -570,6 +570,30 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_29_170000) do
     t.index ["job_title_id"], name: "index_users_on_job_title_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type"
+    t.bigint "item_id"
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.jsonb "object"
+    t.jsonb "object_changes"
+    t.datetime "created_at", null: false
+    t.string "actor_type"
+    t.string "actor_label"
+    t.string "item_label"
+    t.boolean "sensitive", default: false, null: false
+    t.jsonb "details", default: {}, null: false
+    t.string "ip"
+    t.string "location"
+    t.string "os"
+    t.string "browser"
+    t.string "request_id"
+    t.index ["actor_type", "whodunnit"], name: "index_versions_on_actor_type_and_whodunnit"
+    t.index ["created_at"], name: "index_versions_on_created_at"
+    t.index ["event"], name: "index_versions_on_event"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

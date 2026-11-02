@@ -64,6 +64,7 @@ module Dashboard
     def unlock
       authorize! :update, @user
       @user.unlock_access!
+      Audit.record(:account_unlocked, item: @user)
       redirect_back_or_to users_path, notice: "Cuenta de #{@user.full_name} desbloqueada."
     end
 
@@ -133,18 +134,16 @@ module Dashboard
         .uniq
     end
 
+    # Una sola línea en la bitácora con los permisos que se dieron y los que se quitaron.
     def sync_user_permissions(user, resources)
-      if resources.empty?
-        user.user_permissions.destroy_all
-        return
-      end
-
+      before = user.user_permissions.pluck(:resource)
       user.user_permissions.where.not(resource: resources).destroy_all
-      existing_resources = user.user_permissions.pluck(:resource)
+      (resources - before).each { |resource| user.user_permissions.create(resource: resource) }
 
-      (resources - existing_resources).each do |resource|
-        user.user_permissions.create(resource: resource)
-      end
+      after = user.user_permissions.pluck(:resource)
+      added = after - before
+      removed = before - after
+      Audit.record(:permissions_changed, item: user, details: { added: added, removed: removed }) if added.any? || removed.any?
     end
 
     def superadmin_role?

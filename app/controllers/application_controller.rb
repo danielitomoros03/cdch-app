@@ -34,4 +34,21 @@ class ApplicationController < ActionController::Base
       format.any { head :not_found }
     end
   end
+
+  private
+
+  # Bitácora: PaperTrail guarda con cada cambio quién lo hizo y desde dónde.
+  def user_for_paper_trail
+    paper_trail_actor&.id
+  end
+
+  def info_for_paper_trail
+    Audit.request_context(request).merge(Audit.actor_info(paper_trail_actor).except(:whodunnit))
+  end
+
+  # En los controladores de Devise, preguntar por current_user antes de tiempo dispararía
+  # la autenticación; sus eventos se registran en config/initializers/audit_sign_in.rb.
+  def paper_trail_actor
+    current_user unless devise_controller?
+  end
 end

@@ -33,6 +33,12 @@ class User < ApplicationRecord
   # Lockable: 5 failed sign-ins lock the account for an hour (or until DTIC unlocks it).
   # Timeoutable: the session ends after an hour without activity.
   devise :database_authenticatable, :recoverable, :rememberable, :validatable, :lockable, :timeoutable
+
+  # Bitácora: nunca guarda la contraseña ni los tokens. El cambio de contraseña y los
+  # bloqueos se registran aparte, como eventos legibles.
+  audited sensitive: true, skip: %i[encrypted_password reset_password_token reset_password_sent_at remember_created_at
+                                    failed_attempts unlock_token locked_at updated_at]
+  after_update :audit_password_change, if: :saved_change_to_encrypted_password?
   
   ## Associations
   belongs_to :job_title
@@ -59,5 +65,11 @@ class User < ApplicationRecord
 
   def full_name
     name + ' ' + lastname
+  end
+
+  private
+
+  def audit_password_change
+    Audit.record(:password_changed, item: self)
   end
 end

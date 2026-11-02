@@ -17,6 +17,7 @@ module Dashboard
     def test_email
       authorize! :update, @general_setup
       SystemMailer.with(force: true).test_message(current_user.email).deliver_now
+      Audit.record(:test_email_sent, details: { to: current_user.email }, sensitive: false)
       redirect_to general_setup_path, notice: "Enviamos un correo de prueba a #{current_user.email}. Revisa también la carpeta de spam."
     rescue StandardError => error
       redirect_to general_setup_path, alert: "No se pudo enviar el correo de prueba: #{error.class.name.demodulize} (#{error.message.truncate(120)})."

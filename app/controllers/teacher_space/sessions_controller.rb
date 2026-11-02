@@ -24,9 +24,11 @@ module TeacherSpace
         TeacherAccessAttempt.clear(id_number)
         person.update_column(:space_activated_at, Time.current) unless person.space_activated_at
         start_teacher_session(person)
+        Audit.record(:teacher_sign_in, item: person, actor: person, request: request, sensitive: false)
         redirect_to teacher_space_path
       else
-        TeacherAccessAttempt.record_failure(id_number)
+        locked = TeacherAccessAttempt.record_failure(id_number)
+        audit_failure(id_number, locked)
         render_failure(NO_MATCH)
       end
     end
@@ -42,6 +44,14 @@ module TeacherSpace
       Date.iso8601(value.to_s)
     rescue Date::Error
       nil
+    end
+
+    # Si la cédula es de un docente, la línea de la bitácora queda en su nombre.
+    def audit_failure(id_number, locked)
+      details = { id_number: id_number }
+      details[:attempts] = TeacherAccessAttempt::MAX_FAILURES if locked
+      Audit.record(locked ? :teacher_locked : :teacher_sign_in_failed,
+                   item: Person.find_by(id_number: id_number), request: request, details: details)
     end
 
     def render_failure(message)

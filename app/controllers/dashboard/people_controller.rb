@@ -53,6 +53,8 @@ module Dashboard
     # El archivo se escribe mientras se descarga, en tandas de personas: no se arma en memoria.
     def stream_spreadsheet(people)
       export = PeopleExport.new(people.alphabetical, faculties: @faculties, filters: @filters, reviews: can?(:read, PeerReview))
+      Audit.record(:export, details: { list: "docentes e investigadores", filters: export.filters_description,
+                                       rows: people.count, peer_reviews: can?(:read, PeerReview) })
       zip_kit_stream(filename: export.filename, type: Mime[:xlsx].to_s) do |zip|
         export.write(zip)
       end

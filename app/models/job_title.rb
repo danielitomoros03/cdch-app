@@ -9,6 +9,9 @@
 #  updated_at :datetime         not null
 #
 class JobTitle < ApplicationRecord
+  # El cargo define el rol y con él los permisos: sus cambios son sensibles.
+  audited sensitive: true
+
     ## Associations
     has_many :users
     # Mapeamos los nombres variados a roles lógicos para la gema

@@ -22,6 +22,8 @@
 #  fk_rails_...  (updated_by_id => users.id)
 #
 class GeneralSetup < ApplicationRecord
+  audited sensitive: true, skip: %i[updated_by_id updated_at]
+
   belongs_to :updated_by, class_name: "User", optional: true
 
   def self.current
@@ -33,6 +35,8 @@ class GeneralSetup < ApplicationRecord
   def self.teacher_space? = current.teacher_space_enabled?
 
   def self.email_delivery? = current.email_delivery_enabled?
+
+  def audit_label = "Configuración general"
 
   # El servidor de correo se define con variables de entorno (SMTP_ADDRESS, SMTP_USERNAME, SMTP_PASSWORD).
   def self.smtp_address

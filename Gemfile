@@ -52,6 +52,11 @@ gem "will_paginate", "~> 4.0"
 # Exportación a Excel en streaming (el .xlsx se arma mientras se descarga)
 gem "zip_kit", "~> 6.3"
 
+# Bitácora: cada cambio guarda quién, cuándo, desde dónde y qué cambió.
+gem "paper_trail", "~> 16.0"
+# Ubicación aproximada por IP con la base libre de DB-IP (archivo .mmdb local, sin servicios externos).
+gem "maxmind-db", "~> 1.3"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mswin mswin64 mingw x64_mingw ], require: "debug/prelude"

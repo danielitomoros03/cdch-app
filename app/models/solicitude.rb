@@ -13,6 +13,8 @@
 #  updated_at   :datetime         not null
 #
 class Solicitude < ApplicationRecord
+  audited
+
   validates :full_name, :email, :phone_number, :matter, :message, :policies, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :policies, acceptance: true
