@@ -1,4 +1,5 @@
 require "test_helper"
+require "minitest/mock"
 
 class Dashboard::GeneralSetupsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
@@ -27,6 +28,15 @@ class Dashboard::GeneralSetupsControllerTest < ActionDispatch::IntegrationTest
 
     patch general_setup_url, params: { general_setup: { teacher_space_enabled: "1" } }
     assert_not GeneralSetup.teacher_space?
+  end
+
+  test "it warns when the last backup failed" do
+    sign_in users(:dtic_head)
+    failed = BackupStatus.new("db_at" => 3.hours.ago.iso8601, "error" => "El respaldo de la base salió vacío.")
+
+    BackupStatus.stub(:current, failed) { get general_setup_url }
+    assert_select ".badge", "revisar"
+    assert_match "El respaldo de la base salió vacío.", response.body
   end
 
   test "other departments cannot see it" do

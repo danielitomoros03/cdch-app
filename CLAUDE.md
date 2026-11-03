@@ -103,7 +103,7 @@ Layout partials for public pages live in `app/views/layouts/`: `_header.html.erb
 
 - **Bootstrap 5.3** (gem `bootstrap` for SCSS, ESM build vendored in `vendor/javascript/`) + custom SCSS in `app/assets/scss/`. SB Admin 2 is no longer loaded. `_variables.scss` pins a few Bootstrap 5.0 tones so the public site looks the same as before the 5.3 upgrade.
 - **Dashboard layout** (`layouts/dashboard.html.erb`, chosen in `ApplicationController` for `dashboard/*` controllers): compact header, sidebar collapsible to icons (cookie `sidebar=collapsed`), offcanvas on mobile. Styles in `_dashboard.scss`. Dashboard views render only their own content.
-- **Importmap** (no Node/webpack) with **Turbo** and **Stimulus**; controllers in `app/javascript/controllers/`. No jQuery and no inline `<script>` in views: behavior goes in a Stimulus controller. `bin/importmap pin` fails locally (OpenSSL); download ESM builds with curl into `vendor/javascript/`.
+- **Importmap** (no Node/webpack) with **Turbo** and **Stimulus**; a `turbo:frame-missing` listener in `application.js` turns a frame response without its frame (an expired session sent to the sign-in page) into a full visit; controllers in `app/javascript/controllers/`. No jQuery and no inline `<script>` in views: behavior goes in a Stimulus controller. `bin/importmap pin` fails locally (OpenSSL); download ESM builds with curl into `vendor/javascript/`.
 - **ActionText** (Trix editor) for rich text fields (`Department#description`, `InstitutionLeadership#bio`)
 - **Active Storage** for file uploads; images processed via `mini_magick` / `ruby-vips`
 - **will_paginate** for pagination; in the dashboard use `dashboard_pagination(collection)` (`PaginationHelper`, Bootstrap 5 markup)
@@ -116,6 +116,10 @@ All UI strings are in Spanish. `config/locales/es.yml` contains ActiveRecord mod
 ### Secrets
 
 Production (Dokku app `cdch-app` on silenia) takes every secret from Dokku config vars: `SECRET_KEY_BASE`, `DATABASE_URL` and the `SMTP_*` vars. Rails credentials are not used and there is no `config/master.key`; do not add `credentials.yml.enc` back. Never print the values (`dokku config:show` does): check them with `dokku config:get cdch-app SECRET_KEY_BASE | wc -c`.
+
+### Backups
+
+`script/server/cdch-respaldo` runs daily from root's cron on silenia (02:30 server time, UTC): it exports the database and checks it with `pg_restore --list`, keeps 30 daily and 12 monthly dumps plus 8 weekly tarballs of the uploaded files in `/var/backups/cdch`, refreshes the DB-IP file monthly, and writes `storage/respaldo-estado.json`, which `BackupStatus` shows on the general setup page. Install, cron line and restore steps: `script/server/README.md`. After changing the script, copy it again to `/usr/local/sbin/cdch-respaldo`.
 
 ### Database
 

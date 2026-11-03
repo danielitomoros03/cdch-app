@@ -28,3 +28,11 @@ document.addEventListener("turbo:before-cache", () => {
   document.body.style.removeProperty("overflow")
   document.body.style.removeProperty("padding-right")
 })
+
+// Si la respuesta de un turbo-frame no trae ese frame (por ejemplo, la sesión venció
+// y el servidor mandó a la página de entrada), se muestra esa página completa en
+// lugar del aviso "Content missing".
+document.addEventListener("turbo:frame-missing", (event) => {
+  event.preventDefault()
+  event.detail.visit(event.detail.response)
+})

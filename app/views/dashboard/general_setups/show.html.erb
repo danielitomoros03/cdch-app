@@ -51,6 +51,29 @@
   </section>
 <% end %>
 
+<section class="panel mt-3">
+  <h2 class="panel__title mb-1">Respaldos automáticos</h2>
+  <p class="small text-muted">Cada noche se respalda la base de datos y cada semana los archivos subidos (fotos, logos, documentos). Se guardan en el servidor: 30 respaldos diarios y 12 mensuales.</p>
+  <% if @backup_status.nil? %>
+    <p class="small mb-0"><span class="badge text-bg-secondary">sin datos</span> El servidor todavía no ha dejado el estado de los respaldos.</p>
+  <% else %>
+    <p class="small mb-1">
+      <% if @backup_status.ok? %>
+        <span class="badge text-bg-success">al día</span>
+      <% else %>
+        <span class="badge text-bg-danger">revisar</span>
+        <%= @backup_status.error || "El último respaldo tiene más de #{BackupStatus::STALE_AFTER.in_hours.to_i} horas." %>
+      <% end %>
+    </p>
+    <ul class="small mb-0 setup-facts">
+      <li>Último respaldo de la base: <%= @backup_status.last_backup_at ? "#{l(@backup_status.last_backup_at, format: '%d/%m/%Y %H:%M')} (#{number_to_human_size(@backup_status.db_size)})" : "ninguno" %></li>
+      <li>Último respaldo de los archivos: <%= @backup_status.last_files_at ? l(@backup_status.last_files_at, format: "%d/%m/%Y %H:%M") : "ninguno" %></li>
+      <li>Respaldos guardados: <%= @backup_status.daily_count %> diarios y <%= @backup_status.monthly_count %> mensuales</li>
+      <li>Base de ubicaciones por IP (bitácora): <%= @backup_status.geo_updated_at ? "actualizada el #{l(@backup_status.geo_updated_at.to_date, format: '%d/%m/%Y')}" : "sin actualizar" %></li>
+    </ul>
+  <% end %>
+</section>
+
 <% if editable %>
   <%= button_to "Enviar un correo de prueba a #{current_user.email}", test_email_general_setup_path, method: :post,
         class: "btn btn-outline-secondary btn-sm", form: { class: "mt-3" } %>

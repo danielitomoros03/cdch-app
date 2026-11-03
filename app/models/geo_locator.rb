@@ -1,8 +1,9 @@
 require "maxmind/db"
 
 # Ubicación aproximada de una IP con la base libre DB-IP City Lite (CC BY 4.0), un archivo
-# .mmdb que vive en el servidor, fuera del repo (GEOIP_DB o storage/geo). Sin el archivo
-# no hay ubicación, y nunca se consulta un servicio externo.
+# .mmdb que vive en el servidor, fuera del repo (GEOIP_DB o storage/geo), y que renueva
+# cada mes script/server/cdch-respaldo. Sin el archivo no hay ubicación, y nunca se
+# consulta un servicio externo.
 module GeoLocator
   DEFAULT_PATH = Rails.root.join("storage/geo/dbip-city-lite.mmdb")
   LOCAL = "Red local".freeze
@@ -29,11 +30,20 @@ module GeoLocator
       [ city, (region unless region == city), country ].compact_blank.join(", ").presence
     end
 
+    # El archivo se renueva cada mes en el servidor: si cambia, se vuelve a abrir.
+    # Se revisa a lo sumo una vez por hora.
     def reader
-      return @reader if defined?(@reader)
+      return @reader if @checked_at&.after?(1.hour.ago)
 
+      @checked_at = Time.current
       path = ENV.fetch("GEOIP_DB", DEFAULT_PATH).to_s
-      @reader = (MaxMind::DB.new(path, mode: MaxMind::DB::MODE_FILE) if File.exist?(path))
+      mtime = File.exist?(path) ? File.mtime(path) : nil
+      if mtime != @mtime
+        @mtime = mtime
+        @reader = (MaxMind::DB.new(path, mode: MaxMind::DB::MODE_FILE) if mtime)
+        cache.clear
+      end
+      @reader
     end
 
     def cache

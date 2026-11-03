@@ -5,6 +5,7 @@ module Dashboard
 
     def show
       authorize! :read, @general_setup
+      @backup_status = BackupStatus.current
     end
 
     def update

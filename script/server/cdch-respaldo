@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+# Respaldos automáticos de cdch-app en silenia. Lo corre cron como root una vez al día
+# (ver script/server/README.md). Cada corrida:
+#   1. respalda la base (dokku postgres:export) y comprueba que pg_restore pueda leerla;
+#   2. deja una copia mensual si este mes todavía no tiene una;
+#   3. respalda los archivos subidos si el último respaldo de archivos tiene 7 días o más;
+#   4. renueva la base de ubicaciones por IP (DB-IP) si es de un mes anterior;
+#   5. borra lo que pasa de 30 diarios, 12 mensuales y 8 de archivos;
+#   6. escribe el estado en storage/respaldo-estado.json, que la app muestra en
+#      Configuración general.
+# Si un día el servidor está apagado, la corrida siguiente pone todo al día.
+set -euo pipefail
+
+DB=cdch-db
+DEST=/var/backups/cdch
+STORAGE=/var/lib/dokku/data/storage/cdch-app
+STATUS="$STORAGE/respaldo-estado.json"
+GEO="$STORAGE/geo/dbip-city-lite.mmdb"
+LOG=/var/log/cdch-respaldo.log
+KEEP_DAILY=30
+KEEP_MONTHLY=12
+KEEP_FILES=8
+
+log() { echo "$(date -Is) $*" >> "$LOG"; }
+
+write_status() {
+  local error="${1:-}"
+  local db_file db_at db_size files_at geo_at
+  db_file=$({ ls -1t "$DEST"/diarios/*.dump 2>/dev/null || true; } | head -1)
+  db_at=$([ -n "$db_file" ] && date -Is -r "$db_file" || echo "")
+  db_size=$([ -n "$db_file" ] && stat -c %s "$db_file" || echo 0)
+  files_at=$({ ls -1t "$DEST"/archivos/*.tar.gz 2>/dev/null || true; } | head -1 | xargs -r date -Is -r)
+  geo_at=$([ -f "$GEO" ] && date -Is -r "$GEO" || echo "")
+  cat > "$STATUS.tmp" <<JSON
+{"db_at": "$db_at", "db_size": $db_size, "files_at": "$files_at", "geo_at": "$geo_at",
+ "daily_count": $({ ls -1 "$DEST"/diarios/*.dump 2>/dev/null || true; } | wc -l),
+ "monthly_count": $({ ls -1 "$DEST"/mensuales/*.dump 2>/dev/null || true; } | wc -l),
+ "error": "$error", "checked_at": "$(date -Is)"}
+JSON
+  chmod 644 "$STATUS.tmp"
+  mv "$STATUS.tmp" "$STATUS"
+}
+
+fail() {
+  trap - ERR
+  log "ERROR: $1"
+  write_status "$1"
+  exit 1
+}
+trap 'fail "El respaldo se interrumpió (línea $LINENO). Revisar $LOG en el servidor."' ERR
+
+prune() { # carpeta, patrón, cuántos quedan
+  { ls -1t "$1"/$2 2>/dev/null || true; } | tail -n +$(($3 + 1)) | xargs -r rm -f --
+}
+
+# Una sola corrida a la vez.
+exec 9> /run/cdch-respaldo.lock
+flock -n 9 || exit 0
+
+mkdir -p "$DEST"/diarios "$DEST"/mensuales "$DEST"/archivos
+chmod 700 "$DEST"
+today=$(date +%F)
+month=$(date +%Y-%m)
+
+# 1. Base de datos
+tmp="$DEST/diarios/.cdch-db-$today.dump.tmp"
+dokku postgres:export "$DB" > "$tmp"
+[ -s "$tmp" ] || fail "El respaldo de la base salió vacío."
+docker exec -i "dokku.postgres.$DB" pg_restore --list < "$tmp" > /dev/null \
+  || fail "El respaldo de la base no se puede leer con pg_restore."
+mv "$tmp" "$DEST/diarios/cdch-db-$today.dump"
+log "Base: cdch-db-$today.dump ($(stat -c %s "$DEST/diarios/cdch-db-$today.dump") bytes)"
+
+# 2. Copia mensual
+if [ ! -f "$DEST/mensuales/cdch-db-$month.dump" ]; then
+  cp "$DEST/diarios/cdch-db-$today.dump" "$DEST/mensuales/cdch-db-$month.dump"
+  log "Mensual: cdch-db-$month.dump"
+fi
+
+# 3. Archivos subidos (sin la base de ubicaciones, que se descarga de nuevo)
+if [ -z "$(find "$DEST/archivos" -name '*.tar.gz' -mtime -7 -print -quit)" ]; then
+  tar -czf "$DEST/archivos/.cdch-archivos-$today.tar.gz.tmp" -C "$STORAGE" \
+    --exclude=./geo --exclude=./respaldo-estado.json --exclude='./*.tmp' .
+  tar -tzf "$DEST/archivos/.cdch-archivos-$today.tar.gz.tmp" > /dev/null \
+    || fail "El respaldo de los archivos salió dañado."
+  mv "$DEST/archivos/.cdch-archivos-$today.tar.gz.tmp" "$DEST/archivos/cdch-archivos-$today.tar.gz"
+  log "Archivos: cdch-archivos-$today.tar.gz"
+fi
+
+# 4. Base de ubicaciones por IP: DB-IP publica una nueva cada mes. Si falla, no es grave.
+if [ ! -f "$GEO" ] || [ "$(date +%Y-%m -r "$GEO")" != "$month" ]; then
+  mkdir -p "$(dirname "$GEO")"
+  if curl -sSfL --max-time 600 "https://download.db-ip.com/free/dbip-city-lite-$month.mmdb.gz" | gunzip > "$GEO.tmp" \
+     && [ -s "$GEO.tmp" ]; then
+    chmod 644 "$GEO.tmp"
+    mv "$GEO.tmp" "$GEO"
+    log "Ubicaciones: dbip-city-lite-$month"
+  else
+    rm -f "$GEO.tmp"
+    log "Aviso: no se pudo descargar dbip-city-lite-$month; se sigue usando la anterior."
+  fi
+fi
+
+# 5. Limpieza
+prune "$DEST/diarios" "cdch-db-*.dump" $KEEP_DAILY
+prune "$DEST/mensuales" "cdch-db-*.dump" $KEEP_MONTHLY
+prune "$DEST/archivos" "cdch-archivos-*.tar.gz" $KEEP_FILES
+
+# 6. Estado para la app
+write_status ""
+log "OK"
