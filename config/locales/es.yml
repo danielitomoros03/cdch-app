@@ -370,6 +370,8 @@ es:
       teacher_sign_in_failed_unknown: "intentó entrar a «Mi espacio» con una cédula que no está en la nómina: %{id_number}"
       teacher_locked: "bloqueó por una hora la cédula %{id_number} tras %{attempts} intentos fallidos en «Mi espacio»"
       teacher_profile_updated: "actualizó sus datos en «Mi espacio»"
+      saber_authorship_rejected: "indicó en «Mi espacio» que no es suya la publicación de Saber «%{item}»"
+      saber_authorship_restored: "indicó en «Mi espacio» que sí es suya la publicación de Saber «%{item}»"
     permissions:
       added: "Dio"
       removed: "Quitó"

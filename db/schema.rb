@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_11_02_120000) do
+ActiveRecord::Schema[7.2].define(version: 2026_11_03_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -423,6 +423,51 @@ ActiveRecord::Schema[7.2].define(version: 2026_11_02_120000) do
     t.index ["research_area_id"], name: "index_research_projects_on_research_area_id"
   end
 
+  create_table "saber_authorships", force: :cascade do |t|
+    t.bigint "saber_item_id", null: false
+    t.bigint "person_id", null: false
+    t.string "author_name"
+    t.string "matched_by", null: false
+    t.datetime "rejected_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_saber_authorships_on_person_id"
+    t.index ["saber_item_id", "person_id"], name: "index_saber_authorships_on_saber_item_id_and_person_id", unique: true
+    t.index ["saber_item_id"], name: "index_saber_authorships_on_saber_item_id"
+  end
+
+  create_table "saber_collections", force: :cascade do |t|
+    t.string "spec", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spec"], name: "index_saber_collections_on_spec", unique: true
+  end
+
+  create_table "saber_items", force: :cascade do |t|
+    t.string "handle", null: false
+    t.text "title"
+    t.string "item_type"
+    t.string "issued"
+    t.integer "issued_year"
+    t.string "language"
+    t.text "abstract"
+    t.string "doi"
+    t.jsonb "author_names", default: [], null: false
+    t.jsonb "subjects", default: [], null: false
+    t.jsonb "collection_specs", default: [], null: false
+    t.jsonb "emails", default: [], null: false
+    t.datetime "datestamp"
+    t.datetime "seen_at"
+    t.boolean "deleted", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "kind", default: "otro", null: false
+    t.index ["datestamp"], name: "index_saber_items_on_datestamp"
+    t.index ["handle"], name: "index_saber_items_on_handle", unique: true
+    t.index ["kind"], name: "index_saber_items_on_kind"
+  end
+
   create_table "scholarships", force: :cascade do |t|
     t.bigint "department_id", null: false
     t.integer "legacy_id", null: false
@@ -617,6 +662,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_11_02_120000) do
   add_foreign_key "research_projects", "departments"
   add_foreign_key "research_projects", "people", column: "lead_person_id"
   add_foreign_key "research_projects", "research_areas"
+  add_foreign_key "saber_authorships", "people"
+  add_foreign_key "saber_authorships", "saber_items"
   add_foreign_key "scholarships", "departments"
   add_foreign_key "scholarships", "people"
   add_foreign_key "stage_co_investigators", "people"

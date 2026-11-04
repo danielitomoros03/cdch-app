@@ -18,6 +18,14 @@
       <%= f.label :history, "Solo con historia", class: "form-check-label" %>
     </div>
   </div>
+  <div class="filter-bar__field filter-bar__field--switch">
+    <span class="form-label d-block" id="saber-label">Saber-UCV</span>
+    <div class="form-check form-switch filter-switch">
+      <%= f.check_box :saber, { checked: @filters[:saber] == "1", class: "form-check-input", role: "switch",
+            aria: { describedby: "saber-label" }, data: { action: "auto-submit#submit" } }, "1", nil %>
+      <%= f.label :saber, "Con publicaciones", class: "form-check-label" %>
+    </div>
+  </div>
   <div class="filter-bar__field filter-bar__field--wide">
     <%= f.label :q, "Nombre o cédula", class: "form-label" %>
     <div class="input-group input-group-sm">
@@ -66,6 +74,7 @@
           <th scope="col">Categoría</th>
           <th scope="col" class="text-end" title="Etapas como responsable">Resp.</th>
           <th scope="col" class="text-end" title="Etapas como coinvestigador">Coinv.</th>
+          <th scope="col" class="text-end" title="Publicaciones en Saber-UCV">Saber</th>
         </tr>
       </thead>
       <tbody>
@@ -79,10 +88,11 @@
             <td><%= appointment&.category || person.legacy_category || "—" %></td>
             <td class="text-end"><%= @stage_counts[person.id] || 0 %></td>
             <td class="text-end"><%= @co_counts[person.id] || 0 %></td>
+            <td class="text-end"><%= @saber_counts[person.id] || 0 %></td>
           </tr>
         <% end %>
         <% if @people.empty? %>
-          <tr><td colspan="7" class="text-center text-muted py-4">No hay personas con esos filtros.</td></tr>
+          <tr><td colspan="8" class="text-center text-muted py-4">No hay personas con esos filtros.</td></tr>
         <% end %>
       </tbody>
     </table>

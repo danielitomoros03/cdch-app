@@ -48,6 +48,7 @@ class Person < ApplicationRecord
   has_many :co_investigated_stages, through: :co_investigations, source: :project_stage
   has_many :institutional_aids, foreign_key: :applicant_person_id, inverse_of: :applicant_person, dependent: :restrict_with_error
   has_many :scholarships, dependent: :restrict_with_error
+  has_many :saber_authorships, dependent: :delete_all
   has_many :peer_reviews_given, class_name: "PeerReview", foreign_key: :reviewer_person_id, inverse_of: :reviewer_person, dependent: :restrict_with_error
 
   # Los nombres se guardan en mayúsculas (como la nómina); display_name los presenta en tipo título.
@@ -62,6 +63,7 @@ class Person < ApplicationRecord
   validates :orcid, format: { with: /\A\d{4}-\d{4}-\d{4}-\d{3}[\dX]\z/, message: "debe tener la forma 0000-0000-0000-0000" }, allow_blank: true
 
   scope :with_cdch_history, -> { where(project_lead: true).or(where(co_investigator: true)).or(where(reviewer: true)).or(where(aid_applicant: true)).or(where(scholar: true)) }
+  scope :with_saber_publications, -> { where(id: SaberAuthorship.visible.select(:person_id)) }
   scope :outside_payroll, -> { where(in_payroll: false) }
   # Sin importar acentos: "garcia" encuentra "GARCÍA".
   # Sin la extensión unaccent: los nombres se comparan sin tildes con translate().

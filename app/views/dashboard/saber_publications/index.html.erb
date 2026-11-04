@@ -1,0 +1,31 @@
+<%= turbo_frame_tag "saber_publications", class: "results-frame" do %>
+  <% if @list.total.zero? %>
+    <p class="panel__empty">No hay publicaciones en Saber vinculadas con seguridad a esta persona.</p>
+  <% else %>
+    <%= render "saber_publications/filters", list: @list, url: person_saber_publications_path(@person) %>
+    <div class="table-responsive data-table">
+      <table class="table table-sm align-middle mb-0">
+        <thead><tr><th>Año</th><th>Título</th><th>Tipo</th><th>Autores en Saber</th><th>Vínculo</th></tr></thead>
+        <tbody>
+          <% @list.authorships.each do |authorship| %>
+            <% item = authorship.saber_item %>
+            <tr>
+              <td class="text-nowrap"><%= item.issued_year || "—" %></td>
+              <td>
+                <%= link_to item.title.presence || "(sin título)", item.url, target: "_blank", rel: "noopener" %>
+                <% if item.doi_url %><span class="small ms-1"><%= link_to "DOI", item.doi_url, target: "_blank", rel: "noopener" %></span><% end %>
+              </td>
+              <td class="text-nowrap"><%= item.kind_label %></td>
+              <td class="small"><%= saber_authors(item, highlight: authorship.author_name) %></td>
+              <td class="text-nowrap small text-muted"><%= SaberAuthorship::MATCHED_BY[authorship.matched_by] %></td>
+            </tr>
+          <% end %>
+          <% if @list.authorships.empty? %>
+            <tr><td colspan="5" class="text-center text-muted py-3">No hay publicaciones con esos filtros.</td></tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-center mt-3"><%= dashboard_pagination @list.authorships %></div>
+  <% end %>
+<% end %>

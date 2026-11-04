@@ -1,0 +1,12 @@
+{
+  "cron": [
+    {
+      "command": "bundle exec rails saber:sync",
+      "schedule": "0 5 * * 1"
+    },
+    {
+      "command": "bundle exec rails saber:sync_full",
+      "schedule": "0 6 1 * *"
+    }
+  ]
+}

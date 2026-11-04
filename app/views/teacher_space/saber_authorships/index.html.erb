@@ -1,0 +1,46 @@
+<%= turbo_frame_tag "saber_publications", class: "results-frame" do %>
+  <% if notice %><div class="alert alert-success py-2 small" role="status"><%= notice %></div><% end %>
+  <% if @list.total.zero? %>
+    <p class="panel__empty">No encontramos publicaciones tuyas en Saber con seguridad.</p>
+  <% else %>
+    <%= render "saber_publications/filters", list: @list, url: saber_authorships_path %>
+    <% back = @list.params.merge(page: params[:page]).compact %>
+    <div class="table-responsive data-table">
+      <table class="table table-sm align-middle mb-0">
+        <thead><tr><th>Año</th><th>Título</th><th>Tipo</th><th class="text-end"><span class="visually-hidden">Acción</span></th></tr></thead>
+        <tbody>
+          <% @list.authorships.each do |authorship| %>
+            <% item = authorship.saber_item %>
+            <tr>
+              <td class="text-nowrap"><%= item.issued_year || "—" %></td>
+              <td><%= link_to item.title.presence || "(sin título)", item.url, target: "_blank", rel: "noopener", data: { turbo: false } %></td>
+              <td class="text-nowrap"><%= item.kind_label %></td>
+              <td class="text-end">
+                <%= button_to "No es mía", reject_saber_authorship_path(authorship), method: :patch, params: back,
+                      class: "btn btn-outline-secondary btn-sm text-nowrap" %>
+              </td>
+            </tr>
+          <% end %>
+          <% if @list.authorships.empty? %>
+            <tr><td colspan="4" class="text-center text-muted py-3">No hay publicaciones con esos filtros.</td></tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-center mt-3"><%= dashboard_pagination @list.authorships %></div>
+  <% end %>
+
+  <% if @rejected.any? %>
+    <details class="mt-3">
+      <summary class="small">Marcaste <%= @rejected.size == 1 ? "una publicación como no tuya" : "#{@rejected.size} publicaciones como no tuyas" %> (puedes deshacerlo)</summary>
+      <ul class="list-unstyled small mt-2 mb-0">
+        <% @rejected.each do |authorship| %>
+          <li class="d-flex align-items-center gap-2 mb-1">
+            <span class="text-muted"><%= authorship.saber_item.title %></span>
+            <%= button_to "Sí es mía", restore_saber_authorship_path(authorship), method: :patch, params: @list.params, class: "btn btn-link btn-sm p-0 text-nowrap" %>
+          </li>
+        <% end %>
+      </ul>
+    </details>
+  <% end %>
+<% end %>

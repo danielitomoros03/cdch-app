@@ -92,3 +92,15 @@
     <p class="panel__empty">Todavía no hay proyectos, ayudas ni becas a tu nombre en el CDCH.</p>
   <% end %>
 </section>
+
+<section class="panel mt-3" id="publicaciones">
+  <h2 class="panel__title">Mis publicaciones en Saber-UCV <span class="badge text-bg-light fw-normal">las revisas tú</span></h2>
+  <p class="small text-muted">
+    Las encontramos en el repositorio <%= link_to "Saber-UCV", "https://saber.ucv.ve/jspui/", target: "_blank", rel: "noopener" %>
+    porque tu nombre completo o tu correo aparecen como autor. Si alguna no es tuya, márcala y no volverá a aparecer.
+    Si falta alguna, puede estar escrita en Saber de otra forma.
+  </p>
+  <%= turbo_frame_tag "saber_publications", src: saber_authorships_path, loading: :lazy, class: "results-frame" do %>
+    <p class="panel__empty">Cargando publicaciones…</p>
+  <% end %>
+</section>

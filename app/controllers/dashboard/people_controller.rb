@@ -10,7 +10,7 @@ module Dashboard
 
     def index
       @faculties = Faculty.order(:code)
-      @filters = params.permit(:q, :situation, :faculty, :history, :since).to_h.symbolize_keys
+      @filters = params.permit(:q, :situation, :faculty, :history, :since, :saber).to_h.symbolize_keys
       people = filtered_people
 
       respond_to do |format|
@@ -21,6 +21,7 @@ module Dashboard
           @faculty_names = @faculties.to_h { |faculty| [ faculty.code, faculty.name ] }
           @stage_counts = ProjectStage.where(lead_person_id: @people.map(&:id)).group(:lead_person_id).count
           @co_counts = StageCoInvestigator.where(person_id: @people.map(&:id)).group(:person_id).count
+          @saber_counts = SaberAuthorship.visible.where(person_id: @people.map(&:id)).group(:person_id).count
         end
         format.xlsx { stream_spreadsheet(people) }
       end
@@ -35,6 +36,8 @@ module Dashboard
       @aids = @person.institutional_aids.includes(:legacy_status).order(requested_on: :desc)
       @scholarships = @person.scholarships.order(starts_on: :desc)
       @ppi_levels = @person.ppi_levels
+      @saber_count = @person.saber_authorships.visible.count
+      @saber_rejected = @person.saber_authorships.rejected.count
       @reviews = @person.peer_reviews_given.accessible_by(current_ability).includes(project_stage: :research_project).order(sent_on: :desc) if can?(:read, PeerReview)
     end
 
@@ -46,6 +49,7 @@ module Dashboard
       people = people.in_situation(@filters[:situation]) if Person::SITUATIONS.key?(@filters[:situation])
       people = people.in_faculty(@filters[:faculty]) if @filters[:faculty].present?
       people = people.with_cdch_history if @filters[:history] == "1"
+      people = people.with_saber_publications if @filters[:saber] == "1"
       people = people.with_projects_since(@filters[:since]) if @filters[:since].to_s.match?(/\A(19|20)\d\d\z/)
       people
     end

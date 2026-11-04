@@ -1,0 +1,9 @@
+<p class="small text-muted mb-2">
+  Publicaciones del repositorio <%= link_to "Saber-UCV", "https://saber.ucv.ve/jspui/", target: "_blank", rel: "noopener" %>
+  atribuidas a esta persona: por un correo suyo que Saber publica, o porque su nombre completo
+  coincide con el de un solo docente. Las coincidencias dudosas no se muestran. El año es el que
+  registra Saber, que a veces es el de la carga y no el de la publicación.
+  <% if rejected.positive? %>
+    El docente indicó en «Mi espacio» que <%= rejected == 1 ? "una no es suya" : "#{rejected} no son suyas" %>; no se cuentan.
+  <% end %>
+</p>

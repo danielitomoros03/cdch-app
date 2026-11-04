@@ -10,7 +10,7 @@ class Ability
   RESEARCH_RECORDS = [
     Person, PersonContact, UcvAppointment, PpiLevel,
     ResearchProject, ProjectStage, StageCoInvestigator, StagePublication, StageExtension,
-    InstitutionalAid, Scholarship
+    InstitutionalAid, Scholarship, SaberItem, SaberAuthorship
   ].freeze
   RESEARCH_READERS = %w[Director Subdirector Superadmin].freeze
   # Los arbitrajes son confidenciales: ni DTIC (Superadmin) ni docentes, solo la Dirección.

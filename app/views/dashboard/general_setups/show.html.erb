@@ -74,6 +74,29 @@
   <% end %>
 </section>
 
+<section class="panel mt-3">
+  <h2 class="panel__title mb-1">Cosecha de Saber-UCV</h2>
+  <p class="small text-muted">Cada lunes se traen las publicaciones nuevas o modificadas del repositorio Saber-UCV y el día 1 de cada mes se trae todo. Después se vinculan con los docentes.</p>
+  <% if @saber_status.nil? %>
+    <p class="small mb-0"><span class="badge text-bg-secondary">sin datos</span> Todavía no se ha cosechado.</p>
+  <% else %>
+    <p class="small mb-1">
+      <% if @saber_status["ok"] %>
+        <span class="badge text-bg-success">funcionando</span>
+      <% else %>
+        <span class="badge text-bg-danger">revisar</span> <%= @saber_status["error"] %>
+      <% end %>
+    </p>
+    <ul class="small mb-0 setup-facts">
+      <li>Última cosecha: <%= l(Time.zone.parse(@saber_status["finished_at"]), format: "%d/%m/%Y %H:%M") %><%= " (completa)" if @saber_status["full"] %></li>
+      <% if @saber_status["ok"] %>
+        <li>Publicaciones vigentes: <%= number_with_delimiter(@saber_status["items"], delimiter: ".") %></li>
+        <li>Lo más reciente que entrega Saber: <%= @saber_status["newest_datestamp"] ? l(Time.zone.parse(@saber_status["newest_datestamp"]).to_date, format: "%d/%m/%Y") : "—" %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</section>
+
 <% if editable %>
   <%= button_to "Enviar un correo de prueba a #{current_user.email}", test_email_general_setup_path, method: :post,
         class: "btn btn-outline-secondary btn-sm", form: { class: "mt-3" } %>

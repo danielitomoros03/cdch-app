@@ -39,7 +39,9 @@ Rails.application.routes.draw do
   resources :users, module: 'dashboard' do
     patch :unlock, on: :member
   end
-  resources :people, module: 'dashboard', only: [:index, :show], path: 'docentes'
+  resources :people, module: 'dashboard', only: [:index, :show], path: 'docentes' do
+    resources :saber_publications, only: :index, path: "saber"
+  end
   resources :research_projects, module: 'dashboard', only: [:show], path: 'proyectos'
   get "dashboard/index" # INDEX DASHBOARD
   resources :audit_logs, module: "dashboard", only: :index, path: "bitacora"
@@ -54,6 +56,11 @@ Rails.application.routes.draw do
     get "entrar", to: "sessions#new", as: :new_teacher_session
     post "entrar", to: "sessions#create", as: :teacher_session
     delete "salir", to: "sessions#destroy", as: :destroy_teacher_session
+    # Publicaciones de Saber-UCV que se le atribuyen: puede decir que una no es suya.
+    resources :saber_authorships, only: :index, path: "publicaciones" do
+      patch :reject, path: "no-es-mia", on: :member
+      patch :restore, path: "si-es-mia", on: :member
+    end
   end
 
 

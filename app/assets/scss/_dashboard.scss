@@ -347,6 +347,24 @@ $dashboard-radius: 0.125rem;
   }
 }
 
+// Filtros dentro de un panel (p. ej. las publicaciones de Saber): sin caja propia.
+.filter-bar--compact {
+  padding: 0;
+  margin-bottom: 0.75rem;
+  background-color: transparent;
+  border: 0;
+
+  .filter-bar__field {
+    flex: 0 1 16rem;
+    min-width: 12rem;
+  }
+
+  .filter-bar__field--narrow {
+    flex-basis: 9rem;
+    min-width: 8rem;
+  }
+}
+
 .results-frame {
   display: block;
   transition: opacity 0.15s ease;
@@ -405,7 +423,7 @@ $dashboard-radius: 0.125rem;
 
 .stat-tiles {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
   gap: 1rem;
   margin-bottom: 1.25rem;
 }

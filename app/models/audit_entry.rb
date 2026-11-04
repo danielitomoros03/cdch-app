@@ -12,7 +12,7 @@ class AuditEntry
     "usuarios" => { label: "Usuarios y permisos", icon: "fa-user-shield", types: %w[User JobTitle], events: %w[permissions_changed] },
     "configuracion" => { label: "Configuración", icon: "fa-sliders-h", types: %w[GeneralSetup Department Institution], events: %w[test_email_sent] },
     "exportaciones" => { label: "Exportaciones", icon: "fa-file-excel", events: %w[export] },
-    "docentes" => { label: "Mi espacio del docente", icon: "fa-chalkboard-teacher", events: %w[teacher_profile_updated] },
+    "docentes" => { label: "Mi espacio del docente", icon: "fa-chalkboard-teacher", events: %w[teacher_profile_updated saber_authorship_rejected saber_authorship_restored] },
     "contenido" => { label: "Contenido del sitio", icon: "fa-newspaper",
                      types: %w[Call Event Publication Minute Announcement Solicitude InstitutionLeadership] }
   }.freeze

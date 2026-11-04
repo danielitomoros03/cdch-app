@@ -1,0 +1,20 @@
+<%# Filtros de tipo y año dentro del marco de publicaciones; se envían solos al cambiar. %>
+<%= form_with url: url, method: :get, class: "filter-bar filter-bar--compact", data: { controller: "auto-submit" } do |f| %>
+  <div class="filter-bar__field">
+    <%= f.label :tipo, "Tipo", class: "form-label", for: "saber_tipo" %>
+    <%= f.select :tipo, list.kind_options, { include_blank: "Todos", selected: list.kind },
+          id: "saber_tipo", class: "form-select form-select-sm", data: { action: "auto-submit#submit" } %>
+  </div>
+  <div class="filter-bar__field filter-bar__field--narrow">
+    <%= f.label :anio, "Año", class: "form-label", for: "saber_anio" %>
+    <%= f.select :anio, list.year_options, { include_blank: "Todos", selected: list.params[:anio] },
+          id: "saber_anio", class: "form-select form-select-sm", data: { action: "auto-submit#submit" } %>
+  </div>
+  <div class="filter-bar__actions">
+    <noscript><%= f.submit "Filtrar", name: nil, class: "btn btn-primary btn-sm" %></noscript>
+    <% if list.filtered? %><%= link_to "Limpiar", url, class: "btn btn-outline-secondary btn-sm" %><% end %>
+  </div>
+<% end %>
+<p class="results-count mb-2">
+  <%= list.authorships.total_entries %> <%= list.authorships.total_entries == 1 ? "publicación" : "publicaciones" %><%= " de #{list.total}" if list.filtered? %>
+</p>

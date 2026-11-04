@@ -6,6 +6,7 @@ module Dashboard
     def show
       authorize! :read, @general_setup
       @backup_status = BackupStatus.current
+      @saber_status = Saber::Sync.status
     end
 
     def update
