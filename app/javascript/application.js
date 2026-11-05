@@ -11,10 +11,17 @@ ActiveStorage.start()
 
 // Los componentes con data-bs-* se enlazan solos; los tooltips no, y Turbo
 // cambia el body en cada visita.
-document.addEventListener("turbo:load", () => {
+// También al cargar un turbo-frame (filtros, paginación, pestañas diferidas).
+const enableTooltips = () => {
   document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((element) => {
     bootstrap.Tooltip.getOrCreateInstance(element)
   })
+}
+document.addEventListener("turbo:load", enableTooltips)
+document.addEventListener("turbo:frame-load", enableTooltips)
+// Si el frame se reemplaza con un tooltip abierto, este quedaría flotando.
+document.addEventListener("turbo:before-frame-render", () => {
+  document.querySelectorAll(".tooltip").forEach((element) => element.remove())
 })
 
 // Turbo guarda la página en caché antes de salir: que no queden abiertos

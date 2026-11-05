@@ -38,7 +38,7 @@ class PeopleExport
       { header: "Nombre", width: 38 }, { header: "Cédula", width: 13 }, { header: "Situación", width: 20 },
       { header: "Facultad o dependencia", width: 34 }, { header: "Categoría", width: 26 }, { header: "Dedicación", width: 22 },
       { header: "Ingreso UCV", width: 12 },
-      { header: "Etapas como responsable", width: 13 }, { header: "Etapas como coinvestigador", width: 13 },
+      { header: "Proyectos como responsable", width: 13 }, { header: "Proyectos como coinvestigador", width: 13 },
       { header: "Ayudas institucionales", width: 12 }, { header: "Becas", width: 9 }
     ]
     list << { header: "Arbitrajes", width: 11 } if @reviews
@@ -53,8 +53,8 @@ class PeopleExport
   def write_batch(sheet, ids)
     people = Person.where(id: ids).index_by(&:id)
     appointments = UcvAppointment.where(person_id: ids).group_by(&:person_id)
-    led = ProjectStage.where(lead_person_id: ids).group(:lead_person_id).count
-    co = StageCoInvestigator.where(person_id: ids).group(:person_id).count
+    led = Person.led_project_counts(ids)
+    co = Person.co_project_counts(ids)
     aids = InstitutionalAid.where(applicant_person_id: ids).group(:applicant_person_id).count
     scholarships = Scholarship.where(person_id: ids).group(:person_id).count
     reviews = @reviews ? PeerReview.where(reviewer_person_id: ids).group(:reviewer_person_id).count : {}

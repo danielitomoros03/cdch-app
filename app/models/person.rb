@@ -109,6 +109,17 @@ class Person < ApplicationRecord
     raw.to_s.gsub(/\D/, "").sub(/\A0+/, "")
   end
 
+  # Proyectos distintos por persona: un proyecto se financia en una o más etapas (94 % tiene una),
+  # y el sistema heredado registra al responsable y a los coinvestigadores por etapa.
+  def self.led_project_counts(person_ids)
+    ProjectStage.where(lead_person_id: person_ids).group(:lead_person_id).distinct.count(:research_project_id)
+  end
+
+  # Por el código del proyecto, que tienen también los coinvestigadores cuya etapa no está en el sistema.
+  def self.co_project_counts(person_ids)
+    StageCoInvestigator.where(person_id: person_ids).group(:person_id).distinct.count(:project_code)
+  end
+
   # Entrada a "Mi espacio": la cédula y la fecha de ingreso de alguno de sus cargos en la nómina.
   def self.find_by_identity(id_number, hired_on)
     return if id_number.blank? || hired_on.blank?

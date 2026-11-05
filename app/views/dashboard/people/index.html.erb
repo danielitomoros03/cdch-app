@@ -54,7 +54,7 @@
     <%= link_to "Limpiar", people_path, class: "btn btn-outline-secondary btn-sm" %>
     <%# Envía el mismo formulario a la versión .xlsx: siempre exporta los filtros que se ven. %>
     <%= f.button type: "submit", name: nil, formaction: people_path(format: :xlsx), class: "btn btn-outline-success btn-sm",
-          data: { turbo: false }, title: "Descarga el listado con los filtros aplicados" do %>
+          data: { turbo: false, bs_toggle: "tooltip" }, title: "Descarga el listado con los filtros aplicados" do %>
       <i class="fas fa-file-excel me-1" aria-hidden="true"></i> Exportar a Excel
     <% end %>
   </div>
@@ -72,9 +72,9 @@
           <th scope="col">Situación</th>
           <th scope="col">Facultad o dependencia</th>
           <th scope="col">Categoría</th>
-          <th scope="col" class="text-end" title="Etapas como responsable">Resp.</th>
-          <th scope="col" class="text-end" title="Etapas como coinvestigador">Coinv.</th>
-          <th scope="col" class="text-end" title="Publicaciones en Saber-UCV">Saber</th>
+          <th scope="col" class="text-end" data-bs-toggle="tooltip" title="Proyectos como responsable">Resp.</th>
+          <th scope="col" class="text-end" data-bs-toggle="tooltip" title="Proyectos como coinvestigador">Coinv.</th>
+          <th scope="col" class="text-end" data-bs-toggle="tooltip" title="Publicaciones en Saber-UCV">Saber</th>
         </tr>
       </thead>
       <tbody>
@@ -86,8 +86,8 @@
             <td><%= situation_badge(person) %></td>
             <td><%= faculty_label(appointment&.dependency_code || person.legacy_faculty_code, @faculty_names) %></td>
             <td><%= appointment&.category || person.legacy_category || "—" %></td>
-            <td class="text-end"><%= @stage_counts[person.id] || 0 %></td>
-            <td class="text-end"><%= @co_counts[person.id] || 0 %></td>
+            <td class="text-end"><%= @led_project_counts[person.id] || 0 %></td>
+            <td class="text-end"><%= @co_project_counts[person.id] || 0 %></td>
             <td class="text-end"><%= @saber_counts[person.id] || 0 %></td>
           </tr>
         <% end %>

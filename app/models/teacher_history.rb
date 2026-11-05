@@ -12,7 +12,8 @@ class TeacherHistory
   end
 
   def counts
-    { "Etapas como responsable" => led_stages.size, "Etapas como coinvestigador" => co_stages.size,
+    { "Proyectos como responsable" => @person.led_stages.distinct.count(:research_project_id),
+      "Proyectos como coinvestigador" => @person.co_investigations.distinct.count(:project_code),
       "Ayudas institucionales" => aids.size, "Becas" => scholarships.size }
   end
 

@@ -8,7 +8,7 @@
         <td>
           <%= user.full_name %>
           <% if user.access_locked? %>
-            <span class="badge text-bg-danger ms-1" title="Bloqueada hasta las <%= l(user.locked_at + Devise.unlock_in, format: '%H:%M') %>">Bloqueada</span>
+            <span class="badge text-bg-danger ms-1" data-bs-toggle="tooltip" title="Bloqueada hasta las <%= l(user.locked_at + Devise.unlock_in, format: '%H:%M') %>">Bloqueada</span>
           <% end %>
         </td>
         <td><%= user.number_phone %></td>

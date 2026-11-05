@@ -19,8 +19,8 @@ module Dashboard
           @people = people.alphabetical.paginate(page: params[:page], per_page: PER_PAGE)
           @appointments = UcvAppointment.where(person_id: @people.map(&:id)).group_by(&:person_id)
           @faculty_names = @faculties.to_h { |faculty| [ faculty.code, faculty.name ] }
-          @stage_counts = ProjectStage.where(lead_person_id: @people.map(&:id)).group(:lead_person_id).count
-          @co_counts = StageCoInvestigator.where(person_id: @people.map(&:id)).group(:person_id).count
+          @led_project_counts = Person.led_project_counts(@people.map(&:id))
+          @co_project_counts = Person.co_project_counts(@people.map(&:id))
           @saber_counts = SaberAuthorship.visible.where(person_id: @people.map(&:id)).group(:person_id).count
         end
         format.xlsx { stream_spreadsheet(people) }
@@ -36,6 +36,8 @@ module Dashboard
       @aids = @person.institutional_aids.includes(:legacy_status).order(requested_on: :desc)
       @scholarships = @person.scholarships.order(starts_on: :desc)
       @ppi_levels = @person.ppi_levels
+      @led_project_count = @led_stages.map(&:research_project_id).uniq.size
+      @co_project_count = @co_stages.map(&:project_code).uniq.size
       @saber_count = @person.saber_authorships.visible.count
       @saber_rejected = @person.saber_authorships.rejected.count
       @reviews = @person.peer_reviews_given.accessible_by(current_ability).includes(project_stage: :research_project).order(sent_on: :desc) if can?(:read, PeerReview)

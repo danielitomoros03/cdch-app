@@ -49,4 +49,10 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal "De Abreu Ana", Person.new(full_name: "DE ABREU ANA").display_name
     assert_equal "D'Angelo Luis E.", Person.new(full_name: "D'ANGELO LUIS E.").display_name
   end
+
+  test "counts distinct projects, not stages" do
+    people = [ people(:active_engineer).id, people(:retired_doctor).id ]
+    assert_equal({ people(:active_engineer).id => 1 }, Person.led_project_counts(people))
+    assert_equal({ people(:retired_doctor).id => 1 }, Person.co_project_counts(people))
+  end
 end

@@ -15,7 +15,7 @@
 </div>
 
 <div class="stat-tiles">
-  <% tiles = [ [ "Etapas como responsable", @led_stages.size ], [ "Etapas como coinvestigador", @co_stages.size ], [ "Ayudas institucionales", @aids.size ], [ "Becas", @scholarships.size ] ] %>
+  <% tiles = [ [ "Proyectos como responsable", @led_project_count ], [ "Proyectos como coinvestigador", @co_project_count ], [ "Ayudas institucionales", @aids.size ], [ "Becas", @scholarships.size ] ] %>
   <% tiles << [ "Arbitrajes", @reviews.size ] if @reviews %>
   <% tiles << [ "Publicaciones en Saber", @saber_count ] %>
   <% tiles.each do |label, value| %>
@@ -66,7 +66,7 @@
               <dd>
                 <%= contact.value %>
                 <% if contact.source == PersonContact::TEACHER_SOURCE %>
-                  <span class="badge text-bg-success ms-1" title="Lo escribió el docente en Mi espacio">del docente</span>
+                  <span class="badge text-bg-success ms-1" data-bs-toggle="tooltip" title="Lo escribió el docente en Mi espacio">del docente</span>
                 <% end %>
               </dd>
             <% end %>
@@ -95,7 +95,7 @@
 
 <section class="panel">
   <ul class="nav nav-underline panel__tabs" role="tablist">
-    <% tabs = [ [ "led", "Proyectos como responsable", @led_stages.size ], [ "co", "Como coinvestigador", @co_stages.size ], [ "aids", "Ayudas institucionales", @aids.size ], [ "scholarships", "Becas", @scholarships.size ] ] %>
+    <% tabs = [ [ "led", "Etapas como responsable", @led_stages.size ], [ "co", "Etapas como coinvestigador", @co_stages.size ], [ "aids", "Ayudas institucionales", @aids.size ], [ "scholarships", "Becas", @scholarships.size ] ] %>
     <% tabs << [ "reviews", "Arbitrajes", @reviews.size ] if @reviews %>
     <% tabs << [ "saber", "En Saber-UCV", @saber_count ] %>
     <% tabs.each_with_index do |(key, label, count), index| %>
