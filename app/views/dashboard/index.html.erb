@@ -143,6 +143,8 @@
     </div>
   </div>
 
+  <%= render "dashboard/saber_stats", stats: @saber_stats if @saber_stats&.any? %>
+
   <!-- Quick Actions -->
   <div class="row g-3 mb-4">
     <div class="col-12">

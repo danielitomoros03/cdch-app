@@ -1,0 +1,78 @@
+<section class="mb-4" aria-labelledby="saber-stats-title">
+  <div class="d-flex flex-wrap justify-content-between align-items-baseline gap-2 mb-3">
+    <h5 class="mb-0" id="saber-stats-title">
+      <i class="fas fa-book-open text-primary me-2"></i>Producción en Saber-UCV
+    </h5>
+    <%= link_to "Ver docentes con publicaciones", people_path(saber: "1"), class: "small text-decoration-none" %>
+  </div>
+
+  <div class="stat-tiles">
+    <% [
+         [ "Publicaciones en Saber", number_with_delimiter(stats.items_total) ],
+         [ "Con docentes de la UCV", number_with_delimiter(stats.items_with_teachers) ],
+         [ "Docentes con publicaciones", number_with_delimiter(stats.teachers_with_publications) ],
+         [ "Activos con publicaciones", "#{number_with_delimiter(stats.active_with_publications)} · #{stats.active_share} %" ]
+       ].each do |label, value| %>
+      <div class="stat-tile">
+        <div class="stat-tile__label"><%= label %></div>
+        <div class="stat-tile__value"><%= value %></div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-lg-6">
+      <div class="panel h-100 mb-0">
+        <h6 class="panel__title">Por tipo</h6>
+        <div class="table-responsive">
+          <table class="table table-sm mb-0 align-middle">
+            <thead>
+              <tr>
+                <th scope="col">Tipo</th>
+                <th scope="col" class="text-end">En Saber</th>
+                <th scope="col" class="text-end">De docentes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% stats.by_kind.each do |row| %>
+                <tr>
+                  <td><%= row.label %></td>
+                  <td class="text-end"><%= number_with_delimiter(row.total) %></td>
+                  <td class="text-end"><%= number_with_delimiter(row.teachers) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="panel h-100 mb-0">
+        <h6 class="panel__title">Por año de publicación</h6>
+        <div class="bar-legend" aria-hidden="true">
+          <span><span class="bar-legend__swatch bar-legend__swatch--total"></span>En Saber</span>
+          <span><span class="bar-legend__swatch"></span>De docentes</span>
+        </div>
+        <div class="bar-list">
+          <% max = [ stats.max_year_total, 1 ].max %>
+          <% stats.by_year.each do |row| %>
+            <span><%= row.year %></span>
+            <span class="bar-list__track" role="img"
+                  aria-label="<%= row.year %>: <%= row.total %> en Saber, <%= row.teachers %> de docentes">
+              <span class="bar-list__total" style="width: <%= (100.0 * row.total / max).round(1) %>%"></span>
+              <span class="bar-list__part" style="width: <%= (100.0 * row.teachers / max).round(1) %>%"></span>
+            </span>
+            <span class="bar-list__value"><%= number_with_delimiter(row.teachers) %> / <%= number_with_delimiter(row.total) %></span>
+          <% end %>
+        </div>
+        <p class="small text-muted mt-2 mb-0">
+          Año que Saber registra como de publicación; en algunos ítems es el año en que se cargó.
+          <% if (status = Saber::Sync.status) && status["newest_datestamp"].present? %>
+            Lo más reciente que entrega Saber es del <%= l(Time.zone.parse(status["newest_datestamp"]).to_date) %>.
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

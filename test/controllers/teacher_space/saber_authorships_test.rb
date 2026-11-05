@@ -66,4 +66,17 @@ class TeacherSpace::SaberAuthorshipsTest < ActionDispatch::IntegrationTest
     assert_response :not_found
     assert_not other.reload.rejected?
   end
+
+  test "the dashboard home shows Saber figures only to who can read research records" do
+    sign_in users(:director)
+    get dashboard_index_url
+    assert_select "#saber-stats-title", text: /Producción en Saber-UCV/
+    assert_select ".stat-tile__value", text: "2"
+    assert_select "td", text: "Artículo"
+
+    sign_out :user
+    sign_in users(:dadi_head)
+    get dashboard_index_url
+    assert_select "#saber-stats-title", count: 0
+  end
 end

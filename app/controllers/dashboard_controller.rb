@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
     @publications_stats = build_stats_for(Publication)
     @minutes_stats = build_stats_for(Minute)
     @users_stats = build_stats_for(User)
+    @saber_stats = SaberStats.new if can?(:read, SaberItem)
   end
 
   private

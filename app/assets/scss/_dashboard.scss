@@ -745,3 +745,58 @@ $dashboard-radius: 0.125rem;
 .setup-facts {
   padding-left: 1.1rem;
 }
+
+// Barras horizontales simples (cifras de Saber-UCV en el inicio).
+.bar-list {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  gap: 0.3rem 0.75rem;
+  align-items: center;
+  font-size: 0.8rem;
+
+  &__track {
+    position: relative;
+    height: 0.75rem;
+    background-color: var(--dashboard-border);
+    border-radius: 0.25rem;
+    overflow: hidden;
+  }
+
+  &__total,
+  &__part {
+    position: absolute;
+    inset: 0 auto 0 0;
+    border-radius: 0.25rem;
+  }
+
+  &__total { background-color: rgba($primary, 0.3); }
+  &__part { background-color: $primary; }
+
+  &__value {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: var(--dashboard-muted);
+    white-space: nowrap;
+  }
+}
+
+.bar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  font-size: 0.75rem;
+  color: var(--dashboard-muted);
+  margin-bottom: 0.5rem;
+
+  &__swatch {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-right: 0.35rem;
+    vertical-align: -0.1rem;
+    border-radius: 0.2rem;
+    background-color: $primary;
+
+    &--total { background-color: rgba($primary, 0.3); }
+  }
+}
