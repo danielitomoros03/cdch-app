@@ -1,48 +1,45 @@
 require "test_helper"
 
+# Formulario público de contacto (POST /solicitudes).
 class SolicitudesControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @solicitude = solicitudes(:one)
+  def submission(**overrides)
+    { solicitude: { full_name: "Ana Pérez", email: "ana@example.com", phone_number: "04120000000",
+                    matter: departments(:dadi).id, message: "Quisiera información sobre las convocatorias.",
+                    policies: "1" }.merge(overrides) }
   end
 
-  test "should get index" do
-    get solicitudes_url
-    assert_response :success
+  test "a person sends a request and sees the confirmation next to the form" do
+    assert_difference("Solicitude.count") { post solicitudes_url, params: submission }
+
+    assert_redirected_to contacto_path(anchor: "mensaje")
+    assert_equal SolicitudesController::SENT, flash[:notice]
   end
 
-  test "should get new" do
-    get new_solicitude_url
-    assert_response :success
-  end
+  test "sending the same message again the same day does not repeat it" do
+    post solicitudes_url, params: submission
 
-  test "should create solicitude" do
-    assert_difference("Solicitude.count") do
-      post solicitudes_url, params: { solicitude: { lastname: @solicitude.lastname, matter: @solicitude.matter, message: @solicitude.message, name: @solicitude.name, phone_number: @solicitude.phone_number, policies: @solicitude.policies } }
+    assert_no_difference("Solicitude.count") do
+      post solicitudes_url, params: submission(email: "ANA@example.com ", message: "Quisiera  información sobre las convocatorias.")
     end
-
-    assert_redirected_to solicitude_url(Solicitude.last)
+    assert_equal SolicitudesController::ALREADY_SENT, flash[:notice]
   end
 
-  test "should show solicitude" do
-    get solicitude_url(@solicitude)
-    assert_response :success
+  test "a robot that fills the hidden field is told it worked, but nothing is saved" do
+    assert_no_difference("Solicitude.count") { post solicitudes_url, params: submission(website: "http://spam.example") }
+    assert_equal SolicitudesController::SENT, flash[:notice]
   end
 
-  test "should get edit" do
-    get edit_solicitude_url(@solicitude)
-    assert_response :success
-  end
-
-  test "should update solicitude" do
-    patch solicitude_url(@solicitude), params: { solicitude: { lastname: @solicitude.lastname, matter: @solicitude.matter, message: @solicitude.message, name: @solicitude.name, phone_number: @solicitude.phone_number, policies: @solicitude.policies } }
-    assert_redirected_to solicitude_url(@solicitude)
-  end
-
-  test "should destroy solicitude" do
-    assert_difference("Solicitude.count", -1) do
-      delete solicitude_url(@solicitude)
+  test "messages with HTML links are dropped" do
+    assert_no_difference("Solicitude.count") do
+      post solicitudes_url, params: submission(message: "<b>Offer</b> <a href=https://bit.ly/x>here</a>")
     end
+  end
 
-    assert_redirected_to solicitudes_url
+  test "an incomplete request says what to fix" do
+    assert_no_difference("Solicitude.count") { post solicitudes_url, params: submission(policies: "0") }
+    assert_equal SolicitudesController::INVALID, flash[:alert]
+
+    follow_redirect!
+    assert_select "#mensaje .alert-warning", text: /No pudimos enviar/
   end
 end

@@ -1,4 +1,5 @@
-<%= form_with(model: solicitude, url: url, local: true) do |form| %>
+<%# Sin Turbo: así la vuelta al formulario conserva el ancla #mensaje y el aviso queda a la vista. %>
+<%= form_with(model: solicitude, url: url, local: true, data: { turbo: false }) do |form| %>
   <% if solicitude.errors.any? %>
     <div style="color: red" class="mb-3">
       <h2><%= pluralize(solicitude.errors.count, "error") %> prohibited this solicitude from being saved:</h2>
@@ -34,6 +35,12 @@
   <div class="mb-3">
     <%= form.label :message, "Mensaje de la Solicitud" %>
     <%= form.text_area :message, class: "form-control", rows: 4, required: true %>
+  </div>
+
+  <%# Trampa para robots: una persona no lo ve ni lo llena. %>
+  <div class="form-trap" aria-hidden="true">
+    <label for="solicitude_website">Sitio web</label>
+    <input type="text" name="solicitude[website]" id="solicitude_website" tabindex="-1" autocomplete="off">
   </div>
 
   <div class="mb-3 form-check">

@@ -998,6 +998,8 @@
   }
   
   .contact-form-section {
+    // Al volver con #mensaje, que el encabezado fijo no tape el aviso.
+    scroll-margin-top: 7.5rem;
     background: white;
     padding: 2rem;
     border-radius: $border-radius-md;
@@ -1041,4 +1043,14 @@
     background-color: #e9ecef;
     color: var(--primary-color);
   }
+}
+
+// Campo trampa del formulario de contacto: fuera de la vista, no oculto con display,
+// porque algunos robots saltan los campos con display: none.
+.form-trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
