@@ -81,18 +81,19 @@
     <p class="small mb-0"><span class="badge text-bg-secondary">sin datos</span> Todavía no se ha cosechado.</p>
   <% else %>
     <p class="small mb-1">
-      <% if @saber_status["ok"] %>
+      <% if @saber_status.ok? && !@saber_status.quiet? %>
         <span class="badge text-bg-success">funcionando</span>
       <% else %>
-        <span class="badge text-bg-danger">revisar</span> <%= @saber_status["error"] %>
+        <span class="badge text-bg-danger">revisar</span>
       <% end %>
     </p>
+    <% @saber_status.warnings.each do |warning| %>
+      <p class="small text-danger mb-1"><%= warning %></p>
+    <% end %>
     <ul class="small mb-0 setup-facts">
-      <li>Última cosecha: <%= l(Time.zone.parse(@saber_status["finished_at"]), format: "%d/%m/%Y %H:%M") %><%= " (completa)" if @saber_status["full"] %></li>
-      <% if @saber_status["ok"] %>
-        <li>Publicaciones vigentes: <%= number_with_delimiter(@saber_status["items"], delimiter: ".") %></li>
-        <li>Lo más reciente que entrega Saber: <%= @saber_status["newest_datestamp"] ? l(Time.zone.parse(@saber_status["newest_datestamp"]).to_date, format: "%d/%m/%Y") : "—" %></li>
-      <% end %>
+      <li>Última cosecha: <%= @saber_status.finished_at ? l(@saber_status.finished_at, format: "%d/%m/%Y %H:%M") : "—" %><%= " (completa)" if @saber_status.full? %></li>
+      <li>Publicaciones vigentes: <%= number_with_delimiter(@saber_status.items, delimiter: ".") %></li>
+      <li>Lo más reciente que entrega Saber: <%= @saber_status.newest_at ? l(@saber_status.newest_at.to_date, format: "%d/%m/%Y") : "—" %></li>
     </ul>
   <% end %>
 </section>

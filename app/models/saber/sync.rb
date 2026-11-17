@@ -1,6 +1,6 @@
 module Saber
   # Cosecha y vinculación juntas, como las corren las tareas programadas (app.json).
-  # Deja el resultado en el log y en storage/saber-estado.json, que muestra la configuración general.
+  # Deja el resultado en el log y en storage/saber-estado.json, que lee Saber::Status.
   module Sync
     STATUS_PATH = Rails.root.join("storage/saber-estado.json")
 
@@ -20,7 +20,10 @@ module Saber
                "vínculos: #{links.created} nuevos, #{links.removed} quitados (#{status[:seconds]} s)"
       status
     rescue StandardError => e
-      write(ok: false, full: full, finished_at: Time.current.iso8601, error: e.message.truncate(300))
+      # Se conserva lo último que se sabía de Saber para que el aviso de "sin novedades" no se pierda.
+      previous = status || {}
+      write(ok: false, full: full, finished_at: Time.current.iso8601, error: e.message.truncate(300),
+            items: previous["items"], newest_datestamp: previous["newest_datestamp"])
       raise
     end
 
