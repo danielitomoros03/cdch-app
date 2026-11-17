@@ -36,6 +36,8 @@ class SaberAuthorship < ApplicationRecord
   scope :accepted, -> { where(rejected_at: nil) }
   scope :rejected, -> { where.not(rejected_at: nil) }
   scope :visible, -> { accepted.joins(:saber_item).merge(SaberItem.current) }
+  # Las que cuentan como producción: sin tesis ni trabajos de grado (ver SaberItem::THESIS_KINDS).
+  scope :production, -> { visible.merge(SaberItem.without_theses) }
   scope :newest_first, -> { joins(:saber_item).order(Arel.sql("saber_items.issued_year DESC NULLS LAST, saber_items.title")) }
 
   def rejected?

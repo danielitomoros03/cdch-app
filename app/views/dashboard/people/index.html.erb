@@ -23,7 +23,7 @@
     <div class="form-check form-switch filter-switch">
       <%= f.check_box :saber, { checked: @filters[:saber] == "1", class: "form-check-input", role: "switch",
             aria: { describedby: "saber-label" }, data: { action: "auto-submit#submit" } }, "1", nil %>
-      <%= f.label :saber, "Con publicaciones", class: "form-check-label" %>
+      <%= f.label :saber, "Con publicaciones (sin tesis)", class: "form-check-label" %>
     </div>
   </div>
   <div class="filter-bar__field filter-bar__field--wide">
@@ -74,7 +74,7 @@
           <th scope="col">Categoría</th>
           <th scope="col" class="text-end" data-bs-toggle="tooltip" title="Proyectos como responsable">Resp.</th>
           <th scope="col" class="text-end" data-bs-toggle="tooltip" title="Proyectos como coinvestigador">Coinv.</th>
-          <th scope="col" class="text-end" data-bs-toggle="tooltip" title="Publicaciones en Saber-UCV">Saber</th>
+          <th scope="col" class="text-end" data-bs-toggle="tooltip" title="Publicaciones en Saber-UCV, sin tesis ni trabajos de grado">Saber</th>
         </tr>
       </thead>
       <tbody>

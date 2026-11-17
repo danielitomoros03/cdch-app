@@ -63,7 +63,8 @@ class Person < ApplicationRecord
   validates :orcid, format: { with: /\A\d{4}-\d{4}-\d{4}-\d{3}[\dX]\z/, message: "debe tener la forma 0000-0000-0000-0000" }, allow_blank: true
 
   scope :with_cdch_history, -> { where(project_lead: true).or(where(co_investigator: true)).or(where(reviewer: true)).or(where(aid_applicant: true)).or(where(scholar: true)) }
-  scope :with_saber_publications, -> { where(id: SaberAuthorship.visible.select(:person_id)) }
+  # Con producción en Saber: sin contar tesis ni trabajos de grado, como el inicio del dashboard.
+  scope :with_saber_publications, -> { where(id: SaberAuthorship.production.select(:person_id)) }
   scope :outside_payroll, -> { where(in_payroll: false) }
   # Sin importar acentos: "garcia" encuentra "GARCÍA".
   # Sin la extensión unaccent: los nombres se comparan sin tildes con translate().

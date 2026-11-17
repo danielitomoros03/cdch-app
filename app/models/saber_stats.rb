@@ -90,6 +90,6 @@ class SaberStats
   end
 
   def teachers
-    Person.where(id: SaberAuthorship.accepted.where(saber_item_id: items.select(:id)).select(:person_id))
+    Person.with_saber_publications
   end
 end

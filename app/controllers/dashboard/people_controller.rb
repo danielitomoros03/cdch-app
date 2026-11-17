@@ -21,7 +21,7 @@ module Dashboard
           @faculty_names = @faculties.to_h { |faculty| [ faculty.code, faculty.name ] }
           @led_project_counts = Person.led_project_counts(@people.map(&:id))
           @co_project_counts = Person.co_project_counts(@people.map(&:id))
-          @saber_counts = SaberAuthorship.visible.where(person_id: @people.map(&:id)).group(:person_id).count
+          @saber_counts = SaberAuthorship.production.where(person_id: @people.map(&:id)).group(:person_id).count
         end
         format.xlsx { stream_spreadsheet(people) }
       end
