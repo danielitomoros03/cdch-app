@@ -57,6 +57,10 @@ class SaberItem < ApplicationRecord
     "otro" => [ "Otro", nil ]
   }.freeze
 
+  # Tesis y trabajos de grado: sus autores son estudiantes, que no están en cdch-app. El inicio
+  # del dashboard las cuenta aparte; el perfil de un docente sí muestra las suyas.
+  THESIS_KINDS = %w[tesis_doctoral tesis_maestria trabajo_grado tesis].freeze
+
   def self.kind_for(item_type)
     text = I18n.transliterate(item_type.to_s).downcase.strip
     KINDS.find { |_key, (_label, pattern)| pattern&.match?(text) }&.first || "otro"
@@ -69,6 +73,8 @@ class SaberItem < ApplicationRecord
   has_many :authorships, class_name: "SaberAuthorship", dependent: :delete_all
 
   scope :current, -> { where(deleted: false) }
+  scope :theses, -> { where(kind: THESIS_KINDS) }
+  scope :without_theses, -> { where.not(kind: THESIS_KINDS) }
 
   validates :handle, presence: true, uniqueness: true
 

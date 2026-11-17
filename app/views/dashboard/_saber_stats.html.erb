@@ -20,17 +20,27 @@
 
   <div class="stat-tiles">
     <% [
-         [ "Publicaciones en Saber", number_with_delimiter(stats.items_total) ],
+         [ "Publicaciones en Saber, sin tesis", number_with_delimiter(stats.items_total) ],
          [ "Con docentes de la UCV", number_with_delimiter(stats.items_with_teachers) ],
          [ "Docentes con publicaciones", number_with_delimiter(stats.teachers_with_publications) ],
-         [ "Activos con publicaciones", "#{number_with_delimiter(stats.active_with_publications)} · #{stats.active_share} %" ]
-       ].each do |label, value| %>
+         [ "Activos con publicaciones", number_with_delimiter(stats.active_with_publications), "#{stats.active_share} % de los activos" ]
+       ].each do |label, value, note| %>
       <div class="stat-tile">
         <div class="stat-tile__label"><%= label %></div>
         <div class="stat-tile__value"><%= value %></div>
+        <% if note %><div class="stat-tile__note"><%= note %></div><% end %>
       </div>
     <% end %>
   </div>
+
+  <p class="small text-muted mb-3">
+    No se cuentan las <%= number_with_delimiter(stats.theses_total) %> tesis y trabajos de grado de Saber:
+    sus autores son estudiantes, que no están en cdch-app.
+    <% if stats.theses_with_teachers.positive? %>
+      <%= number_with_delimiter(stats.theses_with_teachers) %> de ellas tienen un autor que hoy sí está, por ejemplo quien
+      después fue docente; se ven en su perfil.
+    <% end %>
+  </p>
 
   <div class="row g-3">
     <div class="col-lg-6">

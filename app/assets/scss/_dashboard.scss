@@ -446,6 +446,18 @@ $dashboard-radius: 0.125rem;
     line-height: 1.3;
     color: $text-dark;
   }
+
+  // Un porcentaje u otro dato que acompaña la cifra, sin pegarse a ella.
+  &__note {
+    display: inline-block;
+    margin-top: 0.25rem;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--bs-primary);
+    background-color: var(--bs-primary-bg-subtle);
+    border-radius: 999px;
+  }
 }
 
 .panel {
